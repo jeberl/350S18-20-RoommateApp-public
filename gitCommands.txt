@@ -1,0 +1,34 @@
+Pull updates from online repository
+	- git pull
+	- git pull -f [will delete any current changes on machine]
+Make new branch
+	- git branch [BRANCH_NAME]
+Move to branch
+	- git checkout [BRANCH_NAME]
+Stage edits
+	- git add [FILENAME]
+	- git add * (adds all changes)
+View edits staged+unstaged
+	- git status
+Commit staged changes
+	- git commit -m "[Commit message]"
+Merge other branch into current branch
+	- git merge [BRANCH TO MERGE]
+Delete branch
+	- git branch -d [BRANCH TO DELETE]
+
+Standard Workflow
+	- git pull
+	- git checkout master
+	- git branch new_branch
+	- git checkout new_branch
+	- ~MAKE CHANGES~
+	- git add editedfile1.txt
+	- git add editedfile2.txt
+	- git commit -m "Created new files"
+	- git push
+	- ~TEST BRANCH WORKS CORRECTLY~
+	- git checkout master
+	- git merge new_branch
+	- ~RESOLVE ANY CONFLICTS~
+	- git push
