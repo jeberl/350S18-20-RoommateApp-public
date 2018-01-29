@@ -32,3 +32,4 @@ Standard Workflow
 	- git merge new_branch
 	- ~RESOLVE ANY CONFLICTS~
 	- git push
+	- test
