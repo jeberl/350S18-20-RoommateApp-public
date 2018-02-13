@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */; };
+		757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB93C202E1E8500CB9FF6 /* ViewController.swift */; };
+		757DB940202E1E8500CB9FF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757DB93E202E1E8500CB9FF6 /* Main.storyboard */; };
+		757DB942202E1E8500CB9FF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 757DB941202E1E8500CB9FF6 /* Assets.xcassets */; };
+		757DB945202E1E8500CB9FF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */; };
+		757DB950202E1E8500CB9FF6 /* Roommate_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB94F202E1E8500CB9FF6 /* Roommate_AppTests.swift */; };
+		757DB95B202E1E8500CB9FF6 /* Roommate_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB95A202E1E8500CB9FF6 /* Roommate_AppUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		757DB94C202E1E8500CB9FF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 757DB92F202E1E8500CB9FF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 757DB936202E1E8500CB9FF6;
+			remoteInfo = "Roommate App";
+		};
+		757DB957202E1E8500CB9FF6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 757DB92F202E1E8500CB9FF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 757DB936202E1E8500CB9FF6;
+			remoteInfo = "Roommate App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		757DB937202E1E8500CB9FF6 /* Roommate App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Roommate App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		757DB93C202E1E8500CB9FF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		757DB93F202E1E8500CB9FF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		757DB941202E1E8500CB9FF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		757DB944202E1E8500CB9FF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		757DB946202E1E8500CB9FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		757DB94B202E1E8500CB9FF6 /* Roommate AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Roommate AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		757DB94F202E1E8500CB9FF6 /* Roommate_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roommate_AppTests.swift; sourceTree = "<group>"; };
+		757DB951202E1E8500CB9FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		757DB956202E1E8500CB9FF6 /* Roommate AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Roommate AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		757DB95A202E1E8500CB9FF6 /* Roommate_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roommate_AppUITests.swift; sourceTree = "<group>"; };
+		757DB95C202E1E8500CB9FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		757DB934202E1E8500CB9FF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB948202E1E8500CB9FF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB953202E1E8500CB9FF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		757DB92E202E1E8500CB9FF6 = {
+			isa = PBXGroup;
+			children = (
+				757DB939202E1E8500CB9FF6 /* Roommate App */,
+				757DB94E202E1E8500CB9FF6 /* Roommate AppTests */,
+				757DB959202E1E8500CB9FF6 /* Roommate AppUITests */,
+				757DB938202E1E8500CB9FF6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		757DB938202E1E8500CB9FF6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				757DB937202E1E8500CB9FF6 /* Roommate App.app */,
+				757DB94B202E1E8500CB9FF6 /* Roommate AppTests.xctest */,
+				757DB956202E1E8500CB9FF6 /* Roommate AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		757DB939202E1E8500CB9FF6 /* Roommate App */ = {
+			isa = PBXGroup;
+			children = (
+				757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */,
+				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
+				757DB93E202E1E8500CB9FF6 /* Main.storyboard */,
+				757DB941202E1E8500CB9FF6 /* Assets.xcassets */,
+				757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */,
+				757DB946202E1E8500CB9FF6 /* Info.plist */,
+			);
+			path = "Roommate App";
+			sourceTree = "<group>";
+		};
+		757DB94E202E1E8500CB9FF6 /* Roommate AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				757DB94F202E1E8500CB9FF6 /* Roommate_AppTests.swift */,
+				757DB951202E1E8500CB9FF6 /* Info.plist */,
+			);
+			path = "Roommate AppTests";
+			sourceTree = "<group>";
+		};
+		757DB959202E1E8500CB9FF6 /* Roommate AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				757DB95A202E1E8500CB9FF6 /* Roommate_AppUITests.swift */,
+				757DB95C202E1E8500CB9FF6 /* Info.plist */,
+			);
+			path = "Roommate AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		757DB936202E1E8500CB9FF6 /* Roommate App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 757DB95F202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate App" */;
+			buildPhases = (
+				757DB933202E1E8500CB9FF6 /* Sources */,
+				757DB934202E1E8500CB9FF6 /* Frameworks */,
+				757DB935202E1E8500CB9FF6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Roommate App";
+			productName = "Roommate App";
+			productReference = 757DB937202E1E8500CB9FF6 /* Roommate App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		757DB94A202E1E8500CB9FF6 /* Roommate AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 757DB962202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate AppTests" */;
+			buildPhases = (
+				757DB947202E1E8500CB9FF6 /* Sources */,
+				757DB948202E1E8500CB9FF6 /* Frameworks */,
+				757DB949202E1E8500CB9FF6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				757DB94D202E1E8500CB9FF6 /* PBXTargetDependency */,
+			);
+			name = "Roommate AppTests";
+			productName = "Roommate AppTests";
+			productReference = 757DB94B202E1E8500CB9FF6 /* Roommate AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		757DB955202E1E8500CB9FF6 /* Roommate AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 757DB965202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate AppUITests" */;
+			buildPhases = (
+				757DB952202E1E8500CB9FF6 /* Sources */,
+				757DB953202E1E8500CB9FF6 /* Frameworks */,
+				757DB954202E1E8500CB9FF6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				757DB958202E1E8500CB9FF6 /* PBXTargetDependency */,
+			);
+			name = "Roommate AppUITests";
+			productName = "Roommate AppUITests";
+			productReference = 757DB956202E1E8500CB9FF6 /* Roommate AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		757DB92F202E1E8500CB9FF6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Team 20";
+				TargetAttributes = {
+					757DB936202E1E8500CB9FF6 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					757DB94A202E1E8500CB9FF6 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 757DB936202E1E8500CB9FF6;
+					};
+					757DB955202E1E8500CB9FF6 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 757DB936202E1E8500CB9FF6;
+					};
+				};
+			};
+			buildConfigurationList = 757DB932202E1E8500CB9FF6 /* Build configuration list for PBXProject "Roommate App" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 757DB92E202E1E8500CB9FF6;
+			productRefGroup = 757DB938202E1E8500CB9FF6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				757DB936202E1E8500CB9FF6 /* Roommate App */,
+				757DB94A202E1E8500CB9FF6 /* Roommate AppTests */,
+				757DB955202E1E8500CB9FF6 /* Roommate AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		757DB935202E1E8500CB9FF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				757DB945202E1E8500CB9FF6 /* LaunchScreen.storyboard in Resources */,
+				757DB942202E1E8500CB9FF6 /* Assets.xcassets in Resources */,
+				757DB940202E1E8500CB9FF6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB949202E1E8500CB9FF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB954202E1E8500CB9FF6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		757DB933202E1E8500CB9FF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */,
+				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB947202E1E8500CB9FF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				757DB950202E1E8500CB9FF6 /* Roommate_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		757DB952202E1E8500CB9FF6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				757DB95B202E1E8500CB9FF6 /* Roommate_AppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		757DB94D202E1E8500CB9FF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 757DB936202E1E8500CB9FF6 /* Roommate App */;
+			targetProxy = 757DB94C202E1E8500CB9FF6 /* PBXContainerItemProxy */;
+		};
+		757DB958202E1E8500CB9FF6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 757DB936202E1E8500CB9FF6 /* Roommate App */;
+			targetProxy = 757DB957202E1E8500CB9FF6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		757DB93E202E1E8500CB9FF6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				757DB93F202E1E8500CB9FF6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				757DB944202E1E8500CB9FF6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		757DB95D202E1E8500CB9FF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		757DB95E202E1E8500CB9FF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		757DB960202E1E8500CB9FF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		757DB961202E1E8500CB9FF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate App/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		757DB963202E1E8500CB9FF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Roommate App.app/Roommate App";
+			};
+			name = Debug;
+		};
+		757DB964202E1E8500CB9FF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate AppTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Roommate App.app/Roommate App";
+			};
+			name = Release;
+		};
+		757DB966202E1E8500CB9FF6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Roommate App";
+			};
+			name = Debug;
+		};
+		757DB967202E1E8500CB9FF6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = "Roommate AppUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "Roommate App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		757DB932202E1E8500CB9FF6 /* Build configuration list for PBXProject "Roommate App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				757DB95D202E1E8500CB9FF6 /* Debug */,
+				757DB95E202E1E8500CB9FF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		757DB95F202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				757DB960202E1E8500CB9FF6 /* Debug */,
+				757DB961202E1E8500CB9FF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		757DB962202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				757DB963202E1E8500CB9FF6 /* Debug */,
+				757DB964202E1E8500CB9FF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		757DB965202E1E8500CB9FF6 /* Build configuration list for PBXNativeTarget "Roommate AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				757DB966202E1E8500CB9FF6 /* Debug */,
+				757DB967202E1E8500CB9FF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 757DB92F202E1E8500CB9FF6 /* Project object */;
+}
