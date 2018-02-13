@@ -1,0 +1,6 @@
+framework module Pods_Roommate_AppTests {
+  umbrella header "Pods-Roommate AppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

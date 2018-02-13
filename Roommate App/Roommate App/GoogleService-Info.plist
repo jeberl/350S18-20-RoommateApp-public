@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>1018932692420-ckovmmm68gfo27epv6ole25rdjs5etun.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1018932692420-ckovmmm68gfo27epv6ole25rdjs5etun</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCtOa6ifvRUJeFlx-fHd9rsz63vdCf-lFs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1018932692420</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>edu.upenn.cis350.hwk2.Roommate-App</string>
+	<key>PROJECT_ID</key>
+	<string>haus-party</string>
+	<key>STORAGE_BUCKET</key>
+	<string>haus-party.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1018932692420:ios:58b44cc672cbb9c4</string>
+	<key>DATABASE_URL</key>
+	<string>https://haus-party.firebaseio.com</string>
+</dict>
+</plist>
