@@ -1,0 +1,55 @@
+{
+	"users": { 
+		"1@test.com" : {
+			"nickname" : "Test User 1",
+			"houses" : {
+				"H1" : true,
+				"H5" : true,
+				"H6" : true
+			},
+			"phone_number" : 111111111,
+		},
+		"2@test.com" : {
+			"nickname" : "Test User 2",
+			"houses" : {
+				"H1" : true,
+				"H2" : true,
+				"H6" : true
+			},
+			"phone_number" : 222222222
+		},
+
+		"3@test.com" : {
+			"nickname" : "Test User 3",
+			"houses" : {},
+			"phone_number" : 333333333
+		},
+
+		"4@test.com" : {
+			"nickname" : "Test User 4",
+			"houses" : {
+				"H1" : true,
+				"H4" : true,
+				"H6" : true
+			},
+			"phone_number" : 222222222
+		}
+	},
+
+	"houses" : {
+		"H1" : {
+			"house_name" : "Test House H1",
+			"house_users" : {
+				"1@test.com" : "House User 1",
+				"2@test.com" : "House User 2",
+				"4@test.com" : "House User 4",
+			},
+			"owner" : "1@test.com",
+			"recent_charges" : {
+
+			},
+
+		}
+
+	}
+}
