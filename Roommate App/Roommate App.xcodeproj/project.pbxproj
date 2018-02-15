@@ -15,6 +15,10 @@
 		757DB945202E1E8500CB9FF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */; };
 		757DB950202E1E8500CB9FF6 /* Roommate_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB94F202E1E8500CB9FF6 /* Roommate_AppTests.swift */; };
 		757DB95B202E1E8500CB9FF6 /* Roommate_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB95A202E1E8500CB9FF6 /* Roommate_AppUITests.swift */; };
+		757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96C20351F6F00CB9FF6 /* UserAccount.swift */; };
+		757DB96F20351F8700CB9FF6 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96E20351F8700CB9FF6 /* House.swift */; };
+		757DB97120351F9600CB9FF6 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97020351F9600CB9FF6 /* Charge.swift */; };
+		757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */; };
 		883393E920339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EA20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EB20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
@@ -58,6 +62,11 @@
 		757DB956202E1E8500CB9FF6 /* Roommate AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Roommate AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		757DB95A202E1E8500CB9FF6 /* Roommate_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Roommate_AppUITests.swift; sourceTree = "<group>"; };
 		757DB95C202E1E8500CB9FF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		757DB96C20351F6F00CB9FF6 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
+		757DB96E20351F8700CB9FF6 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		757DB97020351F9600CB9FF6 /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
+		757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
+		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.release.xcconfig"; sourceTree = "<group>"; };
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -131,13 +140,14 @@
 		757DB939202E1E8500CB9FF6 /* Roommate App */ = {
 			isa = PBXGroup;
 			children = (
-				757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */,
-				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
-				757DB93E202E1E8500CB9FF6 /* Main.storyboard */,
+				757DB974203524F200CB9FF6 /* Supporting Files */,
+				757DB96B20351F0B00CB9FF6 /* Layouts */,
+				757DB96A20351F0500CB9FF6 /* Controllers */,
+				757DB96820351ED000CB9FF6 /* Models */,
 				757DB941202E1E8500CB9FF6 /* Assets.xcassets */,
-				757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */,
-				757DB946202E1E8500CB9FF6 /* Info.plist */,
+				757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */,
 				883393E820339099003A4E2F /* GoogleService-Info.plist */,
+				757DB946202E1E8500CB9FF6 /* Info.plist */,
 			);
 			path = "Roommate App";
 			sourceTree = "<group>";
@@ -158,6 +168,42 @@
 				757DB95C202E1E8500CB9FF6 /* Info.plist */,
 			);
 			path = "Roommate AppUITests";
+			sourceTree = "<group>";
+		};
+		757DB96820351ED000CB9FF6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				757DB96C20351F6F00CB9FF6 /* UserAccount.swift */,
+				757DB96E20351F8700CB9FF6 /* House.swift */,
+				757DB97020351F9600CB9FF6 /* Charge.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		757DB96A20351F0500CB9FF6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
+				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		757DB96B20351F0B00CB9FF6 /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				757DB93E202E1E8500CB9FF6 /* Main.storyboard */,
+				757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */,
+			);
+			path = Layouts;
+			sourceTree = "<group>";
+		};
+		757DB974203524F200CB9FF6 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		C314E14BB76D0EE89F7F9B5B /* Frameworks */ = {
@@ -472,6 +518,10 @@
 			files = (
 				757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */,
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
+				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
+				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
+				757DB96F20351F8700CB9FF6 /* House.swift in Sources */,
+				757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

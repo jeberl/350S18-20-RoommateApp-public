@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
 class ViewController: UIViewController {
+   
     //MARK: Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!

@@ -1,0 +1,35 @@
+//
+//  House.swift
+//  Roommate App
+//
+//  Created by Elena Iaconis on 2/14/18.
+//  Copyright © 2018 Team 20. All rights reserved.
+//
+
+import Foundation
+import Firebase
+import FirebaseDatabase
+
+struct House {
+    
+    let uid: String // think this is just a Firebase specific thing, not sure
+    let house_name: String
+    let house_users: [String]
+    let owner: String
+    let recent_charges: [String] // unique chargeIDs
+    
+    // Can't figure out why getting FIRUser error, but need to also create it as a Firebase user
+    /* init(authData: FIRUser) {
+     uid = authData.uid
+     email = authData.email!
+     }*/
+    
+    init(uid: String, house_name: String, house_users:[String], owner: String, recent_charges: [String]) {
+        self.uid = uid
+        self.house_name = house_name
+        self.house_users = house_users
+        self.owner = owner
+        self.recent_charges = recent_charges
+    }
+    
+}
