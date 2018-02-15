@@ -30,6 +30,7 @@ struct UserAccount {
         self.nickname = nickname
         self.houses = houses
         self.phoneNumber = phoneNumber
+    
     }
     
 }

@@ -45,11 +45,19 @@
 				"4@test.com" : "House User 4",
 			},
 			"owner" : "1@test.com",
-			"recent_charges" : {
-
-			},
+			"recent_charges" : [ "C1", "C3", "C3"]
+			,
 
 		}
+	},
 
+	"charges" : {
+		"C1" : {
+			"house" : "H1",
+			"from_user" : "1@test.com",
+			"to_user" : "2@test.com",
+			"amount" : 22.4,
+			"datetime": 124142552
+		}
 	}
 }
