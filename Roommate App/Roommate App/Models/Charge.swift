@@ -16,10 +16,10 @@ struct Charge {
     let from_user: String
     let to_user: String
     let house: String
-    let timestamp: String
+    let timestamp: NSDate
     let amount: Double
     
-    init(uid: String, from_user: String, to_user: String, house: String, timestamp: String, amount: Double) {
+    init(uid: String, from_user: String, to_user: String, house: String, timestamp: NSDate, amount: Double) {
         self.uid = uid
         self.to_user = to_user
         self.from_user = from_user
