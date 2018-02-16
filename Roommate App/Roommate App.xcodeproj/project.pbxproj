@@ -300,6 +300,11 @@
 					757DB936202E1E8500CB9FF6 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					757DB94A202E1E8500CB9FF6 = {
 						CreatedOnToolsVersion = 9.2;
