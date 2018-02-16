@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
-               BuildableName = "Pods_Roommate_App.framework"
-               BlueprintName = "Pods-Roommate App"
+               BlueprintIdentifier = "3B08C49A396BAA0D9DCAD4460CC52F95"
+               BuildableName = "leveldb.framework"
+               BlueprintName = "leveldb-library"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
-            BuildableName = "Pods_Roommate_App.framework"
-            BlueprintName = "Pods-Roommate App"
+            BlueprintIdentifier = "3B08C49A396BAA0D9DCAD4460CC52F95"
+            BuildableName = "leveldb.framework"
+            BlueprintName = "leveldb-library"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

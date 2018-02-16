@@ -19,6 +19,7 @@
 		757DB96F20351F8700CB9FF6 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96E20351F8700CB9FF6 /* House.swift */; };
 		757DB97120351F9600CB9FF6 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97020351F9600CB9FF6 /* Charge.swift */; };
 		757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */; };
+		757DB97720376B1700CB9FF6 /* Notifs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97620376B1600CB9FF6 /* Notifs.swift */; };
 		883393E920339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EA20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EB20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
@@ -68,6 +69,7 @@
 		757DB97020351F9600CB9FF6 /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		757DB97620376B1600CB9FF6 /* Notifs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Notifs.swift; path = "/Users/elenaiaconis/Documents/CIS350_Project/350S18-20-RoommateApp/Roommate App/Roommate App/Models/Notifs.swift"; sourceTree = "<absolute>"; };
 		86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.release.xcconfig"; sourceTree = "<group>"; };
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
@@ -175,10 +177,10 @@
 		757DB96820351ED000CB9FF6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				757DB97620376B1600CB9FF6 /* Notifs.swift */,
 				757DB96C20351F6F00CB9FF6 /* UserAccount.swift */,
 				757DB96E20351F8700CB9FF6 /* House.swift */,
 				757DB97020351F9600CB9FF6 /* Charge.swift */,
-				88843D59203539BE00B05F1F /* DatabaseAccess.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -188,6 +190,7 @@
 			children = (
 				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
 				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
+				88843D59203539BE00B05F1F /* DatabaseAccess.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -526,6 +529,7 @@
 			files = (
 				757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */,
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
+				757DB97720376B1700CB9FF6 /* Notifs.swift in Sources */,
 				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
 				757DB96F20351F8700CB9FF6 /* House.swift in Sources */,

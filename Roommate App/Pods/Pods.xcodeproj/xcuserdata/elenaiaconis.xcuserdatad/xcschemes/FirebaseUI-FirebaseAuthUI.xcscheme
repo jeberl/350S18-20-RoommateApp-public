@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
-               BuildableName = "Pods_Roommate_App.framework"
-               BlueprintName = "Pods-Roommate App"
+               BlueprintIdentifier = "D24D2A88B10BCFB43CA46716E6A68C14"
+               BuildableName = "FirebaseAuthUI.bundle"
+               BlueprintName = "FirebaseUI-FirebaseAuthUI"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +47,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
-            BuildableName = "Pods_Roommate_App.framework"
-            BlueprintName = "Pods-Roommate App"
+            BlueprintIdentifier = "D24D2A88B10BCFB43CA46716E6A68C14"
+            BuildableName = "FirebaseAuthUI.bundle"
+            BlueprintName = "FirebaseUI-FirebaseAuthUI"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

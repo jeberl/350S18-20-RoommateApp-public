@@ -29,7 +29,7 @@ class LoginScreenViewController: UIViewController {
     let saveAction = UIAlertAction(title: "Save",
                                    style: .default) { _ in
                                     // 1
-                                    guard let textField = alert.textFields?.first,
+                                    /*guard let textField = alert.textFields?.first,
                                         let text = textField.text else { return }
                                     
                                     // 2
@@ -37,10 +37,10 @@ class LoginScreenViewController: UIViewController {
                                     let newUser = UserAccount(uid: "U1", email: "test1@test.com", nickname: "test", houses: [], phoneNumber: 2)
                                     // 3
                                     
-                                    let userReference = self.ref.child(newUser.email)
+                                   // let userReference = self.ref.child(newUser.email)
                                     
                                     // 4
-                                    userReference.setValue(newUser.toAnyObject())
+                                    userReference.setValue(newUser.toAnyObject())*/
     }
 }
 
