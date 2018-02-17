@@ -73,6 +73,7 @@
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		888310DB2037848300E4F495 /* ReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValue.swift; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
+		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.debug.xcconfig"; sourceTree = "<group>"; };
 		FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +145,7 @@
 		757DB939202E1E8500CB9FF6 /* Roommate App */ = {
 			isa = PBXGroup;
 			children = (
+				88EDB7072037EEB800E35840 /* Roommate App.entitlements */,
 				757DB974203524F200CB9FF6 /* Supporting Files */,
 				757DB96B20351F0B00CB9FF6 /* Layouts */,
 				757DB96A20351F0500CB9FF6 /* Controllers */,
@@ -303,6 +305,9 @@
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 0;
+							};
+							com.apple.Keychain = {
+								enabled = 1;
 							};
 						};
 					};
@@ -706,7 +711,9 @@
 			baseConfigurationReference = F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Roommate App/Roommate App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HJZQB9HDX8;
 				INFOPLIST_FILE = "Roommate App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
@@ -721,7 +728,9 @@
 			baseConfigurationReference = 86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Roommate App/Roommate App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = HJZQB9HDX8;
 				INFOPLIST_FILE = "Roommate App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";

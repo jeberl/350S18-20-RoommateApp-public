@@ -64,13 +64,16 @@
                                 <rect key="frame" x="208" y="381" width="77" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="LoginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UNm-Xh-AVg"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuH-Sw-MX3" userLabel="Create Account">
-                                <rect key="frame" x="75" y="390" width="107" height="30"/>
+                                <rect key="frame" x="75" y="391" width="107" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Create Account"/>
                                 <connections>
-                                    <action selector="CreateUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QIS-ru-IqS"/>
+                                    <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9rk-cK-jh7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -84,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79.200000000000003" y="125.4872563718141"/>
+            <point key="canvasLocation" x="-79.200000000000003" y="124.8768472906404"/>
         </scene>
     </scenes>
 </document>

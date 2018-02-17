@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Roommate AppTests/Roommate_AppTests.swift"
-            timestampString = "540513794.5967211"
+            timestampString = "540540167.715858"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
             landmarkName = "Roommate_AppTests"
             landmarkType = "3">
          </BreakpointContent>

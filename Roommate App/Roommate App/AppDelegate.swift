@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import FirebaseAuth
 import FirebaseAuthUI
 
 @UIApplicationMain
@@ -19,6 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
                      -> Bool {
                         FirebaseApp.configure()
+                        Auth.auth().createUser(withEmail: "from@outset.com", password: "1212") { user, error in
+                            if error == nil {
+                                print("created user")
+                            } else {
+                                print("error:" + error!.localizedDescription)
+                            }
+                        }
                         return true
     }
 

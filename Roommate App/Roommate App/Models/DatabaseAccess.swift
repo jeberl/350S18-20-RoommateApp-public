@@ -23,8 +23,9 @@ class DatabaseAccess  {
 //        Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user. To access the data base you create an instance and log in as that specific user
     }
     
+    
     deinit {
-
+        
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
