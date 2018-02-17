@@ -16,7 +16,7 @@ struct UserAccount {
     let email: String
     let nickname: String
     let houses: [String]
-    let phoneNumber: Int
+    let phoneNumber: Int?
     
     // Can't figure out why getting FIRUser error, but need to also create it as a Firebase user
    /* init(authData: FIRUser) {

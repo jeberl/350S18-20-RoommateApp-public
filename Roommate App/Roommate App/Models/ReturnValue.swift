@@ -8,17 +8,17 @@
 
 import Foundation
 
-struct ReturnValue<T> {
+class ReturnValue<T> {
     
     let returned_error : Bool
     let error_message : String?
     let error_number : Int
     let data : T?
     
-    init(error returned_error: Bool, data : T, _ error_message : String, _ error_number : Int) {
+    init(error returned_error: Bool, data : T? = nil, error_message : String? = nil, error_number : Int? = nil) {
         self.returned_error = true
         self.error_message = returned_error ? error_message : nil
-        self.error_number = returned_error ? error_number : 0
+        self.error_number = returned_error ? error_number! : 0
         self.data = returned_error ? nil : data
     }
     
@@ -31,8 +31,51 @@ struct ReturnValue<T> {
             case 13: return "Email Address Already Associated With Another Account"
             case 20: return "No Such House"
             case 30: return "No Such Charge"
-            default: return "Unknown Error"
+            case 100: return "Unimplemented Function"
+            default: return "Unspecified Error"
         }
         
+    }
+}
+
+class ExpectedExecution<T>: ReturnValue<T> {
+    init() {
+        super.init(error: false, error_number: 0)
+    }
+}
+
+class NoSuchUserError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 10)
+    }
+}
+
+class UserNotOwnerOfHouseError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 11)
+    }
+}
+
+class UserNotMemberofHouseError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 12)
+    }
+}
+
+class NoSuchHouseError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 20)
+    }
+}
+
+class NoSuchChargeError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 30)
+    }
+}
+
+class UnimplementedFunctionError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 100)
     }
 }

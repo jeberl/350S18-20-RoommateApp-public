@@ -26,56 +26,86 @@ class DatabaseAccess  {
     deinit {
 
     }
-    
-    //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    func createUser(email: String, password:String) -> Error? {
-        //Check if email already associated with account -> Error
 
+    //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
+    func createUser(email: String, password:String) -> ReturnValue<Bool> {
+        //Check if email already associated with account -> Error
+        if !doesUserExist(email: email) {
+            return NoSuchUserError()
+        }
 
         Auth.auth().createUser(withEmail: email, password: password) {
             (user, error) in
             // ...
         }
+        return UnimplementedFunctionError()
+        return ExpectedExecution()
     }
     
-    func deleteUserAccount(email: String) -> ReturnValue<Bool> {
-        //TO BE IMPLEMENTED
-    }
-    
-    func doesUserExist(email: String) -> Bool {
-        return true
-        //TO BE IMPLEMENTED
-    }
-    
-    func getUserGlobalNickname(email: String) -> ReturnValue<String> {
-        //TO BE IMPLEMENTED
-    }
-    
-    func setUserGlobalNickname(currUser: User, newNickName: String) -> ReturnValue<Any> {
-        self.ref.child("users/\(currUser.uid)/nickname").setValue(newNickName)
-    }
-    
-    func getUserLocalNickname(currUser: User, house: House) -> ReturnValue<String> {
-        //return ReturnValue<String>(error: false, data: "Jesse")
-        //TO BE IMPLEMENTED
-    }
-    
-    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Any>{
-        //TO BE IMPLEMENTED
-    }
-    
-    func signInUser(email: String, password:String) -> Error {
+    func signInUser(email: String, password:String) -> ReturnValue<Bool> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
         
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             // ...
         }
+        return UnimplementedFunctionError()
     }
     
     func changePasword(currUser: User, new_password: String) {
         self.ref.child("users/\(currUser.uid)/password").setValue(new_password)
     }
+    
+    func deleteUserAccount(email: String) -> ReturnValue<Bool> {
+        if !doesUserExist(email: email) {
+            return NoSuchUserError()
+        }
+        
+        let user : DatabaseReference = self.ref.child("users/\(email)")
+        
+        let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
+        while let HouseId = house_enumerator?.nextObject() {
+            self.ref.child("houses/\(HouseId)/house_users/\(email)").removeValue()
+        }
+
+        user.removeValue()
+        return ExpectedExecution()
+    }
+    
+    func doesUserExist(email: String) -> Bool {
+        return false
+        //TO BE IMPLEMENTED
+    }
+    
+    func getUserGlobalNickname(email: String) -> ReturnValue<String> {
+        //TO BE IMPLEMENTED
+        if !doesUserExist(email: email) {
+            return NoSuchUserError()
+        }
+        return UnimplementedFunctionError()
+    }
+    
+    func setUserGlobalNickname(email: String, newNickName: String) -> ReturnValue<Bool> {
+        if !doesUserExist(email: email) {
+            return NoSuchUserError()
+        }
+        self.ref.child("users/\(email)/nickname").setValue(newNickName)
+        return ExpectedExecution()
+    }
+    
+    func getUserLocalNickname(currUser: User, house: House) -> ReturnValue<String> {
+        //TO BE IMPLEMENTED
+        return UnimplementedFunctionError()
+    }
+    
+    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Any>{
+        //TO BE IMPLEMENTED
+        return UnimplementedFunctionError()
+    }
+    
+    
+    
+    
     
     func addUserToHouse(email: String, HouseID: String) {
         let new_user = self.ref.child("houses/\(HouseID)/house_users/\(email)")

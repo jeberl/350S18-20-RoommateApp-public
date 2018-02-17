@@ -12,10 +12,9 @@ import XCTest
 
 class Roommate_AppTests: XCTestCase {
     
-    let data : DatabaseAccess
+    let data : DatabaseAccess = DatabaseAccess()
     
     override init() {
-        self.data = DatabaseAccess()
         super.init()
     }
 
@@ -34,18 +33,54 @@ class Roommate_AppTests: XCTestCase {
     
     func testAddUserExists() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        self.data.CreateUser(email: "test1@test.com")
+        self.data.createUser(email: "test1@test.com")
         XCTAssert(self.data.doesUserExist(email: "test1@test.com"))
     }
+
+    func testAddUserEmailAlreadyUsedError() {
+        XCTFail("To Implement")
+    }
+    
+    func testDeleteUser() {
+        XCTFail("To Implement")
+    }
+    
+    func testDeleteUserRemovedFromAllHouses() {
+        XCTFail("To Implement")
+    }
+    
+    func testDeleteUserNoSuchUserError() {
+        XCTFail("To Implement")
+    }
+    
+    func testGetSetUserGlobalNickname() {
+        XCTFail("To Implement")
+    }
+    
+    func testGetGlobalNicknameNoUserError() {
+        XCTFail("To Implement")
+    }
+    
+    func testSetGlobalNicknameNoUserError() {
+        XCTFail("To Implement")
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func testAddEmailAlreadyUserReutrnsError() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        data.createHouse(HouseID: "H1")
-        data.CreateUser(email: "test1@test.com")
-        data.CreateUser(email: "test2@test.com")
-        data.CreateUser(email: "test3@test.com")
+//        data.CreateHouse(HouseID: "H1")
+//        data.CreateUser(email: "test1@test.com")
+//        data.CreateUser(email: "test2@test.com")
+//        data.CreateUser(email: "test3@test.com")
     }
-    
+
     func testAuthentication() {
         XCTFail("To Implement")
     }

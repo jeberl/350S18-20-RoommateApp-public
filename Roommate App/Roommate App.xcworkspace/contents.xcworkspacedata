@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/elenaiaconis/Documents/CIS350_Project/350S18-20-RoommateApp/Roommate App/Roommate App/Models/Notifs.swift">
-   </FileRef>
-   <FileRef
       location = "group:Roommate App.xcodeproj">
    </FileRef>
    <FileRef
