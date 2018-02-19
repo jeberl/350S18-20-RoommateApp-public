@@ -10,12 +10,18 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+
 class ViewController: UIViewController {
    
     //MARK: Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+<<<<<<< HEAD
     var buttonPressed = ""
+=======
+    var database: DatabaseAccess = DatabaseAccess()
+    
+>>>>>>> test commit
     
     
     override func viewDidLoad() {
@@ -87,6 +93,22 @@ class ViewController: UIViewController {
         }
         
     }
+    
+    func validateLogin (email: String, password: String) -> Bool {
+        if !self.database.doesUserExist(email: email) {
+            let alert = UIAlertController(title: "User does not exist",
+                                          message: "Invalid email",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: <#T##UIAlertActionStyle#>, handler: nil))
+            present(alert, animated: true, completion: nil)
+        } else {
+            self.database.signInUser(email: email, password: password)
+            
+        }
+        return false
+    }
+    
+    
 }
 
 
