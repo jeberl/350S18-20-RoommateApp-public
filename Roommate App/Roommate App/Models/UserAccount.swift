@@ -18,12 +18,6 @@ struct UserAccount {
     let houses: [String]
     let phoneNumber: Int?
     
-    // Can't figure out why getting FIRUser error, but need to also create it as a Firebase user
-   /* init(authData: FIRUser) {
-        uid = authData.uid
-        email = authData.email!
-    }*/
-    
     init(uid: String, email: String, nickname: String, houses:[String], phoneNumber: Int) {
         self.uid = uid
         self.email = email

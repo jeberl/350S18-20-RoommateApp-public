@@ -120,16 +120,32 @@ class DatabaseAccess  {
     
 
     
-    func getListOfHousesUserMemberOf(email: String) {
-        // TO BE IMPLEMENTED
+    func getListOfHousesUserMemberOf(curr_user: User) -> ReturnValue<[String]>{
+        var houses: [String] = []
+        ref.child("users").child(curr_user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                let value = snapshot.value as? NSDictionary
+                houses = value?["houses"] as? [String] ?? []
+            }
+        })
+        return ReturnValue(error:false, data:houses)
     }
     
-    func getUserPhoneNumber(email: String) {
-        // TO BE IMPLEMENTED
+    func getUserPhoneNumber(curr_user: User)-> Int? {
+        var phone_number: Int? = 0
+        ref.child("users").child(curr_user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                let value = snapshot.value as? NSDictionary
+                phone_number = value?["phone_number"] as? Int? ?? 0
+            }
+        })
+        return phone_number
     }
     
     func deleteHouse(HouseID: String) {
-        // TO BE IMPLEMENTED
+       // TO BE IMPLEMENTED
     }
     
     func createHouse(newHouse: House) {
@@ -144,7 +160,7 @@ class DatabaseAccess  {
         self.ref.child("houses/\(currHouse.uid)/house_name").setValue(new_name)
     }
     
-    func getListOfUsersInHouse(HouseID: String)-> [String] {
+    func getListOfUsersInHouse(HouseID: String)-> ReturnValue<[String]> {
         var users: [String] = []
         ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -153,7 +169,7 @@ class DatabaseAccess  {
                 users = value?["users"] as? [String] ?? []
             }
         })
-        return users
+        return ReturnValue(error:false, data: users)
     }
     
     func isUserOwnerOfHouse(HouseID: String)-> Bool {

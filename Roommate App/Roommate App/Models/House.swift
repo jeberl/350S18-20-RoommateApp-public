@@ -19,12 +19,6 @@ struct House {
     let recent_charges: [String] // unique chargeIDs
     let recent_interactions: [String] // array of all uids for Notifs
     
-    // Can't figure out why getting FIRUser error, but need to also create it as a Firebase user
-    /* init(authData: FIRUser) {
-     uid = authData.uid
-     email = authData.email!
-     }*/
-    
     init(uid: String, house_name: String, house_users:[String], owner: String, recent_charges: [String], recent_interactions:[String]) {
         self.uid = uid
         self.house_name = house_name
