@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    var buttonPressed = ""
     
     
     override func viewDidLoad() {
@@ -32,12 +33,14 @@ class ViewController: UIViewController {
         let alert = UIAlertController(title: "Login to Account",
                                       message: "Login to Account",
                                       preferredStyle: .alert)
-        present(alert, animated: true, completion: nil)
+        //present(alert, animated: true, completion: nil)
+        buttonPressed = sender.titleLabel!.text!
     }
     
     
     @IBAction func CreateAccountButtonPressed(_ sender: UIButton) {
         print("Button pressed")
+        buttonPressed = sender.titleLabel!.text!
         let alert = UIAlertController(title: "Create Account",
                                       message: "Create Account",
                                       preferredStyle: .alert)
@@ -74,7 +77,15 @@ class ViewController: UIViewController {
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
 
-        present(alert, animated: true, completion: nil)
+        //present(alert, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is AllHousesPageViewController {
+            let vc = segue.destination as? AllHousesPageViewController
+            vc?.buttonToGetHere = buttonPressed
+        }
+        
     }
 }
 
