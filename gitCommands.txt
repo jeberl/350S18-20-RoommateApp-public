@@ -7,7 +7,7 @@ Move to branch
 	- git checkout [BRANCH_NAME]
 Stage edits
 	- git add [FILENAME]
-	- git add * (adds all changes)
+	- git add . (adds all changes)
 View edits staged+unstaged
 	- git status
 Commit staged changes
