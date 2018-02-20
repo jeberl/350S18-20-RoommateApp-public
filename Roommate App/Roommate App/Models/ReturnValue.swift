@@ -31,6 +31,7 @@ class ReturnValue<T> {
             case 13: return "Email Address Already Associated With Another Account"
             case 20: return "No Such House"
             case 30: return "No Such Charge"
+            case 50: return "Firebase Error"
             case 100: return "Unimplemented Function"
             default: return "Unspecified Error"
         }
@@ -71,6 +72,12 @@ class NoSuchHouseError<T>: ReturnValue<T> {
 class NoSuchChargeError<T>: ReturnValue<T> {
     init() {
         super.init(error: true, error_number: 30)
+    }
+}
+
+class FirebaseError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 50)
     }
 }
 
