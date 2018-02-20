@@ -19,14 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?)
                      -> Bool {
-                        FirebaseApp.configure()
-                        Auth.auth().createUser(withEmail: "from@outset.com", password: "1212") { user, error in
-                            if error == nil {
-                                print("created user")
-                            } else {
-                                print("error:" + error!.localizedDescription)
-                            }
-                        }
                         return true
     }
 

@@ -17,7 +17,10 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     
     init(){
+        print("before")
+        FirebaseApp.configure()
         ref = Database.database().reference(withPath: "haus-party")
+        print("after")
         
         // Add some sort of authetication here through fire base
 //        Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user. To access the data base you create an instance and log in as that specific user
