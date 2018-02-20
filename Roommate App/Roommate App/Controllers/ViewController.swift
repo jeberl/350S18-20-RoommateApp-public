@@ -16,12 +16,10 @@ class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-<<<<<<< HEAD
+
     var buttonPressed = ""
-=======
     var database: DatabaseAccess = DatabaseAccess()
-    
->>>>>>> test commit
+
     
     
     override func viewDidLoad() {
