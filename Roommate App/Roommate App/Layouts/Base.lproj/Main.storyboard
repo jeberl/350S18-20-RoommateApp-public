@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QeV-Xf-fOG">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -32,20 +32,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGV-D4-jqm">
-                                <rect key="frame" x="16" y="20" width="343" height="122"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Roommate App">
-                                        <attributes>
-                                            <font key="NSFont" size="40" name="ArialRoundedMTBold"/>
-                                            <font key="NSOriginalFont" size="40" name="ArialRoundedMTBold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-ag-GPc">
                                 <rect key="frame" x="89" y="236" width="93" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -66,6 +52,7 @@
                                 <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="LoginButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UNm-Xh-AVg"/>
+                                    <segue destination="zxY-bV-udo" kind="show" id="7EF-NK-336"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuH-Sw-MX3" userLabel="Create Account">
@@ -74,12 +61,28 @@
                                 <state key="normal" title="Create Account"/>
                                 <connections>
                                     <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9rk-cK-jh7"/>
+                                    <segue destination="zxY-bV-udo" kind="show" id="9Xg-hk-T8v"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGV-D4-jqm">
+                                <rect key="frame" x="16" y="88" width="343" height="122"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Roommate App">
+                                        <attributes>
+                                            <font key="NSFont" size="40" name="ArialRoundedMTBold"/>
+                                            <font key="NSOriginalFont" size="40" name="ArialRoundedMTBold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="hrC-YF-08e"/>
                     <connections>
                         <outlet property="passwordTextField" destination="Dda-Tg-Qq7" id="Din-L5-OL5"/>
                         <outlet property="usernameTextField" destination="uAO-Ke-qC3" id="l9S-22-vCA"/>
@@ -87,7 +90,60 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79.200000000000003" y="124.8768472906404"/>
+            <point key="canvasLocation" x="263.19999999999999" y="124.8768472906404"/>
+        </scene>
+        <!--All Houses Page View Controller-->
+        <scene sceneID="0p7-kF-xck">
+            <objects>
+                <viewController id="zxY-bV-udo" customClass="AllHousesPageViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ehj-h1-jnZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0n-Fh-1IP">
+                                <rect key="frame" x="127" y="207" width="120" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="b0n-Fh-1IP" firstAttribute="leading" secondItem="YE8-q6-1cl" secondAttribute="leading" constant="127" id="0Te-wY-rtx"/>
+                            <constraint firstItem="YE8-q6-1cl" firstAttribute="trailing" secondItem="b0n-Fh-1IP" secondAttribute="trailing" constant="128" id="fRU-Em-cF6"/>
+                            <constraint firstItem="b0n-Fh-1IP" firstAttribute="top" secondItem="YE8-q6-1cl" secondAttribute="top" constant="119" id="iyu-Ml-Fs0"/>
+                            <constraint firstItem="YE8-q6-1cl" firstAttribute="bottom" secondItem="b0n-Fh-1IP" secondAttribute="bottom" constant="531" id="weB-3h-EJ6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
+                    </view>
+                    <connections>
+                        <outlet property="testLabel" destination="b0n-Fh-1IP" id="qLe-1Z-ftS"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ayh-fN-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983.20000000000005" y="122.66009852216749"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="YjF-KW-55P">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QeV-Xf-fOG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gtV-7l-fCW">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="S4G-q2-9HP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ytj-Q7-6Aw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-80" y="124.8768472906404"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="7EF-NK-336"/>
+    </inferredMetricsTieBreakers>
 </document>

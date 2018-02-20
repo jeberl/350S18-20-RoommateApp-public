@@ -25,6 +25,7 @@
 		888310DC2037848300E4F495 /* ReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888310DB2037848300E4F495 /* ReturnValue.swift */; };
 		88843D5A203539BE00B05F1F /* DatabaseAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88843D59203539BE00B05F1F /* DatabaseAccess.swift */; };
 		A6D6C88B9D3B8DEAE7928653 /* Pods_Roommate_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E718FC3D196C2913529BAF /* Pods_Roommate_AppUITests.framework */; };
+		C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */; };
 		DDDB8702CB170AFD719C4AAF /* Pods_Roommate_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		888310DB2037848300E4F495 /* ReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValue.swift; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
 		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
+		C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesPageViewController.swift; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.debug.xcconfig"; sourceTree = "<group>"; };
 		FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
+				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
 				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
 			);
 			path = Controllers;
@@ -538,6 +541,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */,
+				C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */,
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
 				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
