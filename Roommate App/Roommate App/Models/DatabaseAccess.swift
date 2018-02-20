@@ -21,7 +21,8 @@ class DatabaseAccess  {
         ref = Database.database().reference(withPath: "haus-party")
         
         // Add some sort of authetication here through fire base
-//        Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user. To access the data base you create an instance and log in as that specific user
+        // Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user.
+        // To access the data base you create an instance and log in as that specific user
     }
     
     
@@ -100,18 +101,19 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    
-    
-    
-    
     func addUserToHouse(email: String, HouseID: String) {
         let new_user = self.ref.child("houses/\(HouseID)/house_users/\(email)")
         new_user.setValue(email);
     }
     
-    func removeUserFromHouse(email: String, HouseID: String) {
-        let user_to_remove = self.ref.child("houses/\(HouseID)/house_users/\(email)")
-        user_to_remove.removeValue()
+    func removeUserFromHouse(email: String, house_id: String)-> ReturnValue<Bool> {
+        if doesHouseExist(house_id: house_id).data! {
+            let user_to_remove = self.ref.child("houses/\(house_id)/house_users/\(email)")
+            user_to_remove.removeValue()
+            return ReturnValue(error: false, data: true)
+        } else {
+            return ReturnValue(error: true, data: false, error_number: 20)
+        }
     }
     
 
@@ -128,7 +130,7 @@ class DatabaseAccess  {
         return ReturnValue(error:false, data:houses)
     }
     
-    func getUserPhoneNumber(curr_user: User)-> Int? {
+    func getUserPhoneNumber(curr_user: User)-> ReturnValue<Int?> {
         var phone_number: Int? = 0
         ref.child("users").child(curr_user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -137,23 +139,48 @@ class DatabaseAccess  {
                 phone_number = value?["phone_number"] as? Int? ?? 0
             }
         })
-        return phone_number
+        return ReturnValue(error: false, data: phone_number)
     }
     
-    func deleteHouse(HouseID: String) {
-       // TO BE IMPLEMENTED
-    }
-    
-    func createHouse(newHouse: House) {
+    func deleteHouse(houseID: String)-> ReturnValue<Bool> {
         ref = Database.database().reference()
-        self.ref.child("houses").child(newHouse.uid).setValue(["house_name": newHouse.house_name,
+        ref.child("houses").child(houseID).setValue(nil)
+        return ExpectedExecution()
+    }
+    
+    // returns true if a house was created, false if the house already exists
+    func createHouse(newHouse: House)-> ReturnValue<Bool> {
+        ref = Database.database().reference()
+        if !doesHouseExist(house_id: newHouse.uid).data! {
+            ref.child("houses").child(newHouse.uid).setValue(["house_name": newHouse.house_name,
                                                                "house_users": newHouse.house_users,
                                                                "owner": newHouse.owner,
                                                                "recent_charges": newHouse.recent_charges])
+        } else {
+            return ReturnValue(error: false, data: false)
+        }
+        return ReturnValue(error: false, data: true)
     }
     
-    func changeHouseName(currHouse : House, new_name: String) {
-        self.ref.child("houses/\(currHouse.uid)/house_name").setValue(new_name)
+    
+    func doesHouseExist(house_id: String)-> ReturnValue<Bool> {
+        var result: Bool = false
+        ref.child("houses").child(house_id).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                result = true
+            } 
+        })
+        return ReturnValue(error:false, data: result)
+    }
+    
+    // Updates house name if it exists and returns true, otherwise returns appropriate error and false
+    func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
+        if doesHouseExist(house_id: curr_house.uid).data! {
+            self.ref.child("houses/\(curr_house.uid)/house_name").setValue(new_name)
+            return ReturnValue(error: false, data: true)
+        }
+        return ReturnValue(error: true, data: false, error_number: 20)
     }
     
     func getListOfUsersInHouse(HouseID: String)-> ReturnValue<[String]> {
@@ -168,11 +195,16 @@ class DatabaseAccess  {
         return ReturnValue(error:false, data: users)
     }
     
-    func isUserOwnerOfHouse(HouseID: String)-> Bool {
-        return (getOwnerOfHouse(HouseID: HouseID) == Auth.auth().currentUser?.uid)
+    // Checks if house exists and returns if user is owner, otherwise returns false and appropriate error
+    func isUserOwnerOfHouse(house_id: String)-> ReturnValue<Bool> {
+        if doesHouseExist(house_id: house_id).data! {
+            let result = (getOwnerOfHouse(HouseID: house_id).data! == Auth.auth().currentUser?.uid)
+            return ReturnValue(error: false, data: result)
+        }
+        return ReturnValue(error: false, data: false, error_number: 20)
     }
     
-    func getOwnerOfHouse(HouseID: String)-> String? {
+    func getOwnerOfHouse(HouseID: String)-> ReturnValue<String?> {
         var owner: String? = ""
         ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -181,58 +213,58 @@ class DatabaseAccess  {
                 owner = value?["owner"] as? String ?? ""
             }
         })
-        return owner
+        return ReturnValue(error: false, data: owner)
     }
     
-//    // Unsure about storing as array, should probably modify for scalability so don't have to retrieve append and update.
-//    // look into handling lists of data
-//    func addNotification(notification: String, houseID: String, users_to_notify: [String]) {
-//        var recent_inters = getMostRecentNotifications(HouseID: houseID, n: 10) // dummy n value
-//        recent_inters.append(notification)
-//        self.ref.child("houses/\(houseID)/recent_charges").setValue(recent_inters)
-//    }
-//
-//    //TODO: account for n
-//    func getMostRecentNotifications(HouseID: String, n: Int)-> [String] {
-//        var recent_inters: [String] = ""
-//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            if snapshot.exists(){
-//                let value = snapshot.value as? NSDictionary
-//                recent_inters = value?["recent_charges"] as? [String] ?? []
-//            }
-//        })
-//        return recent_inters
-//    }
-//
-//    func userAddCharge(chargeID: String) {
-//        var curr_chars = getCharges(HouseID: houseID) // dummy n value
-//        // TODO create charge type potentially?
-//        var newCharge
-//        curr_charss.append(newCharge)
-//        self.ref.child("houses/\(houseID)/recent_charges").setValue(curr_chars)
-//    }
-//    
-//    func getCharges(HouseID: String)-> [String] {
-//        var charges: [String] = ""
-//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            if snapshot.exists(){
-//                let value = snapshot.value as? NSDictionary
-//                charges = value?["recent_charges"] as? [String] ?? []
-//            }
-//        })
-//        return charges
-//    }
-//    
-//    
-//    func addCharge(amount: String, userTo: String, userFrom: String, houseID: String) {
-//        // TO BE IMPLEMENTED
-//    }
-//
-//    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
-//        // TO BE IMPLEMENTED
-//    }
+    // Unsure about storing as array, should probably modify for scalability so don't have to retrieve append and update.
+    // look into handling lists of data
+    func addNotification(notification: String, houseID: String, users_to_notify: [String]) {
+        var recent_inters = getMostRecentNotifications(HouseID: houseID, n: 10) // dummy n value
+        recent_inters.append(notification)
+        self.ref.child("houses/\(houseID)/recent_charges").setValue(recent_inters)
+    }
+
+    //TODO: account for n
+    func getMostRecentNotifications(HouseID: String, n: Int)-> [String] {
+        var recent_inters: [String] = []
+        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                let value = snapshot.value as? NSDictionary
+                recent_inters = value?["recent_charges"] as? [String] ?? []
+            }
+        })
+        return recent_inters
+    }
+
+    func userAddCharge(chargeID: String) {
+        //var curr_chars = getCharges(HouseID: houseID) // dummy n value
+        // TODO create charge type potentially?
+        //var newCharge
+        //curr_chars.append(newCharge)
+        //self.ref.child("houses/\(houseID)/recent_charges").setValue(curr_chars)
+    }
+    
+    func getCharges(HouseID: String)-> [String] {
+        var charges: [String] = []
+        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                let value = snapshot.value as? NSDictionary
+                charges = value?["recent_charges"] as? [String] ?? []
+            }
+        })
+        return charges
+    }
+    
+    
+    func addCharge(amount: String, userTo: String, userFrom: String, houseID: String) {
+        // TO BE IMPLEMENTED
+    }
+
+    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
+        // TO BE IMPLEMENTED
+    }
 
     
 }
