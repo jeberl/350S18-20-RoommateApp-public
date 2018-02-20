@@ -33,7 +33,7 @@ class ReturnValue<T> {
             case 30: return "No Such Charge"
             case 50: return "Firebase Error"
             case 100: return "Unimplemented Function"
-            default: return "Unspecified Error"
+        default: return "Unspecified Error: " + (self.error_message ?? "")
         }
         
     }

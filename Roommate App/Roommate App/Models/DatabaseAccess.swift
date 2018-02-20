@@ -17,6 +17,7 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     
     init(){
+        FirebaseApp.configure()
         ref = Database.database().reference(withPath: "haus-party")
         
         // Add some sort of authetication here through fire base
@@ -29,32 +30,25 @@ class DatabaseAccess  {
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    func createUser(email: String, password:String) -> ReturnValue<Bool> {
+    func createUserModelFromEmail(email: String) -> ReturnValue<Bool> {
         //Check if email already associated with account -> Error
         if !doesUserExist(email: email) {
             return NoSuchUserError()
         }
 
-        Auth.auth().createUser(withEmail: email, password: password) {
-            (user, error) in
-            // ...
-        }
         return UnimplementedFunctionError()
-        return ExpectedExecution()
     }
     
-    func signInUser(email: String, password:String) -> ReturnValue<Bool> {
+    func getUserModelFromEmail(email: String) -> ReturnValue<UserAccount> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
         
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            // ...
-        }
         return UnimplementedFunctionError()
     }
     
-    func changePasword(currUser: User, new_password: String) {
-        self.ref.child("users/\(currUser.uid)/password").setValue(new_password)
+    func changePasword(currUser: User, new_password: String) -> ReturnValue<Bool>{
+        //Use Auth.auth()
+        return UnimplementedFunctionError()
     }
     
     func deleteUserAccount(email: String) -> ReturnValue<Bool> {
@@ -70,7 +64,9 @@ class DatabaseAccess  {
         }
 
         user.removeValue()
-        return ExpectedExecution()
+        
+        //Still need to remove authorization
+        return UnimplementedFunctionError()
     }
     
     func doesUserExist(email: String) -> Bool {
@@ -99,7 +95,7 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Any>{
+    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Bool>{
         //TO BE IMPLEMENTED
         return UnimplementedFunctionError()
     }

@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-
 class ViewController: UIViewController {
    
     //MARK: Properties
@@ -19,8 +18,8 @@ class ViewController: UIViewController {
 
     var buttonPressed = ""
     var database: DatabaseAccess = DatabaseAccess()
+    var userLoggingIn: UserAccount?
 
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,83 +30,63 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func LoginButtonPressed(_ sender: UIButton) {
-        Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!)
-        let alert = UIAlertController(title: "Login to Account",
-                                      message: "Login to Account",
-                                      preferredStyle: .alert)
-        //present(alert, animated: true, completion: nil)
-        buttonPressed = sender.titleLabel!.text!
-    }
     
-    
-    @IBAction func CreateAccountButtonPressed(_ sender: UIButton) {
-        print("Button pressed")
-        buttonPressed = sender.titleLabel!.text!
-        let alert = UIAlertController(title: "Create Account",
-                                      message: "Create Account",
-                                      preferredStyle: .alert)
-        
-        let saveAction = UIAlertAction(title: "Create",
-                                       style: .default) { action in
-            let enteredEmail = alert.textFields![0]
-            let enteredPassword = alert.textFields![1]
-
-            Auth.auth().createUser(withEmail: enteredEmail.text!, password: enteredPassword.text!)
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        var performSegue = true
+        if identifier == "create_account" {
+            print("identifier = ", identifier)
+            print(usernameTextField.text! + ": " + passwordTextField.text!)
+            Auth.auth().createUser(withEmail: usernameTextField.text!, password: passwordTextField.text!)
             { user, error in
-                if error == nil {
-                    Auth.auth().signIn(withEmail: self.usernameTextField.text!,
-                                       password: self.passwordTextField.text!)
+                if error != nil {
+                    self.raiseErrorAlert(with_title: "Account Setup Error", with_message: error!.localizedDescription)
+                    performSegue = false
                 } else {
-                    print(error!.localizedDescription)
+                    let InternalSetUp : ReturnValue = self.database
+                            .createUserModelFromEmail(email: self.usernameTextField.text!)
+                    if InternalSetUp.returned_error {
+                        self.raiseErrorAlert(with_title: "Internal Error", with_message: InternalSetUp.getErrorDescription())
+                        performSegue = false
+                    }
                 }
             }
-
         }
-
-        let cancelAction = UIAlertAction(title: "Cancel",
-                                         style: .default)
-
-        alert.addTextField { textEmail in
-            textEmail.placeholder = "Enter your email"
+        if !performSegue {
+            return performSegue
         }
-
-        alert.addTextField { textPassword in
-            textPassword.isSecureTextEntry = true
-            textPassword.placeholder = "Enter your password"
+        print(usernameTextField.text! + ", " + passwordTextField.text!)
+        Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { user, error in
+            if error != nil {
+                performSegue = false
+                self.raiseErrorAlert(with_title: "Error", with_message: error!.localizedDescription)
+            } else {
+                self.userLoggingIn = self.database.getUserModelFromEmail(email: self.usernameTextField.text!).data
+                if self.userLoggingIn == nil {
+                    performSegue = false
+                }
+            }
         }
-
-        alert.addAction(saveAction)
-        alert.addAction(cancelAction)
-
-        //present(alert, animated: true, completion: nil)
+        return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
-            vc?.buttonToGetHere = buttonPressed
+            vc?.currentUser = userLoggingIn
         }
-        
     }
-    
-    func validateLogin (email: String, password: String) -> Bool {
-        if !self.database.doesUserExist(email: email) {
-            let alert = UIAlertController(title: "User does not exist",
-                                          message: "Invalid email",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: <#T##UIAlertActionStyle#>, handler: nil))
-            present(alert, animated: true, completion: nil)
-        } else {
-            self.database.signInUser(email: email, password: password)
-            
-        }
-        return false
+
+    func raiseErrorAlert(with_title title: String, with_message message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message ,
+                                      preferredStyle: .alert)
+        let continueAction = UIAlertAction(title: "Continue",
+                                           style: .default)
+        alert.addAction(continueAction)
+        present(alert, animated: true, completion: nil)
+        passwordTextField.text = ""
+        print(message)
     }
-    
-    
+
 }
-
-
 

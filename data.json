@@ -8,6 +8,7 @@
 				"H6" : true
 			},
 			"phone_number" : 111111111,
+			"firebase_uid" : "wervuiwbego"
 		},
 		"2@test.com" : {
 			"nickname" : "Test User 2",
@@ -16,13 +17,15 @@
 				"H2" : true,
 				"H6" : true
 			},
-			"phone_number" : 222222222
+			"phone_number" : 222222222,
+			"firebase_uid" : "wewrghrk"
 		},
 
 		"3@test.com" : {
 			"nickname" : "Test User 3",
 			"houses" : {},
-			"phone_number" : 333333333
+			"phone_number" : 333333333,
+			"firebase_uid" : "oievnovrjbo"
 		},
 
 		"4@test.com" : {
@@ -32,7 +35,8 @@
 				"H4" : true,
 				"H6" : true
 			},
-			"phone_number" : 444444444
+			"phone_number" : 444444444,
+			"firebase_uid" : "134ip13ipi"
 		}
 	},
 
