@@ -36,7 +36,6 @@ class DatabaseAccess  {
             return NoSuchUserError()
         }
 
-        
         return UnimplementedFunctionError()
     }
     
@@ -44,12 +43,12 @@ class DatabaseAccess  {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
         
-    
         return UnimplementedFunctionError()
     }
     
-    func changePasword(currUser: User, new_password: String) {
-        self.ref.child("users/\(currUser.uid)/password").setValue(new_password)
+    func changePasword(currUser: User, new_password: String) -> ReturnValue<Bool>{
+        //Use Auth.auth()
+        return UnimplementedFunctionError()
     }
     
     func deleteUserAccount(email: String) -> ReturnValue<Bool> {
@@ -65,7 +64,9 @@ class DatabaseAccess  {
         }
 
         user.removeValue()
-        return ExpectedExecution()
+        
+        //Still need to remove authorization
+        return UnimplementedFunctionError()
     }
     
     func doesUserExist(email: String) -> Bool {
@@ -94,7 +95,7 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Any>{
+    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Bool>{
         //TO BE IMPLEMENTED
         return UnimplementedFunctionError()
     }

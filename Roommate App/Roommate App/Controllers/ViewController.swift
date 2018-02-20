@@ -10,7 +10,6 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-
 class ViewController: UIViewController {
    
     //MARK: Properties
@@ -35,10 +34,12 @@ class ViewController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         var performSegue = true
         if identifier == "create_account" {
+            print("identifier = ", identifier)
+            print(usernameTextField.text! + ": " + passwordTextField.text!)
             Auth.auth().createUser(withEmail: usernameTextField.text!, password: passwordTextField.text!)
             { user, error in
                 if error != nil {
-                    self.raiseErrorAlert(with_title: "Error", with_message: error!.localizedDescription)
+                    self.raiseErrorAlert(with_title: "Account Setup Error", with_message: error!.localizedDescription)
                     performSegue = false
                 } else {
                     let InternalSetUp : ReturnValue = self.database
@@ -53,6 +54,7 @@ class ViewController: UIViewController {
         if !performSegue {
             return performSegue
         }
+        print(usernameTextField.text! + ", " + passwordTextField.text!)
         Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { user, error in
             if error != nil {
                 performSegue = false
@@ -64,13 +66,13 @@ class ViewController: UIViewController {
                 }
             }
         }
-        return performSegue
+        return false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
-                vc?.currentUser = userLoggingIn!
+            vc?.currentUser = userLoggingIn
         }
     }
 
