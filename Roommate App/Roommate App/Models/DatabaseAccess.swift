@@ -17,10 +17,8 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     
     init(){
-        print("before")
         FirebaseApp.configure()
         ref = Database.database().reference(withPath: "haus-party")
-        print("after")
         
         // Add some sort of authetication here through fire base
 //        Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user. To access the data base you create an instance and log in as that specific user
@@ -32,27 +30,21 @@ class DatabaseAccess  {
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    func createUser(email: String, password:String) -> ReturnValue<Bool> {
+    func createUserModelFromEmail(email: String) -> ReturnValue<Bool> {
         //Check if email already associated with account -> Error
         if !doesUserExist(email: email) {
             return NoSuchUserError()
         }
 
-        Auth.auth().createUser(withEmail: email, password: password) {
-            (user, error) in
-            // ...
-        }
+        
         return UnimplementedFunctionError()
-        return ExpectedExecution()
     }
     
-    func signInUser(email: String, password:String) -> ReturnValue<Bool> {
+    func getUserModelFromEmail(email: String) -> ReturnValue<UserAccount> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
         
-        Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
-            // ...
-        }
+    
         return UnimplementedFunctionError()
     }
     

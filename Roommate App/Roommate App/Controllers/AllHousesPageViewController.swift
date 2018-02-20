@@ -11,7 +11,14 @@ import UIKit
 class AllHousesPageViewController: UIViewController {
     
     var buttonToGetHere = ""
+    var currentUser : UserAccount
+    
     @IBOutlet weak var testLabel: UILabel!
+    
+    //Not sure if/why this is needed
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +31,6 @@ class AllHousesPageViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
     
     // MARK: - Navigation
 
