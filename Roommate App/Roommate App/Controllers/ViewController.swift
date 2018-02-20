@@ -42,8 +42,7 @@ class ViewController: UIViewController {
                     self.raiseErrorAlert(with_title: "Account Setup Error", with_message: error!.localizedDescription)
                     performSegue = false
                 } else {
-                    let InternalSetUp : ReturnValue = self.database
-                            .createUserModelFromEmail(email: self.usernameTextField.text!)
+                    let InternalSetUp : ReturnValue = self.database.createUserModelForCurrentUser()
                     if InternalSetUp.returned_error {
                         self.raiseErrorAlert(with_title: "Internal Error", with_message: InternalSetUp.getErrorDescription())
                         performSegue = false
@@ -60,7 +59,7 @@ class ViewController: UIViewController {
                 performSegue = false
                 self.raiseErrorAlert(with_title: "Error", with_message: error!.localizedDescription)
             } else {
-                self.userLoggingIn = self.database.getUserModelFromEmail(email: self.usernameTextField.text!).data
+                self.userLoggingIn = self.database.getUserModelFromCurrentUser().data
                 if self.userLoggingIn == nil {
                     performSegue = false
                 }
