@@ -104,10 +104,6 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    
-    
-    
-    
     func addUserToHouse(email: String, HouseID: String) {
         let new_user = self.ref.child("houses/\(HouseID)/house_users/\(email)")
         new_user.setValue(email);

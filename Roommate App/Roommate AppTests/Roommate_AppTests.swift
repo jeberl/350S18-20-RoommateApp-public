@@ -66,13 +66,6 @@ class Roommate_AppTests: XCTestCase {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
     func testAddEmailAlreadyUserReutrnsError() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
 //        data.CreateHouse(HouseID: "H1")
