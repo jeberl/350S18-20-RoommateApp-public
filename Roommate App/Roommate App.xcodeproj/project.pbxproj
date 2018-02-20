@@ -24,6 +24,7 @@
 		883393EB20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		888310DC2037848300E4F495 /* ReturnValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888310DB2037848300E4F495 /* ReturnValue.swift */; };
 		88843D5A203539BE00B05F1F /* DatabaseAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88843D59203539BE00B05F1F /* DatabaseAccess.swift */; };
+		905CA2E0203CA65D0006077B /* HouseScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905CA2DF203CA65D0006077B /* HouseScreen.storyboard */; };
 		A6D6C88B9D3B8DEAE7928653 /* Pods_Roommate_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E718FC3D196C2913529BAF /* Pods_Roommate_AppUITests.framework */; };
 		C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */; };
 		DDDB8702CB170AFD719C4AAF /* Pods_Roommate_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */; };
@@ -75,6 +76,7 @@
 		888310DB2037848300E4F495 /* ReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValue.swift; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
 		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
+		905CA2DF203CA65D0006077B /* HouseScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HouseScreen.storyboard; sourceTree = "<group>"; };
 		C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesPageViewController.swift; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.debug.xcconfig"; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 			children = (
 				757DB93E202E1E8500CB9FF6 /* Main.storyboard */,
 				757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */,
+				905CA2DF203CA65D0006077B /* HouseScreen.storyboard */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			files = (
 				757DB945202E1E8500CB9FF6 /* LaunchScreen.storyboard in Resources */,
 				883393E920339099003A4E2F /* GoogleService-Info.plist in Resources */,
+				905CA2E0203CA65D0006077B /* HouseScreen.storyboard in Resources */,
 				757DB942202E1E8500CB9FF6 /* Assets.xcassets in Resources */,
 				757DB940202E1E8500CB9FF6 /* Main.storyboard in Resources */,
 			);
