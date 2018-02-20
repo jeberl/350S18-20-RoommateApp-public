@@ -118,9 +118,10 @@ class DatabaseAccess  {
     
 
     
-    func getListOfHousesUserMemberOf(curr_user: User) -> ReturnValue<[String]>{
+    func getListOfHousesUserMemberOf() -> ReturnValue<[String]>{
+        let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
-        ref.child("users").child(curr_user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(currEmail!).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if snapshot.exists(){
                 let value = snapshot.value as? NSDictionary
