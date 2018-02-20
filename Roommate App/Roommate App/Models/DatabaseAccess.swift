@@ -42,20 +42,34 @@ class DatabaseAccess  {
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    func createUserModelFromEmail(email: String) -> ReturnValue<Bool> {
-        //Check if email already associated with account -> Error
-        if !doesUserExist(email: email).data! {
+    func createUserModelForCurrentUser() -> ReturnValue<Bool> {
+        if let email : String = Auth.auth().currentUser!.email {
+            let user = self.ref.child("users/\(email)")
+            user.setValue(email, forKey: "nickname")
+            user.setValue(Auth.auth().currentUser!.uid, forKey: "firebase_uid")
+            user.setValue(nil, forKey: "phone_number")
+            user.setValue([], forKey: "houses")
+            return ExpectedExecution()
+        } else {
             return NoSuchUserError()
         }
-
-        return UnimplementedFunctionError()
     }
     
-    func getUserModelFromEmail(email: String) -> ReturnValue<UserAccount> {
+    func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
-        
-        return UnimplementedFunctionError()
+        let currentUser = Auth.auth().currentUser!
+        if let email : String = currentUser.email {
+            let userInLocalDB : DatabaseReference = self.ref.child("users/\(email)")
+            let user : UserAccount = UserAccount(uid: currentUser.uid,
+                                                 email: email,
+                                                 nickname: userInLocalDB.value(forKey: "nickname") as! String,
+                                                 houses: userInLocalDB.value(forKey: "houses") as! [String],
+                                                 phoneNumber: (userInLocalDB.value(forKey: "phone_number") as! Int?)!)
+            return ReturnValue<UserAccount>(error: false, data: user)
+        } else {
+            return NoSuchUserError()
+        }
     }
     
     func changePasword(email: String, new_password: String) -> ReturnValue<Bool>{
