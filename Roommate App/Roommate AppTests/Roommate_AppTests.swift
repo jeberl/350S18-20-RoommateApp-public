@@ -33,7 +33,7 @@ class Roommate_AppTests: XCTestCase {
     
     func testAddUserExists() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        self.data.createUser(email: "test1@test.com", password: "1234")
+        //self.data.createUserModelFromEmail(email: "test1@test.com")
         XCTAssert(self.data.doesUserExist(email: "test1@test.com"))
     }
 
@@ -64,14 +64,16 @@ class Roommate_AppTests: XCTestCase {
     func testSetGlobalNicknameNoUserError() {
         XCTFail("To Implement")
     }
-    
-    
-    
-    
-    
-    
-    
-    
+    func testCreateHouse() {
+        let testHouse = House(
+            uid: "test", // think this is just a Firebase specific thing, not sure
+            house_name: "testHouse",
+            house_users: ["me"],
+            owner: "me", // unique userID
+            recent_charges: [], // unique chargeIDs
+            recent_interactions: [])
+        self.data.createHouse(newHouse: testHouse)
+    }
     
     func testAddEmailAlreadyUserReutrnsError() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
