@@ -33,7 +33,7 @@ class Roommate_AppTests: XCTestCase {
     
     func testAddUserExists() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        self.data.createUser(email: "test1@test.com", password: "1234")
+        //self.data.createUser(email: "test1@test.com", password: "1234")
         XCTAssert(self.data.doesUserExist(email: "test1@test.com"))
     }
 
