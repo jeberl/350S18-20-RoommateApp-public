@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Rd-t4-Wtn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,9 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="pBE-jE-mBZ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="l3Z-P0-kgj">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="j23-G8-JWh"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="l3Z-P0-kgj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2El-al-ZsQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -60,10 +58,10 @@
             </objects>
             <point key="canvasLocation" x="-58" y="-1110"/>
         </scene>
-        <!--View Controller-->
+        <!--Feed Controller-->
         <scene sceneID="klO-XQ-fPh">
             <objects>
-                <viewController id="LsF-MA-fOQ" sceneMemberID="viewController">
+                <viewController id="LsF-MA-fOQ" customClass="FeedController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SMN-UA-GcR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,9 +84,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="wpW-dH-PED"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Y0d-Ao-QNc">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="id4-fa-WJK"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Y0d-Ao-QNc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9I-lL-PRo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -97,9 +93,10 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Eh4-Hf-ABD">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1Rd-t4-Wtn" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="HouseTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1Rd-t4-Wtn" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="F5H-vz-lGR">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
