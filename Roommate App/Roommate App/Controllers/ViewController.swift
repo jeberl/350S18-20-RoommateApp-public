@@ -73,6 +73,7 @@ class ViewController: UIViewController {
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
             vc?.currentUser = userLoggingIn
+            vc?.buttonToGetHere = buttonPressed
         }
     }
 
