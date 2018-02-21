@@ -2,7 +2,7 @@
 //  AllHousesPageViewController.swift
 //  Roommate App
 //
-//  Created by user136152 on 2/19/18.
+//  Created by behrbaum on 2/19/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
 
