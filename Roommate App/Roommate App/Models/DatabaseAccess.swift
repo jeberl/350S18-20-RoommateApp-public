@@ -27,9 +27,8 @@ class DatabaseAccess  {
         if !configured {
             FirebaseApp.configure()
             configured = true
+            ref = Database.database().reference()
         }
-        
-        ref = Database.database().reference(withPath: "haus-party")
     }
     
     deinit {
@@ -41,7 +40,6 @@ class DatabaseAccess  {
         var retValue : ReturnValue<UserAccount>?
         Auth.auth().createUser(withEmail: username, password: password)
         { user, error in
-            
             if error != nil {
                 retValue = FirebaseError(error_message: error!.localizedDescription)
             }
@@ -70,14 +68,16 @@ class DatabaseAccess  {
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     func createUserModelForCurrentUser() -> ReturnValue<Bool> {
-        if let email : String = Auth.auth().currentUser!.email {
-            let key = ref.child("users").childByAutoId().key
-            let user : [String: Any?] = ["nickname": email,
-                                      "firebase_uid": Auth.auth().currentUser!.uid,
-                                      "phone_number": nil,
-                                      "houses": []]
-            let childUpdates = ["/users/\(key)": user]
-            self.ref.updateChildValues(childUpdates)
+        if let uid : String = Auth.auth().currentUser?.uid {
+            print("adding user to db")
+            let user : [String: Any?] = ["uid" : Auth.auth().currentUser!.uid,
+                                         "email" : Auth.auth().currentUser!.email,
+                                         "nickname": Auth.auth().currentUser!.email,
+                                         "phone_number": nil,
+                                         "houses": []]
+            print("got users")
+            self.ref.child("users/\(uid)").setValue(user)
+            print("added user")
             return ExpectedExecution()
         } else {
             return NoSuchUserError()
@@ -85,24 +85,20 @@ class DatabaseAccess  {
     }
     
     func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
-        var retValue: ReturnValue<UserAccount>? = nil
-        if let email : String = Auth.auth().currentUser!.email {
-            print("getting user from local db: \(email)")
-            ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+        var retValue: ReturnValue<UserAccount> = NoSuchUserError()
+        if let uid : String = Auth.auth().currentUser?.uid {
+            print("getting user from local db: \(uid)")
+            self.ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(uid: value?["firebase_uid"] as! String,
-                                                                                      email: email,
-                                                                                      nickname: value?["nickname"] as! String,
-                                                                                      houses: value?["houses"] as! [String],
-                                                                                      phoneNumber: value?["phone_number"] as! Int))
+                
+                print("value = \(value!)")
+                retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(dict : value!))
             }) { (error) in
+                print("throwing error")
                 retValue = ReturnValue(error: true, error_message: error.localizedDescription)
-            }
-            return retValue!
-        } else {
-            return NoSuchUserError()
         }
+        return retValue
     }
     
     func changePasword(new_password: String) -> ReturnValue<Bool>{

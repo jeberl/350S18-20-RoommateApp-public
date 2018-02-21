@@ -34,7 +34,7 @@ class Roommate_AppTests: XCTestCase {
     
     func testCreateUser(){
         let result = database!.createAccount(username: test_email_addresses[0], password: test_email_passwords[0])
-        print(result.getErrorDescription())
+        print("error: \(result.getErrorDescription())")
         XCTAssert(!result.returned_error)
     }
     
