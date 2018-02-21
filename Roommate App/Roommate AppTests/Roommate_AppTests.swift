@@ -7,35 +7,41 @@
 //
 
 import XCTest
+import Firebase
+import FirebaseDatabase
+import FirebaseAuthUI
+
 @testable import Roommate_App
+
+let test_email_addresses: [String] = ["testinguser@test.com"]
+let test_email_passwords: [String] = ["test123"]
 
 
 class Roommate_AppTests: XCTestCase {
     
-    let data : DatabaseAccess = DatabaseAccess()
+    var database : DatabaseAccess?
     
-    override init() {
-        super.init()
-    }
-
-
     override func setUp() {
         super.setUp()
-
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        database = sharedDatabaseAccess
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-        
+
         super.tearDown()
+    }
+    
+    func testCreateUser(){
+        let result = database!.createAccount(username: test_email_addresses[0], password: test_email_passwords[0])
+        print(result.getErrorDescription())
+        XCTAssert(!result.returned_error)
     }
     
     func testAddUserExists() {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         //self.data.createUser(email: "test1@test.com", password: "1234")
         //self.data.createUserModelFromEmail(email: "test1@test.com")
-        XCTAssert(self.data.doesUserExist(email: "test1@test.com"))
     }
 
     func testAddUserEmailAlreadyUsedError() {
@@ -43,8 +49,9 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testDeleteUser() {
-        XCTFail("To Implement")
-    }
+        //signInUser(number: 0)
+        //data.createHouse(newHouse: House()
+    } 
     
     func testDeleteUserRemovedFromAllHouses() {
         XCTFail("To Implement")
@@ -73,7 +80,7 @@ class Roommate_AppTests: XCTestCase {
             owner: "me", // unique userID
             recent_charges: [], // unique chargeIDs
             recent_interactions: [])
-        self.data.createHouse(newHouse: testHouse)
+        //self.data.createHouse(newHouse: testHouse)
     }
     
     func testAddEmailAlreadyUserReutrnsError() {

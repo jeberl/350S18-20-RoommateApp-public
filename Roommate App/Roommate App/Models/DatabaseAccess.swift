@@ -12,27 +12,72 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuthUI
 
+import Firebase
+import FirebaseDatabase
+import FirebaseAuthUI
+
+let sharedDatabaseAccess: DatabaseAccess = DatabaseAccess()
+var configured : Bool = false
+
 class DatabaseAccess  {
     
     var ref: DatabaseReference!
     
     init(){
-        FirebaseApp.configure()
+        if !configured {
+            FirebaseApp.configure()
+            configured = true
+        }
+        
         ref = Database.database().reference(withPath: "haus-party")
     }
     
     deinit {
         //Sign out???
     }
+    
+    func createAccount(username: String, password: String) -> ReturnValue<UserAccount>{
+        var retValue : ReturnValue<UserAccount>?
+        Auth.auth().createUser(withEmail: username, password: password)
+        { user, error in
+            
+            if error != nil {
+                retValue = FirebaseError(error_message: error!.localizedDescription)
+            }
+        }
+        print("created user ")
+        if self.createUserModelForCurrentUser().returned_error {
+            return InternalUserInitError()
+        }
+        if retValue != nil {
+            return retValue!
+        }
+        return login(username: username, password: password)
+    }
+    
+    func login(username: String, password: String) -> ReturnValue<UserAccount>{
+        print("\(username) , \(password)")
+        var retValue : ReturnValue<UserAccount>?
+        Auth.auth().signIn(withEmail: username, password: password) { user, error in
+            if error != nil {
+                retValue = FirebaseError(error_message: error!.localizedDescription)
+            }
+        }
+
+        return retValue ?? self.getUserModelFromCurrentUser()
+    }
+    
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     func createUserModelForCurrentUser() -> ReturnValue<Bool> {
         if let email : String = Auth.auth().currentUser!.email {
-            let user = self.ref.child("users/\(email)")
-            user.setValue(email, forKey: "nickname")
-            user.setValue(Auth.auth().currentUser!.uid, forKey: "firebase_uid")
-            user.setValue(nil, forKey: "phone_number")
-            user.setValue([], forKey: "houses")
+            let key = ref.child("users").childByAutoId().key
+            let user : [String: Any?] = ["nickname": email,
+                                      "firebase_uid": Auth.auth().currentUser!.uid,
+                                      "phone_number": nil,
+                                      "houses": []]
+            let childUpdates = ["/users/\(key)": user]
+            self.ref.updateChildValues(childUpdates)
             return ExpectedExecution()
         } else {
             return NoSuchUserError()
@@ -40,17 +85,21 @@ class DatabaseAccess  {
     }
     
     func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
-        //Check if email not associated with account -> Error(prompt to create account)
-        //Return error from Firebase Authentication
-        let currentUser = Auth.auth().currentUser!
-        if let email : String = currentUser.email {
-            let userInLocalDB : DatabaseReference = self.ref.child("users/\(email)")
-            let user : UserAccount = UserAccount(uid: currentUser.uid,
-                                                 email: email,
-                                                 nickname: userInLocalDB.value(forKey: "nickname") as! String,
-                                                 houses: userInLocalDB.value(forKey: "houses") as! [String],
-                                                 phoneNumber: (userInLocalDB.value(forKey: "phone_number") as! Int?)!)
-            return ReturnValue<UserAccount>(error: false, data: user)
+        var retValue: ReturnValue<UserAccount>? = nil
+        if let email : String = Auth.auth().currentUser!.email {
+            print("getting user from local db: \(email)")
+            ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(uid: value?["firebase_uid"] as! String,
+                                                                                      email: email,
+                                                                                      nickname: value?["nickname"] as! String,
+                                                                                      houses: value?["houses"] as! [String],
+                                                                                      phoneNumber: value?["phone_number"] as! Int))
+            }) { (error) in
+                retValue = ReturnValue(error: true, error_message: error.localizedDescription)
+            }
+            return retValue!
         } else {
             return NoSuchUserError()
         }
@@ -73,7 +122,7 @@ class DatabaseAccess  {
             user.removeValue()
             let FIRuser = Auth.auth().currentUser
             
-            var delete_user_error : String?
+            var delete_user_error : String = ""
             FIRuser?.delete { error in
                 delete_user_error = error.debugDescription
             }
