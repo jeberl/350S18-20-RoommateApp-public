@@ -12,7 +12,7 @@ import FirebaseDatabase
 
 struct Charge {
     
-    let uid: String // think this is just a Firebase specific thing, not sure
+    let chargeID: String
     let from_user: String
     let to_user: String
     let house: String
@@ -20,7 +20,7 @@ struct Charge {
     let amount: Double
     
     init(uid: String, from_user: String, to_user: String, house: String, timestamp: NSDate, amount: Double) {
-        self.uid = uid
+        self.chargeID = uid
         self.to_user = to_user
         self.from_user = from_user
         self.house = house

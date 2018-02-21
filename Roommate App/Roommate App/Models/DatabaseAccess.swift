@@ -19,6 +19,7 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     
     init(){
+<<<<<<< HEAD
         if !configured {
             FirebaseApp.configure()
             ref = Database.database().reference(withPath: "haus-party")
@@ -28,11 +29,14 @@ class DatabaseAccess  {
         // Add some sort of authetication here through fire base
         // Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user.
         // To access the data base you create an instance and log in as that specific user
+=======
+        FirebaseApp.configure()
+        ref = Database.database().reference(withPath: "haus-party")
+>>>>>>> Implement Database Functions
     }
     
-    
     deinit {
-        
+        //Sign out???
     }
     
     func createUser(newUser: UserAccount)-> ReturnValue<Bool> {
@@ -58,8 +62,8 @@ class DatabaseAccess  {
     func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
-        let currentUser = Auth.auth().currentUser!
-        if let email : String = currentUser.email {
+        if let currentUser = Auth.auth().currentUser {
+            let email : String = currentUser.email!
             let userInLocalDB : DatabaseReference = self.ref.child("users/\(email)")
             let user : UserAccount = UserAccount(uid: currentUser.uid,
                                                  email: email,
@@ -72,11 +76,16 @@ class DatabaseAccess  {
         }
     }
     
+<<<<<<< HEAD
     func changePasword(email: String, new_password: String) -> ReturnValue<Bool>{
+=======
+    func changePasword(new_password: String) -> ReturnValue<Bool>{
+>>>>>>> Implement Database Functions
         //Use Auth.auth()
         return UnimplementedFunctionError()
     }
     
+<<<<<<< HEAD
     func deleteUserAccount(email: String) -> ReturnValue<Bool> {
         if !doesUserExist(email: email).data! {
             return NoSuchUserError()
@@ -87,14 +96,36 @@ class DatabaseAccess  {
         let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
         while let HouseId = house_enumerator?.nextObject() {
             self.ref.child("houses/\(HouseId)/house_users/\(email)").removeValue()
+=======
+    func deleteUserAccount() -> ReturnValue<Bool> {
+        if let email : String = Auth.auth().currentUser!.email {
+            let user : DatabaseReference = self.ref.child("users/\(email)")
+            
+            let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
+            while let HouseId = house_enumerator?.nextObject() {
+                self.ref.child("houses/\(HouseId)/house_users/\(email)").removeValue()
+            }
+            
+            user.removeValue()
+            let FIRuser = Auth.auth().currentUser
+            
+            var delete_user_error : String?
+            FIRuser?.delete { error in
+                delete_user_error = error.debugDescription
+            }
+            
+            if delete_user_error == nil {
+                return ExpectedExecution()
+            } else {
+                return FirebaseError(error_message: delete_user_error)
+            }
+            
+>>>>>>> Implement Database Functions
         }
-
-        user.removeValue()
-        
-        //Still need to remove authorization
-        return UnimplementedFunctionError()
+        return NoSuchUserError()
     }
     
+<<<<<<< HEAD
     func doesUserExist(email: String) -> ReturnValue<Bool> {
         var result: Bool = false
         ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -125,36 +156,108 @@ class DatabaseAccess  {
     func setUserGlobalNickname(email: String, newNickName: String) -> ReturnValue<Bool> {
         if !doesUserExist(email: email).data! {
             return NoSuchUserError()
+=======
+    func getUserGlobalNickname() -> ReturnValue<String> {
+        if let email : String = Auth.auth().currentUser!.email {
+            return ReturnValue<String>(error: false,
+                               data: self.ref.child("users/\(email)").value(forKey: "nickname") as? String)
         }
-        self.ref.child("users/\(email)/nickname").setValue(newNickName)
-        return ExpectedExecution()
+        return NoSuchUserError()
     }
     
-    func getUserLocalNickname(currUser: User, house: House) -> ReturnValue<String> {
-        //TO BE IMPLEMENTED
-        return UnimplementedFunctionError()
+    func setUserGlobalNickname(new_nickname: String) -> ReturnValue<Bool> {
+        if let email : String = Auth.auth().currentUser!.email {
+            self.ref.child("users/\(email)/nickname").setValue(new_nickname)
+            return ExpectedExecution()
+>>>>>>> Implement Database Functions
+        }
+        return NoSuchUserError()
     }
     
-    func setUserLocalNickname(currUser: User, house: House, newNickName: String) -> ReturnValue<Bool>{
-        //TO BE IMPLEMENTED
-        return UnimplementedFunctionError()
+    func getUserLocalNickname(from_house house: House) -> ReturnValue<String> {
+        if let email : String = Auth.auth().currentUser!.email {
+            let house_users : DatabaseReference = self.ref.child("houses/\(house.houseID)/users")
+            if let nickname : String = house_users.value(forKey: "\(email)") as? String {
+                return ReturnValue<String>(error: false, data: nickname)
+            }
+            return UserNotMemberofHouseError()
+        }
+        return NoSuchUserError()
     }
     
-    func addUserToHouse(email: String, HouseID: String) {
-        let new_user = self.ref.child("houses/\(HouseID)/house_users/\(email)")
-        new_user.setValue(email);
+    func setUserLocalNickname(in_house : House, to new_nickname: String) -> ReturnValue<Bool>{
+        if let email : String = Auth.auth().currentUser!.email {
+            let house_users : DatabaseReference = self.ref.child("houses/\(in_house.houseID)/users")
+            if let _ : String = house_users.value(forKey: "\(email)") as? String {
+                house_users.setValue(new_nickname, forKey: "\(email)")
+                return ExpectedExecution()
+            }
+            return UserNotMemberofHouseError()
+        }
+        return NoSuchUserError()
     }
     
-    func removeUserFromHouse(email: String, house_id: String)-> ReturnValue<Bool> {
-        if doesHouseExist(house_id: house_id).data! {
-            let user_to_remove = self.ref.child("houses/\(house_id)/house_users/\(email)")
-            user_to_remove.removeValue()
-            return ReturnValue(error: false, data: true)
+    //THIS DOES NOT CREATE A FIREBASE ACCOUNT FOR NEW USER IF ONE DOESNT EXIST
+    //ONLY ADDS AN EMAIL TO THE HOUSE LIST OF USERS AND UPDATES USER PREFERENCES
+    func addNewUserToHouseUsers(with_email email: String, to_house house_id: String) -> ReturnValue<Bool> {
+        let house : DatabaseReference = self.ref.child("houses/\(house_id)")
+        if var house_users : [String: String] = house.value(forKey: "users") as? [String: String] {
+            if let currentUserEmail : String = Auth.auth().currentUser!.email {
+                if house_users.keys.contains(currentUserEmail) {
+                    
+                    //Add user to house's list of users
+                    house_users[email] = email
+                    house.setValue(house_users, forKey: "users")
+                    
+                    
+                    //Remove house from user list of houses
+                    var users_houses : [String: Bool] = self.ref.child("users/\(email)").value(forKey: "houses") as! [String: Bool]
+                    users_houses[house_id] = true
+                    self.ref.child("users/\(email)").setValue(users_houses, forKey: "houses")
+                    return ExpectedExecution()
+                } else {
+                    return UserNotMemberofHouseError()
+                }
+            } else {
+                return NoSuchUserError()
+            }
         } else {
-            return ReturnValue(error: true, data: false, error_number: 20)
+            return NoSuchHouseError()
         }
     }
     
+    //Only the owner of a house or the user himself may remove a user from a house
+    func removeUserFromHouse(email_to_remove: String, house_id: String) -> ReturnValue<Bool> {
+        let house : DatabaseReference = self.ref.child("houses/\(house_id)")
+        if var house_users : [String: String] = house.value(forKey: "users") as? [String: String] {
+            if let currentUserEmail : String = Auth.auth().currentUser!.email {
+                if currentUserEmail == email_to_remove || currentUserEmail == house.value(forKey: "owner") as? String {
+                    if house_users.keys.contains(currentUserEmail) {
+                        
+                        //Remove user from house's list of users
+                        house_users.removeValue(forKey: email_to_remove)
+                        house.setValue(house_users, forKey: "users")
+                        
+                        //Remove house from user list of houses
+                        var users_houses : [String: Bool] = self.ref.child("users/\(email_to_remove)").value(forKey: "houses") as! [String: Bool]
+                        users_houses.removeValue(forKey: house_id)
+                        self.ref.child("users/\(email_to_remove)").setValue(users_houses, forKey: "houses")
+                        return ExpectedExecution()
+                    } else {
+                        return UserNotMemberofHouseError()
+                    }
+                } else {
+                    return UserNotOwnerOfHouseError()
+                }
+            } else {
+                return NoSuchUserError()
+            }
+        } else {
+            return NoSuchHouseError()
+        }
+    }
+    
+<<<<<<< HEAD
     func getListOfHousesUserMemberOf(email: String, callback: @escaping (_ houses: [String])->Void){
         var houses: [String] = []
         ref = Database.database().reference()
@@ -166,14 +269,22 @@ class DatabaseAccess  {
             callback(houses)
         })
     }
+=======
+    
+
+>>>>>>> Implement Database Functions
     
     /*func getListOfHousesUserMemberOf(email: String) -> [String]?{
         //let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
+<<<<<<< HEAD
         ref = Database.database().reference()
         let group = DispatchGroup()
         group.enter()
         ref.child("users").child("me@emailcom").observeSingleEvent(of: .value, with: { (snapshot) in
+=======
+        ref.child("users/\(currEmail!)").observeSingleEvent(of: .value, with: { (snapshot) in
+>>>>>>> Implement Database Functions
             // Get user value
             if snapshot.exists(){
                 let snapshotValue = snapshot.value as? NSDictionary
@@ -205,8 +316,13 @@ class DatabaseAccess  {
     // returns true if a house was created, false if the house already exists
     func createHouse(newHouse: House)-> ReturnValue<Bool> {
         ref = Database.database().reference()
+<<<<<<< HEAD
         if !doesHouseExist(house_id: newHouse.house_id).data! {
             ref.child("houses").child(newHouse.house_id).setValue(["house_name": newHouse.house_name,
+=======
+        if !doesHouseExist(house_id: newHouse.houseID).data! {
+            ref.child("houses").child(newHouse.houseID).setValue(["house_name": newHouse.house_name,
+>>>>>>> Implement Database Functions
                                                                "house_users": newHouse.house_users,
                                                                "owner": newHouse.owner,
                                                                "recent_charges": newHouse.recent_charges])
@@ -230,8 +346,13 @@ class DatabaseAccess  {
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false
     func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
+<<<<<<< HEAD
         if doesHouseExist(house_id: curr_house.house_id).data! {
             self.ref.child("houses/\(curr_house.house_id)/house_name").setValue(new_name)
+=======
+        if doesHouseExist(house_id: curr_house.houseID).data! {
+            self.ref.child("houses/\(curr_house.houseID)/house_name").setValue(new_name)
+>>>>>>> Implement Database Functions
             return ReturnValue(error: false, data: true)
         }
         return ReturnValue(error: true, data: false, error_number: 20)
