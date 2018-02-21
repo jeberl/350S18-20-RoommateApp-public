@@ -84,8 +84,6 @@ class AllHousesPageViewController: UITableViewController {
             }
         }
     }
-    
-    // Only need one section in table because only displaying houses
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
