@@ -12,6 +12,11 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuthUI
 
+import Firebase
+import FirebaseDatabase
+import FirebaseAuthUI
+
+let sharedDatabaseAccess: DatabaseAccess = DatabaseAccess()
 var configured : Bool = false
 
 class DatabaseAccess  {
@@ -19,40 +24,60 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     
     init(){
-<<<<<<< HEAD
         if !configured {
             FirebaseApp.configure()
-            ref = Database.database().reference(withPath: "haus-party")
             configured = true
         }
         
-        // Add some sort of authetication here through fire base
-        // Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user.
-        // To access the data base you create an instance and log in as that specific user
-=======
-        FirebaseApp.configure()
         ref = Database.database().reference(withPath: "haus-party")
->>>>>>> Implement Database Functions
     }
     
     deinit {
         //Sign out???
     }
     
-    func createUser(newUser: UserAccount)-> ReturnValue<Bool> {
-        ref = Database.database().reference()
-        ref.child("users").child(newUser.email).setValue(["email":newUser.email, "nickname": newUser.nickname, "houses": newUser.houses, "phoneNumber": newUser.phoneNumber])
-        return ReturnValue(error: false, data: true)
+
+    func createAccount(username: String, password: String) -> ReturnValue<UserAccount>{
+        var retValue : ReturnValue<UserAccount>?
+        Auth.auth().createUser(withEmail: username, password: password)
+        { user, error in
+            
+            if error != nil {
+                retValue = FirebaseError(error_message: error!.localizedDescription)
+            }
+        }
+        print("created user ")
+        if self.createUserModelForCurrentUser().returned_error {
+            return InternalUserInitError()
+        }
+        if retValue != nil {
+            return retValue!
+        }
+        return login(username: username, password: password)
+    }
+    
+    func login(username: String, password: String) -> ReturnValue<UserAccount>{
+        print("\(username) , \(password)")
+        var retValue : ReturnValue<UserAccount>?
+        Auth.auth().signIn(withEmail: username, password: password) { user, error in
+            if error != nil {
+                retValue = FirebaseError(error_message: error!.localizedDescription)
+            }
+        }
+
+        return retValue ?? self.getUserModelFromCurrentUser()
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     func createUserModelForCurrentUser() -> ReturnValue<Bool> {
         if let email : String = Auth.auth().currentUser!.email {
-            let user = self.ref.child("users/\(email)")
-            user.setValue(email, forKey: "nickname")
-            user.setValue(Auth.auth().currentUser!.uid, forKey: "firebase_uid")
-            user.setValue(nil, forKey: "phone_number")
-            user.setValue([], forKey: "houses")
+            let key = ref.child("users").childByAutoId().key
+            let user : [String: Any?] = ["nickname": email,
+                                      "firebase_uid": Auth.auth().currentUser!.uid,
+                                      "phone_number": nil,
+                                      "houses": []]
+            let childUpdates = ["/users/\(key)": user]
+            self.ref.updateChildValues(childUpdates)
             return ExpectedExecution()
         } else {
             return NoSuchUserError()
@@ -60,43 +85,31 @@ class DatabaseAccess  {
     }
     
     func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
-        //Check if email not associated with account -> Error(prompt to create account)
-        //Return error from Firebase Authentication
-        if let currentUser = Auth.auth().currentUser {
-            let email : String = currentUser.email!
-            let userInLocalDB : DatabaseReference = self.ref.child("users/\(email)")
-            let user : UserAccount = UserAccount(uid: currentUser.uid,
-                                                 email: email,
-                                                 nickname: userInLocalDB.value(forKey: "nickname") as! String,
-                                                 houses: userInLocalDB.value(forKey: "houses") as! [String],
-                                                 phoneNumber: (userInLocalDB.value(forKey: "phone_number") as! Int?)!)
-            return ReturnValue<UserAccount>(error: false, data: user)
+        var retValue: ReturnValue<UserAccount>? = nil
+        if let email : String = Auth.auth().currentUser!.email {
+            print("getting user from local db: \(email)")
+            ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let value = snapshot.value as? NSDictionary
+                retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(uid: value?["firebase_uid"] as! String,
+                                                                                      email: email,
+                                                                                      nickname: value?["nickname"] as! String,
+                                                                                      houses: value?["houses"] as! [String],
+                                                                                      phoneNumber: value?["phone_number"] as! Int))
+            }) { (error) in
+                retValue = ReturnValue(error: true, error_message: error.localizedDescription)
+            }
+            return retValue!
         } else {
             return NoSuchUserError()
         }
     }
     
-<<<<<<< HEAD
-    func changePasword(email: String, new_password: String) -> ReturnValue<Bool>{
-=======
     func changePasword(new_password: String) -> ReturnValue<Bool>{
->>>>>>> Implement Database Functions
         //Use Auth.auth()
         return UnimplementedFunctionError()
     }
-    
-<<<<<<< HEAD
-    func deleteUserAccount(email: String) -> ReturnValue<Bool> {
-        if !doesUserExist(email: email).data! {
-            return NoSuchUserError()
-        }
-        
-        let user : DatabaseReference = self.ref.child("users/\(email)")
-        
-        let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
-        while let HouseId = house_enumerator?.nextObject() {
-            self.ref.child("houses/\(HouseId)/house_users/\(email)").removeValue()
-=======
+
     func deleteUserAccount() -> ReturnValue<Bool> {
         if let email : String = Auth.auth().currentUser!.email {
             let user : DatabaseReference = self.ref.child("users/\(email)")
@@ -109,7 +122,7 @@ class DatabaseAccess  {
             user.removeValue()
             let FIRuser = Auth.auth().currentUser
             
-            var delete_user_error : String?
+            var delete_user_error : String = ""
             FIRuser?.delete { error in
                 delete_user_error = error.debugDescription
             }
@@ -120,43 +133,11 @@ class DatabaseAccess  {
                 return FirebaseError(error_message: delete_user_error)
             }
             
->>>>>>> Implement Database Functions
         }
         return NoSuchUserError()
     }
     
-<<<<<<< HEAD
-    func doesUserExist(email: String) -> ReturnValue<Bool> {
-        var result: Bool = false
-        ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                result = true
-            }
-        })
-        return ReturnValue(error:false, data: result)
-    }
-    
-    func getUserGlobalNickname(email: String) -> ReturnValue<String> {
-        var nickname: String = ""
-        if !doesUserExist(email: email).data! {
-            return NoSuchUserError()
-        } else {
-            ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                if snapshot.exists(){
-                    let value = snapshot.value as? NSDictionary
-                    nickname = value?["nickname"] as? String! ?? nil
-                }
-            })
-        }
-        return ReturnValue(error: false, data:nickname)
-    }
-    
-    func setUserGlobalNickname(email: String, newNickName: String) -> ReturnValue<Bool> {
-        if !doesUserExist(email: email).data! {
-            return NoSuchUserError()
-=======
+
     func getUserGlobalNickname() -> ReturnValue<String> {
         if let email : String = Auth.auth().currentUser!.email {
             return ReturnValue<String>(error: false,
@@ -169,7 +150,6 @@ class DatabaseAccess  {
         if let email : String = Auth.auth().currentUser!.email {
             self.ref.child("users/\(email)/nickname").setValue(new_nickname)
             return ExpectedExecution()
->>>>>>> Implement Database Functions
         }
         return NoSuchUserError()
     }
@@ -257,34 +237,12 @@ class DatabaseAccess  {
         }
     }
     
-<<<<<<< HEAD
-    func getListOfHousesUserMemberOf(email: String, callback: @escaping (_ houses: [String])->Void){
-        var houses: [String] = []
-        ref = Database.database().reference()
-        ref.child("users").child("me@emailcom").observeSingleEvent(of: .value, with: { (snapshot) -> Void in
-            if snapshot.exists(){
-                let snapshotValue = snapshot.value as? NSDictionary
-                houses = (snapshotValue?["houses"] as? [String])!
-            }
-            callback(houses)
-        })
-    }
-=======
-    
 
->>>>>>> Implement Database Functions
     
-    /*func getListOfHousesUserMemberOf(email: String) -> [String]?{
+    func getListOfHousesUserMemberOf(email: String) -> [String]?{
         //let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
-<<<<<<< HEAD
-        ref = Database.database().reference()
-        let group = DispatchGroup()
-        group.enter()
-        ref.child("users").child("me@emailcom").observeSingleEvent(of: .value, with: { (snapshot) in
-=======
         ref.child("users/\(currEmail!)").observeSingleEvent(of: .value, with: { (snapshot) in
->>>>>>> Implement Database Functions
             // Get user value
             if snapshot.exists(){
                 let snapshotValue = snapshot.value as? NSDictionary
@@ -293,7 +251,7 @@ class DatabaseAccess  {
             }
         })
         return houses
-    }*/
+    }
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
         var phone_number: Int? = 0
@@ -316,13 +274,8 @@ class DatabaseAccess  {
     // returns true if a house was created, false if the house already exists
     func createHouse(newHouse: House)-> ReturnValue<Bool> {
         ref = Database.database().reference()
-<<<<<<< HEAD
-        if !doesHouseExist(house_id: newHouse.house_id).data! {
-            ref.child("houses").child(newHouse.house_id).setValue(["house_name": newHouse.house_name,
-=======
         if !doesHouseExist(house_id: newHouse.houseID).data! {
             ref.child("houses").child(newHouse.houseID).setValue(["house_name": newHouse.house_name,
->>>>>>> Implement Database Functions
                                                                "house_users": newHouse.house_users,
                                                                "owner": newHouse.owner,
                                                                "recent_charges": newHouse.recent_charges])
@@ -346,13 +299,8 @@ class DatabaseAccess  {
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false
     func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
-<<<<<<< HEAD
-        if doesHouseExist(house_id: curr_house.house_id).data! {
-            self.ref.child("houses/\(curr_house.house_id)/house_name").setValue(new_name)
-=======
         if doesHouseExist(house_id: curr_house.houseID).data! {
             self.ref.child("houses/\(curr_house.houseID)/house_name").setValue(new_name)
->>>>>>> Implement Database Functions
             return ReturnValue(error: false, data: true)
         }
         return ReturnValue(error: true, data: false, error_number: 20)

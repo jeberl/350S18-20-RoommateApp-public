@@ -16,8 +16,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
+    let database: DatabaseAccess = sharedDatabaseAccess
     var buttonPressed = ""
-    var database: DatabaseAccess = DatabaseAccess()
     var userLoggingIn: UserAccount?
 
     
@@ -37,41 +37,18 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        var performSegue = true
-        return true
+        var retValue : ReturnValue<UserAccount>
         if identifier == "create_account" {
-            print("identifier = ", identifier)
-            print(usernameTextField.text! + ": " + passwordTextField.text!)
-            Auth.auth().createUser(withEmail: usernameTextField.text!, password: passwordTextField.text!)
-            { user, error in
-                if error != nil {
-                    self.raiseErrorAlert(with_title: "Account Setup Error", with_message: error!.localizedDescription)
-                    performSegue = false
-                } else {
-                    let InternalSetUp : ReturnValue = self.database.createUserModelForCurrentUser()
-                    if InternalSetUp.returned_error {
-                        self.raiseErrorAlert(with_title: "Internal Error", with_message: InternalSetUp.getErrorDescription())
-                        performSegue = false
-                    }
-                }
-            }
+            retValue = database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!)
         }
-        if !performSegue {
-            return performSegue
+        retValue = database.login(username: usernameTextField.text!, password: passwordTextField.text!)
+        if retValue.returned_error {
+            let title = retValue.error_number == 50 ? "Error" : "Internal Error"
+            raiseErrorAlert(with_title: title, with_message: retValue.error_message!)
+            return false
         }
-        print(usernameTextField.text! + ", " + passwordTextField.text!)
-        Auth.auth().signIn(withEmail: usernameTextField.text!, password: passwordTextField.text!) { user, error in
-            if error != nil {
-                performSegue = false
-                self.raiseErrorAlert(with_title: "Error", with_message: error!.localizedDescription)
-            } else {
-                self.userLoggingIn = self.database.getUserModelFromCurrentUser().data
-                if self.userLoggingIn == nil {
-                    performSegue = false
-                }
-            }
-        }
-        return false
+        userLoggingIn = retValue.data!
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -80,7 +57,7 @@ class ViewController: UIViewController {
             vc?.currentUser = userLoggingIn
         }
     }
-
+    
     func raiseErrorAlert(with_title title: String, with_message message: String) {
         let alert = UIAlertController(title: title,
                                       message: message ,

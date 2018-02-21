@@ -15,8 +15,8 @@ class ReturnValue<T> {
     let error_number : Int
     let data : T?
     
-    init(error returned_error: Bool, data : T? = nil, error_message : String? = nil, error_number : Int? = nil) {
-        self.returned_error = true
+    init(error returned_error: Bool, data : T? = nil, error_message : String = "", error_number : Int? = nil) {
+        self.returned_error = returned_error
         self.error_message = returned_error ? error_message : nil
         self.error_number = returned_error ? error_number! : 0
         self.data = returned_error ? nil : data
@@ -29,6 +29,7 @@ class ReturnValue<T> {
             case 11: return "User Must Be Owner of House"
             case 12: return "User Must Be Member of House"
             case 13: return "Email Address Already Associated With Another Account"
+            case 14: return "Proboblem Initializing User Account"
             case 20: return "No Such House"
             case 30: return "No Such Charge"
             case 50: return "Firebase Error"
@@ -63,6 +64,12 @@ class UserNotMemberofHouseError<T>: ReturnValue<T> {
     }
 }
 
+class InternalUserInitError<T>: ReturnValue<T> {
+    init() {
+        super.init(error: true, error_number: 14)
+    }
+}
+
 class NoSuchHouseError<T>: ReturnValue<T> {
     init() {
         super.init(error: true, error_number: 20)
@@ -76,8 +83,8 @@ class NoSuchChargeError<T>: ReturnValue<T> {
 }
 
 class FirebaseError<T>: ReturnValue<T> {
-    init(error_message : String? = nil) {
-        super.init(error: true, error_number: 50, error_message: error_message)
+    init(error_message : String = "") {
+        super.init(error: true, error_message: error_message, error_number: 50)
     }
 }
 
