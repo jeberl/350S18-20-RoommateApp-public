@@ -11,8 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 struct UserAccount {
-
-    //let uid: String // think this is just a Firebase specific thing, not sure
+    let uid: String // Stores the key for this user in firebase
     let email: String
     let nickname: String
     let houses: [String]
@@ -26,4 +25,17 @@ struct UserAccount {
         self.phoneNumber = phoneNumber
     }
     
+    init(dict: NSDictionary) {
+        self.uid = dict["uid"] as! String
+        self.email = dict["email"] as! String
+        self.nickname = (dict["nickname"] as? String) ?? ""
+        
+        if let houses = dict["houses"] as! [String]? {
+            self.houses = houses
+        } else {
+            self.houses = []
+        }
+        
+        self.phoneNumber = dict["phone_number"] as! Int?
+    }
 }
