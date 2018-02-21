@@ -77,7 +77,7 @@ class NoSuchChargeError<T>: ReturnValue<T> {
 
 class FirebaseError<T>: ReturnValue<T> {
     init(error_message : String? = nil) {
-        super.init(error: true, error_number: 50, error_message: error_message)
+        super.init(error: true, error_message: error_message, error_number: 50)
     }
 }
 

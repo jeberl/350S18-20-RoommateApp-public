@@ -42,8 +42,8 @@ class DatabaseAccess  {
     func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
         //Check if email not associated with account -> Error(prompt to create account)
         //Return error from Firebase Authentication
-        if let currentUser = Auth.auth().currentUser {
-            let email : String = currentUser.email!
+        let currentUser = Auth.auth().currentUser!
+        if let email : String = currentUser.email {
             let userInLocalDB : DatabaseReference = self.ref.child("users/\(email)")
             let user : UserAccount = UserAccount(uid: currentUser.uid,
                                                  email: email,
