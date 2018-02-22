@@ -12,13 +12,19 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuthUI
 
+var configured : Bool = false
+
 class DatabaseAccess  {
     
     var ref: DatabaseReference!
     
     init(){
-        FirebaseApp.configure()
-        ref = Database.database().reference(withPath: "haus-party")
+        if !configured {
+            FirebaseApp.configure()
+            configured = true
+            ref = Database.database().reference(withPath: "haus-party")
+            
+        }
         
         // Add some sort of authetication here through fire base
         // Each instance of DatabaseAccess is from a specific user and the data base manages the permissions of the user.

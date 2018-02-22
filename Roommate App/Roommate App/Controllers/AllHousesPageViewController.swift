@@ -8,16 +8,18 @@
 
 import UIKit
 
-class AllHousesPageViewController: UIViewController {
+class AllHousesPageViewController: UIViewController, UITableViewDataSource {
     
-    var buttonToGetHere = ""
     var currentUser : UserAccount?
-    
-    @IBOutlet weak var testLabel: UILabel!
+    //var houses : [String]?
+    let houses = ["House 1", "House 2", "House 3"]
+    var db: DatabaseAccess = DatabaseAccess()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        testLabel.text = buttonToGetHere
+        
+        // Instantiate Database to get list of houses user is in - need to fix database
+        //houses = db.getListOfHousesUserMemberOf(email: currentUser!.email).data
 
         // Do any additional setup after loading the view.
     }
@@ -35,5 +37,20 @@ class AllHousesPageViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
 
+    // Only need one section in table because only displaying houses
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     
+    // Return number of rows equal to number of houses
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return houses.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        var houseName = houses[indexPath.row]
+        cell.textLabel?.text = houseName
+        return cell
+    }
 }

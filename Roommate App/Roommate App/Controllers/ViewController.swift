@@ -16,7 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
-    var buttonPressed = ""
     var database: DatabaseAccess = DatabaseAccess()
     var userLoggingIn: UserAccount?
 
@@ -30,7 +29,8 @@ class ViewController: UIViewController {
             phoneNumber: "123-456-7890" 
             )
         print("adding users to database")
-        self.database.createUser(newUser: testUser)
+        userLoggingIn = testUser
+        //self.database.createUser(newUser: testUser)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -41,7 +41,8 @@ class ViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         var performSegue = true
-        
+        return true
+        /*
         if identifier == "create_account" {
             print("identifier = ", identifier)
             print(usernameTextField.text! + ": " + passwordTextField.text!)
@@ -76,6 +77,7 @@ class ViewController: UIViewController {
             }
         }
         return false
+ */
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
