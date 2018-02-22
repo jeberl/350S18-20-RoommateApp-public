@@ -74,21 +74,36 @@
             </objects>
             <point key="canvasLocation" x="-58" y="-385"/>
         </scene>
-        <!--View Controller-->
+        <!--Profile Controller-->
         <scene sceneID="35I-Gf-evR">
             <objects>
-                <viewController id="gbF-Kl-cSc" sceneMemberID="viewController">
+                <viewController id="gbF-Kl-cSc" customClass="ProfileController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="n09-Mk-OqH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-3f-eC9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="gbF-Kl-cSc" id="pLV-tC-eZx"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="lc4-3f-eC9" secondAttribute="trailing" id="LBc-Ti-ftY"/>
+                            <constraint firstItem="lc4-3f-eC9" firstAttribute="top" secondItem="wpW-dH-PED" secondAttribute="top" id="LvV-uI-b2t"/>
+                            <constraint firstItem="lc4-3f-eC9" firstAttribute="leading" secondItem="n09-Mk-OqH" secondAttribute="leading" id="agL-zt-AoU"/>
+                            <constraint firstItem="lc4-3f-eC9" firstAttribute="bottom" secondItem="wpW-dH-PED" secondAttribute="bottom" id="xHX-H0-4Nz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="wpW-dH-PED"/>
                     </view>
                     <navigationItem key="navigationItem" id="Y0d-Ao-QNc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l9I-lL-PRo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="330"/>
+            <point key="canvasLocation" x="-58.399999999999999" y="329.68515742128938"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Eh4-Hf-ABD">

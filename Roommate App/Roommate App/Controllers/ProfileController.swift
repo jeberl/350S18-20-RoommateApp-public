@@ -8,8 +8,30 @@
 
 import UIKit
 
-class ProfileController: UIViewController {
-
+class ProfileController: UIViewController, UITableViewDataSource {
+    
+    // represents the current house, this will be passed into the function from the house option screen segue
+    let currentHouse = House(uid: "0", house_name: "TestHouse", house_users:["Nick"], owner: "Nick", recent_charges: ["TestCharge"], recent_interactions:["TestInteraction"])
+    
+    let initialOptions = ["Edit Profile", "Edit House"]
+    
+    // methods for TableView
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let cellText = initialOptions[indexPath.row]
+        cell.textLabel?.text = cellText
+        return cell
+    }
+    
+    // methods for view
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -116,6 +116,14 @@
                                     <segue destination="lMg-ro-Lsi" kind="show" id="ULm-84-1Dn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dl9-Cm-Xbg">
+                                <rect key="frame" x="136" y="560" width="103" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="To House Page"/>
+                                <connections>
+                                    <action selector="toHousePage:" destination="zxY-bV-udo" eventType="touchUpInside" id="Qce-kw-TAq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
