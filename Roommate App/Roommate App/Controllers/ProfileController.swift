@@ -29,7 +29,6 @@ class ProfileController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("row selected: \(indexPath.row)")
         if (indexPath.row == 0) {
             performSegue(withIdentifier: "UserProfileSegue", sender: self)
         } else if (indexPath.row == 1) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AllHousesPageViewController: UIViewController, UITableViewDataSource {
+class AllHousesPageViewController: UITableViewController {
     
     var currentUser : UserAccount?
     //var houses : ()?
@@ -17,6 +17,8 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
     var houseAdded : String?
     
     @IBOutlet weak var testLabel: UILabel!
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,12 +45,12 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
     }
 
     // Only need one section in table because only displaying houses
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     // Return number of rows equal to number of houses
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if houseAdded != nil {
             houses.append(houseAdded!)
             houseAdded = nil
@@ -56,10 +58,27 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
         return houses.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        var houseName = houses[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        let houseName = houses[indexPath.row]
         cell.textLabel?.text = houseName
         return cell
+    }
+    
+    // connect this page to the house main page
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 0) {
+            // set current house to house clicked
+        } else if (indexPath.row == 1) {
+            // set current house to house clicked
+        } else if (indexPath.row == 2) {
+            // set current house to house clicked
+        }
+        
+        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "HouseTabBarController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }
