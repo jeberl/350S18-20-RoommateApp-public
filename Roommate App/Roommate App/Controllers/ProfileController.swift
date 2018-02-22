@@ -10,9 +10,6 @@ import UIKit
 
 class ProfileController: UIViewController, UITableViewDataSource {
     
-    // represents the current house, this will be passed into the function from the house option screen segue
-    let currentHouse = House(uid: "0", house_name: "TestHouse", house_users:["Nick"], owner: "Nick", recent_charges: ["TestCharge"], recent_interactions:["TestInteraction"])
-    
     let initialOptions = ["Edit Profile", "Edit House"]
     
     // methods for TableView
