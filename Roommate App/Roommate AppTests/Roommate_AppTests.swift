@@ -16,7 +16,6 @@ import FirebaseAuthUI
 let test_email_addresses: [String] = ["testinguser@test.com"]
 let test_email_passwords: [String] = ["test123"]
 
-
 class Roommate_AppTests: XCTestCase {
     
     var database : DatabaseAccess?
