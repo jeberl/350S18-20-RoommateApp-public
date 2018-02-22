@@ -39,7 +39,9 @@ class ViewController: UIViewController {
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         var retValue : ReturnValue<UserAccount>
         if identifier == "create_account" {
-            retValue = database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!)
+            if !createAccount(username: usernameTextField.text!, password: passwordTextField.text!) {
+                
+            }
         }
         retValue = database.login(username: usernameTextField.text!, password: passwordTextField.text!)
         if retValue.returned_error {

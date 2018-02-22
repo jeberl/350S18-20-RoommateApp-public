@@ -63,7 +63,8 @@ class DatabaseAccess  {
             }
         }
 
-        return retValue ?? self.getUserModelFromCurrentUser()
+        return retValue!
+            //?? self.getUserModelFromCurrentUser()
     }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
@@ -88,15 +89,17 @@ class DatabaseAccess  {
         var retValue: ReturnValue<UserAccount> = NoSuchUserError()
         if let uid : String = Auth.auth().currentUser?.uid {
             print("getting user from local db: \(uid)")
-            self.ref.child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            self.ref.child("users/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let value = snapshot.value as? NSDictionary
-                
-                print("value = \(value!)")
+
                 retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(dict : value!))
+                print("value = \(value!)")
             }) { (error) in
                 print("throwing error")
                 retValue = ReturnValue(error: true, error_message: error.localizedDescription)
+            }
+            print("returning \(retValue)")
         }
         return retValue
     }
