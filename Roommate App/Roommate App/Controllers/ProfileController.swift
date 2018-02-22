@@ -8,25 +8,36 @@
 
 import UIKit
 
-class ProfileController: UIViewController, UITableViewDataSource {
+class ProfileController: UITableViewController {
     
     let initialOptions = ["Edit Profile", "Edit House"]
     
     // methods for TableView
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return initialOptions.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         let cellText = initialOptions[indexPath.row]
         cell.textLabel?.text = cellText
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("row selected: \(indexPath.row)")
+        if (indexPath.row == 0) {
+            performSegue(withIdentifier: "UserProfileSegue", sender: self)
+        } else if (indexPath.row == 1) {
+            performSegue(withIdentifier: "HouseProfileSegue", sender: self)
+        }
+    }
+    
+    
     
     // methods for view
     override func viewDidLoad() {
