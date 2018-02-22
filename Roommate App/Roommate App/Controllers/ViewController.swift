@@ -23,14 +23,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let testUser = UserAccount(
-            email: "me@emailcom",
-            nickname: "testUser",
-            houses: ["test1","test2"],
-            phoneNumber: "123-456-7890" 
-            )
-        print("adding users to database")
-        self.database.createUser(newUser: testUser)
+        /*var new:[String] = []
+        self.database.getListOfHousesUserMemberOf(email: "me@emailcom", callback: {(houses)-> Void in
+            print("got houses:\(houses)")
+            new = houses
+        })*/
         // Do any additional setup after loading the view, typically from a nib.
     }
 

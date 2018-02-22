@@ -136,20 +136,34 @@ class DatabaseAccess  {
         }
     }
     
-
+    func getListOfHousesUserMemberOf(email: String, callback: @escaping (_ houses: [String])->Void){
+        var houses: [String] = []
+        ref = Database.database().reference()
+        ref.child("users").child("me@emailcom").observeSingleEvent(of: .value, with: { (snapshot) -> Void in
+            if snapshot.exists(){
+                let snapshotValue = snapshot.value as? NSDictionary
+                houses = (snapshotValue?["houses"] as? [String])!
+            }
+            callback(houses)
+        })
+    }
     
-    func getListOfHousesUserMemberOf(email: String) -> ReturnValue<[String]>{
+    /*func getListOfHousesUserMemberOf(email: String) -> [String]?{
         //let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
-        ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref = Database.database().reference()
+        let group = DispatchGroup()
+        group.enter()
+        ref.child("users").child("me@emailcom").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if snapshot.exists(){
-                let value = snapshot.value as? NSDictionary
-                houses = value?["houses"] as? [String] ?? []
+                let snapshotValue = snapshot.value as? NSDictionary
+                houses = (snapshotValue?["houses"] as? [String])!
+                group.leave()
             }
         })
-        return ReturnValue(error:false, data:houses)
-    }
+        return houses
+    }*/
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
         var phone_number: Int? = 0
