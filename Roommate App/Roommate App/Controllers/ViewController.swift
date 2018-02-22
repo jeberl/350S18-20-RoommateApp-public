@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        return true // remove this, for testing purposes only
         var performSegue = true
         if identifier == "create_account" {
             print("identifier = ", identifier)

@@ -35,5 +35,14 @@ class AllHousesPageViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
 
+    @IBAction func toHousePage(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "HouseTabBarController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+        
+    }
     
 }
