@@ -50,6 +50,17 @@ class ProfileController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logOutOfHouse(_ sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "AllHousesPageViewController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+    
+    
 
     /*
     // MARK: - Navigation

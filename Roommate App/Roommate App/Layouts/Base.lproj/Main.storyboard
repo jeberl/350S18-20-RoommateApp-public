@@ -94,7 +94,7 @@
         <!--All Houses Page View Controller-->
         <scene sceneID="0p7-kF-xck">
             <objects>
-                <viewController id="zxY-bV-udo" customClass="AllHousesPageViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AllHousesPageViewController" id="zxY-bV-udo" customClass="AllHousesPageViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ehj-h1-jnZ" customClass="UITableView">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
