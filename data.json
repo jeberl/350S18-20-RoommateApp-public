@@ -1,7 +1,21 @@
 {
 	"users": { 
-		"1@test.com" : {
+		"qerjqreipeqr" : { 				// Randomly generated key using Database.Database.child("users").childByAutoId().key
+			"uid" :  "qerjqreipeqr", // The same as the key for the user object in firebase
+			"email" : "1@test.com",
 			"nickname" : "Test User 1",
+			"houses" : {
+				"H1" : true,
+				"H5" : true,
+				"H6" : true
+			},
+			"phone_number" : 111111111
+			
+		},
+		"ievbveoeqr" : {
+			"user_id" :  "ievbveoeqr",
+			"email" : "2@test.com",
+			"nickname" : "2@test.com", //Default nickname is email
 			"houses" : {
 				"H1" : true,
 				"H5" : true,
@@ -10,7 +24,7 @@
 			"phone_number" : 111111111,
 			"firebase_uid" : "wervuiwbego"
 		},
-		"2@test.com" : {
+		"" : {
 			"nickname" : "Test User 2",
 			"houses" : {
 				"H1" : true,
