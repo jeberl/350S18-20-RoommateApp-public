@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class CreateHouseViewController: UIViewController {
     
@@ -16,6 +17,7 @@ class CreateHouseViewController: UIViewController {
     var currentUser : UserAccount?
     var homies: [String] = []
     var database: DatabaseAccess?
+    var houseName : String!
     
     
 
@@ -54,8 +56,10 @@ class CreateHouseViewController: UIViewController {
             houseNameTextField!.text = ""
         }
         var address = houseaddressTextField!.text
-        var newHome = House(uid: <#T##String#>, house_name: houseName!, house_users: homies, owner: (currentUser?.email)!, recent_charges: [], recent_interactions: [])
-        self.database?.createHouse(newHouse: newHome)
+        //var newHome = House(house_id: "House 4", house_name: houseName!, house_users: homies, owner: (currentUser?.email)!, recent_charges: [], recent_interactions: [])
+        self.houseName = houseName
+//        var newHome = House(uid: Auth.auth().currentUser!.uid, house_name: houseName!, house_users: homies, owner: (currentUser?.email)!, recent_charges: [], recent_interactions: [])
+        //self.database?.createHouse(newHouse: newHome)
     }
     
     
@@ -70,6 +74,7 @@ class CreateHouseViewController: UIViewController {
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
             vc?.currentUser = currentUser
+            vc?.houseAdded = houseName
         }
     }
     

@@ -191,8 +191,8 @@ class DatabaseAccess  {
     // returns true if a house was created, false if the house already exists
     func createHouse(newHouse: House)-> ReturnValue<Bool> {
         ref = Database.database().reference()
-        if !doesHouseExist(house_id: newHouse.uid).data! {
-            ref.child("houses").child(newHouse.uid).setValue(["house_name": newHouse.house_name,
+        if !doesHouseExist(house_id: newHouse.house_id).data! {
+            ref.child("houses").child(newHouse.house_id).setValue(["house_name": newHouse.house_name,
                                                                "house_users": newHouse.house_users,
                                                                "owner": newHouse.owner,
                                                                "recent_charges": newHouse.recent_charges])
@@ -216,8 +216,8 @@ class DatabaseAccess  {
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false
     func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
-        if doesHouseExist(house_id: curr_house.uid).data! {
-            self.ref.child("houses/\(curr_house.uid)/house_name").setValue(new_name)
+        if doesHouseExist(house_id: curr_house.house_id).data! {
+            self.ref.child("houses/\(curr_house.house_id)/house_name").setValue(new_name)
             return ReturnValue(error: false, data: true)
         }
         return ReturnValue(error: true, data: false, error_number: 20)
