@@ -8,25 +8,8 @@
 
 import Foundation
 
-// this struct acts as a global variable, storing the current user and the current house that the user is viewing
-struct CurrentState {
-    
-    var currentUser: UserAccount
-    var currentHouse: House
-    
-    init(currentUser: UserAccount, currentHouse: House) {
-        self.currentUser = currentUser
-        self.currentHouse = currentHouse
-    }
-    
-    // sets a new current user
-    mutating func setCurrentUser(newUser: UserAccount) {
-        self.currentUser = newUser
-    }
-    
-    // sets a new current house
-    mutating func setCurrentHouse(newHouse: House) {
-        self.currentHouse = newHouse
-    }
-    
-}
+// this file stores global variables holding the current user and the current house that the user is viewing
+
+var currentUser: UserAccount? = nil
+var currentHouse: House? = nil
+
