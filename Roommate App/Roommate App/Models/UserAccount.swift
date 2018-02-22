@@ -25,4 +25,5 @@ struct UserAccount {
         self.houses = houses
         self.phoneNumber = phoneNumber
     }
+    
 }

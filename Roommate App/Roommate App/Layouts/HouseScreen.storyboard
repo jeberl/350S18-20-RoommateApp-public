@@ -74,36 +74,87 @@
             </objects>
             <point key="canvasLocation" x="-58" y="-385"/>
         </scene>
-        <!--Profile Controller-->
-        <scene sceneID="35I-Gf-evR">
+        <!--User Profile Controller-->
+        <scene sceneID="ecA-Eg-2jS">
             <objects>
-                <viewController id="gbF-Kl-cSc" customClass="ProfileController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="n09-Mk-OqH">
+                <viewController id="n4w-bB-gCw" customClass="UserProfileController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kw9-Ji-hx6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lc4-3f-eC9">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="gbF-Kl-cSc" id="pLV-tC-eZx"/>
-                                </connections>
-                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-8e-5un">
+                                <rect key="frame" x="100" y="193" width="174" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzP-Iw-6Ih">
+                                <rect key="frame" x="46" y="100" width="283" height="56"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vm4-fS-co7">
+                                <rect key="frame" x="118" y="164" width="138" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lc4-3f-eC9" secondAttribute="trailing" id="LBc-Ti-ftY"/>
-                            <constraint firstItem="lc4-3f-eC9" firstAttribute="top" secondItem="wpW-dH-PED" secondAttribute="top" id="LvV-uI-b2t"/>
-                            <constraint firstItem="lc4-3f-eC9" firstAttribute="leading" secondItem="n09-Mk-OqH" secondAttribute="leading" id="agL-zt-AoU"/>
-                            <constraint firstItem="lc4-3f-eC9" firstAttribute="bottom" secondItem="wpW-dH-PED" secondAttribute="bottom" id="xHX-H0-4Nz"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="wpW-dH-PED"/>
+                        <viewLayoutGuide key="safeArea" id="BgN-UI-0P6"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Y0d-Ao-QNc"/>
+                    <connections>
+                        <outlet property="userProfileFor" destination="EzP-Iw-6Ih" id="ifH-VC-ALf"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l9I-lL-PRo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pbd-Wo-aeF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58.399999999999999" y="329.68515742128938"/>
+            <point key="canvasLocation" x="709.60000000000002" y="357.57121439280365"/>
+        </scene>
+        <!--House Profile Controller-->
+        <scene sceneID="lue-0R-udQ">
+            <objects>
+                <viewController id="IPF-IF-4Ss" customClass="HouseProfileController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ulw-yv-lAT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUR-yQ-l8P">
+                                <rect key="frame" x="62" y="138" width="283" height="74"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3vR-V0-RJn">
+                                <rect key="frame" x="97" y="258" width="174" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Change House Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owa-bS-Az8">
+                                <rect key="frame" x="103" y="229" width="163" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="qfD-Y9-7MF"/>
+                    </view>
+                    <connections>
+                        <outlet property="GetHouseNameLabel" destination="hUR-yQ-l8P" id="Osf-vC-elx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IpY-Xk-MeQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709.60000000000002" y="1094.3028485757122"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Eh4-Hf-ABD">
@@ -120,7 +171,7 @@
                         <segue destination="1x3-ME-JPL" kind="relationship" relationship="viewControllers" id="eEK-9Y-szw"/>
                         <segue destination="iWB-z0-Qe5" kind="relationship" relationship="viewControllers" id="XFc-RK-dWS"/>
                         <segue destination="qgj-rL-3WE" kind="relationship" relationship="viewControllers" id="Nib-KD-vMG"/>
-                        <segue destination="ikM-s8-UHR" kind="relationship" relationship="viewControllers" id="5ty-ye-zTB"/>
+                        <segue destination="htV-yp-Ygz" kind="relationship" relationship="viewControllers" id="lD6-so-Xri"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NVB-2W-TfJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -146,24 +197,38 @@
             </objects>
             <point key="canvasLocation" x="-750" y="-2534"/>
         </scene>
-        <!--Profile-->
-        <scene sceneID="Lom-Be-Cfv">
+        <!--Profile Controller-->
+        <scene sceneID="EG8-Ym-DjZ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ikM-s8-UHR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Profile" id="Z5A-MJ-Sa5"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="f8H-EK-a86">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
+                <tableViewController id="T07-aY-7iC" customClass="ProfileController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ngN-vY-PQe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UjJ-Kb-XL2">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UjJ-Kb-XL2" id="TEw-eb-G79">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="T07-aY-7iC" id="51B-wH-cjf"/>
+                            <outlet property="delegate" destination="T07-aY-7iC" id="g9z-hb-pd1"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="n4I-we-1Mb"/>
                     <connections>
-                        <segue destination="gbF-Kl-cSc" kind="relationship" relationship="rootViewController" id="zxd-ns-eHa"/>
+                        <segue destination="n4w-bB-gCw" kind="show" identifier="UserProfileSegue" id="fXS-jc-1gw"/>
+                        <segue destination="IPF-IF-4Ss" kind="show" identifier="HouseProfileSegue" id="sy6-9M-cOG"/>
                     </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F8a-zi-ueI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0Go-Wa-qoa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-751" y="330"/>
+            <point key="canvasLocation" x="-58" y="358"/>
         </scene>
         <!--Chores-->
         <scene sceneID="y0u-j0-oCv">
@@ -221,6 +286,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpE-tX-pXI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-751" y="-385"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="h1l-hm-EJV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="htV-yp-Ygz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Profile" id="Phs-FH-KYT"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EVN-8x-vlV">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="T07-aY-7iC" kind="relationship" relationship="rootViewController" id="enh-yy-SDz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lZe-SK-Icw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-751" y="358"/>
         </scene>
     </scenes>
 </document>
