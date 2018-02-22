@@ -35,8 +35,8 @@ class DatabaseAccess  {
         //Sign out???
     }
     
-    func createAccount(username: String, password: String) -> ReturnValue<UserAccount>{
-        var retValue : ReturnValue<UserAccount>?
+    func createAccount(username: String, password: String, callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool>{
+        var retValue : ReturnValue<Bool>? = nil
         Auth.auth().createUser(withEmail: username, password: password)
         { user, error in
             if error != nil {
@@ -50,25 +50,26 @@ class DatabaseAccess  {
         if retValue != nil {
             return retValue!
         }
-        return login(username: username, password: password)
+        return login(username: username, password: password, callback: callback)
     }
     
-    func login(username: String, password: String) -> ReturnValue<UserAccount>{
+    func login(username: String, password: String, callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool>{
         print("\(username) , \(password)")
-        var retValue : ReturnValue<UserAccount>?
+        var retValue : ReturnValue<Bool>? = nil
         Auth.auth().signIn(withEmail: username, password: password) { user, error in
             if error != nil {
                 retValue = FirebaseError(error_message: error!.localizedDescription)
             }
         }
-
+        if retValue == nil {
+            return self.getUserModelFromCurrentUser(callback: callback)
+        }
         return retValue!
-            //?? self.getUserModelFromCurrentUser()
     }
     
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    func createUserModelForCurrentUser() -> ReturnValue<Bool> {
+    private func createUserModelForCurrentUser() -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
             print("adding user to db")
             let user : [String: Any?] = ["uid" : Auth.auth().currentUser!.uid,
@@ -85,22 +86,25 @@ class DatabaseAccess  {
         }
     }
     
-    func getUserModelFromCurrentUser() -> ReturnValue<UserAccount> {
-        var retValue: ReturnValue<UserAccount> = NoSuchUserError()
+    private func getUserModelFromCurrentUser(callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool> {
+        var retValue: ReturnValue<Bool> = ExpectedExecution()
         if let uid : String = Auth.auth().currentUser?.uid {
             print("getting user from local db: \(uid)")
             self.ref.child("users/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                let value = snapshot.value as? NSDictionary
-
-                retValue = ReturnValue<UserAccount>(error: false, data: UserAccount(dict : value!))
-                print("value = \(value!)")
+                if snapshot.exists() {
+                    let value = snapshot.value as? NSDictionary
+                    callback(UserAccount(dict : value!))
+                    print("value = \(value!)")
+                }
             }) { (error) in
                 print("throwing error")
                 retValue = ReturnValue(error: true, error_message: error.localizedDescription)
             }
-            print("returning \(retValue)")
+            
+        } else {
+            retValue = NoSuchUserError()
         }
+        print("returning \(retValue)")
         return retValue
     }
     

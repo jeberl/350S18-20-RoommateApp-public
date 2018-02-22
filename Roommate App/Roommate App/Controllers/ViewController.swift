@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     let database: DatabaseAccess = sharedDatabaseAccess
     var buttonPressed = ""
-    var userLoggingIn: UserAccount?
+    var userLoggingIn: UserAccount? = nil
 
     
     override func viewDidLoad() {
@@ -32,19 +32,24 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        var retValue : ReturnValue<UserAccount>
-        if identifier == "create_account" {
-            if !createAccount(username: usernameTextField.text!, password: passwordTextField.text!) {
-                
-            }
+        var retValue : ReturnValue<Bool>
+        let setCurrentUserClosure = {(user : UserAccount)-> Void in
+            self.userLoggingIn = user
+            print("closure run")
         }
-        retValue = database.login(username: usernameTextField.text!, password: passwordTextField.text!)
+        if identifier == "create_account" {
+            retValue = database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, callback: setCurrentUserClosure)
+        } else {
+            retValue = database.login(username: usernameTextField.text!, password: passwordTextField.text!, callback: setCurrentUserClosure)
+        }
         if retValue.returned_error {
             let title = retValue.error_number == 50 ? "Error" : "Internal Error"
             raiseErrorAlert(with_title: title, with_message: retValue.error_message!)
             return false
         }
-        userLoggingIn = retValue.data!
+        while userLoggingIn == nil {
+            // wait for result of log in
+        }
         return true
     }
     
