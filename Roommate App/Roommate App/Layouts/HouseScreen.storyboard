@@ -220,7 +220,13 @@
                             <outlet property="delegate" destination="T07-aY-7iC" id="g9z-hb-pd1"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="n4I-we-1Mb"/>
+                    <navigationItem key="navigationItem" id="n4I-we-1Mb">
+                        <barButtonItem key="rightBarButtonItem" title="Log Out of House" id="INP-H0-OVI">
+                            <connections>
+                                <action selector="logOutOfHouse:" destination="T07-aY-7iC" id="nhT-Au-wkW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="n4w-bB-gCw" kind="show" identifier="UserProfileSegue" id="fXS-jc-1gw"/>
                         <segue destination="IPF-IF-4Ss" kind="show" identifier="HouseProfileSegue" id="sy6-9M-cOG"/>
