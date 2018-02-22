@@ -12,8 +12,9 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
     
     var currentUser : UserAccount?
     //var houses : ()?
-    let houses = ["House 1", "House 2", "House 3"]
+    var houses = ["House 1", "House 2", "House 3"]
     var db : DatabaseAccess = DatabaseAccess()
+    var houseAdded : String?
     
     @IBOutlet weak var testLabel: UILabel!
     
@@ -34,8 +35,11 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.destination is CreateHouseViewController {
+            let vc = segue.destination as? CreateHouseViewController
+            vc?.currentUser = self.currentUser
+        }
     }
 
     // Only need one section in table because only displaying houses
@@ -45,6 +49,10 @@ class AllHousesPageViewController: UIViewController, UITableViewDataSource {
     
     // Return number of rows equal to number of houses
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if houseAdded != nil {
+            houses.append(houseAdded!)
+            houseAdded = nil
+        }
         return houses.count
     }
     

@@ -194,6 +194,7 @@
                                 <state key="normal" title="Build Home!"/>
                                 <connections>
                                     <action selector="buildHomeButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="gZb-fU-r9w"/>
+                                    <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-9G-pAr">
@@ -237,6 +238,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7EF-NK-336"/>
+        <segue reference="SZw-Tf-XdL"/>
     </inferredMetricsTieBreakers>
 </document>
