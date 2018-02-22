@@ -23,6 +23,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let testUser = UserAccount(
+            email: "me@emailcom",
+            nickname: "testUser",
+            houses: ["test1","test2"],
+            phoneNumber: "123-456-7890" 
+            )
+        print("adding users to database")
+        self.database.createUser(newUser: testUser)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -33,6 +41,7 @@ class ViewController: UIViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         var performSegue = true
+        
         if identifier == "create_account" {
             print("identifier = ", identifier)
             print(usernameTextField.text! + ": " + passwordTextField.text!)

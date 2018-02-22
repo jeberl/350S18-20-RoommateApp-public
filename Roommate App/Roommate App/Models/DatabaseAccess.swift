@@ -29,11 +29,17 @@ class DatabaseAccess  {
     deinit {
         
     }
+    
+    func createUser(newUser: UserAccount)-> ReturnValue<Bool> {
+        ref = Database.database().reference()
+        ref.child("users").child(newUser.email).setValue(["email":newUser.email, "nickname": newUser.nickname, "houses": newUser.houses, "phoneNumber": newUser.phoneNumber])
+        return ReturnValue(error: false, data: true)
+    }
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     func createUserModelFromEmail(email: String) -> ReturnValue<Bool> {
         //Check if email already associated with account -> Error
-        if !doesUserExist(email: email) {
+        if !doesUserExist(email: email).data! {
             return NoSuchUserError()
         }
 
@@ -47,13 +53,13 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    func changePasword(currUser: User, new_password: String) -> ReturnValue<Bool>{
+    func changePasword(email: String, new_password: String) -> ReturnValue<Bool>{
         //Use Auth.auth()
         return UnimplementedFunctionError()
     }
     
     func deleteUserAccount(email: String) -> ReturnValue<Bool> {
-        if !doesUserExist(email: email) {
+        if !doesUserExist(email: email).data! {
             return NoSuchUserError()
         }
         
@@ -70,21 +76,35 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
     
-    func doesUserExist(email: String) -> Bool {
-        return false
-        //TO BE IMPLEMENTED
+    func doesUserExist(email: String) -> ReturnValue<Bool> {
+        var result: Bool = false
+        ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            if snapshot.exists(){
+                result = true
+            }
+        })
+        return ReturnValue(error:false, data: result)
     }
     
     func getUserGlobalNickname(email: String) -> ReturnValue<String> {
-        //TO BE IMPLEMENTED
-        if !doesUserExist(email: email) {
+        var nickname: String = ""
+        if !doesUserExist(email: email).data! {
             return NoSuchUserError()
+        } else {
+            ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                if snapshot.exists(){
+                    let value = snapshot.value as? NSDictionary
+                    nickname = value?["nickname"] as? String! ?? nil
+                }
+            })
         }
-        return UnimplementedFunctionError()
+        return ReturnValue(error: false, data:nickname)
     }
     
     func setUserGlobalNickname(email: String, newNickName: String) -> ReturnValue<Bool> {
-        if !doesUserExist(email: email) {
+        if !doesUserExist(email: email).data! {
             return NoSuchUserError()
         }
         self.ref.child("users/\(email)/nickname").setValue(newNickName)
@@ -118,10 +138,10 @@ class DatabaseAccess  {
     
 
     
-    func getListOfHousesUserMemberOf() -> ReturnValue<[String]>{
-        let currEmail = Auth.auth().currentUser?.email
+    func getListOfHousesUserMemberOf(email: String) -> ReturnValue<[String]>{
+        //let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
-        ref.child("users").child(currEmail!).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if snapshot.exists(){
                 let value = snapshot.value as? NSDictionary
@@ -131,9 +151,9 @@ class DatabaseAccess  {
         return ReturnValue(error:false, data:houses)
     }
     
-    func getUserPhoneNumber(curr_user: User)-> ReturnValue<Int?> {
+    func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
         var phone_number: Int? = 0
-        ref.child("users").child(curr_user.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("users").child(email).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
             if snapshot.exists(){
                 let value = snapshot.value as? NSDictionary

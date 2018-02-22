@@ -12,14 +12,14 @@ import FirebaseDatabase
 
 struct UserAccount {
 
-    let uid: String // think this is just a Firebase specific thing, not sure
+    //let uid: String // think this is just a Firebase specific thing, not sure
     let email: String
     let nickname: String
     let houses: [String]
-    let phoneNumber: Int?
+    let phoneNumber: String
     
-    init(uid: String, email: String, nickname: String, houses:[String], phoneNumber: Int) {
-        self.uid = uid
+    init(email: String, nickname: String, houses:[String], phoneNumber: String) {
+        //self.uid = uid
         self.email = email
         self.nickname = nickname
         self.houses = houses
