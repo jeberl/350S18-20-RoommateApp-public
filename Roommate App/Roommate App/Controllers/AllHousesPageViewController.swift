@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class AllHousesPageViewController: UITableViewController {
     
@@ -22,12 +23,42 @@ class AllHousesPageViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        testLabel.text = buttonToGetHere
         
-        // Instantiate Database to get list of houses user is in - need to fix database
-        //houses = db.getListOfHousesUserMemberOf(email: currentUser!.email, callback: {(houses)-> Void in print("got houses:\(houses)")})
+        let setCurrentUserClosure = {(user : UserAccount)-> Void in
+            print("found user in database in AllHouses User: \(user)")
+            self.currentUser = user
+        }
+        
+        if let error : Error = sharedDatabaseAccess.error_logging_in {
+            loginError(message : error.localizedDescription)
+        } else if Auth.auth().currentUser == nil {
+            loginError()
+        } else {
+            testLabel.text = Auth.auth().currentUser!.email
+            let error = sharedDatabaseAccess.getUserModelFromCurrentUser(callback: setCurrentUserClosure)
+            if error.returned_error {
+                error.raiseErrorAlert(with_title: "Error:", view: self)
+            }
+        }
         // Do any additional setup after loading the view.
     }
 
+    func loginError(message : String = "User not found") {
+        let title = "Error Logging in"
+        print(title)
+        let alert = UIAlertController(title: title,
+                                      message: message ,
+                                      preferredStyle: .alert)
+        let returnAction = UIAlertAction(title:"Login Again",
+                                         style: .default,
+                                         handler:  { action in self.performSegue(withIdentifier: "loginErrorSegue", sender: self) })
+        
+        alert.addAction(returnAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -38,9 +69,12 @@ class AllHousesPageViewController: UITableViewController {
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Pass the selected object to the new view controller.
-        if segue.destination is CreateHouseViewController {
-            let vc = segue.destination as? CreateHouseViewController
-            vc?.currentUser = self.currentUser
+        if (segue.destination == ViewController() as UIViewController) {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                print("caught error signing out")
+            }
         }
     }
 

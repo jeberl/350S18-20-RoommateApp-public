@@ -99,6 +99,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0n-Fh-1IP">
+                                <rect key="frame" x="127" y="163" width="120" height="84"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qf1-Di-kP2">
                                 <rect key="frame" x="309" y="21" width="50" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -112,6 +118,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
                     </view>
+                    <connections>
+                        <outlet property="testLabel" destination="b0n-Fh-1IP" id="qLe-1Z-ftS"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginErrorSegue" id="3Cw-uK-AzS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayh-fN-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -230,7 +240,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ULm-84-1Dn"/>
-        <segue reference="SZw-Tf-XdL"/>
+        <segue reference="7EF-NK-336"/>
+        <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>
