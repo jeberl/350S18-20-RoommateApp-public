@@ -100,7 +100,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0n-Fh-1IP">
-                                <rect key="frame" x="127" y="207" width="120" height="40"/>
+                                <rect key="frame" x="127" y="163" width="120" height="84"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -126,6 +126,7 @@
                     </view>
                     <connections>
                         <outlet property="testLabel" destination="b0n-Fh-1IP" id="qLe-1Z-ftS"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginErrorSegue" id="3Cw-uK-AzS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayh-fN-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -168,5 +169,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7EF-NK-336"/>
+        <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>

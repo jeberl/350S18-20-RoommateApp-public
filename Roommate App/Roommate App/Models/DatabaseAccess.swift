@@ -22,6 +22,7 @@ var configured : Bool = false
 class DatabaseAccess  {
     
     var ref: DatabaseReference!
+    var error_logging_in: Error? = nil
     
     init(){
         if !configured {
@@ -32,44 +33,45 @@ class DatabaseAccess  {
     }
     
     deinit {
-        //Sign out???
+        do {
+            try Auth.auth().signOut()
+        } catch {
+            
+        }
+        
     }
     
-    func createAccount(username: String, password: String, callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool>{
-        var retValue : ReturnValue<Bool>? = nil
+    func createAccount(username: String, password: String){
+        print("creating user")
         Auth.auth().createUser(withEmail: username, password: password)
         { user, error in
             if error != nil {
-                retValue = FirebaseError(error_message: error!.localizedDescription)
+                print("error creating user \(error.debugDescription)")
+                if self.error_logging_in == nil {
+                    self.error_logging_in = error
+                }
+            } else {
+                self.createUserModelForCurrentUser()
             }
         }
-        print("created user ")
-        if self.createUserModelForCurrentUser().returned_error {
-            return InternalUserInitError()
-        }
-        if retValue != nil {
-            return retValue!
-        }
-        return login(username: username, password: password, callback: callback)
+        login(username: username, password: password)
     }
     
-    func login(username: String, password: String, callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool>{
-        print("\(username) , \(password)")
-        var retValue : ReturnValue<Bool>? = nil
+    func login(username: String, password: String){
+        print("loging in: \(username) , \(password)")
         Auth.auth().signIn(withEmail: username, password: password) { user, error in
             if error != nil {
-                retValue = FirebaseError(error_message: error!.localizedDescription)
+                print("error logging in: \(error.debugDescription)")
+                if self.error_logging_in == nil {
+                    self.error_logging_in = error
+                }
             }
         }
-        if retValue == nil {
-            return self.getUserModelFromCurrentUser(callback: callback)
-        }
-        return retValue!
     }
     
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
-    private func createUserModelForCurrentUser() -> ReturnValue<Bool> {
+    private func createUserModelForCurrentUser(){
         if let uid : String = Auth.auth().currentUser?.uid {
             print("adding user to db")
             let user : [String: Any?] = ["uid" : Auth.auth().currentUser!.uid,
@@ -77,35 +79,33 @@ class DatabaseAccess  {
                                          "nickname": Auth.auth().currentUser!.email,
                                          "phone_number": nil,
                                          "houses": []]
-            print("got users")
             self.ref.child("users/\(uid)").setValue(user)
             print("added user")
-            return ExpectedExecution()
         } else {
-            return NoSuchUserError()
+            print("Error adding user to db")
+            self.error_logging_in = NoSuchUserError<Bool>() as Error
         }
     }
     
-    private func getUserModelFromCurrentUser(callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool> {
+    func getUserModelFromCurrentUser(callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool> {
         var retValue: ReturnValue<Bool> = ExpectedExecution()
         if let uid : String = Auth.auth().currentUser?.uid {
             print("getting user from local db: \(uid)")
             self.ref.child("users/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                print("found user in db")
                 if snapshot.exists() {
                     let value = snapshot.value as? NSDictionary
                     callback(UserAccount(dict : value!))
-                    print("value = \(value!)")
+                    
                 }
             }) { (error) in
-                print("throwing error")
+                print("couldent find user in db")
                 retValue = ReturnValue(error: true, error_message: error.localizedDescription)
             }
-            
+            return retValue
         } else {
-            retValue = NoSuchUserError()
+            return NoSuchUserError()
         }
-        print("returning \(retValue)")
-        return retValue
     }
     
     func changePasword(new_password: String) -> ReturnValue<Bool>{

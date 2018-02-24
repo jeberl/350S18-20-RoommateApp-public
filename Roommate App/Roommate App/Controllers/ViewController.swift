@@ -18,7 +18,6 @@ class ViewController: UIViewController {
 
     let database: DatabaseAccess = sharedDatabaseAccess
     var buttonPressed = ""
-    var userLoggingIn: UserAccount? = nil
 
     
     override func viewDidLoad() {
@@ -32,44 +31,17 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        var retValue : ReturnValue<Bool>
-        let setCurrentUserClosure = {(user : UserAccount)-> Void in
-            self.userLoggingIn = user
-            print("closure run")
-        }
         if identifier == "create_account" {
-            retValue = database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, callback: setCurrentUserClosure)
+            database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!)
         } else {
-            retValue = database.login(username: usernameTextField.text!, password: passwordTextField.text!, callback: setCurrentUserClosure)
+            database.login(username: usernameTextField.text!, password: passwordTextField.text!)
         }
-        if retValue.returned_error {
-            let title = retValue.error_number == 50 ? "Error" : "Internal Error"
-            raiseErrorAlert(with_title: title, with_message: retValue.error_message!)
-            return false
-        }
-        while userLoggingIn == nil {
-            // wait for result of log in
-        }
-        return true
+        return Auth.auth().currentUser != nil
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is AllHousesPageViewController {
-            let vc = segue.destination as? AllHousesPageViewController
-            vc?.currentUser = userLoggingIn
-        }
-    }
-    
-    func raiseErrorAlert(with_title title: String, with_message message: String) {
-        let alert = UIAlertController(title: title,
-                                      message: message ,
-                                      preferredStyle: .alert)
-        let continueAction = UIAlertAction(title: "Continue",
-                                           style: .default)
-        alert.addAction(continueAction)
-        present(alert, animated: true, completion: nil)
-        passwordTextField.text = ""
-        print(message)
+        // Do anything that needs to be done before switching views
+        
     }
 
 }
