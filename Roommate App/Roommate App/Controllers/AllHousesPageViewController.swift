@@ -11,6 +11,8 @@ import FirebaseAuth
 
 class AllHousesPageViewController: UIViewController {
     
+    let database: DatabaseAccess = DatabaseAccess.getInstance()
+    
     var buttonToGetHere = ""
     var currentUser : UserAccount?
     
@@ -23,15 +25,13 @@ class AllHousesPageViewController: UIViewController {
         let setCurrentUserClosure = {(user : UserAccount)-> Void in
             print("found user in database in AllHouses User: \(user)")
             self.currentUser = user
+            self.testLabel.text = user.email
         }
         
-        if let error : Error = sharedDatabaseAccess.error_logging_in {
-            loginError(message : error.localizedDescription)
-        } else if Auth.auth().currentUser == nil {
+        if Auth.auth().currentUser == nil {
             loginError()
         } else {
-            testLabel.text = Auth.auth().currentUser!.email
-            let error = sharedDatabaseAccess.getUserModelFromCurrentUser(callback: setCurrentUserClosure)
+            let error = database.getUserModelFromCurrentUser(callback: setCurrentUserClosure)
             if error.returned_error {
                 error.raiseErrorAlert(with_title: "Error:", view: self)
             }
@@ -43,7 +43,7 @@ class AllHousesPageViewController: UIViewController {
         let title = "Error Logging in"
         print(title)
         let alert = UIAlertController(title: title,
-                                      message: message ,
+                                      message: message,
                                       preferredStyle: .alert)
         let returnAction = UIAlertAction(title:"Login Again",
                                          style: .default,
