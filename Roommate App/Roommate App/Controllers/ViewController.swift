@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
 
-    let database: DatabaseAccess = sharedDatabaseAccess
+    let database: DatabaseAccess = DatabaseAccess.getInstance()
     var buttonPressed = ""
 
     
@@ -36,18 +36,22 @@ class ViewController: UIViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "create_account" {
-            database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!)
-        } else {
-            database.login(username: usernameTextField.text!, password: passwordTextField.text!)
-        }
-        return Auth.auth().currentUser != nil
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Do anything that needs to be done before switching views
+        let destination = segue.destination as? AllHousesPageViewController
+        //destination?.currentUser = 
+    }
+    
+    @IBAction func LogInButtonPressed(_ sender: Any) {
+        database.login(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
         
     }
 
+    @IBAction func CreateAccountButtonPressed(_ sender: Any) {
+        database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
+    }
 }
 

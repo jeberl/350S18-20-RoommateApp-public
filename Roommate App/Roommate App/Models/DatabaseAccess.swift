@@ -7,29 +7,35 @@
 //
 
 import Foundation
+import UIKit
 
 import Firebase
 import FirebaseDatabase
 import FirebaseAuthUI
 
-import Firebase
-import FirebaseDatabase
-import FirebaseAuthUI
 
-let sharedDatabaseAccess: DatabaseAccess = DatabaseAccess()
 var configured : Bool = false
 
 class DatabaseAccess  {
     
+    static var instance: DatabaseAccess? = nil
+    
     var ref: DatabaseReference!
     var error_logging_in: Error? = nil
     
-    init(){
+    private init(){
         if !configured {
             FirebaseApp.configure()
             configured = true
             ref = Database.database().reference()
         }
+    }
+    
+    public static func getInstance() -> DatabaseAccess {
+        if instance == nil {
+            instance = DatabaseAccess()
+        }
+        return instance!
     }
     
     deinit {
@@ -38,36 +44,73 @@ class DatabaseAccess  {
         } catch {
             
         }
-        
     }
     
-    func createAccount(username: String, password: String){
+    func createAccount(username: String, password: String, view: UIViewController){
         print("creating user")
         Auth.auth().createUser(withEmail: username, password: password)
         { user, error in
             if error != nil {
                 print("error creating user \(error.debugDescription)")
-                if self.error_logging_in == nil {
-                    self.error_logging_in = error
-                }
-            } else {
+                self.create_account_error(error: error!, view: view)
+            } else if user != nil {
                 self.createUserModelForCurrentUser()
+                self.ok_account_creation(view: view)
             }
+            
         }
-        login(username: username, password: password)
     }
     
-    func login(username: String, password: String){
+    func login(username: String, password: String, view: UIViewController){
         print("loging in: \(username) , \(password)")
         Auth.auth().signIn(withEmail: username, password: password) { user, error in
             if error != nil {
                 print("error logging in: \(error.debugDescription)")
-                if self.error_logging_in == nil {
-                    self.error_logging_in = error
-                }
+                self.login_error(error: error!, view: view)
+            } else if user != nil {
+                view.performSegue(withIdentifier: "log_in", sender: view)
             }
         }
     }
+<<<<<<< HEAD
+=======
+    
+    private func ok_account_creation(view: UIViewController) {
+        let alert = UIAlertController(title: "Account Created",
+                                      message: "Please login" ,
+                                      preferredStyle: .alert)
+        present_popup(alert: alert, view: view, return_to_login: false)
+    }
+    
+    private func create_account_error(error: Error, view: UIViewController) {
+        let alert = UIAlertController(title: "Account Creation Error",
+                                      message: error.localizedDescription ,
+                                      preferredStyle: .alert)
+        present_popup(alert: alert, view: view, return_to_login: false)
+    }
+    
+    private func login_error(error: Error, view: UIViewController) {
+        let alert = UIAlertController(title: "Login Error",
+                                      message: error.localizedDescription ,
+                                      preferredStyle: .alert)
+        present_popup(alert: alert, view: view, return_to_login: false)
+    }
+    
+    
+    private func present_popup(alert: UIAlertController, view: UIViewController, return_to_login: Bool) {
+        
+        let returnAction = UIAlertAction(title:"Login Again",
+                                         style: .default,
+                                         handler:  { action in view.performSegue(withIdentifier: "loginErrorSegue", sender: self) })
+        
+        let continueAction = UIAlertAction(title: "Continue",
+                                           style: .default)
+        
+        alert.addAction(return_to_login ? returnAction : continueAction)
+        view.present(alert, animated: true, completion: nil)
+    }
+
+>>>>>>> Finish Auth
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     private func createUserModelForCurrentUser(){
@@ -81,7 +124,7 @@ class DatabaseAccess  {
             self.ref.child("users/\(uid)").setValue(user)
             print("added user")
         } else {
-            print("Error adding user to db")
+            print("Error adding user to db: User Not Found")
             self.error_logging_in = NoSuchUserError<Bool>() as Error
         }
     }
@@ -92,11 +135,9 @@ class DatabaseAccess  {
             print("getting user from local db: \(uid)")
             self.ref.child("users/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
                 print("found user in db")
-                if snapshot.exists() {
-                    let value = snapshot.value as? NSDictionary
-                    callback(UserAccount(dict : value!))
-                    
-                }
+                let value = snapshot.value as? NSDictionary
+                callback(UserAccount(dict : value!))
+
             }) { (error) in
                 print("couldent find user in db")
                 retValue = ReturnValue(error: true, error_message: error.localizedDescription)

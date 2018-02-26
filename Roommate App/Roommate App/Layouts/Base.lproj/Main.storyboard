@@ -51,7 +51,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Log In"/>
                                 <connections>
-                                    <segue destination="zxY-bV-udo" kind="show" identifier="log_in" id="7EF-NK-336"/>
+                                    <action selector="LogInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uxG-vA-Idp"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGV-D4-jqm">
@@ -74,7 +74,7 @@
                                 <accessibility key="accessibilityConfiguration" identifier="create_account"/>
                                 <state key="normal" title="Create Account"/>
                                 <connections>
-                                    <segue destination="zxY-bV-udo" kind="show" identifier="create_account" id="bxx-kv-yrj"/>
+                                    <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7J5-ZO-Eib"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -85,6 +85,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="Dda-Tg-Qq7" id="Din-L5-OL5"/>
                         <outlet property="usernameTextField" destination="uAO-Ke-qC3" id="l9S-22-vCA"/>
+                        <segue destination="zxY-bV-udo" kind="show" identifier="log_in" id="tbI-jn-U8S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -240,7 +241,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="7EF-NK-336"/>
+        <segue reference="tbI-jn-U8S"/>
         <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>
