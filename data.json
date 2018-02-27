@@ -1,61 +1,20 @@
 {
 	"users": { 
-		"qerjqreipeqr" : { 				// Randomly generated key using Database.Database.child("users").childByAutoId().key
+		"qerjqreipeqr" : { 			 // Randomly generated key using Database.Database.child("users").childByAutoId().key
 			"uid" :  "qerjqreipeqr", // The same as the key for the user object in firebase
 			"email" : "1@test.com",
 			"nickname" : "Test User 1",
 			"houses" : {
-				"H1" : true,
-				"H5" : true,
-				"H6" : true
+				"erv2rv2rv" : true,  // Keys of houses
+				"eeiiv2eri" : true,
+				"2rv2r4v4r" : true
 			},
 			"phone_number" : 111111111
 			
-		},
-		"ievbveoeqr" : {
-			"user_id" :  "ievbveoeqr",
-			"email" : "2@test.com",
-			"nickname" : "2@test.com", //Default nickname is email
-			"houses" : {
-				"H1" : true,
-				"H5" : true,
-				"H6" : true
-			},
-			"phone_number" : 111111111,
-			"firebase_uid" : "wervuiwbego"
-		},
-		"" : {
-			"nickname" : "Test User 2",
-			"houses" : {
-				"H1" : true,
-				"H2" : true,
-				"H6" : true
-			},
-			"phone_number" : null,
-			"firebase_uid" : "wewrghrk"
-		},
-
-		"3@test.com" : {
-			"nickname" : "Test User 3",
-			"houses" : {},
-			"phone_number" : 333333333,
-			"firebase_uid" : "oievnovrjbo"
-		},
-
-		"4@test.com" : {
-			"nickname" : "Test User 4",
-			"houses" : {
-				"H1" : true,
-				"H4" : true,
-				"H6" : true
-			},
-			"phone_number" : 444444444,
-			"firebase_uid" : "134ip13ipi"
 		}
 	},
-
-	"houses" : {
-		"H1" : {
+	"houses" : {  					// Randomly generated key using Database.Database.child("users").childByAutoId().key
+		"erv2rv2rv" : {
 			"house_name" : "Test House H1",
 			"house_users" : {
 				"1@test.com" : "House User 1",
@@ -69,7 +28,22 @@
 		}
 	},
 
-	"charges" : {
+	"chores" : {  					
+		"etnrsbwtj3" : {				// Randomly generated key using Database.Database.child("users").childByAutoId().key
+			"choreID" : "etnrsbwtj",
+			"title" : "Dishes",
+			"assigned_by" : "pqerpivb", //User ids of the users who this chore is assigned to 
+			"responsible" : ["qerjqreipeqr"], //User ids of the user(s) who this chore is assigned to 
+			"completed" : false,
+			"time_assigned" : 00, // An NSTimeStamp
+			"time_due" : 00, // An NSTimeStamp
+			"time_completed" : 00, // An NSTimeStamp
+			"house" : "erv2rv2rv", // HouseID
+			"description" : "Do the fucking dishes Gene!"
+		}
+	},
+
+	"charges" : { 					//NOT IMPLEMENTED IN DATABASE
 		"C1" : {
 			"house" : "H1",
 			"from_user" : "1@test.com",
