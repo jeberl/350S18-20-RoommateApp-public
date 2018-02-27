@@ -10,14 +10,12 @@ import UIKit
 import FirebaseAuth
 
 class AllHousesPageViewController: UITableViewController {
-    
-    let database: DatabaseAccess = DatabaseAccess.getInstance()
-    
+        
     var buttonToGetHere = ""
     var currentUser : UserAccount?
     //var houses : ()?
     var houses = ["House 1", "House 2", "House 3"]
-    var db : DatabaseAccess = DatabaseAccess()
+    var database : DatabaseAccess = DatabaseAccess.getInstance()
     var houseAdded : String?
     
     @IBOutlet weak var testLabel: UILabel!
@@ -26,8 +24,6 @@ class AllHousesPageViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        testLabel.text = buttonToGetHere
         
         let setCurrentUserClosure = {(user : UserAccount)-> Void in
             print("found user in database in AllHouses User: \(user)")

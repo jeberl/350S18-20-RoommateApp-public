@@ -284,7 +284,7 @@ class DatabaseAccess  {
             if snapshot.exists(){
                 let snapshotValue = snapshot.value as? NSDictionary
                 houses = (snapshotValue?["houses"] as? [String])!
-                group.leave()
+                //group.leave()
             }
         })
         return houses

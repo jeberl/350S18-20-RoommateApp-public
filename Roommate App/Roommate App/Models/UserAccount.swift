@@ -15,10 +15,10 @@ struct UserAccount {
     let email: String
     let nickname: String
     let houses: [String]
-    let phoneNumber: String
+    let phoneNumber: String?
     
-    init(email: String, nickname: String, houses:[String], phoneNumber: String) {
-        //self.uid = uid
+    init(uid: String, email: String, nickname: String, houses:[String], phoneNumber: String) {
+        self.uid = uid
         self.email = email
         self.nickname = nickname
         self.houses = houses
@@ -36,6 +36,6 @@ struct UserAccount {
             self.houses = []
         }
         
-        self.phoneNumber = dict["phone_number"] as! Int?
+        self.phoneNumber = dict["phone_number"] as! String?
     }
 }
