@@ -72,8 +72,6 @@ class DatabaseAccess  {
             }
         }
     }
-<<<<<<< HEAD
-=======
     
     private func ok_account_creation(view: UIViewController) {
         let alert = UIAlertController(title: "Account Created",
@@ -109,8 +107,6 @@ class DatabaseAccess  {
         alert.addAction(return_to_login ? returnAction : continueAction)
         view.present(alert, animated: true, completion: nil)
     }
-
->>>>>>> Finish Auth
 
     //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
     private func createUserModelForCurrentUser(){
@@ -280,10 +276,8 @@ class DatabaseAccess  {
         }
     }
     
-
-    
     func getListOfHousesUserMemberOf(email: String) -> [String]?{
-        //let currEmail = Auth.auth().currentUser?.email
+        let currEmail = Auth.auth().currentUser?.email
         var houses: [String] = []
         ref.child("users/\(currEmail!)").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
