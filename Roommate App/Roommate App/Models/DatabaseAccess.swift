@@ -427,6 +427,6 @@ class DatabaseAccess  {
     func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
         // TO BE IMPLEMENTED
     }
-
     
+
 }
