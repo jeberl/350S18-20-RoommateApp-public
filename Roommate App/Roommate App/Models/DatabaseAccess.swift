@@ -13,9 +13,6 @@ import Firebase
 import FirebaseDatabase
 import FirebaseAuthUI
 
-
-var configured : Bool = false
-
 class DatabaseAccess  {
     
     static var instance: DatabaseAccess? = nil
@@ -24,11 +21,8 @@ class DatabaseAccess  {
     var error_logging_in: Error? = nil
     
     private init(){
-        if !configured {
-            FirebaseApp.configure()
-            configured = true
-            ref = Database.database().reference()
-        }
+        FirebaseApp.configure()
+        ref = Database.database().reference()
     }
     
     public static func getInstance() -> DatabaseAccess {
@@ -46,29 +40,36 @@ class DatabaseAccess  {
         }
     }
     
-    func createAccount(username: String, password: String, view: UIViewController){
+    func createAccount(username: String, password: String, view: UIViewController?){
         print("creating user")
         Auth.auth().createUser(withEmail: username, password: password)
         { user, error in
             if error != nil {
                 print("error creating user \(error.debugDescription)")
-                self.create_account_error(error: error!, view: view)
+                if view != nil {
+                    self.create_account_error(error: error!, view: view!)
+                }
             } else if user != nil {
                 self.createUserModelForCurrentUser()
-                self.ok_account_creation(view: view)
+                if view != nil {
+                    self.ok_account_creation(view: view!)
+                }
             }
-            
         }
     }
     
-    func login(username: String, password: String, view: UIViewController){
+    func login(username: String, password: String, view: UIViewController?){
         print("loging in: \(username) , \(password)")
         Auth.auth().signIn(withEmail: username, password: password) { user, error in
             if error != nil {
                 print("error logging in: \(error.debugDescription)")
-                self.login_error(error: error!, view: view)
+                if view != nil {
+                    self.login_error(error: error!, view: view!)
+                }
             } else if user != nil {
-                view.performSegue(withIdentifier: "log_in", sender: view)
+                if view != nil {
+                    view?.performSegue(withIdentifier: "log_in", sender: view!) 
+                }
             }
         }
     }
@@ -108,7 +109,7 @@ class DatabaseAccess  {
         view.present(alert, animated: true, completion: nil)
     }
 
-    //PUBLIC FUNCTIONS TO BE USED BY OTHER CLASSES
+    
     private func createUserModelForCurrentUser(){
         if let uid : String = Auth.auth().currentUser?.uid {
             print("adding user to db")
@@ -149,66 +150,74 @@ class DatabaseAccess  {
         return UnimplementedFunctionError()
     }
 
-    func deleteUserAccount() -> ReturnValue<Bool> {
-        if let email : String = Auth.auth().currentUser!.email {
-            let user : DatabaseReference = self.ref.child("users/\(email)")
+    func deleteUserAccount(on_error callback: @escaping (Error?) -> Void) -> ReturnValue<Bool> {
+        if let uid = Auth.auth().currentUser?.uid {
+            let user : DatabaseReference = self.ref.child("users/\(uid)")
             
+            // Remove User from associated houses
             let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
             while let HouseId = house_enumerator?.nextObject() {
-                self.ref.child("houses/\(HouseId)/house_users/\(email)").removeValue()
+                self.ref.child("houses/\(HouseId)/house_users/\(uid)").removeValue()
             }
             
+            //Remove User from database
             user.removeValue()
-            let FIRuser = Auth.auth().currentUser
             
-            var delete_user_error : String = ""
-            FIRuser?.delete { error in
-                delete_user_error = error.debugDescription
+            //Remove User Authentication
+            Auth.auth().currentUser?.delete { error in
+                print(error.debugDescription)
+                callback(error)
             }
-            
-            if delete_user_error == nil {
-                return ExpectedExecution()
-            } else {
-                return FirebaseError(error_message: delete_user_error)
-            }
-            
-        }
-        return NoSuchUserError()
-    }
-    
-
-    func getUserGlobalNickname() -> ReturnValue<String> {
-        if let email : String = Auth.auth().currentUser!.email {
-            return ReturnValue<String>(error: false,
-                               data: self.ref.child("users/\(email)").value(forKey: "nickname") as? String)
-        }
-        return NoSuchUserError()
-    }
-    
-    func setUserGlobalNickname(new_nickname: String) -> ReturnValue<Bool> {
-        if let email : String = Auth.auth().currentUser!.email {
-            self.ref.child("users/\(email)/nickname").setValue(new_nickname)
             return ExpectedExecution()
         }
         return NoSuchUserError()
     }
     
-    func getUserLocalNickname(from_house house: House) -> ReturnValue<String> {
-        if let email : String = Auth.auth().currentUser!.email {
-            let house_users : DatabaseReference = self.ref.child("houses/\(house.houseID)/users")
-            if let nickname : String = house_users.value(forKey: "\(email)") as? String {
-                return ReturnValue<String>(error: false, data: nickname)
-            }
-            return UserNotMemberofHouseError()
+
+    func getUserGlobalNickname(callback : @escaping (String) -> Void) -> ReturnValue<Bool> {
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("users/\(uid)/nickname").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists() {
+                    if let nickname = snapshot.value as? String {
+                        callback(nickname)
+                    } else {
+                        print("Nickname not found")
+                    }
+                } else {
+                    print("Snapshot not found")
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+    }
+    
+    func setUserGlobalNickname(new_nickname: String) -> ReturnValue<Bool> {
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("users/\(uid)/nickname").setValue(new_nickname)
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+    }
+    
+    func getUserLocalNickname(from_house house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("houses/\(house.houseID)/house_users").observe(.value, with: { (snapshot) in
+                if snapshot.exists() {
+                    let nickname = snapshot.value(forKeyPath: uid) as? String
+                    callback(nickname)
+                }
+            })
+            return ExpectedExecution()
         }
         return NoSuchUserError()
     }
     
     func setUserLocalNickname(in_house : House, to new_nickname: String) -> ReturnValue<Bool>{
-        if let email : String = Auth.auth().currentUser!.email {
+        if let uid : String = Auth.auth().currentUser!.uid {
             let house_users : DatabaseReference = self.ref.child("houses/\(in_house.houseID)/users")
-            if let _ : String = house_users.value(forKey: "\(email)") as? String {
-                house_users.setValue(new_nickname, forKey: "\(email)")
+            if let _ : String = house_users.value(forKey: uid) as? String {
+                house_users.setValue(new_nickname, forKey: uid)
                 return ExpectedExecution()
             }
             return UserNotMemberofHouseError()

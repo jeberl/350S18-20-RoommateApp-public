@@ -15,11 +15,12 @@
 	},
 	"houses" : {  					// Randomly generated key using Database.Database.child("users").childByAutoId().key
 		"erv2rv2rv" : {
+			"houseID" : "erv2rv2rv",
 			"house_name" : "Test House H1",
 			"house_users" : {
-				"1@test.com" : "House User 1",
-				"2@test.com" : "House User 2",
-				"4@test.com" : "House User 4",
+				"qerjqreipeqr" : "House User 1",
+				"regqw3rgr4rg" : "House User 2",
+				"q3rwgr3grguj" : "House User 4",
 			},
 			"owner" : "1@test.com",
 			"recent_charges" : [ "C1", "C3", "C3"]

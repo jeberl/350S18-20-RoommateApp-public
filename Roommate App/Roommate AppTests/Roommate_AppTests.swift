@@ -19,26 +19,39 @@ let test_email_passwords: [String] = ["test123"]
 class Roommate_AppTests: XCTestCase {
     
     var database : DatabaseAccess?
+    var intitalUser : UserAccount?
     
     override func setUp() {
         super.setUp()
-        database = sharedDatabaseAccess
+        database = DatabaseAccess.getInstance()
+        database!.login(username: test_email_addresses[0], password: test_email_passwords[0], view : nil)
+        let error = database!.getUserModelFromCurrentUser { (user) in
+            print("created initial user")
+            self.intitalUser = user
+        }
+        print(error.getErrorDescription())
     }
     
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
-
         super.tearDown()
     }
     
-    func testCreateUser(){
-        let result = database!.createAccount(username: test_email_addresses[0], password: test_email_passwords[0])
-        print("error: \(result.getErrorDescription())")
-        XCTAssert(!result.returned_error)
+    func testUserHasCorrectInitial (){
+        if let user: UserAccount = intitalUser {
+            XCTAssertEqual(user.email, test_email_addresses[0])
+            XCTAssertEqual(user.nickname, test_email_addresses[0])
+            XCTAssertEqual(user.houses, [])
+            XCTAssertEqual(user.phoneNumber, nil)
+        } else {
+            print("Initial User Not created")
+            XCTFail()
+        }
+
     }
     
     func testAddUserExists() {
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        //Use XCTAssert and related functions to verify your tests produce the correct results.
         //self.data.createUser(email: "test1@test.com", password: "1234")
         //self.data.createUserModelFromEmail(email: "test1@test.com")
     }
