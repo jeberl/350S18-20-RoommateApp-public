@@ -214,7 +214,7 @@ class DatabaseAccess  {
     }
     
     func setUserLocalNickname(in_house : House, to new_nickname: String) -> ReturnValue<Bool>{
-        if let uid : String = Auth.auth().currentUser!.uid {
+        if let uid : String = Auth.auth().currentUser?.uid {
             let house_users : DatabaseReference = self.ref.child("houses/\(in_house.houseID)/users")
             if let _ : String = house_users.value(forKey: uid) as? String {
                 house_users.setValue(new_nickname, forKey: uid)
