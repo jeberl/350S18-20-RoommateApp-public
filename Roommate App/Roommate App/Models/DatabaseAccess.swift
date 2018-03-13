@@ -206,21 +206,31 @@ class DatabaseAccess  {
     }
     
     func getUserGlobalNickname(for_uid: String? = nil, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        //Check specific uid was given if not return for current user
         var uid = for_uid
         if uid == nil {
             uid = Auth.auth().currentUser?.uid
         }
         if uid != nil  {
+            //Navigate to the user nickname field and get a "Snapshot" of the data stored there
             self.ref.child("users/\(uid!)/nickname").observeSingleEvent(of: .value, with: { (snapshot) in
+                //This is the closure where we say what to do with the given snapshot which in this case is the nickname
+                
+                // We check if the snapshot exists ie. is there data stored there
                 if snapshot.exists() {
+                    // Get the value of the snapshot (cast to string) and store as nickname
                     if let nickname = snapshot.value as? String {
+                        //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
                         callback(nickname)
                     } else {
+                        // If cast coulnt occur no nickname found, run  callback with nil
                         print("Nickname not found")
+                        callback(nil)
                     }
                 } else {
+                    // If no snapshot then no user, run the callback with nil
+                    print("User not found")
                     callback(nil)
-                    print("Snapshot not found")
                 }
             })
             return ExpectedExecution()
@@ -229,7 +239,9 @@ class DatabaseAccess  {
     }
     
     func setUserGlobalNickname(new_nickname: String) -> ReturnValue<Bool> {
+        //Check if user is logged in
         if let uid : String = Auth.auth().currentUser?.uid {
+            // Setting value does not require closures and can be done dicrectly to the DatabaseReferecece returned by .child() function
             self.ref.child("users/\(uid)/nickname").setValue(new_nickname)
             return ExpectedExecution()
         }
