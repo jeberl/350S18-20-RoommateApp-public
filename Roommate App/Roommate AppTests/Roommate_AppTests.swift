@@ -25,10 +25,10 @@ class Roommate_AppTests: XCTestCase {
         super.setUp()
         database = DatabaseAccess.getInstance()
         database!.login(username: test_email_addresses[0], password: test_email_passwords[0], view : nil)
-        let error = database!.getUserModelFromCurrentUser { (user) in
+        let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
             print("created initial user")
             self.intitalUser = user
-        }
+        })
         print(error.getErrorDescription())
     }
     
@@ -37,14 +37,19 @@ class Roommate_AppTests: XCTestCase {
         super.tearDown()
     }
     
+    
+    
     func testUserHasCorrectInitial (){
-        if let user: UserAccount = intitalUser {
+        let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
+            print("created initial user")
+            self.intitalUser = user
             XCTAssertEqual(user.email, test_email_addresses[0])
             XCTAssertEqual(user.nickname, test_email_addresses[0])
             XCTAssertEqual(user.houses, [])
             XCTAssertEqual(user.phoneNumber, nil)
-        } else {
-            print("Initial User Not created")
+    
+        })
+        if error.returned_error {
             XCTFail()
         }
 
@@ -55,10 +60,7 @@ class Roommate_AppTests: XCTestCase {
         //self.data.createUser(email: "test1@test.com", password: "1234")
         //self.data.createUserModelFromEmail(email: "test1@test.com")
     }
-
-    func testAddUserEmailAlreadyUsedError() {
-        XCTFail("To Implement")
-    }
+ 
     
     func testDeleteUser() {
         //signInUser(number: 0)

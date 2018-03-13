@@ -34,7 +34,7 @@ class AllHousesPageViewController: UITableViewController {
         if Auth.auth().currentUser == nil {
             loginError()
         } else {
-            let error = database.getUserModelFromCurrentUser(callback: setCurrentUserClosure)
+            let error = database.getUserModelFromCurrentUser(view: self, callback: setCurrentUserClosure)
             if error.returned_error {
                 error.raiseErrorAlert(with_title: "Error:", view: self)
             }

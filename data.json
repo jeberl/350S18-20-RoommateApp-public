@@ -13,18 +13,31 @@
 			
 		}
 	},
+	"user_emails" : {
+		"1@test.com" : { "created": true,		// To find a users UID from a given email
+						 "uid" : "qerjqreipeqr"
+						}
+		, 
+		"to@be.created" : { "created" : false,  // if a user is added to a house before an account is created for that email an account here will be
+							"houses" : {"erv2rv2rv": true}
+						}
+	},
 	"houses" : {  					// Randomly generated key using Database.Database.child("users").childByAutoId().key
 		"erv2rv2rv" : {
 			"houseID" : "erv2rv2rv",
 			"house_name" : "Test House H1",
-			"house_users" : {
-				"qerjqreipeqr" : "House User 1",
-				"regqw3rgr4rg" : "House User 2",
-				"q3rwgr3grguj" : "House User 4",
+			"house_users" : {		// Users who's accounts have not been created do not show up here
+				"qerjqreipeqr" : {
+					"email": "1@test.com",
+					"nickname" : "House User 1"
+				},
+				"regqw3rgr4rg" : {	
+					"email": "2@test.com",
+					"nickname" : "House User 2"
+				}, 
 			},
 			"owner" : "1@test.com",
 			"recent_charges" : [ "C1", "C3", "C3"]
-			,
 
 		}
 	},
