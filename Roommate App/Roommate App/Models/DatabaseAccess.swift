@@ -361,19 +361,84 @@ class DatabaseAccess  {
     }
     // All functions above implemented and not tested //
     
-    func getListOfHousesUserMemberOf(email: String) -> [String]?{
-        let currEmail = Auth.auth().currentUser?.email
-        var houses: [String] = []
-        ref.child("users/\(currEmail!)").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
+    // Function to get a House's string name from its UID
+    func getStringHouseName(house_id: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if house_id == nil {
+            return NoSuchHouseError()
+        }
+        self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as house name
+                if let house_name = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    callback(house_name)
+                } else {
+                    // If cast could not occur then no house name found so run callback with nil
+                    print("House Name not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    func getListOfHousesUserMemberOf(email: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        let currUID = Auth.auth().currentUser?.uid
+        //let user_houses: [String] = []
+        // Navigate to the user houses field and get a "Snapshot" of the data stored there
+        if currUID == nil {
+            return NoSuchUserError()
+        }
+        self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
+            // This is the closure where we say what to do with the given snapshot, in this case, the houses the
+            // user is in
+            
+            // Check if snapshot exists i.e. if data is stored there
             if snapshot.exists(){
+                // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
+                if let house_ids = snapshot.value as? [String] {
+                    let houses : [String]?
+                    for house_id in house_ids {
+                        houses?.append(getStringHouseName(house_id: house_id, callback: <#T##(String?) -> Void#>))
+                    }
+                    callback(houses)
+                } else {
+                    // If cast could not occur aka no houses found, run callback with nil
+                    print("User not in any houses")
+                    callback(nil)
+                }
                 let snapshotValue = snapshot.value as? NSDictionary
                 houses = (snapshotValue?["houses"] as? [String])!
                 //group.leave()
             }
         })
+        return ExpectedExecution()
         return houses
-    }
+        if uid != nil  {
+            //Navigate to the user nickname field and get a "Snapshot" of the data stored there
+            self.ref.child("users/\(uid!)/nickname").observeSingleEvent(of: .value, with: { (snapshot) in
+                //This is the closure where we say what to do with the given snapshot which in this case is the nickname
+                
+                // We check if the snapshot exists ie. is there data stored there
+                if snapshot.exists() {
+                    // Get the value of the snapshot (cast to string) and store as nickname
+                    if let nickname = snapshot.value as? String {
+                        //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                        callback(nickname)
+                    } else {
+                        // If cast coulnt occur no nickname found, run  callback with nil
+                        print("Nickname not found")
+                        callback(nil)
+                    }
+                } else {
+                    // If no snapshot then no user, run the callback with nil
+                    print("User not found")
+                    callback(nil)
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()    }
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
         var phone_number: Int? = 0

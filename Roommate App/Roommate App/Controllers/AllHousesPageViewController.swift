@@ -12,7 +12,7 @@ import FirebaseAuth
 class AllHousesPageViewController: UITableViewController {
         
     var buttonToGetHere = ""
-    var currentUser : UserAccount?
+    var currentUser : UserAccount!
     //var houses : ()?
     var houses = ["House 1", "House 2", "House 3"]
     var database : DatabaseAccess = DatabaseAccess.getInstance()
@@ -39,6 +39,24 @@ class AllHousesPageViewController: UITableViewController {
                 error.raiseErrorAlert(with_title: "Error:", view: self)
             }
         }
+        
+        let userHouseClosure = { (house_ids : [String]?) -> Void in
+            var houses : [String]?
+            let houseNameClosure = { (house_name : String?) -> Void in
+                if house_name != nil {
+                    houses?.append(house_name!)
+                }
+            }
+            if house_ids == nil {
+                let house_ids = []
+            }
+            for house_id in house_ids! {
+                self.database.getStringHouseName(house_id: <#T##String#>, callback: houseNameClosure)
+            }
+        }
+        
+        houses = self.database.getListOfHousesUserMemberOf(email: currentUser.email, callback: userHouseClosure)
+        
         // Do any additional setup after loading the view.
     }
 
