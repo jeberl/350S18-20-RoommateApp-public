@@ -382,63 +382,44 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
+    /*
+     Gets list of houses a given user is a member of
+     Input: String email of user and the callback function to use (aka what to do with the retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
+    */
     func getListOfHousesUserMemberOf(email: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         let currUID = Auth.auth().currentUser?.uid
-        //let user_houses: [String] = []
-        // Navigate to the user houses field and get a "Snapshot" of the data stored there
+        print("DB: found user")
+        
+        // Verify the user exists
         if currUID == nil {
+            print("DB: UID does not exist")
             return NoSuchUserError()
         }
+        print("DB: Function was called")
+        print("DB: \(currUID)")
+        // Navigate to the user houses field and get a "Snapshot" of the data stored there
         self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
             // This is the closure where we say what to do with the given snapshot, in this case, the houses the
             // user is in
-            
+            print("DB: taking snapshot")
             // Check if snapshot exists i.e. if data is stored there
             if snapshot.exists(){
+                print("DB: Snapshot exists")
                 // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
                 if let house_ids = snapshot.value as? [String] {
-                    let houses : [String]?
-                    for house_id in house_ids {
-                        houses?.append(getStringHouseName(house_id: house_id, callback: <#T##(String?) -> Void#>))
-                    }
-                    callback(houses)
+                    print("User is in \(house_ids.count) houses")
+                    // Callback with house ids which are random identifier strings of letters and numbers
+                    callback(house_ids)
                 } else {
                     // If cast could not occur aka no houses found, run callback with nil
                     print("User not in any houses")
                     callback(nil)
                 }
-                let snapshotValue = snapshot.value as? NSDictionary
-                houses = (snapshotValue?["houses"] as? [String])!
-                //group.leave()
             }
         })
         return ExpectedExecution()
-        return houses
-        if uid != nil  {
-            //Navigate to the user nickname field and get a "Snapshot" of the data stored there
-            self.ref.child("users/\(uid!)/nickname").observeSingleEvent(of: .value, with: { (snapshot) in
-                //This is the closure where we say what to do with the given snapshot which in this case is the nickname
-                
-                // We check if the snapshot exists ie. is there data stored there
-                if snapshot.exists() {
-                    // Get the value of the snapshot (cast to string) and store as nickname
-                    if let nickname = snapshot.value as? String {
-                        //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
-                        callback(nickname)
-                    } else {
-                        // If cast coulnt occur no nickname found, run  callback with nil
-                        print("Nickname not found")
-                        callback(nil)
-                    }
-                } else {
-                    // If no snapshot then no user, run the callback with nil
-                    print("User not found")
-                    callback(nil)
-                }
-            })
-            return ExpectedExecution()
-        }
-        return NoSuchUserError()    }
+    }
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
         var phone_number: Int? = 0

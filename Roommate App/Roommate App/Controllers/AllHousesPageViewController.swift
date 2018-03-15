@@ -12,11 +12,11 @@ import FirebaseAuth
 class AllHousesPageViewController: UITableViewController {
         
     var buttonToGetHere = ""
-    var currentUser : UserAccount!
-    //var houses : ()?
-    var houses = ["House 1", "House 2", "House 3"]
+    var currentUser : UserAccount! // Current user
+    var houses : [String]! = [String]() // Houses user is in
+    //var houses = ["House 1", "House 2", "House 3"]
     var database : DatabaseAccess = DatabaseAccess.getInstance()
-    var houseAdded : String?
+    var houseAdded : String? // Not null if house was just added on Create House Page
     
     @IBOutlet weak var testLabel: UILabel!
     
@@ -41,21 +41,29 @@ class AllHousesPageViewController: UITableViewController {
         }
         
         let userHouseClosure = { (house_ids : [String]?) -> Void in
-            var houses : [String]?
+            print("UHC; in user house closure")
             let houseNameClosure = { (house_name : String?) -> Void in
+                print("HNC: in house name closure")
                 if house_name != nil {
-                    houses?.append(house_name!)
+                    print("HNC: house name is not nil")
+                    self.houses.append(house_name!)
                 }
             }
             if house_ids == nil {
-                let house_ids = []
+                print("UHC: house ids is nil")
+                let house_ids = [String]()
             }
+            print("starting to translate house ids into names")
             for house_id in house_ids! {
-                self.database.getStringHouseName(house_id: <#T##String#>, callback: houseNameClosure)
+                self.database.getStringHouseName(house_id: house_id, callback: houseNameClosure)
             }
         }
-        
-        houses = self.database.getListOfHousesUserMemberOf(email: currentUser.email, callback: userHouseClosure)
+        print("PC: user uid = \(Auth.auth().currentUser!.uid)")
+        print("PC: user email = \(Auth.auth().currentUser!.email)")
+        let error1 = self.database.getListOfHousesUserMemberOf(email: Auth.auth().currentUser!.email!, callback: userHouseClosure)
+        if error1.returned_error {
+            error1.raiseErrorAlert(with_title: "Error:", view: self)
+        }
         
         // Do any additional setup after loading the view.
     }
