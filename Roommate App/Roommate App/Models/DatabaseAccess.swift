@@ -394,60 +394,58 @@ class DatabaseAccess  {
     }
     
     // returns true if a house was created, false if the house already exists
-    func createHouse(newHouse: House)-> ReturnValue<Bool> {
-        ref = Database.database().reference()
-        if !doesHouseExist(house_id: newHouse.houseID).data! {
-            ref.child("houses").child(newHouse.houseID).setValue(["house_name": newHouse.house_name,
-                                                               "house_users": newHouse.house_users,
-                                                               "owner": newHouse.owner,
-                                                               "recent_charges": newHouse.recent_charges])
-        } else {
-            return ReturnValue(error: false, data: false)
-        }
-        return ReturnValue(error: false, data: true)
+    func createHouse(newHouse: House){
+        ifHouseExists(house_id: newHouse.houseID, if_callback: {
+            self.ref.child("houses/\(newHouse.houseID)").setValue(["house_name": newHouse.house_name,
+                                                              "house_users": newHouse.house_users,
+                                                              "owner": newHouse.owner,
+                                                              "recent_charges": newHouse.recent_charges])
+        }, else_callback : {})
     }
     
     
-    func doesHouseExist(house_id: String)-> ReturnValue<Bool> {
-        var result: Bool = false
-        ref.child("houses").child(house_id).observeSingleEvent(of: .value, with: { (snapshot) in
+    func ifHouseExists(house_id: String, if_callback: @escaping () -> Void, else_callback: @escaping () -> Void) {
+        self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            if snapshot.exists(){
-                result = true
-            } 
-        })
-        return ReturnValue(error:false, data: result)
-    }
-    
-    // Updates house name if it exists and returns true, otherwise returns appropriate error and false
-    func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
-        if doesHouseExist(house_id: curr_house.houseID).data! {
-            self.ref.child("houses/\(curr_house.houseID)/house_name").setValue(new_name)
-            return ReturnValue(error: false, data: true)
-        }
-        return ReturnValue(error: true, data: false, error_number: 20)
-    }
-    
-    func getListOfUsersInHouse(HouseID: String)-> ReturnValue<[String]> {
-        var users: [String] = []
-        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                let value = snapshot.value as? NSDictionary
-                users = value?["users"] as? [String] ?? []
+            if snapshot.exists() {
+                if_callback()
+            } else {
+                else_callback()
             }
         })
-        return ReturnValue(error:false, data: users)
     }
     
-    // Checks if house exists and returns if user is owner, otherwise returns false and appropriate error
-    func isUserOwnerOfHouse(house_id: String)-> ReturnValue<Bool> {
-        if doesHouseExist(house_id: house_id).data! {
-            let result = (getOwnerOfHouse(HouseID: house_id).data! == Auth.auth().currentUser?.uid)
-            return ReturnValue(error: false, data: result)
-        }
-        return ReturnValue(error: false, data: false, error_number: 20)
-    }
+    //ELENA - FIX COMMENTED FUNCTIONS
+    
+    // Updates house name if it exists and returns true, otherwise returns appropriate error and false
+//    func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
+//        if doesHouseExist(house_id: curr_house.houseID).data! {
+//            self.ref.child("houses/\(curr_house.houseID)/house_name").setValue(new_name)
+//            return ReturnValue(error: false, data: true)
+//        }
+//        return ReturnValue(error: true, data: false, error_number: 20)
+//    }
+//
+//    func getListOfUsersInHouse(HouseID: String)-> ReturnValue<[String]> {
+//        var users: [String] = []
+//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if snapshot.exists(){
+//                let value = snapshot.value as? NSDictionary
+//                users = value?["users"] as? [String] ?? []
+//            }
+//        })
+//        return ReturnValue(error:false, data: users)
+//    }
+//
+//    // Checks if house exists and returns if user is owner, otherwise returns false and appropriate error
+//    func isUserOwnerOfHouse(house_id: String)-> ReturnValue<Bool> {
+//        if doesHouseExist(house_id: house_id).data! {
+//            let result = (getOwnerOfHouse(HouseID: house_id).data! == Auth.auth().currentUser?.uid)
+//            return ReturnValue(error: false, data: result)
+//        }
+//        return ReturnValue(error: false, data: false, error_number: 20)
+//    }
     
     func getOwnerOfHouse(HouseID: String)-> ReturnValue<String?> {
         var owner: String? = ""
