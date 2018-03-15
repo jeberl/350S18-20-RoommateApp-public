@@ -100,12 +100,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0n-Fh-1IP">
-                                <rect key="frame" x="127" y="163" width="120" height="84"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qf1-Di-kP2">
                                 <rect key="frame" x="309" y="21" width="50" height="52"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -120,7 +114,6 @@
                         <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
                     </view>
                     <connections>
-                        <outlet property="testLabel" destination="b0n-Fh-1IP" id="qLe-1Z-ftS"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="loginErrorSegue" id="3Cw-uK-AzS"/>
                     </connections>
                 </viewController>
@@ -191,15 +184,6 @@
                                     <action selector="addButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="cp2-xu-NEK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1Y-BA-BgD">
-                                <rect key="frame" x="145" y="556" width="84" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Build Home!"/>
-                                <connections>
-                                    <action selector="buildHomeButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="gZb-fU-r9w"/>
-                                    <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-9G-pAr">
                                 <rect key="frame" x="16" y="440" width="170" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -207,6 +191,15 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1Y-BA-BgD">
+                                <rect key="frame" x="236" y="150" width="84" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Build Home!"/>
+                                <connections>
+                                    <action selector="buildHomeButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="gZb-fU-r9w"/>
+                                    <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="bBS-L2-w2X"/>
@@ -241,7 +234,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tbI-jn-U8S"/>
+        <segue reference="ULm-84-1Dn"/>
+        <segue reference="SZw-Tf-XdL"/>
         <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>

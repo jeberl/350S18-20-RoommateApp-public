@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
 
     let database: DatabaseAccess = DatabaseAccess.getInstance()
-    var buttonPressed = ""
 
     
     override func viewDidLoad() {
@@ -42,7 +41,6 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Do anything that needs to be done before switching views
         let destination = segue.destination as? AllHousesPageViewController
-        //destination?.currentUser = 
     }
     
     @IBAction func LogInButtonPressed(_ sender: Any) {

@@ -361,18 +361,64 @@ class DatabaseAccess  {
     }
     // All functions above implemented and not tested //
     
-    func getListOfHousesUserMemberOf(email: String) -> [String]?{
-        let currEmail = Auth.auth().currentUser?.email
-        var houses: [String] = []
-        ref.child("users/\(currEmail!)").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                let snapshotValue = snapshot.value as? NSDictionary
-                houses = (snapshotValue?["houses"] as? [String])!
-                //group.leave()
+    // Function to get a House's string name from its UID
+    func getStringHouseName(house_id: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if house_id == nil {
+            return NoSuchHouseError()
+        }
+        self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as house name
+                if let house_name = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    callback(house_name)
+                } else {
+                    // If cast could not occur then no house name found so run callback with nil
+                    print("House Name not found")
+                    callback(nil)
+                }
             }
         })
-        return houses
+        return ExpectedExecution()
+    }
+    
+    /*
+     Gets list of houses a given user is a member of
+     Input: String email of user and the callback function to use (aka what to do with the retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
+    */
+    func getListOfHousesUserMemberOf(email: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        let currUID = Auth.auth().currentUser?.uid
+        print("DB: found user")
+        
+        // Verify the user exists
+        if currUID == nil {
+            print("DB: UID does not exist")
+            return NoSuchUserError()
+        }
+        print("DB: Function was called")
+        print("DB: \(currUID)")
+        // Navigate to the user houses field and get a "Snapshot" of the data stored there
+        self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
+            // This is the closure where we say what to do with the given snapshot, in this case, the houses the
+            // user is in
+            print("DB: taking snapshot")
+            // Check if snapshot exists i.e. if data is stored there
+            if snapshot.exists(){
+                print("DB: Snapshot exists")
+                // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
+                if let house_ids = snapshot.value as? [String] {
+                    print("User is in \(house_ids.count) houses")
+                    // Callback with house ids which are random identifier strings of letters and numbers
+                    callback(house_ids)
+                } else {
+                    // If cast could not occur aka no houses found, run callback with nil
+                    print("User not in any houses")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
     }
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
@@ -394,6 +440,7 @@ class DatabaseAccess  {
     }
     
     // returns true if a house was created, false if the house already exists
+
     func createHouse(newHouse: House){
         ifHouseExists(house_id: newHouse.houseID, if_callback: {
             self.ref.child("houses/\(newHouse.houseID)").setValue(["house_name": newHouse.house_name,
@@ -402,7 +449,6 @@ class DatabaseAccess  {
                                                               "recent_charges": newHouse.recent_charges])
         }, else_callback : {})
     }
-    
     
     func ifHouseExists(house_id: String, if_callback: @escaping () -> Void, else_callback: @escaping () -> Void) {
         self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in

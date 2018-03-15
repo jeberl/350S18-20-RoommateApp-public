@@ -10,17 +10,13 @@ import UIKit
 import FirebaseAuth
 
 class AllHousesPageViewController: UITableViewController {
-        
-    var buttonToGetHere = ""
-    var currentUser : UserAccount?
-    //var houses : ()?
-    var houses = ["House 1", "House 2", "House 3"]
+    
+    var currentUser : UserAccount! // Current user
+    var houses : [String]! = [String]() // Houses user is in
+    var house_ids : [String]! = [String]() // Houses user is in in terms of house ids
     var database : DatabaseAccess = DatabaseAccess.getInstance()
-    var houseAdded : String?
-    
-    @IBOutlet weak var testLabel: UILabel!
-    
-    
+    var houseIDOfAdded : String? // Not nil if house was just added on Create House Page
+    var houseNameOfAdded : String? // Not nil if house was just added on Create House Page
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +24,6 @@ class AllHousesPageViewController: UITableViewController {
         let setCurrentUserClosure = {(user : UserAccount)-> Void in
             print("found user in database in AllHouses User: \(user)")
             self.currentUser = user
-            self.testLabel.text = user.email
         }
         
         if Auth.auth().currentUser == nil {
@@ -39,7 +34,38 @@ class AllHousesPageViewController: UITableViewController {
                 error.raiseErrorAlert(with_title: "Error:", view: self)
             }
         }
-        // Do any additional setup after loading the view.
+        
+        let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
+            print("UHC; in user house closure")
+            self.house_ids = returned_house_ids
+            let houseNameClosure = { (house_name : String?) -> Void in
+                print("HNC: in house name closure")
+                if house_name != nil {
+                    print("HNC: house name is not nil")
+                    self.houses.append(house_name!)
+                }
+            }
+            if returned_house_ids == nil {
+                print("UHC: house ids is nil")
+                let returned_house_ids = [String]()
+            }
+            print("starting to translate house ids into names")
+            for house_id in returned_house_ids! {
+                self.database.getStringHouseName(house_id: house_id, callback: houseNameClosure)
+            }
+        }
+        print("PC: user uid = \(Auth.auth().currentUser!.uid)")
+        print("PC: user email = \(Auth.auth().currentUser!.email)")
+        let error1 = self.database.getListOfHousesUserMemberOf(email: Auth.auth().currentUser!.email!, callback: userHouseClosure)
+        if error1.returned_error {
+            error1.raiseErrorAlert(with_title: "Error:", view: self)
+        }
+        if houseIDOfAdded != nil && houseNameOfAdded != nil {
+            house_ids.append(houseIDOfAdded!)
+            houses.append(houseNameOfAdded!)
+            houseIDOfAdded = nil
+            houseNameOfAdded = nil
+        }
     }
 
     func loginError(message : String = "User not found") {
@@ -82,10 +108,6 @@ class AllHousesPageViewController: UITableViewController {
     
     // Return number of rows equal to number of houses
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if houseAdded != nil {
-            houses.append(houseAdded!)
-            houseAdded = nil
-        }
         return houses.count
     }
     
