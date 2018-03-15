@@ -15,15 +15,15 @@ class CreateHouseViewController: UIViewController {
     @IBOutlet weak var houseaddressTextField: UITextField!
     @IBOutlet weak var homieUsernameTextField: UITextField!
     var currentUser : UserAccount?
-    var homies: [String] = []
+    var homies: [String]!
     var database: DatabaseAccess?
-    var houseName : String!
+    var newHome : House!
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        homies = [String]()
         // Do any additional setup after loading the view.
     }
 
@@ -44,7 +44,7 @@ class CreateHouseViewController: UIViewController {
     }
     
     @IBAction func buildHomeButtonPressed(_ sender: Any) {
-        var houseName = houseNameTextField!.text
+        let houseName = houseNameTextField!.text
         if ((houseName?.contains("."))! || (houseName?.contains("$"))! ||
         (houseName?.contains("["))! || (houseName?.contains("]"))! ||
             (houseName?.contains("#"))!){
@@ -55,15 +55,14 @@ class CreateHouseViewController: UIViewController {
             present(alert, animated: true, completion: nil)
             houseNameTextField!.text = ""
         }
-        var address = houseaddressTextField!.text
-        //var newHome = House(house_id: "House 4", house_name: houseName!, house_users: homies, owner: (currentUser?.email)!, recent_charges: [], recent_interactions: [])
-        self.houseName = houseName
-//        var newHome = House(uid: Auth.auth().currentUser!.uid, house_name: houseName!, house_users: homies, owner: (currentUser?.email)!, recent_charges: [], recent_interactions: [])
-        //self.database?.createHouse(newHouse: newHome)
+        let address = houseaddressTextField!.text
+        // Create home UID by combining house address with owner's email.  Note, this prevents users from having two identically houses at the same address
+        let homeUID = "" + address! + Auth.auth().currentUser!.email!
+        // Create new house object to add to database
+        var newHome = House(uid: homeUID, house_name: houseName!, house_users: homies, owner: Auth.auth().currentUser!.email!, recent_charges: [], recent_interactions: [])
+        self.newHome = newHome
+        self.database?.createHouse(newHouse: newHome)
     }
-    
-    
-
     
     // MARK: - Navigation
 
@@ -73,8 +72,8 @@ class CreateHouseViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
-            vc?.currentUser = currentUser
-            vc?.houseAdded = houseName
+            vc?.houseIDOfAdded = newHome.houseID
+            vc?.houseNameOfAdded = newHome.house_name
         }
     }
     

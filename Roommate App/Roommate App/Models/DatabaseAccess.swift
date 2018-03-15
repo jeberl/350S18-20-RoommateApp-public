@@ -451,8 +451,7 @@ class DatabaseAccess  {
             return ReturnValue(error: false, data: false)
         }
         return ReturnValue(error: false, data: true)
-    }
-    
+    }    
     
     func doesHouseExist(house_id: String)-> ReturnValue<Bool> {
         var result: Bool = false
