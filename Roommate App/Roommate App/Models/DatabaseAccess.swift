@@ -441,24 +441,33 @@ class DatabaseAccess  {
     
     // returns true if a house was created, false if the house already exists
 
-    func createHouse(newHouse: House){
-        ifHouseExists(house_id: newHouse.houseID, if_callback: {
-            self.ref.child("houses/\(newHouse.houseID)").setValue(["house_name": newHouse.house_name,
-                                                              "house_users": newHouse.house_users,
-                                                              "owner": newHouse.owner,
-                                                              "recent_charges": newHouse.recent_charges])
-        }, else_callback : {})
+    func createHouse(house: House) -> House {
+        var newHouse = house
+        print("create house function called")
+        let house_id = self.ref.child("houses").childByAutoId().key
+        print("creating house with key \(house_id)")
+        self.ref.child("houses/\(house_id)").setValue([ "houseID": house_id,
+                                                        "house_name": newHouse.house_name,
+                                                        "house_users": newHouse.house_users,
+                                                        "owner": newHouse.owner,
+                                                        "recent_charges": newHouse.recent_charges])
+        newHouse.setHouseID(ID: house_id)
+        return newHouse
     }
     
-    func ifHouseExists(house_id: String, if_callback: @escaping () -> Void, else_callback: @escaping () -> Void) {
-        self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists() {
-                if_callback()
-            } else {
-                else_callback()
-            }
-        })
+    func ifHouseExists(house_id: String?, if_callback: @escaping () -> Void, else_callback: @escaping () -> Void) {
+        if house_id == nil {
+            else_callback()
+        } else {
+            self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                if snapshot.exists() {
+                    if_callback()
+                } else {
+                    else_callback()
+                }
+            })
+        }
     }
     
     //ELENA - FIX COMMENTED FUNCTIONS

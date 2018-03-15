@@ -12,20 +12,26 @@ import FirebaseDatabase
 
 struct House {
     
-    let houseID: String
-    let house_name: String
-    let house_users: [String]
+    var houseID: String?
+    var house_name: String
+    var house_users: [String]
     let owner: String // unique user email
-    let recent_charges: [String] // unique chargeIDs
-    let recent_interactions: [String] // array of all uids for Notifs
+    var recent_charges: [String] // unique chargeIDs
+    var recent_interactions: [String] // array of all uids for Notifs
     
-    init(uid: String, house_name: String, house_users:[String], owner: String, recent_charges: [String], recent_interactions:[String]) {
-        self.houseID = uid
+    init(house_name: String, house_users:[String], owner: String, recent_charges: [String], recent_interactions:[String]) {
+        self.houseID = nil
         self.house_name = house_name
         self.house_users = house_users
         self.owner = owner
         self.recent_charges = recent_charges
         self.recent_interactions = recent_interactions
+    }
+    
+    mutating func setHouseID(ID: String) {
+        if houseID == nil {
+            self.houseID = ID
+        }
     }
     
 }

@@ -24,6 +24,7 @@ class CreateHouseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         homies = [String]()
+        database = DatabaseAccess.getInstance()
         // Do any additional setup after loading the view.
     }
 
@@ -56,12 +57,10 @@ class CreateHouseViewController: UIViewController {
             houseNameTextField!.text = ""
         }
         let address = houseaddressTextField!.text
-        // Create home UID by combining house address with owner's email.  Note, this prevents users from having two identically houses at the same address
-        let homeUID = "" + address! + Auth.auth().currentUser!.email!
         // Create new house object to add to database
-        var newHome = House(uid: homeUID, house_name: houseName!, house_users: homies, owner: Auth.auth().currentUser!.email!, recent_charges: [], recent_interactions: [])
-        self.newHome = newHome
-        self.database?.createHouse(newHouse: newHome)
+        var newHome = House(house_name: houseName!, house_users: homies, owner: Auth.auth().currentUser!.email!, recent_charges: [], recent_interactions: [])
+        self.newHome = self.database!.createHouse(house: newHome)
+        
     }
     
     // MARK: - Navigation
