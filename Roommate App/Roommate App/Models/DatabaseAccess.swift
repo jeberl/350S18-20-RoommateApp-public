@@ -117,33 +117,39 @@ class DatabaseAccess  {
         view.present(alert, animated: true, completion: nil)
     }
 
-    
+    // creates user in database, automatically adds them to houses their email has been associated with
+    // before account creation
     private func createUserModelForCurrentUser(){
         if let email : String = Auth.auth().currentUser?.email {
             //Check if email is already been added to houses
             let formattedEmail = reformatEmail(email: email)
+            let uid = Auth.auth().currentUser!.uid
+            // update known set values of field properly
+            self.ref.child("user_emails/\(formattedEmail)/created").setValue(true)
+            self.ref.child("user_emails/\(formattedEmail)/uid").setValue(uid)
             self.ref.child("user_emails/\(formattedEmail)").observe(.value, with: { (snapshot) in
-                let uid = Auth.auth().currentUser!.uid
                 var user : [String: Any?] = ["uid" : uid,
                                             "email" : email,
                                             "formatted_email" : formattedEmail,
                                             "nickname": email,
                                             "phone_number": nil,
                                             "houses": []]
-            
-                if !snapshot.exists() {
-                    print("User has not been added to any houses")
-                    
+                // check if there are are any previously inserted houses, update user model
+                if snapshot.hasChild("houses") {
+                    // TODO: fix this, returning before getting value, not properly updating, i think callback is needed
+                    self.ref.child("user_emails/\(formattedEmail)/houses").observe(.value, with: { (snapshot) in
+                        print(snapshot.value as? [String])
+                        user["houses"] = snapshot.value as? [String]
+                        self.ref.child("users/\(uid)").setValue(user)
+                    })
+                    print("set houses properly")
                 } else {
-                    let houses = snapshot.value(forKey: "houses") as! NSDictionary
-                    user["houses"] = houses.allKeys
-                    snapshot.setValuesForKeys(["created" : true, "uid": uid])
+                    print("User has not been added to any houses")
                 }
                 print("adding user to db")
                 self.ref.child("users/\(uid)").setValue(user)
                 print("added user to db")
             })
-    
         } else {
             print("Error adding user to db: User Not Found")
             self.error_logging_in = NoSuchUserError<Bool>() as Error
@@ -169,7 +175,7 @@ class DatabaseAccess  {
         }
     }
     
-    func changePasword(new_password: String) -> ReturnValue<Bool>{
+    func changePassword(new_password: String) -> ReturnValue<Bool>{
         //Use Auth.auth()
         return UnimplementedFunctionError()
     }
@@ -315,7 +321,7 @@ class DatabaseAccess  {
                 fixedEmail.append(char)
             }
         }
-        return fixedEmail //dummy return
+        return fixedEmail
     }
     
     func addNewUserToHouseUsers(with_email email: String, to_house house_id: String) -> ReturnValue<Bool> {
