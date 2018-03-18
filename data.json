@@ -13,6 +13,7 @@
 			
 		}
 	},
+	
 	"user_emails" : {
 		"1@test&com" : { "created": true,		// To find a users UID from a given email
 						 "uid" : "qerjqreipeqr"
@@ -22,6 +23,7 @@
 							"houses" : {"erv2rv2rv": true}
 						}
 	},
+
 	"houses" : {  					// Randomly generated key using Database.Database.child("users").childByAutoId().key
 		"erv2rv2rv" : {
 			"houseID" : "erv2rv2rv",
