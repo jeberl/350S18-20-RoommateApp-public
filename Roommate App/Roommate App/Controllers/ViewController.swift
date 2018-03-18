@@ -48,8 +48,21 @@ class ViewController: UIViewController {
         
     }
 
+
     @IBAction func CreateAccountButtonPressed(_ sender: Any) {
         database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
     }
+    
+    // temporary - DELETE THIS
+    @IBAction func GoToCompleteChoreScreen(_ sender: UIButton) {
+        
+        let storyboard = UIStoryboard(name: "CompleteChore", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "CompleteChoreController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+        
+    }
+    
 }
 
