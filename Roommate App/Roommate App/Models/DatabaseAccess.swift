@@ -121,10 +121,12 @@ class DatabaseAccess  {
     private func createUserModelForCurrentUser(){
         if let email : String = Auth.auth().currentUser?.email {
             //Check if email is already been added to houses
-            self.ref.child("user_emails/\(email)").observe(.value, with: { (snapshot) in
+            let formattedEmail = reformatEmail(email: email)
+            self.ref.child("user_emails/\(formattedEmail)").observe(.value, with: { (snapshot) in
                 let uid = Auth.auth().currentUser!.uid
                 var user : [String: Any?] = ["uid" : uid,
                                             "email" : email,
+                                            "formatted_email" : formattedEmail,
                                             "nickname": email,
                                             "phone_number": nil,
                                             "houses": []]
@@ -202,6 +204,7 @@ class DatabaseAccess  {
         let name_callback : (DataSnapshot) -> Void = { (uid) in
             self.getUserGlobalNickname(for_uid: (uid.value as! String), callback: callback)
         }
+        let formattedEmail = reformatEmail(email: for_email)
         self.ref.child("user_emails/\(for_email)/uid").observe(.value, with: name_callback)
     }
     
@@ -282,17 +285,50 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    /*
+     Firebase does not allow quering for something in the data base with . # $ [ or ] thus we must remove these characters.  We came up with the following mapping to resolve this:
+         . becomes &
+         # becomes *
+         $ becomes @
+         [ becomes <
+         ] becomes >
+    */
+    func reformatEmail(email: String) -> String {
+        let period : Character = "."
+        let pound : Character = "#"
+        let dollar : Character = "$"
+        let lBracket : Character = "["
+        let rBracket : Character = "]"
+        var fixedEmail : String = ""
+        for char in email {
+            if char == period {
+                fixedEmail.append("&")
+            } else if char == pound {
+                fixedEmail.append("*")
+            } else if char == dollar {
+                fixedEmail.append("@")
+            } else if char == lBracket {
+                fixedEmail.append("<")
+            } else if char == rBracket {
+                fixedEmail.append(">")
+            } else {
+                fixedEmail.append(char)
+            }
+        }
+        return fixedEmail //dummy return
+    }
+    
     func addNewUserToHouseUsers(with_email email: String, to_house house_id: String) -> ReturnValue<Bool> {
         let uid : String? = Auth.auth().currentUser?.uid
         if uid == nil  {
             return NoSuchUserError()
         }
-        
-        self.ref.child("user_emails/\(email)").observe(.value, with: { (snapshot) in
+        let formattedEmail = reformatEmail(email: email)
+        self.ref.child("user_emails/\(formattedEmail)").observe(.value, with: { (snapshot) in
             //No account set up for user - email not associated with other houses
             if !snapshot.exists() {
                 let not_created_user_dict : Any = ["created" : false, "houses" : [house_id] ]
-                self.ref.child("user_emails/\(email)").setValue(not_created_user_dict)
+                self.ref.child("user_emails/\(formattedEmail)").setValue(not_created_user_dict)
             }
             else {
                 
@@ -324,10 +360,11 @@ class DatabaseAccess  {
         if email_to_remove == Auth.auth().currentUser!.email {
             return leaveHouse(house_id: house_id, view: view)
         } else {
+            let formattedEmail = reformatEmail(email: email_to_remove)
             self.ref.child("houses/\(house_id)").observe(.value, with: { (snapshot) in
                 if snapshot.exists() {
                     if snapshot.value(forKey: "owner") as? String == Auth.auth().currentUser!.email {
-                        self.ref.child("user_emails/\(email_to_remove)/uid").observe(.value, with: { (snapshot) in
+                        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
                             if snapshot.exists(), let uid = snapshot.value as? String {
                                 self.ref.child("houses/\(house_id)/house_users\(uid)").removeValue()
                             } else {
@@ -452,6 +489,7 @@ class DatabaseAccess  {
                                                         "owner": newHouse.owner,
                                                         "recent_charges": newHouse.recent_charges])
         newHouse.setHouseID(ID: house_id)
+        addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
         return newHouse
     }
     
