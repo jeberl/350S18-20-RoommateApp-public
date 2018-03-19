@@ -34,7 +34,7 @@ class ImageStorage  {
         return instance!
     }
     
-    func setProfilePicture(uid: String, image : UIImage) {
-        let profilePicRef = storage.reference().child("profile_images/\(uid).jpg")
+    func uploadChoreImage(image : UIImage) -> String? {
+        return nil
     }
 }
