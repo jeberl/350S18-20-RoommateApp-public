@@ -34,4 +34,8 @@ struct House {
         }
     }
     
+    mutating func addUser(email: String) {
+        self.house_users.append(email)
+    }
+    
 }
