@@ -34,18 +34,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        return true
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Do anything that needs to be done before switching views
-        let destination = segue.destination as? AllHousesPageViewController
     }
     
     @IBAction func LogInButtonPressed(_ sender: Any) {
         database.login(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
-        
     }
 
     @IBAction func CreateAccountButtonPressed(_ sender: Any) {

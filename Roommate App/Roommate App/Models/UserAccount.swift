@@ -33,8 +33,8 @@ struct UserAccount {
         self.formatted_email = dict["formatted_email"] as! String
         self.nickname = (dict["nickname"] as? String) ?? ""
         
-        if let houses = dict["houses"] as! [String]? {
-            self.houses = houses
+        if let houses = dict["houses"] as? NSDictionary {
+            self.houses = houses.allKeys as? [String] ?? []
         } else {
             self.houses = []
         }
