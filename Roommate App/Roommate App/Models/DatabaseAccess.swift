@@ -343,6 +343,7 @@ class DatabaseAccess  {
                     snapshot.setValue(true, forKey: "houses/\(house_id)")
                 } else {
                     //Add House To User's List Of Houses
+                    print("here")
                     self.ref.child("users/\(uid!)/houses").setValue(true, forKey: house_id)
                     //Add User To House's List Of Users
                     let add_user_to_house_callback : (String?) -> Void = { (global_nickname) in
@@ -491,11 +492,11 @@ class DatabaseAccess  {
         print("creating house with key \(house_id)")
         self.ref.child("houses/\(house_id)").setValue([ "houseID": house_id,
                                                         "house_name": newHouse.house_name,
-                                                        "house_users": newHouse.house_users,
+                                                        "house_users": Auth.auth().currentUser?.email! ,
                                                         "owner": newHouse.owner,
                                                         "recent_charges": newHouse.recent_charges])
         newHouse.setHouseID(ID: house_id)
-        addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
+        //addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
         return newHouse
     }
     
