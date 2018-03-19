@@ -496,6 +496,8 @@ class DatabaseAccess  {
                                                         "owner": newHouse.owner,
                                                         "recent_charges": newHouse.recent_charges])
         newHouse.setHouseID(ID: house_id)
+        let uid = Auth.auth().currentUser!.uid
+        self.ref.child("users/\(uid)/houses").setValue([house_id])
         //addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
         return newHouse
     }
