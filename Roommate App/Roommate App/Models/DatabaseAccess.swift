@@ -337,7 +337,6 @@ class DatabaseAccess  {
                 self.ref.child("user_emails/\(formattedEmail)").setValue(not_created_user_dict)
             }
             else {
-                
                 //Email is not associated with account and already added to other houses
                 if snapshot.value(forKey: "created") as! Bool == false {
                     snapshot.setValue(true, forKey: "houses/\(house_id)")
@@ -450,6 +449,7 @@ class DatabaseAccess  {
             // Check if snapshot exists i.e. if data is stored there
             if snapshot.exists(){
                 print("DB: Snapshot exists")
+                // TODO: reconsider how we are iterating over return val,
                 // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
                 if let house_ids = snapshot.value as? [String] {
                     print("User is in \(house_ids.count) houses")
@@ -484,7 +484,6 @@ class DatabaseAccess  {
     }
     
     // returns true if a house was created, false if the house already exists
-
     func createHouse(house: House) -> House {
         var newHouse = house
         print("create house function called")
@@ -497,7 +496,7 @@ class DatabaseAccess  {
                                                         "recent_charges": newHouse.recent_charges])
         newHouse.setHouseID(ID: house_id)
         let uid = Auth.auth().currentUser!.uid
-        self.ref.child("users/\(uid)/houses").setValue([house_id])
+        self.ref.child("users/\(uid)/houses").setValue([house_id]) // append instead of overriding value
         //addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
         return newHouse
     }
