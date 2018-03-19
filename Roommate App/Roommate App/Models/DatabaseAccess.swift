@@ -130,25 +130,20 @@ class DatabaseAccess  {
             self.ref.child("user_emails/\(formattedEmail)").observe(.value, with: { (snapshot) in
                 var user : [String: Any?] = ["uid" : uid,
                                             "email" : email,
-                                            "formatted_email" : formattedEmail,
+                                            "formattedEmail" : formattedEmail,
                                             "nickname": email,
-                                            "phone_number": nil,
-                                            "houses": []]
+                                            "phone_number": nil]
+                self.ref.child("users/\(uid)").setValue(user)
                 // check if there are are any previously inserted houses, update user model
                 if snapshot.hasChild("houses") {
-                    // TODO: fix this, returning before getting value, not properly updating, i think callback is needed
                     self.ref.child("user_emails/\(formattedEmail)/houses").observe(.value, with: { (snapshot) in
-                        print(snapshot.value as? [String])
-                        user["houses"] = snapshot.value as? [String]
-                        self.ref.child("users/\(uid)").setValue(user)
+                        for houseID in (snapshot.value as? NSDictionary)!.allKeys {
+                            self.ref.child("users/\(uid)/houses/\(houseID)").setValue(true)
+                        }
                     })
-                    print("set houses properly")
                 } else {
                     print("User has not been added to any houses")
                 }
-                print("adding user to db")
-                self.ref.child("users/\(uid)").setValue(user)
-                print("added user to db")
             })
         } else {
             print("Error adding user to db: User Not Found")
@@ -179,16 +174,20 @@ class DatabaseAccess  {
         //Use Auth.auth()
         return UnimplementedFunctionError()
     }
-
+    
+    //I DONT THINK THIS WORKS - TEST!!
     func deleteUserAccount(view: UIViewController) -> ReturnValue<Bool> {
         if let uid = Auth.auth().currentUser?.uid {
             let user : DatabaseReference = self.ref.child("users/\(uid)")
             
             // Remove User from associated houses
-            let house_enumerator = (user.value(forKey: "houses") as? NSDictionary)?.keyEnumerator()
-            while let HouseId = house_enumerator?.nextObject() {
-                self.ref.child("houses/\(HouseId)/house_users/\(uid)").removeValue()
-            }
+            user.child("houses").observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.exists() {
+                    for houseID in snapshot.children {
+                        self.ref.child("houses/\(houseID as! String)/house_users/\(uid)").removeValue()
+                    }
+                }
+            })
             
             //Remove User from database
             user.removeValue()
@@ -211,7 +210,7 @@ class DatabaseAccess  {
             self.getUserGlobalNickname(for_uid: (uid.value as! String), callback: callback)
         }
         let formattedEmail = reformatEmail(email: for_email)
-        self.ref.child("user_emails/\(for_email)/uid").observe(.value, with: name_callback)
+        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: name_callback)
     }
     
     func getUserGlobalNickname(for_uid: String? = nil, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
@@ -261,7 +260,7 @@ class DatabaseAccess  {
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(house.houseID)/house_users").observe(.value, with: { (snapshot) in
                 if snapshot.exists() && snapshot.hasChild(uid) {
-                    let nickname = snapshot.value(forKeyPath: "\(uid)/nickname") as? String
+                    let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
                     callback(nickname)
                 } else {
                     //return nil if house not found or user not member of house
@@ -324,32 +323,35 @@ class DatabaseAccess  {
         return fixedEmail
     }
     
-    func addNewUserToHouseUsers(with_email email: String, to_house house_id: String) -> ReturnValue<Bool> {
+    //Add User
+    func addNewUserToHouse(with_email email: String, to_house house_id: String) -> ReturnValue<Bool> {
         let uid : String? = Auth.auth().currentUser?.uid
         if uid == nil  {
             return NoSuchUserError()
         }
         let formattedEmail = reformatEmail(email: email)
-        self.ref.child("user_emails/\(formattedEmail)").observe(.value, with: { (snapshot) in
+        self.ref.child("user_emails/\(formattedEmail)").observeSingleEvent(of: .value, with: { (snapshot) in
             //No account set up for user - email not associated with other houses
+            print("snapshot for email: \(formattedEmail) = \(snapshot.children.allObjects)")
             if !snapshot.exists() {
-                let not_created_user_dict : Any = ["created" : false, "houses" : [house_id] ]
-                self.ref.child("user_emails/\(formattedEmail)").setValue(not_created_user_dict)
+                self.ref.child("user_emails/\(formattedEmail)/created").setValue(false)
+                self.ref.child("user_emails/\(formattedEmail)/houses/\(house_id)").setValue(true)
             }
             else {
                 //Email is not associated with account and already added to other houses
-                if snapshot.value(forKey: "created") as! Bool == false {
-                    snapshot.setValue(true, forKey: "houses/\(house_id)")
-                } else {
+                if snapshot.childSnapshot(forPath: "created").value as! Bool{
                     //Add House To User's List Of Houses
-                    print("here")
-                    self.ref.child("users/\(uid!)/houses").setValue(true, forKey: house_id)
+                    let toAddUID = snapshot.childSnapshot(forPath: "uid").value as! String
+                    self.ref.child("users/\(toAddUID)/houses/\(house_id)").setValue(true)
                     //Add User To House's List Of Users
-                    let add_user_to_house_callback : (String?) -> Void = { (global_nickname) in
-                        self.ref.child("houses/\(house_id)/house_users/\(uid!)").setValue(email, forKey: "email")
-                        self.ref.child("houses/\(house_id)/house_users/\(uid!)").setValue(global_nickname!, forKey: "nickname")
+                    let addUserToHouseCallback : (String?) -> Void = { (global_nickname) in
+                        print("adding user to house closure")
+                        self.ref.child("houses/\(house_id)/house_users/\(toAddUID)/email").setValue(email)
+                        self.ref.child("houses/\(house_id)/house_users/\(toAddUID)/nickname").setValue(global_nickname)
                     }
-                    self.getUserGlobalNickname(for_email: email, callback: add_user_to_house_callback)
+                    self.getUserGlobalNickname(for_email: email, callback: addUserToHouseCallback)
+                } else {
+                    snapshot.setValue(true, forKey: "houses/\(house_id)")
                 }
             }
         })
@@ -357,36 +359,36 @@ class DatabaseAccess  {
     }
     
     //Only the owner of a house or the user himself may remove a user from a house
-    func removeUserFromHouse(email_to_remove: String, house_id: String, view: UIViewController) -> ReturnValue<Bool> {
-        let uid : String? = Auth.auth().currentUser?.uid
-        if uid == nil  {
-            return NoSuchUserError()
-        }
-        
-        if email_to_remove == Auth.auth().currentUser!.email {
-            return leaveHouse(house_id: house_id, view: view)
-        } else {
-            let formattedEmail = reformatEmail(email: email_to_remove)
-            self.ref.child("houses/\(house_id)").observe(.value, with: { (snapshot) in
-                if snapshot.exists() {
-                    if snapshot.value(forKey: "owner") as? String == Auth.auth().currentUser!.email {
-                        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
-                            if snapshot.exists(), let uid = snapshot.value as? String {
-                                self.ref.child("houses/\(house_id)/house_users\(uid)").removeValue()
-                            } else {
-                                self.database_error(error_header: "Error: Email not found", view: view)
-                            }
-                        })
-                    } else {
-                        self.database_error(error_header: "Error: Only the owner can remove hommies", view: view)
-                    }
-                } else {
-                    self.database_error(error_header: "Error: House not found", view: view)
-                }
-            })
-        }
-        return ExpectedExecution()
-    }
+//    func removeUserFromHouse(email_to_remove: String, house_id: String, view: UIViewController) -> ReturnValue<Bool> {
+//        let uid : String? = Auth.auth().currentUser?.uid
+//        if uid == nil  {
+//            return NoSuchUserError()
+//        }
+//
+//        if email_to_remove == Auth.auth().currentUser!.email {
+//            return leaveHouse(house_id: house_id, view: view)
+//        } else {
+//            let formattedEmail = reformatEmail(email: email_to_remove)
+//            self.ref.child("houses/\(house_id)").observe(.value, with: { (snapshot) in
+//                if snapshot.exists() {
+//                    if snapshot.childSnapshot(forPath: "owner").value as? String == Auth.auth().currentUser!.email {
+//                        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
+//                            if snapshot.exists(), let uid = snapshot.value as? String {
+//                                self.ref.child("houses/\(house_id)/house_users\(uid)").removeValue()
+//                            } else {
+//                                self.database_error(error_header: "Error: Email not found", view: view)
+//                            }
+//                        })
+//                    } else {
+//                        self.database_error(error_header: "Error: Only the owner can remove hommies", view: view)
+//                    }
+//                } else {
+//                    self.database_error(error_header: "Error: House not found", view: view)
+//                }
+//            })
+//        }
+//        return ExpectedExecution()
+//    }
     
     func leaveHouse(house_id: String, view: UIViewController) -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
@@ -406,14 +408,14 @@ class DatabaseAccess  {
     
     // Function to get a House's string name from its UID
     func getStringHouseName(house_id: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
-        if house_id == nil {
-            return NoSuchHouseError()
-        }
-        self.ref.child("houses/\(house_id)").observeSingleEvent(of: .value, with: { (snapshot) in
+        
+        self.ref.child("houses/\(house_id)/house_name").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
+                print("snapshot : \(snapshot.children.allObjects)")
                 // Get the value of the snapshot (cast to string) and store as house name
                 if let house_name = snapshot.value as? String {
                     //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    print("Found House \(house_name)")
                     callback(house_name)
                 } else {
                     // If cast could not occur then no house name found so run callback with nil
@@ -431,38 +433,32 @@ class DatabaseAccess  {
      Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
     */
     func getListOfHousesUserMemberOf(email: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        let currUID = Auth.auth().currentUser?.uid
-        print("DB: found user")
-        
-        // Verify the user exists
-        if currUID == nil {
-            print("DB: UID does not exist")
-            return NoSuchUserError()
-        }
-        print("DB: Function was called")
-        print("DB: \(currUID)")
-        // Navigate to the user houses field and get a "Snapshot" of the data stored there
-        self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
-            // This is the closure where we say what to do with the given snapshot, in this case, the houses the
-            // user is in
-            print("DB: taking snapshot")
-            // Check if snapshot exists i.e. if data is stored there
-            if snapshot.exists(){
-                print("DB: Snapshot exists")
-                // TODO: reconsider how we are iterating over return val,
-                // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
-                if let house_ids = snapshot.value as? [String] {
-                    print("User is in \(house_ids.count) houses")
-                    // Callback with house ids which are random identifier strings of letters and numbers
-                    callback(house_ids)
-                } else {
-                    // If cast could not occur aka no houses found, run callback with nil
-                    print("User not in any houses")
-                    callback(nil)
+        if let currUID = Auth.auth().currentUser?.uid {
+            print("DB: \(currUID)")
+            // Navigate to the user houses field and get a "Snapshot" of the data stored there
+            self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
+                // This is the closure where we say what to do with the given snapshot, in this case, the houses the
+                // user is in
+                print("DB: taking snapshot")
+                // Check if snapshot exists i.e. if data is stored there
+                if snapshot.exists(){
+                    print("DB: Snapshot exists")
+                    // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
+                    let house_ids = snapshot.value as? NSDictionary
+                    if let houseIdStrings = house_ids?.allKeys as? [String]? {
+                        // Callback with house ids which are random identifier strings of letters and numbers
+                        print("User is in \(houseIdStrings!.count) houses")
+                        callback(houseIdStrings)
+                    } else {
+                        // If cast could not occur aka no houses found, run callback with nil
+                        print("User not in any houses/Houses not found")
+                        callback(nil)
+                    }
                 }
-            }
-        })
-        return ExpectedExecution()
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
     }
     
     func getUserPhoneNumber(email: String)-> ReturnValue<Int?> {
@@ -489,15 +485,18 @@ class DatabaseAccess  {
         print("create house function called")
         let house_id = self.ref.child("houses").childByAutoId().key
         print("creating house with key \(house_id)")
-        self.ref.child("houses/\(house_id)").setValue([ "houseID": house_id,
-                                                        "house_name": newHouse.house_name,
-                                                        "house_users": Auth.auth().currentUser?.email! ,
-                                                        "owner": newHouse.owner,
-                                                        "recent_charges": newHouse.recent_charges])
+        let houseValueToAdd : Any = [ "houseID": house_id,
+                                      "house_name": newHouse.house_name,
+                                      "owner": newHouse.owner,
+                                      "recent_charges": newHouse.recent_charges]
+        self.ref.child("houses/\(house_id)").setValue(houseValueToAdd)
         newHouse.setHouseID(ID: house_id)
         let uid = Auth.auth().currentUser!.uid
-        self.ref.child("users/\(uid)/houses").setValue([house_id]) // append instead of overriding value
-        //addNewUserToHouseUsers(with_email: newHouse.owner, to_house: house_id)
+        self.ref.child("users/\(uid)/houses/\(house_id)").setValue(true)
+        addNewUserToHouse(with_email: newHouse.owner, to_house: house_id)
+        for email in newHouse.house_users {
+            addNewUserToHouse(with_email: email, to_house: house_id)
+        }
         return newHouse
     }
     
@@ -516,7 +515,7 @@ class DatabaseAccess  {
         }
     }
     
-    //ELENA - FIX COMMENTED FUNCTIONS
+    //ELENA+Jesse - FIX COMMENTED FUNCTIONS
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false
 //    func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
@@ -547,68 +546,69 @@ class DatabaseAccess  {
 //        }
 //        return ReturnValue(error: false, data: false, error_number: 20)
 //    }
-    
-    func getOwnerOfHouse(HouseID: String)-> ReturnValue<String?> {
-        var owner: String? = ""
-        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                let value = snapshot.value as? NSDictionary
-                owner = value?["owner"] as? String ?? ""
-            }
-        })
-        return ReturnValue(error: false, data: owner)
-    }
-    
+//
+//    func getOwnerOfHouse(HouseID: String)-> ReturnValue<String?> {
+//        var owner: String? = ""
+//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if snapshot.exists(){
+//                let value = snapshot.value as? NSDictionary
+//                owner = value?["owner"] as? String ?? ""
+//            }
+//        })
+//        return ReturnValue(error: false, data: owner)
+//    }
+//
+
     // Unsure about storing as array, should probably modify for scalability so don't have to retrieve append and update.
     // look into handling lists of data
-    func addNotification(notification: String, houseID: String, users_to_notify: [String]) {
-        var recent_inters = getMostRecentNotifications(HouseID: houseID, n: 10) // dummy n value
-        recent_inters.append(notification)
-        self.ref.child("houses/\(houseID)/recent_charges").setValue(recent_inters)
-    }
-
-    //TODO: account for n
-    func getMostRecentNotifications(HouseID: String, n: Int)-> [String] {
-        var recent_inters: [String] = []
-        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                let value = snapshot.value as? NSDictionary
-                recent_inters = value?["recent_charges"] as? [String] ?? []
-            }
-        })
-        return recent_inters
-    }
-
-    func userAddCharge(chargeID: String) {
-        //var curr_chars = getCharges(HouseID: houseID) // dummy n value
-        // TODO create charge type potentially?
-        //var newCharge
-        //curr_chars.append(newCharge)
-        //self.ref.child("houses/\(houseID)/recent_charges").setValue(curr_chars)
-    }
-    
-    func getCharges(HouseID: String)-> [String] {
-        var charges: [String] = []
-        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            if snapshot.exists(){
-                let value = snapshot.value as? NSDictionary
-                charges = value?["recent_charges"] as? [String] ?? []
-            }
-        })
-        return charges
-    }
-    
-    
-    func addCharge(amount: String, userTo: String, userFrom: String, houseID: String) {
-        // TO BE IMPLEMENTED
-    }
-
-    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
-        // TO BE IMPLEMENTED
-    }
-    
+//    func addNotification(notification: String, houseID: String, users_to_notify: [String]) {
+//        var recent_inters = getMostRecentNotifications(HouseID: houseID, n: 10) // dummy n value
+//        recent_inters.append(notification)
+//        self.ref.child("houses/\(houseID)/recent_charges").setValue(recent_inters)
+//    }
+//
+//    //TODO: account for n
+//    func getMostRecentNotifications(HouseID: String, n: Int)-> [String] {
+//        var recent_inters: [String] = []
+//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if snapshot.exists(){
+//                let value = snapshot.value as? NSDictionary
+//                recent_inters = value?["recent_charges"] as? [String] ?? []
+//            }
+//        })
+//        return recent_inters
+//    }
+//
+//    func userAddCharge(chargeID: String) {
+//        //var curr_chars = getCharges(HouseID: houseID) // dummy n value
+//        // TODO create charge type potentially?
+//        //var newCharge
+//        //curr_chars.append(newCharge)
+//        //self.ref.child("houses/\(houseID)/recent_charges").setValue(curr_chars)
+//    }
+//
+//    func getCharges(HouseID: String)-> [String] {
+//        var charges: [String] = []
+//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
+//            // Get user value
+//            if snapshot.exists(){
+//                let value = snapshot.value as? NSDictionary
+//                charges = value?["recent_charges"] as? [String] ?? []
+//            }
+//        })
+//        return charges
+//    }
+//
+//
+//    func addCharge(amount: String, userTo: String, userFrom: String, houseID: String) {
+//        // TO BE IMPLEMENTED
+//    }
+//
+//    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
+//        // TO BE IMPLEMENTED
+//    }
+//
 
 }

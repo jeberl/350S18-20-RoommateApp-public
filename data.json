@@ -14,11 +14,11 @@
 		}
 	},
 	"user_emails" : {
-		"1@test.com" : { "created": true,		// To find a users UID from a given email
+		"1@test&com" : { "created": true,		// To find a users UID from a given email
 						 "uid" : "qerjqreipeqr"
 						}
 		, 
-		"to@be.created" : { "created" : false,  // if a user is added to a house before an account is created for that email an account here will be
+		"to@be&created" : { "created" : false,  // if a user is added to a house before an account is created for that email an account here will be
 							"houses" : {"erv2rv2rv": true}
 						}
 	},

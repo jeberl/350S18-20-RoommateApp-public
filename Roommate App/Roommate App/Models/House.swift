@@ -15,12 +15,14 @@ struct House {
     var houseID: String?
     var house_name: String
     var house_users: [String]
+    var address : String
     let owner: String // unique user email
     var recent_charges: [String] // unique chargeIDs
     var recent_interactions: [String] // array of all uids for Notifs
     
-    init(house_name: String, house_users:[String], owner: String, recent_charges: [String], recent_interactions:[String]) {
+    init(house_name: String, address: String, house_users:[String], owner: String, recent_charges: [String], recent_interactions:[String]) {
         self.houseID = nil
+        self.address = address
         self.house_name = house_name
         self.house_users = house_users
         self.owner = owner

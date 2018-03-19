@@ -15,7 +15,7 @@ class CreateHouseViewController: UIViewController {
     @IBOutlet weak var houseaddressTextField: UITextField!
     @IBOutlet weak var homieUsernameTextField: UITextField!
     var currentUser : UserAccount?
-    var homies: [String]!
+    var homies: [String] = []
     var database: DatabaseAccess?
     var newHome : House!
     
@@ -23,7 +23,6 @@ class CreateHouseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        homies = [String]()
         database = DatabaseAccess.getInstance()
         // Do any additional setup after loading the view.
     }
@@ -34,12 +33,17 @@ class CreateHouseViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        var homie = homieUsernameTextField!.text
-        self.homies.append(homie!)
-        homieUsernameTextField.text = ""
-        let alert = UIAlertController(title: "Homie Added",
-                                      message: "Homie Added!" ,
-                                      preferredStyle: .alert)
+        var alert = UIAlertController(title: "Invalid Name",
+                                              message: "Try again",
+                                              preferredStyle: .alert)
+        if let homie = homieUsernameTextField!.text {
+            self.homies.append(homie)
+            homieUsernameTextField.text = ""
+            alert = UIAlertController(title: "Homie Added",
+                                          message: "Homie Added!" ,
+                                          preferredStyle: .alert)
+        }
+        
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
@@ -58,7 +62,7 @@ class CreateHouseViewController: UIViewController {
         }
         let address = houseaddressTextField!.text
         // Create new house object to add to database
-        var newHome = House(house_name: houseName!, house_users: homies, owner: Auth.auth().currentUser!.email!, recent_charges: [], recent_interactions: [])
+        let newHome = House(house_name: houseName!, address : address!, house_users: homies, owner: Auth.auth().currentUser!.email!, recent_charges: [], recent_interactions: [])
         self.newHome = self.database!.createHouse(house: newHome)
         
     }
@@ -69,11 +73,6 @@ class CreateHouseViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.destination is AllHousesPageViewController {
-            let vc = segue.destination as? AllHousesPageViewController
-            vc?.houseIDOfAdded = newHome.houseID
-            vc?.houseNameOfAdded = newHome.house_name
-        }
     }
     
 
