@@ -581,41 +581,85 @@ class DatabaseAccess  {
         let notifID = self.ref.child("notifications").childByAutoId().key
         var newNotification = notification
         newNotification.setNotificationID(ID: notifID)
-        //houseID: "test", houseName: "test", usersInvolved: ["test"], timestamp: NSDate.init(), type: "test"
+        var newUsersInvolved : [String] = []
+        for user in newNotification.usersInvolved {
+            var formatEmail = reformatEmail(email: user)
+            newUsersInvolved.append(formatEmail) 
+        }
         let notificationValueToAdd : [String: Any?] = ["houseID": newNotification.houseID,
                                       "house_name": newNotification.houseName,
-                                      "users_involved": ["emi@email.com"],
+                                      //"users_involved": newUsersInvolved,
                                       //"timestamp": newNotification,
                                       "type": newNotification.type]
         self.ref.child("notifications/\(notifID)").setValue(notificationValueToAdd)
         // For each user in usersInvolved add the notifId to their notifications and send notifier to user
+        for someUser in newUsersInvolved {
+            self.ref.child("notifications/\(notifID)/users_involved/\(someUser)").setValue(true)
+        }
         for currUser in notification.usersInvolved {
             let formattedEmail = reformatEmail(email: currUser)
             self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
-                print(snapshot)
                 let uid = snapshot.value!
                 self.ref.child("users/\(uid)/notifications/\(notifID)").setValue(true)
             })
         }
         return ExpectedExecution()
     }
+    
+    // once a user deletes the notification, it is deleted from their account and deletes the user from the notification in db,
+    // it is deleted from db altogether if no other users are dependent on it
+    func deleteNotification(notifId: String) -> ReturnValue<Bool> {
+        //let currUser = Auth.auth().currentUser?.email
+        let currUser = reformatEmail(email: "emi@email.com")
+        let formattedEmail = reformatEmail(email: currUser)
+        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
+            let uid = snapshot.value!
+            //self.ref.child("notifications/\(notifId)/users_involved/\(currUser)").setValue(nil)
+            self.ref.child("users/\(uid)/notifications/\(notifId)").setValue(nil)
+        })
+        self.ref.child("notifications/\(notifId)/users_involved/\(currUser)").setValue(nil)
+        return ExpectedExecution()
+    }
+    
+    // Remove entire notification reference in db if no more users need it
+    func removeNotification(notifId: String) -> ReturnValue<Bool> {
+        self.ref.child("notifications/\(notifId)").observe(.value, with: { (snapshot) in
+            if !snapshot.hasChild("users_involved") {
+                self.ref.child("notifications/\(notifId)").setValue(nil)
+            }
+        })
+        return ExpectedExecution()
+    }
 
-    // TODO:
+    // retrieve a current users notifications for display on screen
+    func getNotifications(callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        if let currUID = Auth.auth().currentUser?.uid {
+            // Navigate to the user houses field and get a "Snapshot" of the data stored there
+            self.ref.child("users/\(currUID)/notifications").observe(.value, with: { (snapshot) in
+                // This is the closure where we say what to do with the given snapshot, in this case, the houses the
+                // user is in
+                // Check if snapshot exists i.e. if data is stored there
+                if snapshot.exists(){
+                    // Get the value of the snapshot, i.e. the house_ids the user is in (cast to string array)
+                    let notifIds = snapshot.value as? NSDictionary
+                    if let notifIdStrings = notifIds?.allKeys as? [String]? {
+                        // Callback with notification ids which are random identifier strings of letters and numbers
+                        callback(notifIdStrings)
+                    } else {
+                        // If cast could not occur aka no notifications found, run callback with nil
+                        print("No notifications for user")
+                        callback(nil)
+                    }
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+    }
+    
 
 //
 //    //TODO: account for n
-//    func getMostRecentNotifications(HouseID: String, n: Int)-> [String] {
-//        var recent_inters: [String] = []
-//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            if snapshot.exists(){
-//                let value = snapshot.value as? NSDictionary
-//                recent_inters = value?["recent_charges"] as? [String] ?? []
-//            }
-//        })
-//        return recent_inters
-//    }
-//
     
 /*
      * TODO: Iteration 3- Charges
