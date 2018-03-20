@@ -8,11 +8,7 @@
 
 import Foundation
 
-
-
 import Firebase
-import FirebaseDatabase
-import FirebaseAuthUI
 import FirebaseStorage
 
 class ImageStorage  {
