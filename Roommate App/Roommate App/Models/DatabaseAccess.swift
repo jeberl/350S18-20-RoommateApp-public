@@ -515,16 +515,20 @@ class DatabaseAccess  {
         }
     }
     
+    // Updates house name if it exists and returns true, otherwise returns appropriate error and false
+    
+    func changeHouseName(currHouse : House, newName: String)-> ReturnValue<Bool> {
+        //Check if user is logged in
+        if Auth.auth().currentUser?.uid != nil {
+            // Setting value does not require closures and can be done directly to the DatabaseReferecece returned by .child() function
+            self.ref.child("houses/\(String(describing: currHouse.houseID))/house_name").setValue(newName)
+            return ExpectedExecution()
+        }
+        return NoSuchHouseError()
+    }
+    
     //ELENA+Jesse - FIX COMMENTED FUNCTIONS
     
-    // Updates house name if it exists and returns true, otherwise returns appropriate error and false
-//    func changeHouseName(curr_house : House, new_name: String)-> ReturnValue<Bool> {
-//        if doesHouseExist(house_id: curr_house.houseID).data! {
-//            self.ref.child("houses/\(curr_house.houseID)/house_name").setValue(new_name)
-//            return ReturnValue(error: false, data: true)
-//        }
-//        return ReturnValue(error: true, data: false, error_number: 20)
-//    }
 //
 //    func getListOfUsersInHouse(HouseID: String)-> ReturnValue<[String]> {
 //        var users: [String] = []
