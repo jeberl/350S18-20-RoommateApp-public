@@ -272,6 +272,22 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    func getUserLocalNickname(from_houseID houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("houses/\(houseID!)/house_users").observe(.value, with: { (snapshot) in
+                if snapshot.exists() && snapshot.hasChild(uid) {
+                    let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
+                    callback(nickname)
+                } else {
+                    //return nil if house not found or user not member of house
+                    callback(nil)
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+    }
+    
     func setUserLocalNickname(in_house : House, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(in_house.houseID)/house_users").observe(.value, with: { (snapshot) in
