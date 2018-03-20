@@ -10,7 +10,7 @@ import Foundation
 
 struct Notification {
     
-    var choreID: String?
+    var notificationID: String?
     var houseID: String
     var houseName: String
     var usersInvolved: [String]
@@ -19,7 +19,7 @@ struct Notification {
     var checked: Bool
     
     init(houseID: String, houseName: String, usersInvolved: [String], timestamp: NSDate, type: String) {
-        self.choreID = nil
+        self.notificationID = nil
         self.houseID = houseID
         self.houseName = houseName
         self.usersInvolved = usersInvolved
@@ -29,9 +29,9 @@ struct Notification {
     }
 
     // Set id once chore is created and added to database
-    mutating func setChoreID(ID: String) {
-        if choreID == nil {
-            self.choreID = ID
+    mutating func setNotificationID(ID: String) {
+        if notificationID == nil {
+            self.notificationID = ID
         }
     }
     
