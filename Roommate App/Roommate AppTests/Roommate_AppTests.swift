@@ -18,18 +18,18 @@ let test_email_passwords: [String] = ["test123"]
 
 class Roommate_AppTests: XCTestCase {
     
-    var database : DatabaseAccess?
+    var database : DatabaseAccess = DatabaseAccess.getInstance()
     var intitalUser : UserAccount?
     
     override func setUp() {
         super.setUp()
-        database = DatabaseAccess.getInstance()
-        database!.login(username: test_email_addresses[0], password: test_email_passwords[0], view : nil)
-        let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
-            print("created initial user")
-            self.intitalUser = user
-        })
-        print(error.getErrorDescription())
+        //database = DatabaseAccess.getInstance()
+        //database!.login(username: test_email_addresses[0], password: test_email_passwords[0], view : nil)
+        //let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
+        //    print("created initial user")
+        //    self.intitalUser = user
+        //})
+        //print(error.getErrorDescription())
     }
     
     override func tearDown() {
@@ -40,18 +40,18 @@ class Roommate_AppTests: XCTestCase {
     
     
     func testUserHasCorrectInitial (){
-        let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
-            print("created initial user")
-            self.intitalUser = user
-            XCTAssertEqual(user.email, test_email_addresses[0])
-            XCTAssertEqual(user.nickname, test_email_addresses[0])
-            XCTAssertEqual(user.houses, [])
-            XCTAssertEqual(user.phoneNumber, nil)
+        //let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
+        //    print("created initial user")
+        //    self.intitalUser = user
+        //    XCTAssertEqual(user.email, test_email_addresses[0])
+        //    XCTAssertEqual(user.nickname, test_email_addresses[0])
+        //    XCTAssertEqual(user.houses, [])
+        //    XCTAssertEqual(user.phoneNumber, nil)
     
-        })
-        if error.returned_error {
-            XCTFail()
-        }
+        //})
+        //if error.returned_error {
+        //    XCTFail()
+        //}
 
     }
     
@@ -111,7 +111,7 @@ class Roommate_AppTests: XCTestCase {
     
     func testAddingChoreToDatabase() {
         let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: NSDate(), house: "imiytlkvwiuvwpiuew", description: "testing adding to database")
-        database!.createChore()
+        database.
     }
     
 }
