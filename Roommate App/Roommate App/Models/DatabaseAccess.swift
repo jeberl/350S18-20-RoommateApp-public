@@ -213,7 +213,7 @@ class DatabaseAccess  {
         self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: name_callback)
     }
     
-    func getUserGlobalNickname(for_uid: String? = nil, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
+    func getUserGlobalNickname(for_uid: String?, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
         //Check specific uid was given if not return for current user
         var uid = for_uid
         if uid == nil {
@@ -259,6 +259,22 @@ class DatabaseAccess  {
     func getUserLocalNickname(from_house house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(house.houseID)/house_users").observe(.value, with: { (snapshot) in
+                if snapshot.exists() && snapshot.hasChild(uid) {
+                    let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
+                    callback(nickname)
+                } else {
+                    //return nil if house not found or user not member of house
+                    callback(nil)
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+    }
+    
+    func getUserLocalNickname(from_houseID houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("houses/\(houseID!)/house_users").observe(.value, with: { (snapshot) in
                 if snapshot.exists() && snapshot.hasChild(uid) {
                     let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
                     callback(nickname)

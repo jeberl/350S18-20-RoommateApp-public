@@ -8,8 +8,7 @@
 
 import Foundation
 
-// this file stores global variables holding the current user and the current house that the user is viewing
+// this file stores a global variable holding the current house that the user is viewing
 
-var currentUser: UserAccount? = nil
-var currentHouse: House? = nil
+var currentHouseID: String?
 
