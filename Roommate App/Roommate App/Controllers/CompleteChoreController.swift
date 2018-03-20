@@ -34,23 +34,35 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             present(imagePicker, animated: true, completion: nil)
         }
     }
+    
+    @IBAction func WriteDescriptionButtonPressed(_ sender: UIButton) {
+        
+    }
+    
+    @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
+        
+        
+    }
+    
+    
+
 
     // text view for inserting written description
     @IBOutlet weak var WrittenDescriptionTextView: UITextView!
     
     // submit button for written description
-    @IBAction func WrittenDescriptionSubmitButton(_ sender: Any) {
+    @IBAction func WrittenDescriptionSubmitPressed(_ sender: UIButton) {
         // TODO: insert code that sends the written description to the chore and displays it when the chore is clicked under the "completed chores section"
     }
     
+    @IBAction func WrittenDescriptionSubmitButton(_ sender: UIButton) {
+        
+    }
+ 
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    
-    @IBAction func writtenDescriptionSubmit(_ sender: UIButton) {
     }
     
 

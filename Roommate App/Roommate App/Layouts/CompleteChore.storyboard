@@ -53,8 +53,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button" image="write_icon"/>
                                 <connections>
-                                    <action selector="WriteDescriptionButtonPressed:" destination="BFV-a5-ZHu" eventType="touchUpInside" id="EGD-fn-LbP"/>
-                                    <segue destination="XLM-45-vSB" kind="show" id="yyR-xA-HkA"/>
+                                    <action selector="WriteDescriptionButtonPressed:" destination="BFV-a5-ZHu" eventType="touchUpInside" id="NH8-pl-17Y"/>
+                                    <action selector="WrittenDescriptionButtonPressed:" destination="BFV-a5-ZHu" eventType="touchUpInside" id="lOe-ri-t7E"/>
+                                    <segue destination="XLM-45-vSB" kind="show" id="3B9-FB-a5W"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upload Photo" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSy-Lw-hiK">
@@ -95,6 +96,7 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="WrittenDescriptionSubmitButton:" destination="XLM-45-vSB" eventType="touchUpInside" id="PhV-kf-Ojh"/>
+                                    <action selector="WrittenDescriptionSubmitPressed:" destination="XLM-45-vSB" eventType="touchUpInside" id="HUA-E4-WWB"/>
                                     <action selector="writtenDescriptionSubmit:" destination="O9A-Gf-IRB" eventType="touchUpInside" id="4Ff-Fg-Wg1"/>
                                 </connections>
                             </button>
