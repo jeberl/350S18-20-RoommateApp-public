@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		1FCCB49F527328F0524CAB6E /* Pods_Roommate_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16550E7F61CB9ED99C045D87 /* Pods_Roommate_App.framework */; };
+		3745D505205CCD3300227F97 /* ChoreListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3745D504205CCD3300227F97 /* ChoreListViewController.swift */; };
+		3745D507205CD0B600227F97 /* Chore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3745D506205CD0B600227F97 /* Chore.swift */; };
+		3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3745D508205CD54900227F97 /* CreateChoreViewController.swift */; };
+		3745D50B205CD57600227F97 /* ChoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3745D50A205CD57600227F97 /* ChoreViewController.swift */; };
 		37DB6BA9203F3639006C296C /* CreateHouseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */; };
 		757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB93A202E1E8500CB9FF6 /* AppDelegate.swift */; };
 		757DB93D202E1E8500CB9FF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB93C202E1E8500CB9FF6 /* ViewController.swift */; };
@@ -56,6 +60,10 @@
 		16550E7F61CB9ED99C045D87 /* Pods_Roommate_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17414706F0FBA05014F0330D /* Pods-Roommate AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppTests/Pods-Roommate AppTests.release.xcconfig"; sourceTree = "<group>"; };
 		2646D0BA8CEF18B5F27F2105 /* Pods-Roommate AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppTests/Pods-Roommate AppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3745D504205CCD3300227F97 /* ChoreListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreListViewController.swift; sourceTree = "<group>"; };
+		3745D506205CD0B600227F97 /* Chore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chore.swift; sourceTree = "<group>"; };
+		3745D508205CD54900227F97 /* CreateChoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChoreViewController.swift; sourceTree = "<group>"; };
+		3745D50A205CD57600227F97 /* ChoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreViewController.swift; sourceTree = "<group>"; };
 		37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateHouseViewController.swift; sourceTree = "<group>"; };
 		54E718FC3D196C2913529BAF /* Pods_Roommate_AppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_AppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62205F9ED54CE6CDCD38CCFA /* Pods-Roommate AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -197,6 +205,7 @@
 				757DB96C20351F6F00CB9FF6 /* UserAccount.swift */,
 				757DB96E20351F8700CB9FF6 /* House.swift */,
 				757DB97020351F9600CB9FF6 /* Charge.swift */,
+				3745D506205CD0B600227F97 /* Chore.swift */,
 				888310DB2037848300E4F495 /* ReturnValue.swift */,
 				90F573C9203E8B47001FBEC1 /* CurrentState.swift */,
 			);
@@ -211,7 +220,10 @@
 				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
 				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
 				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
+				3745D508205CD54900227F97 /* CreateChoreViewController.swift */,
 				90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */,
+				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
+				3745D504205CCD3300227F97 /* ChoreListViewController.swift */,
 				90F573CD203F4576001FBEC1 /* HouseProfileController.swift */,
 			);
 			path = Controllers;
@@ -566,10 +578,14 @@
 				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
+				3745D507205CD0B600227F97 /* Chore.swift in Sources */,
 				37DB6BA9203F3639006C296C /* CreateHouseViewController.swift in Sources */,
 				90F573CA203E8B47001FBEC1 /* CurrentState.swift in Sources */,
+				3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */,
+				3745D505205CCD3300227F97 /* ChoreListViewController.swift in Sources */,
 				90F573C8203E3390001FBEC1 /* ProfileController.swift in Sources */,
 				757DB96F20351F8700CB9FF6 /* House.swift in Sources */,
+				3745D50B205CD57600227F97 /* ChoreViewController.swift in Sources */,
 				88843D5A203539BE00B05F1F /* DatabaseAccess.swift in Sources */,
 				888310DC2037848300E4F495 /* ReturnValue.swift in Sources */,
 				757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */,
