@@ -46,12 +46,6 @@ class AllHousesPageViewController: UITableViewController {
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
-//        } else if houseIDOfAdded != nil && houseNameOfAdded != nil {
-//            house_ids.append(houseIDOfAdded!)
-//            houses.append(houseNameOfAdded!)
-//            houseIDOfAdded = nil
-//            houseNameOfAdded = nil
-//        }
     }
 
     func loginError(message : String = "User not found") {

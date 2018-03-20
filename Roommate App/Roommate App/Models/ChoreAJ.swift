@@ -16,10 +16,10 @@ struct ChoreAJ {
     var completed: Bool
     var time_assigned: NSDate
     var time_completed: NSDate?
-    var house: String
+    var houseID: String
     var description: String
     
-    init(chore_title: String, assignor: String, assignee: String, time_assigned: NSDate, house: String, description: String ){
+    init(chore_title: String, assignor: String, assignee: String, time_assigned: NSDate, houseID: String, description: String ){
         self.choreID = nil
         self.completed = false
         self.title = chore_title
@@ -27,7 +27,7 @@ struct ChoreAJ {
         self.assigned_to = assignee
         self.time_assigned = time_assigned
         self.time_completed = nil
-        self.house = house
+        self.houseID = houseID
         self.description = description
     }
     

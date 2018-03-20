@@ -527,6 +527,88 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
+    /*
+     Creates chore in database
+     Input: Chore assigned
+     Output: True if chore added with no error message, false and with error message if not added
+     */
+    func createChore(chore : ChoreAJ) -> ReturnValue<Bool> {
+        var newChore = chore
+        print("Assigning chore with chore name \(newChore.title)")
+        let choreID = self.ref.child("chores").childByAutoId().key
+        let choreToAdd : Any = [ "choreID" : choreID,
+                                 "title" : newChore.title,
+                                 "assigned_by" : newChore.assigned_by,
+                                 "assigned_to" : newChore.assigned_to,
+                                 "completed" : false,
+                                 "time_assigned" : newChore.time_assigned,
+                                 "time_completed" : newChore.time_completed,
+                                 "house" : newChore.houseID,
+                                 "description" : newChore.description
+        ]
+        self.ref.child("chores/\(choreID)").setValue(choreToAdd)
+        newChore.setChoreID(ID: choreID)
+        assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
+        assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
+        return ExpectedExecution()
+    }
+    
+    /*
+     Assigns the chore to the user
+     Input: Email of the user the chore was assigned to
+     Output: Return value with true and no error if chore was assigned properly.  Otherwise, return value with false and associated error code
+    */
+    func assignChoreToUser(userEmail: String, choreID: String) -> ReturnValue<Bool> {
+        var userID : String?
+        let getUIDClosure = { (returnedID : String?) -> Void in
+            userID = returnedID
+        }
+        getUIDFromEmail(email: userEmail, callback: getUIDClosure)
+        
+        // If uid is nil, then this user has not yet created an account
+        // Have been added to a house though since we found in user_emails
+        if userID == nil {
+            return NoSuchUserError()
+        }
+        
+        // Add choreID to dictionary of user's imcomplete chores
+        self.ref.child("users/\(userID)/incompleteChores/\(choreID)").setValue(true)
+        return ExpectedExecution()
+    }
+    
+    /*
+     Assigns chore to house's list of all incomplete chores
+     Input: String ID of associated house and string ID of chore to add
+     Output: Return value containing true and no error if chore was added.  Otherwise, returns false and an associated error code
+    */
+    func assignChoreToHouse(houseID: String, choreID: String) -> ReturnValue<Bool> {
+        // Add choreID to dictionary of house's incomplete chores
+        self.ref.child("houses/\(houseID)/incompleteChores/\(choreID)").setValue(true)
+        return ExpectedExecution()
+    }
+    
+    /*
+     Finds and returns the user's UID given their email
+     Input: User's email
+     Output: callback returns user's associated UID
+    */
+    func getUIDFromEmail(email: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        let formattedEmail = reformatEmail(email: email)
+        self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                if let uid = snapshot.value as? String {
+                    // Get the value of the snapshot (cast to string) and store as uid
+                    print("Found uid from email")
+                    callback(uid)
+                }
+            } else {
+                print("User has not yet created an account")
+                callback(nil)
+            }
+        })
+        return ExpectedExecution()
+    }
+    
     //ELENA+Jesse - FIX COMMENTED FUNCTIONS
     
 //
