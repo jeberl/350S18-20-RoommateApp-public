@@ -87,14 +87,7 @@ class Roommate_AppTests: XCTestCase {
         XCTFail("To Implement")
     }
     func testCreateHouse() {
-        let testHouse = House(
-            uid: "test", // think this is just a Firebase specific thing, not sure
-            house_name: "testHouse",
-            house_users: ["me"],
-            owner: "me", // unique userID
-            recent_charges: [], // unique chargeIDs
-            recent_interactions: [])
-        //self.data.createHouse(newHouse: testHouse)
+        XCTFail("To Implement")
     }
     
     func testAddEmailAlreadyUserReutrnsError() {
@@ -114,6 +107,11 @@ class Roommate_AppTests: XCTestCase {
         self.measure {
             // Put the code you want to measure the time of here.
         }
+    }
+    
+    func testAddingChoreToDatabase() {
+        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: NSDate(), house: "imiytlkvwiuvwpiuew", description: "testing adding to database")
+        database!.createChore()
     }
     
 }

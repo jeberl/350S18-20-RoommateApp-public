@@ -536,14 +536,13 @@ class DatabaseAccess  {
         var newChore = chore
         print("Assigning chore with chore name \(newChore.title)")
         let choreID = self.ref.child("chores").childByAutoId().key
-        let choreToAdd : Any = [ "choreID" : choreID,
-                                 "title" : newChore.title,
+        let choreToAdd : Any = [ "title" : newChore.title,
                                  "assigned_by" : newChore.assigned_by,
                                  "assigned_to" : newChore.assigned_to,
                                  "completed" : false,
                                  "time_assigned" : newChore.time_assigned,
                                  "time_completed" : newChore.time_completed,
-                                 "house" : newChore.houseID,
+                                 "houseID" : newChore.houseID,
                                  "description" : newChore.description
         ]
         self.ref.child("chores/\(choreID)").setValue(choreToAdd)
