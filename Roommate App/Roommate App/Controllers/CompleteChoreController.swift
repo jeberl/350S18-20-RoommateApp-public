@@ -18,15 +18,21 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
     }
 
     @IBAction func TakePhotoButtonPressed(_ sender: UIButton) {
-    
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .camera
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
     
     @IBAction func UploadPhotoButtonPressed(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        
-        present(imagePicker, animated: true, completion: nil)
-
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
     }
 
     
