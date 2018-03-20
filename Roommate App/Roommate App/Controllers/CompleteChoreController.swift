@@ -35,14 +35,22 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         }
     }
 
+    // text view for inserting written description
+    @IBOutlet weak var WrittenDescriptionTextView: UITextView!
     
-    @IBAction func WriteDescriptionButtonPressed(_ sender: Any) {
-    
+    // submit button for written description
+    @IBAction func WrittenDescriptionSubmitButton(_ sender: Any) {
+        // TODO: insert code that sends the written description to the chore and displays it when the chore is clicked under the "completed chores section"
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    @IBAction func writtenDescriptionSubmit(_ sender: UIButton) {
     }
     
 

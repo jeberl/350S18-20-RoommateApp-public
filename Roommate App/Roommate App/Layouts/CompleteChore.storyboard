@@ -74,10 +74,10 @@
             </objects>
             <point key="canvasLocation" x="391.19999999999999" y="65.217391304347828"/>
         </scene>
-        <!--View Controller-->
+        <!--Complete Chore Controller-->
         <scene sceneID="EKV-dP-1aR">
             <objects>
-                <viewController id="XLM-45-vSB" sceneMemberID="viewController">
+                <viewController id="XLM-45-vSB" customClass="CompleteChoreController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NRh-rq-Udc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,7 +85,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Insert Written Description of  Completed Chore!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3F-Sl-Bjb">
                                 <rect key="frame" x="57" y="461" width="260" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -93,21 +93,28 @@
                                 <rect key="frame" x="163" y="572" width="49" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="WrittenDescriptionSubmitButton:" destination="XLM-45-vSB" eventType="touchUpInside" id="PhV-kf-Ojh"/>
+                                    <action selector="writtenDescriptionSubmit:" destination="O9A-Gf-IRB" eventType="touchUpInside" id="4Ff-Fg-Wg1"/>
+                                </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wAh-c0-hfA">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Click here to insert description..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wAh-c0-hfA">
                                 <rect key="frame" x="26" y="64" width="322" height="389"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="kyD-gh-dE6"/>
                     </view>
+                    <connections>
+                        <outlet property="WrittenDescriptionTextView" destination="wAh-c0-hfA" id="RKC-2K-AtF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4a-G6-1rc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="O9A-Gf-IRB" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1512.8" y="-190.25487256371815"/>
         </scene>
