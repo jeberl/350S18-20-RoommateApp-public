@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         
         let storyboard = UIStoryboard(name: "CompleteChore", bundle: nil)
         
-        let controller = storyboard.instantiateViewController(withIdentifier: "CompleteChoreController") as UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "CompleteChoreNavController") as UIViewController
         
         self.present(controller, animated: true, completion: nil)
         
