@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -23,6 +24,9 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             imagePicker.sourceType = .camera
             
             present(imagePicker, animated: true, completion: nil)
+            
+            imagePicker.
+            
         }
     }
     
@@ -32,8 +36,14 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             imagePicker.sourceType = .photoLibrary
             
             present(imagePicker, animated: true, completion: nil)
+            
+            ImageStorage.getInstance().imagePickerController(picker: imagePicker, didFinishPickingImage: <#T##UIImage#>, editingInfo: <#T##[String : AnyObject]?#>, choreID: <#T##String#>, view: <#T##UIViewController#>)
+            
+
         }
     }
+    
+
     
     @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
         
