@@ -747,7 +747,9 @@ class DatabaseAccess  {
 
     // retrieve a current users notifications for display on screen
     func getNotifications(callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        if let currUID = Auth.auth().currentUser?.uid {
+        let currUID = "JEpBdCbTnVOLqzB6RNPWDZXEmrI3"
+        if true {
+        //if let currUID = Auth.auth().currentUser?.uid {
             // Navigate to the user houses field and get a "Snapshot" of the data stored there
             self.ref.child("users/\(currUID)/notifications").observe(.value, with: { (snapshot) in
                 // This is the closure where we say what to do with the given snapshot, in this case, the houses the
@@ -771,7 +773,29 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
-
+    func getNotifData(notifId: String, callback: @escaping (NSDictionary?) -> Void) -> ReturnValue<Bool> {
+        //Navigate to the formatted email field and get a "Snapshot" of the data stored there
+        self.ref.child("notifications/\(notifId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            //This is the closure where we say what to do with the given snapshot which in this case is the nickname
+            // We check if the snapshot exists ie. is there data stored there
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as nickname
+                if let notification = snapshot.value as? NSDictionary {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    callback(notification)
+                } else {
+                    // If cast coulnt occur no uid found, run  callback with nil
+                    print("No notification")
+                    callback(nil)
+                }
+            } else {
+                // If no snapshot then no user, run the callback with nil
+                print("notification not found")
+                callback(nil)
+            }
+        })
+        return NoSuchUserError()
+    }
 //
 //    //TODO: account for n
     
