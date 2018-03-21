@@ -16,8 +16,8 @@ class ChoreListViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var choreTableView: UITableView!
     @IBOutlet weak var showCompletedButton: UIButton!
     var currentUser : UserAccount! // Current user
-    var chores : [ChoreAJ]! = [ChoreAJ]() // Chores in the house
-    var chore_ids : [String]! = [String]() // ChoreIDs of chores in the house
+    var incompleteChores : [String]! = [String]() // User's incomplete chores in the house
+    var incompleteChoreIDs : [String]! = [String]() // ChoreIDs of chores in the house
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     var currentHouse : House!
     
@@ -31,19 +31,38 @@ class ChoreListViewController: UIViewController, UITableViewDelegate, UITableVie
         choreTableView.dataSource = self
         
         // Get chores for specific user
+        let incompleteChoresClosure = { (returnedChoresIDs : [String]?) -> Void in
+            self.incompleteChoreIDs = returnedChoresIDs ?? []
+            let getChoreNameClosure = { (choreName: String?) -> Void in
+                if choreName != nil {
+                    self.incompleteChores.append(choreName!)
+                    self.choreTableView.reloadData()
+                }
+                
+            }
+            for choreID in self.incompleteChoreIDs! {
+                self.database.getChoreName(choreID: choreID, callback: getChoreNameClosure)
+            }
+        }
+        self.database.getUserIncompleteChores(callback: incompleteChoresClosure)
+        
+    }
+    
+    // Only need one section in table because only displaying incomplete chores
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chores.count
+        return incompleteChores.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = chores[indexPath.row].title
+        cell.textLabel?.text = incompleteChores[indexPath.row]
         return cell
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -51,6 +70,5 @@ class ChoreListViewController: UIViewController, UITableViewDelegate, UITableVie
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
 
 }

@@ -14,6 +14,7 @@ class CreateChoreViewController: UIViewController {
     @IBOutlet weak var choreDescriptionTextField: UITextField!
     @IBOutlet weak var userResponsibleTextField: UITextField!
     @IBOutlet weak var createChoreButton: UIButton!
+    let database : DatabaseAccess = DatabaseAccess.getInstance()
     var currentUser : UserAccount?
     var currentHouse : House!
     
@@ -36,9 +37,15 @@ class CreateChoreViewController: UIViewController {
         
        
         // Create new house object to add to database
-        var newChore = ChoreAJ(chore_title: choreTitle!, assignor: (currentUser?.nickname)! , assignee: userResponsible!, time_assigned: date, houseID: currentHouse.houseID!, description: choreDescription!)
+        let newChore : ChoreAJ = ChoreAJ(chore_title: choreTitle!, assignor: (currentUser?.nickname)! , assignee: userResponsible!, time_assigned: date, houseID: currentHouse.houseID!, description: choreDescription!)
+        print("title = \(newChore.title)")
+        print("assignor = \(newChore.assigned_by)")
+        print("assigned to = \(newChore.assigned_to)")
+        print("time assigned = \(newChore.time_assigned)")
+        print("house id = \(newChore.houseID)")
+        print("description = \(newChore.description)")
         
-        //self.newChore = self.database!.createChore(chore: newChore)
+        self.database.createChore(chore: newChore)
         
     }
     

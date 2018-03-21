@@ -536,6 +536,7 @@ class DatabaseAccess  {
         var newChore = chore
         print("Assigning chore with chore name \(newChore.title)")
         let choreID = self.ref.child("chores").childByAutoId().key
+        print("Chore id is \(choreID)")
         let choreToAdd : Any = [ "title" : newChore.title,
                                  "assigned_by" : newChore.assigned_by,
                                  "assigned_to" : newChore.assigned_to,
@@ -547,11 +548,16 @@ class DatabaseAccess  {
         ]
         self.ref.child("chores/\(choreID)").setValue(choreToAdd)
         newChore.setChoreID(ID: choreID)
-        assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
-        assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
+        //assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
+        //assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
         return ExpectedExecution()
     }
     
+    /*
+     Gets user's incomplete chores from database
+     Input: N/A
+     Output: callback returns the incomplete chores
+    */
     func getUserIncompleteChores(callback: @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         if let currUID = Auth.auth().currentUser?.uid {
             // Navigate to the user chores field and get a "Snapshot" of the data stored there
@@ -574,6 +580,29 @@ class DatabaseAccess  {
         }
         return NoSuchUserError()
         
+    }
+    
+    /*
+     Gets string title of chore from chore id
+     Input: Chore id
+     Output: Callback returns string title of chore
+    */
+    func getChoreName(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/title").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let choreName = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    print("Found House \(choreName)")
+                    callback(choreName)
+                } else {
+                    // If cast could not occur then no house name found so run callback with nil
+                    print("House Name not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
     }
     
     /*

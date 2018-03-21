@@ -110,7 +110,7 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testAddingChoreToDatabase() {
-        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: getTimestampAsString(), houseID: "imiytlkvwiuvwpiuew", description: "testing adding to database")
+        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore 2", assignor: "brookeb@me.com", assignee: "brooke@me.com", time_assigned: getTimestampAsString(), houseID: "ababbababababab", description: "testing adding to database")
         database.createChore(chore: chore)
     }
     
