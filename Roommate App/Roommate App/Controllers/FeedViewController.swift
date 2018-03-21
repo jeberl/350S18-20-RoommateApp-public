@@ -25,9 +25,11 @@ class FeedViewController: UITableViewController {
             self.notifIds = returnedNotifIds!
             
             let notifDataClosure = { (data : NSDictionary?) -> Void in
-                if data != nil {
-                    self.notifData.append(data!.value(forKey: "description") as! String)
-                    self.tableView.reloadData()
+                if let data = data {
+                    if let value = data.value(forKey: "description") as? String {
+                        self.notifData.append(value)
+                        self.tableView.reloadData()
+                    }
                 }
             }
             

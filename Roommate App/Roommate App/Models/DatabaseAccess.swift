@@ -775,7 +775,7 @@ class DatabaseAccess  {
     
     func getNotifData(notifId: String, callback: @escaping (NSDictionary?) -> Void) -> ReturnValue<Bool> {
         //Navigate to the formatted email field and get a "Snapshot" of the data stored there
-        self.ref.child("notifications/\(notifId)").observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("notifications/\(notifId)").observe(.value, with: { (snapshot) in
             //This is the closure where we say what to do with the given snapshot which in this case is the nickname
             // We check if the snapshot exists ie. is there data stored there
             if snapshot.exists() {
