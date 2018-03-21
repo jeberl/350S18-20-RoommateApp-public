@@ -551,6 +551,16 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
+    func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
+        //Check if user is logged in
+        if Auth.auth().currentUser?.uid != nil {
+            // Setting value does not require closures and can be done directly to the DatabaseReferecece returned by .child() function
+            self.ref.child("houses/\(String(describing: currHouseID))/house_name").setValue(newName)
+            return ExpectedExecution()
+        }
+        return NoSuchHouseError()
+    }
+    
     //ELENA+Jesse - FIX COMMENTED FUNCTIONS
     
 //
