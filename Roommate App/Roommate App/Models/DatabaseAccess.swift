@@ -221,7 +221,7 @@ class DatabaseAccess  {
         }
         if uid != nil  {
             //Navigate to the user nickname field and get a "Snapshot" of the data stored there
-            self.ref.child("users/\(uid!)/nickname").observeSingleEvent(of: .value, with: { (snapshot) in
+            self.ref.child("users/\(uid!)/nickname").observe(.value, with: { (snapshot) in
                 //This is the closure where we say what to do with the given snapshot which in this case is the nickname
                 
                 // We check if the snapshot exists ie. is there data stored there
@@ -289,22 +289,11 @@ class DatabaseAccess  {
     }
     
     func setUserLocalNickname(in_house : House, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
-        if let uid : String = Auth.auth().currentUser?.uid {
-            self.ref.child("houses/\(in_house.houseID)/house_users").observe(.value, with: { (snapshot) in
-                if snapshot.exists() {
-                    if snapshot.hasChild(uid) {
-                        snapshot.setValue(new_nickname, forKey: "\(uid)/nickname")
-                    } else {
-                        self.database_error(error_header: "Error: User not member of house", view: view)
-                    }
-                } else {
-                    self.database_error(error_header: "Error: House not found", view: view)
-                }
-            })
-            
+        if let hId = in_house.houseID {
+            return setUserLocalNickname(inHouseID : hId, to: new_nickname, view: view)
         }
-        return NoSuchUserError()
-    }
+        return NoSuchHouseError()
+    } 
     
     // TODO, this is causing a key value coding-compliant issue, NSUnknownKeyException
     func setUserLocalNickname(inHouseID : String, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
@@ -312,7 +301,7 @@ class DatabaseAccess  {
             self.ref.child("houses/\(inHouseID)/house_users").observe(.value, with: { (snapshot) in
                 if snapshot.exists() {
                     if snapshot.hasChild(uid) {
-                        snapshot.setValue(new_nickname, forKey: "\(uid)/nickname")
+                        self.ref.child("houses/\(inHouseID)/house_users/\(uid)/nickname").setValue(new_nickname)
                     } else {
                         self.database_error(error_header: "Error: User not member of house", view: view)
                     }
