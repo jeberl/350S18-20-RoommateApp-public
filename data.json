@@ -55,6 +55,7 @@
 			"time_due" : 00, // An NSTimeStamp
 			"time_completed" : 00, // An NSTimeStamp
 			"house" : "erv2rv2rv", // HouseID
+			"imageDownloadURL" : "the/path/to/find/the/url",
 			"description" : "Do the fucking dishes Gene!"
 		}
 	},
