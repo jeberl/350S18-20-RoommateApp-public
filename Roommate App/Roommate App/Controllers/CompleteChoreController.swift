@@ -72,7 +72,10 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
     }
 
     func markChoreCompleted() {
-        
+        //Update User in db
+        //Update House
+        //Update Chore in db
+        //Update Chore in front end
     }
     
     @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
