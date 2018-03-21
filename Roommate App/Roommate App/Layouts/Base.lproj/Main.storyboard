@@ -77,14 +77,6 @@
                                     <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7J5-ZO-Eib"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6VV-9N-HZH">
-                                <rect key="frame" x="164" y="635" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="GoToCompleteChoreScreen:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sXW-P2-zIC"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -121,9 +113,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
                     </view>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginErrorSegue" id="3Cw-uK-AzS"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayh-fN-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -243,6 +232,5 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="tbI-jn-U8S"/>
-        <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>
