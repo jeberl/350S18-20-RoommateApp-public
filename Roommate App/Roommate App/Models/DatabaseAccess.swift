@@ -692,7 +692,8 @@ class DatabaseAccess  {
     
 	}    
     
-func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
+    // NEW CODE
+    func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
         //Check if user is logged in
         if Auth.auth().currentUser?.uid != nil {
             // Setting value does not require closures and can be done directly to the DatabaseReferecece returned by .child() function
