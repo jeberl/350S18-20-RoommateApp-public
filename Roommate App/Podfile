@@ -11,6 +11,7 @@ target 'Roommate App' do
   pod 'Firebase/Database'
   pod 'FirebaseUI/Auth'
   pod 'Firebase/Auth'
+  pod 'Firebase/Storage'
   
   target 'Roommate AppTests' do
     inherit! :search_paths

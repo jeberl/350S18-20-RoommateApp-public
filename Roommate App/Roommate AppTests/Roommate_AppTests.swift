@@ -9,6 +9,7 @@
 import XCTest
 import Firebase
 import FirebaseDatabase
+import FirebaseStorage
 import FirebaseAuthUI
 
 @testable import Roommate_App
