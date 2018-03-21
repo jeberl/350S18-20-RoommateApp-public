@@ -101,16 +101,8 @@ class AllHousesPageViewController: UITableViewController {
     
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0) {
-            // set current house to house clicked
-            currentHouseID = house_ids[0]
-        } else if (indexPath.row == 1) {
-            // set current house to house clicked
-            currentHouseID = house_ids[1]
-        } else if (indexPath.row == 2) {
-            // set current house to house clicked
-            currentHouseID = house_ids[2]
-        }
+        
+        currentHouseID = house_ids[indexPath.row]
         
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         

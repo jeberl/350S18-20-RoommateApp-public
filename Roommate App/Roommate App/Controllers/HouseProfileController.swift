@@ -9,17 +9,33 @@
 import UIKit
 
 class HouseProfileController: UIViewController {
-
     
+    var currentHouseName : String?
+    var database: DatabaseAccess = DatabaseAccess.getInstance()
+
+    // outlet that displays house name / ID
     @IBOutlet weak var GetHouseNameLabel: UILabel!
     
-    
+    // outlet for text input field
+    @IBOutlet weak var changeHouseNameText: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentHouseName: String =  "\(currentHouseID ?? "Error: No Current House")"
-        GetHouseNameLabel.text = currentHouseName
+        // callback for getStringHouseName
+        let getHouseNameClosure = { (returnedHouseName: String?) -> Void in self.currentHouseName = returnedHouseName
+            self.GetHouseNameLabel.text = "Current House: \(self.currentHouseName ?? "Error: nil House")"
+        }
+        
+        // calls getStringHouseName, handles errors
+        let errorHouseName = self.database.getStringHouseName(house_id: currentHouseID!, callback: getHouseNameClosure)
+        if errorHouseName.returned_error {
+            errorHouseName.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
+    }
+    
+    @IBAction func changeHouseNameTextSubmitClicked(_ sender: UIButton) {
         
     }
 
