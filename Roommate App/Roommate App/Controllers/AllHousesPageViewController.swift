@@ -13,7 +13,8 @@ import FirebaseAuth
 class AllHousesPageViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user
-    var houses : [String]! = [String]() // Houses user is in
+    var nameToID : [String : String]! = [String : String]() // Houses names user is in mapped to corresponding house ids
+    var houses : [String]! = [String]() // list of houses user is in
     var house_ids : [String]! = [String]() // Houses user is in in terms of house ids
     var database : DatabaseAccess = DatabaseAccess.getInstance()
 
@@ -23,26 +24,22 @@ class AllHousesPageViewController: UITableViewController {
         
         let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
             print(returned_house_ids)
-            print("UHC; in user house closure")
+            
             self.house_ids = returned_house_ids
             
-            let houseNameClosure = { (house_name : String?) -> Void in
-                print("HNC: in house name closure")
-                if house_name != nil {
-                    print("HNC: house name is not nil")
-                    self.houses.append(house_name!)
+            let houseNameClosure = { (houseInfo : [String]?) -> Void in
+                if houseInfo != nil {
+                    self.houses.append(houseInfo![1])
+                    self.nameToID[houseInfo![1]] = houseInfo![0]
                     self.tableView.reloadData()
                 }
             }
             
             self.house_ids = returned_house_ids ?? []
-            print("starting to translate house ids into names")
             for house_id in self.house_ids! {
                 self.database.getStringHouseName(house_id: house_id, callback: houseNameClosure)
             }
         }
-        print("PC: user uid = \(Auth.auth().currentUser!.uid)")
-        print("PC: user email = \(Auth.auth().currentUser!.email)")
         let error1 = self.database.getListOfHousesUserMemberOf(email: Auth.auth().currentUser!.email!, callback: userHouseClosure)
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
@@ -70,6 +67,15 @@ class AllHousesPageViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is HouseTabBarViewController {
+            let vc = segue.destination as? HouseTabBarViewController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let currentHouseName = houses[indexPath.row]
+                let currentHID = nameToID[currentHouseName]
+                currentHouseID = currentHID
+            }
+        }
+        
         // Pass the selected object to the new view controller.
         if (segue.destination == ViewController() as UIViewController) {
             do {
@@ -117,18 +123,6 @@ class AllHousesPageViewController: UITableViewController {
     
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.row == 0) {
-            // set current house to house clicked
-        } else if (indexPath.row == 1) {
-            // set current house to house clicked
-        } else if (indexPath.row == 2) {
-            // set current house to house clicked
-        }
-        
-        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: "HouseTabBarController") as UIViewController
-        
-        self.present(controller, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "goToTabBar", sender: self)
     }
 }
