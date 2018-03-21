@@ -541,7 +541,7 @@ class DatabaseAccess  {
                                  "assigned_to" : newChore.assigned_to,
                                  "completed" : false,
                                  "time_assigned" : newChore.time_assigned,
-                                 "time_completed" : newChore.time_completed,
+                                 "time_completed" : nil,
                                  "houseID" : newChore.houseID,
                                  "description" : newChore.description
         ]
@@ -550,6 +550,31 @@ class DatabaseAccess  {
         assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
         assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
         return ExpectedExecution()
+    }
+    
+    /*
+     Gets the current time stamp and returns it as a string
+     Input: N/A
+     Output: String representation of timestamp
+     */
+    func getTimestampAsString() -> String {
+        let formatter = DateFormatter()
+        
+        // initially set the format based on your datepicker date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date())
+        
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "dd-MMM-yyyy"
+        
+        // again convert your date to string
+        let dateString = formatter.string(from: yourDate!)
+        print(dateString)
+        return dateString
     }
     
     /*
@@ -606,6 +631,13 @@ class DatabaseAccess  {
             }
         })
         return ExpectedExecution()
+    }
+    
+    /*
+     Complete chore
+    */
+    func completeChore() {
+        
     }
     
     //ELENA+Jesse - FIX COMMENTED FUNCTIONS

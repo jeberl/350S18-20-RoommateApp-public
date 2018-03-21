@@ -110,8 +110,33 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testAddingChoreToDatabase() {
-        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: NSDate(), houseID: "imiytlkvwiuvwpiuew", description: "testing adding to database")
-        
+        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: getTimestampAsString(), houseID: "imiytlkvwiuvwpiuew", description: "testing adding to database")
+        database.createChore(chore: chore)
     }
     
+    /*
+     COPIED OVER FROM OTHER FILES FOR TESTING PURPOSES
+     Gets the current time stamp and returns it as a string
+     Input: N/A
+     Output: String representation of timestamp
+     */
+    func getTimestampAsString() -> String {
+        let formatter = DateFormatter()
+        
+        // initially set the format based on your datepicker date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date())
+        
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "dd-MMM-yyyy"
+        
+        // again convert your date to string
+        let dateString = formatter.string(from: yourDate!)
+        print(dateString)
+        return dateString
+    }
 }

@@ -32,7 +32,7 @@ class CreateChoreViewController: UIViewController {
         let choreTitle = choreTitleTextField!.text
         let choreDescription = choreDescriptionTextField!.text
         let userResponsible = userResponsibleTextField!.text
-        let date = NSDate()
+        let date = getTimestampAsString()
         
        
         // Create new house object to add to database
@@ -40,6 +40,31 @@ class CreateChoreViewController: UIViewController {
         
         //self.newChore = self.database!.createChore(chore: newChore)
         
+    }
+    
+    /*
+     Gets the current time stamp and returns it as a string
+     Input: N/A
+     Output: String representation of timestamp
+    */
+    func getTimestampAsString() -> String {
+        let formatter = DateFormatter()
+        
+        // initially set the format based on your datepicker date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date())
+        
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "dd-MMM-yyyy"
+        
+        // again convert your date to string
+        let dateString = formatter.string(from: yourDate!)
+        print(dateString)
+        return dateString
     }
 
 
