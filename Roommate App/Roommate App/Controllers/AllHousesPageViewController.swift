@@ -9,7 +9,6 @@
 import UIKit
 import FirebaseAuth
 
-<<<<<<< HEAD
 class AllHousesPageViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user
