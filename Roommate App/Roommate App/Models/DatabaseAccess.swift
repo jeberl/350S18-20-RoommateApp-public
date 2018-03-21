@@ -204,7 +204,7 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
-
+    // NEW CODE
     func getUserGlobalNickname(for_email: String, callback : @escaping (String?) -> Void){
         let name_callback : (DataSnapshot) -> Void = { (uid) in
             self.getUserGlobalNickname(for_uid: (uid.value as! String), callback: callback)
@@ -213,6 +213,7 @@ class DatabaseAccess  {
         self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: name_callback)
     }
     
+    // NEW CODE
     func getUserGlobalNickname(for_uid: String?, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
         //Check specific uid was given if not return for current user
         var uid = for_uid
@@ -256,6 +257,7 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // NEW CODE
     func getUserLocalNickname(from_house house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(house.houseID)/house_users").observe(.value, with: { (snapshot) in
@@ -272,6 +274,7 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // NEW CODE
     func getUserLocalNickname(from_houseID houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(houseID!)/house_users").observe(.value, with: { (snapshot) in
@@ -288,6 +291,7 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // NEW CODE
     func setUserLocalNickname(in_house : House, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
         if let hId = in_house.houseID {
             return setUserLocalNickname(inHouseID : hId, to: new_nickname, view: view)
@@ -295,7 +299,7 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     } 
     
-    // TODO, this is causing a key value coding-compliant issue, NSUnknownKeyException
+    // NEW CODE
     func setUserLocalNickname(inHouseID : String, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(inHouseID)/house_users").observe(.value, with: { (snapshot) in
