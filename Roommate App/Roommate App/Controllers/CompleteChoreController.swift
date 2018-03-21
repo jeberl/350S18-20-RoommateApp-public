@@ -35,12 +35,7 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         }
     }
     
-    @IBAction func WriteDescriptionButtonPressed(_ sender: UIButton) {
-        
-    }
-    
     @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
-        
         
     }
     
