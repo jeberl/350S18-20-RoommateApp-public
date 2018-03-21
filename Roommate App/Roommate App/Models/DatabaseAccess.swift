@@ -552,6 +552,30 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
+    func getUserIncompleteChores(callback: @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        if let currUID = Auth.auth().currentUser?.uid {
+            // Navigate to the user chores field and get a "Snapshot" of the data stored there
+            self.ref.child("users/\(currUID)/inComplete").observe(.value, with: { (snapshot) in
+                // Check if snapshot exists i.e. if data is stored there
+                if snapshot.exists(){
+                    // Get the value of the snapshot, i.e. the incomplete chores (cast to string array)
+                    let choreIds = snapshot.value as? NSDictionary
+                    if let choreIdStrings = choreIds?.allKeys as? [String]? {
+                        // Callback with chore ids which are random identifier strings of letters and numbers
+                        callback(choreIdStrings)
+                    } else {
+                        // If cast could not occur aka no houses found, run callback with nil
+                        print("User doesn't have any chores")
+                        callback(nil)
+                    }
+                }
+            })
+            return ExpectedExecution()
+        }
+        return NoSuchUserError()
+        
+    }
+    
     /*
      Gets the current time stamp and returns it as a string
      Input: N/A

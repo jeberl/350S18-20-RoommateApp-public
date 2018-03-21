@@ -29,12 +29,8 @@ class ChoreListViewController: UIViewController, UITableViewDelegate, UITableVie
 
         choreTableView.delegate = self
         choreTableView.dataSource = self
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        // Get chores for specific user
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
