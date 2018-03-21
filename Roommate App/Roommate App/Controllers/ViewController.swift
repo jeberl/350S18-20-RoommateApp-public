@@ -40,6 +40,8 @@ class ViewController: UIViewController {
     
     @IBAction func LogInButtonPressed(_ sender: Any) {
         database.login(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
+    }
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
@@ -47,6 +49,7 @@ class ViewController: UIViewController {
             vc?.buttonToGetHere = buttonPressed
         }
     }
+    */
 
     @IBAction func CreateAccountButtonPressed(_ sender: Any) {
         database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, view: self)

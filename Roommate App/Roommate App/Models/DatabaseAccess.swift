@@ -562,17 +562,16 @@ class DatabaseAccess  {
         var userID : String?
         let getUIDClosure = { (returnedID : String?) -> Void in
             userID = returnedID
+            
+            if userID == nil {
+                print("User has not yet created an account")
+            } else {
+                // Add choreID to dictionary of user's incomplete chores
+                self.ref.child("users/\(userID!)/incompleteChores/\(choreID)").setValue(true)
+            }
         }
         getUIDFromEmail(email: userEmail, callback: getUIDClosure)
         
-        // If uid is nil, then this user has not yet created an account
-        // Have been added to a house though since we found in user_emails
-        if userID == nil {
-            return NoSuchUserError()
-        }
-        
-        // Add choreID to dictionary of user's imcomplete chores
-        self.ref.child("users/\(userID)/incompleteChores/\(choreID)").setValue(true)
         return ExpectedExecution()
     }
     
@@ -596,6 +595,7 @@ class DatabaseAccess  {
         let formattedEmail = reformatEmail(email: email)
         self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
+                print("snapshot exists in uid email")
                 if let uid = snapshot.value as? String {
                     // Get the value of the snapshot (cast to string) and store as uid
                     print("Found uid from email")
