@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class CreateChoreViewController: UIViewController {
     
@@ -14,8 +15,7 @@ class CreateChoreViewController: UIViewController {
     @IBOutlet weak var choreDescriptionTextField: UITextField!
     @IBOutlet weak var userResponsibleTextField: UITextField!
     @IBOutlet weak var createChoreButton: UIButton!
-    var currentUser : UserAccount?
-    var currentHouse : House!
+    let database : DatabaseAccess = DatabaseAccess.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +29,7 @@ class CreateChoreViewController: UIViewController {
     }
     
     @IBAction func createChoreButtonPressed(_ sender: Any) {
+        print("Create chore button pressed")
         let choreTitle = choreTitleTextField!.text
         let choreDescription = choreDescriptionTextField!.text
         let userResponsible = userResponsibleTextField!.text
@@ -36,9 +37,16 @@ class CreateChoreViewController: UIViewController {
         
        
         // Create new house object to add to database
-        var newChore = ChoreAJ(chore_title: choreTitle!, assignor: (currentUser?.nickname)! , assignee: userResponsible!, time_assigned: date, houseID: currentHouse.houseID!, description: choreDescription!)
+        print("title = \(choreTitle)")
+        print("assigned by = \(Auth.auth().currentUser?.email)")
+        print("assigned to = \(userResponsible)")
+        print("time assigned = \(date)")
+        print("descrp = \(description)")
+        print("houseid = \(currentHouseID)")
         
-        //self.newChore = self.database!.createChore(chore: newChore)
+        
+        let newChore = ChoreAJ(chore_title: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible!, time_assigned: date, houseID: currentHouseID!, description: choreDescription!)
+        self.database.createChore(chore: newChore)
         
     }
     

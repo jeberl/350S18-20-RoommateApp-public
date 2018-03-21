@@ -407,7 +407,7 @@ class DatabaseAccess  {
     // All functions above implemented and not tested //
     
     // Function to get a House's string name from its UID
-    func getStringHouseName(house_id: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+    func getStringHouseName(house_id: String, callback: @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         
         self.ref.child("houses/\(house_id)/house_name").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
@@ -416,7 +416,8 @@ class DatabaseAccess  {
                 if let house_name = snapshot.value as? String {
                     //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
                     print("Found House \(house_name)")
-                    callback(house_name)
+                    let houseInfo : [String] = [house_id, house_name]
+                    callback(houseInfo)
                 } else {
                     // If cast could not occur then no house name found so run callback with nil
                     print("House Name not found")
@@ -550,31 +551,6 @@ class DatabaseAccess  {
         assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
         assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
         return ExpectedExecution()
-    }
-    
-    /*
-     Gets the current time stamp and returns it as a string
-     Input: N/A
-     Output: String representation of timestamp
-     */
-    func getTimestampAsString() -> String {
-        let formatter = DateFormatter()
-        
-        // initially set the format based on your datepicker date
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let myString = formatter.string(from: Date())
-        
-        // convert your string to date
-        let yourDate = formatter.date(from: myString)
-        
-        //then again set the date format whhich type of output you need
-        formatter.dateFormat = "dd-MMM-yyyy"
-        
-        // again convert your date to string
-        let dateString = formatter.string(from: yourDate!)
-        print(dateString)
-        return dateString
     }
     
     /*

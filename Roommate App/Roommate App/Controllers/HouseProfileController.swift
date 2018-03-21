@@ -18,8 +18,8 @@ class HouseProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentHouseName: String =  "\(currentHouse?.house_name ?? "Error: No Current House")"
-        GetHouseNameLabel.text = currentHouseName
+        /*let currentHouseName: String =  "\(currentHouse?.house_name ?? "Error: No Current House")"
+        GetHouseNameLabel.text = currentHouseName*/
         
     }
 

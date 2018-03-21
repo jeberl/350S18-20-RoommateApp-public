@@ -19,8 +19,8 @@ class UserProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let profileForText: String = "User Profile For \(currentUser?.nickname ?? "Error: No Current User")"
-        userProfileFor.text = profileForText
+        /*let profileForText: String = "User Profile For \(currentUser?.nickname ?? "Error: No Current User")"
+        userProfileFor.text = profileForText*/
 
     }
 
