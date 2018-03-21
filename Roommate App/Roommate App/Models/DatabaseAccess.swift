@@ -306,6 +306,25 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // TODO, this is causing a key value coding-compliant issue, NSUnknownKeyException
+    func setUserLocalNickname(inHouseID : String, to new_nickname: String, view: UIViewController) -> ReturnValue<Bool>{
+        if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("houses/\(inHouseID)/house_users").observe(.value, with: { (snapshot) in
+                if snapshot.exists() {
+                    if snapshot.hasChild(uid) {
+                        snapshot.setValue(new_nickname, forKey: "\(uid)/nickname")
+                    } else {
+                        self.database_error(error_header: "Error: User not member of house", view: view)
+                    }
+                } else {
+                    self.database_error(error_header: "Error: House not found", view: view)
+                }
+            })
+            
+        }
+        return NoSuchUserError()
+    }
+    
     /*
      Firebase does not allow quering for something in the data base with . # $ [ or ] thus we must remove these characters.  We came up with the following mapping to resolve this:
          . becomes &
