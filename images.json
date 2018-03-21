@@ -2,7 +2,7 @@
 	"chore_images" : {
 		"pid" : "image.image"
 	},
-	"profile_images" {
+	"profile_images" : {
 		"uid" : "image.image"
 	}
 }
