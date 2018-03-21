@@ -110,8 +110,24 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testAddingChoreToDatabase() {
-        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore", assignor: "jesse@test", assignee: "brooke@test", time_assigned: getTimestampAsString(), houseID: "imiytlkvwiuvwpiuew", description: "testing adding to database")
+        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore 3", assignor: "brooke@me.com", assignee: "brookeb@me.com", time_assigned: getTimestampAsString(), houseID: "xxxxxx", description: "testing adding to database")
         database.createChore(chore: chore)
+    }
+    
+    func testGettingUIDFromEmail() {
+        let userEmail : String = "brookeb@me.com"
+        var userID : String?
+        let getUIDClosure = { (returnedID : String?) -> Void in
+            userID = returnedID
+            XCTAssertEqual("h57nygSu5qeuRgOL2VU9RYZziIi2", userID)
+        }
+        database.getUIDFromEmail(email: userEmail, callback: getUIDClosure)
+        //XCTAssertEqual("brookeb@me&com", userID)
+        //XCTAssertEqual("h57nygSu5qeuRgOL2VU9RYZziIi2", userID)
+        while (userID == nil) {
+    
+        }
+        print("userID in test = \(userID)")
     }
     
     /*

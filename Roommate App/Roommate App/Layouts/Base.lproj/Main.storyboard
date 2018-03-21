@@ -113,6 +113,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="YE8-q6-1cl"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="loginErrorSegue" id="3Cw-uK-AzS"/>
+                        <segue destination="LST-5l-LFy" kind="show" identifier="goToTabBar" id="pnY-ve-bZc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayh-fN-pLs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -210,6 +214,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UpP-fk-qQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1724" y="122.66009852216749"/>
+        </scene>
+        <!--HouseScreen-->
+        <scene sceneID="mps-F5-QAn">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HouseScreen" id="LST-5l-LFy" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1hA-qZ-JZF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="983" y="-364"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YjF-KW-55P">
