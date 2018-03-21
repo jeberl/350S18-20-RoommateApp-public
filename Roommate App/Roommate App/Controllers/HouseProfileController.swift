@@ -36,7 +36,7 @@ class HouseProfileController: UIViewController {
     }
     
     @IBAction func changeHouseNameTextSubmitClicked(_ sender: UIButton) {
-        
+        database.changeHouseName(currHouseID: currentHouseID!, newName: changeHouseNameText.text!)
     }
 
     override func didReceiveMemoryWarning() {
