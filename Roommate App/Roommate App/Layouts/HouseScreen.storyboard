@@ -445,12 +445,21 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oof-22-Suy">
+                                <rect key="frame" x="160" y="296" width="49" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Submit"/>
+                                <connections>
+                                    <action selector="changeHouseNameTextSubmitClicked:" destination="IPF-IF-4Ss" eventType="touchUpInside" id="xyD-DO-izg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qfD-Y9-7MF"/>
                     </view>
                     <connections>
                         <outlet property="GetHouseNameLabel" destination="hUR-yQ-l8P" id="Osf-vC-elx"/>
+                        <outlet property="changeHouseNameText" destination="3vR-V0-RJn" id="Kpo-Yg-XHi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpY-Xk-MeQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
