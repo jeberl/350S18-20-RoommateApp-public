@@ -3,9 +3,8 @@
 //  Roommate App
 //
 //  Created by Ajani Motta on 3/17/18.
-//  Copyright © 2018 Team 20. All rights reserved.
+//  Copyright 2018 Team 20. All rights reserved.
 //
-
 import Foundation
 
 struct ChoreAJ {

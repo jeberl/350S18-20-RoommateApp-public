@@ -35,51 +35,63 @@ class ImageStorage  {
         let alert = UIAlertController(title: error_header,
                                       message: error?.localizedDescription ,
                                       preferredStyle: .alert)
-        present_popup(alert: alert, view: view, return_to_login: false)
+        present_popup(alert: alert, view: view, upload_again: true)
     }
     
+    private func upload_ok(view: UIViewController) {
+        let alert = UIAlertController(title: "Image Sucessfully uploaded",
+                                      message: "Your house members thank you for doing your chores",
+                                      preferredStyle: .alert)
+        present_popup(alert: alert, view: view, upload_again: false)
+    }
     
-    private func present_popup(alert: UIAlertController, view: UIViewController, return_to_login: Bool) {
-        
-        let returnAction = UIAlertAction(title:"Login Again",
-                                         style: .default,
-                                         handler:  { action in view.performSegue(withIdentifier: "loginErrorSegue", sender: self) })
-        
-        let continueAction = UIAlertAction(title: "Continue",
-                                           style: .default)
-        
-        alert.addAction(return_to_login ? returnAction : continueAction)
+    private func present_popup(alert: UIAlertController, view: UIViewController, upload_again: Bool) {
+        let action = UIAlertAction(title:"They are welcome!",
+                                     style: .default)
+        if upload_again {
+            let uploadAgainAction = UIAlertAction(title:"Login Again",
+                                                  style: .default,
+                                                  handler:  { action in view.performSegue(withIdentifier: "completeTask", sender: self) })
+            alert.addAction(action)
+        }
+        alert.addAction(action)
         view.present(alert, animated: true, completion: nil)
     }
     
     //returns false if error uploading
-    func uploadChoreImage(image : UIImage, chore_id: String, view: UIViewController){
-    
-    }
-    
-    //returns image id of image
-    func getChoreImage(imageDownloadURL : String, view: UIViewController) -> UIImage? {
-        return nil
-    }
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?, choreID: String, view: UIViewController) {
-        //userPhoto.image = image
-        picker.dismiss(animated: true, completion: nil)
-        let data = UIImageJPEGRepresentation(image, 0.8)!
-        // set upload path
-        let filePath = "chore_images/\(choreID)"
-        let metaData = StorageMetadata()
-        metaData.contentType = "image/jpg"
-        self.storage?.reference().child(filePath).putData(data, metadata: metaData){ (metaData, error) in
+    func setChoreImage(choreID: String, data : Data, metadata: StorageMetadata, view: UIViewController){
+        self.storage?.reference().child("chore_images/\(choreID)").putData(data, metadata: metadata){ (metaData, error) in
             if let error = error {
                 self.database_error(error, error_header: "Error uploading file to Database", view: view)
+                print("er")
                 print(error.localizedDescription)
             } else {
                 //store downloadURL
                 let downloadURL = metaData!.downloadURL()!.absoluteString
                 //store downloadURL at database
                 DatabaseAccess.getInstance().ref.child("chores/\(choreID)/imageDownloadURL").setValue(downloadURL)
+                self.upload_ok(view: view)
             }
         }
     }
+    
+    func getChoreImageObserve(choreID : String, view: UIViewController, callback : @escaping (UIImage?) -> Void) {
+        
+    }
+    
+    //returns image id of image
+    func getChoreImageOnce(choreID : String, view: UIViewController, callback : @escaping (UIImage?) -> Void) {
+        self.storage?.reference().child("chore_images/\(choreID)").getData(maxSize: 10*1024*1024, completion: { (data, error) in
+            if let error = error {
+                self.database_error(error, error_header: "Error Reading Chore Image", view: view)
+                return
+            }
+            if let image = UIImage(data: data!) {
+                callback(image)
+            } else {
+                callback(nil)
+            }
+        })
+    }
+    
 }

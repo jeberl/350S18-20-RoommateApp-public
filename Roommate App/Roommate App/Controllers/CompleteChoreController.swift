@@ -12,41 +12,71 @@ import FirebaseStorage
 class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
+    var imageStorage : ImageStorage? = nil
+    var chore : ChoreAJ? = nil
+    
+    @IBOutlet weak var showImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //imagePicker.delegate = self
+        imageStorage = ImageStorage.getInstance()
+        imagePicker.delegate = self
+        if chore?.choreID == nil {
+            //Should segue instead back to previous page and throw error
+
+            chore = ChoreAJ(chore_title: "", assignor: "String", assignee: "String", time_assigned: "String", houseID: "String", description: "String")
+            chore?.choreID = "testChoreID"
+        }
     }
 
     @IBAction func TakePhotoButtonPressed(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .camera
-            
             present(imagePicker, animated: true, completion: nil)
-            
-            imagePicker.
-            
         }
+        markChoreCompleted()
     }
     
     @IBAction func UploadPhotoButtonPressed(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
-            
-            present(imagePicker, animated: true, completion: nil)
-            
-            ImageStorage.getInstance().imagePickerController(picker: imagePicker, didFinishPickingImage: <#T##UIImage#>, editingInfo: <#T##[String : AnyObject]?#>, choreID: <#T##String#>, view: <#T##UIViewController#>)
-            
-
+            present(imagePicker, animated: true, completion : nil)
+            imageStorage?.getChoreImageOnce(choreID: (chore?.choreID!)!, view: self, callback: { (image) in
+                if image != nil {
+                    self.showImage.image = image
+                }
+            })
         }
+        
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        print("imagePickerController called")
+        picker.dismiss(animated: true, completion: nil)
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        if let data = UIImageJPEGRepresentation(image!, 0.8) {
+            if let choreID = chore?.choreID {
+                let metaData = StorageMetadata()
+                metaData.contentType = "image/jpg"
+                imageStorage!.setChoreImage(choreID: choreID, data: data, metadata: metaData, view: self)
+                markChoreCompleted()
+            } else {
+                print("ChoreID not found")
+            }
+        } else {
+            print("Image not found")
+        }
+        
+    }
 
+    func markChoreCompleted() {
+        
+    }
     
     @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
-        
+
     }
     
     
@@ -66,7 +96,8 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         // Dispose of any resources that can be recreated.
     }
     
-
+    
+    
     /*
     // MARK: - Navigation
 
