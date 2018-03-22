@@ -43,7 +43,7 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion : nil)
-            imageStorage?.getChoreImageOnce(choreID: (chore?.choreID!)!, view: self, callback: { (image) in
+            imageStorage?.getChoreImageOnce(choreID: (chore?.choreID!)!, callback: { (image) in
                 if image != nil {
                     self.showImage.image = image
                 }
@@ -72,17 +72,23 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
     }
 
     func markChoreCompleted() {
-        //Update User in db
-        //Update House
-        //Update Chore in db
-        //Update Chore in front end
+//        let instance = DatabaseAccess.getInstance()
+//        let UIDClosure : (String?) -> Void = { (uid) in
+//            if let uid = uid {
+//                instance.ref
+//            } else {
+//                
+//            }
+//        }
+//        
+//        instance.getUIDFromEmail(email: chore?.assigned_to, callback: <#T##(String?) -> Void#>)
+//        
+//        //Update User in db
+//        DatabaseAccess.getInstance().ref.child("users/\(")
+//        //Update House
+//        //Update Chore in db
+//        //Update Chore in front end
     }
-    
-    @IBAction func WrittenDescriptionButtonPressed(_ sender: UIButton) {
-
-    }
-    
-    
 
 
     // text view for inserting written description

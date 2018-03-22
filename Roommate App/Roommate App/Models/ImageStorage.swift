@@ -79,11 +79,32 @@ class ImageStorage  {
         
     }
     
-    //returns image id of image
-    func getChoreImageOnce(choreID : String, view: UIViewController, callback : @escaping (UIImage?) -> Void) {
-        self.storage?.reference().child("chore_images/\(choreID)").getData(maxSize: 10*1024*1024, completion: { (data, error) in
-            if let error = error {
-                self.database_error(error, error_header: "Error Reading Chore Image", view: view)
+    func getChoreImageOnce(choreID : String, callback : @escaping (UIImage?) -> Void) {
+        var lookupID = choreID
+        if lookupID == "-L89nwC1sN1RHpSDEbrJ" {
+            lookupID.append(".jpg")
+        }
+        print("choreID = \(lookupID)")
+        self.storage?.reference().child("chore_images/\(lookupID)").getData(maxSize: 10*1024*1024, completion: { (data, error) in
+            if let _ = error {
+                print("couldnt find profile pic - using default")
+                callback(UIImage(named: "defaultChoreImage"))
+                return
+            }
+            if let image = UIImage(data: data!) {
+                callback(image)
+            } else {
+                callback(nil)
+            }
+        })
+    }
+    
+    func getUserProfImageOnce(uid : String, callback : @escaping (UIImage?) -> Void) {
+        print("getting image for uid: \(uid)")
+        self.storage?.reference().child("prof_pics/\(uid)").getData(maxSize: 10*1024*1024, completion: { (data, error) in
+            if let _ = error {
+                print("couldnt find profile pic - using default")
+                callback(UIImage(named: "defualtUserImage"))
                 return
             }
             if let image = UIImage(data: data!) {

@@ -13,7 +13,7 @@ class ChoreViewController: UIViewController {
     @IBOutlet weak var choreTitleLabel: UILabel!
     @IBOutlet weak var choreImageView: UIImageView!
     @IBOutlet weak var choreDescriptionLabel: UILabel!
-    @IBOutlet weak var choreAssignorImageVIew: UIImageView!
+    @IBOutlet weak var choreAssignorImageView: UIImageView!
     @IBOutlet weak var choreAssignorUsername: UILabel!
     @IBOutlet weak var choreAssigneeImageView: UIImageView!
     @IBOutlet weak var choreAssigneeUsernameLabel: UILabel!
@@ -28,6 +28,7 @@ class ChoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         // callback for getStringChoreTitle
         let getChoreTitleClosure = { (returnedChoreTitle: String?) -> Void in self.currentChoreTitle = returnedChoreTitle
             self.choreTitleLabel.text = "\(self.currentChoreTitle ?? "Error: nil House")"
@@ -72,6 +73,39 @@ class ChoreViewController: UIViewController {
             errorChoreAssignee.raiseErrorAlert(with_title: "error", view: self)
         }
         
+        self.database.getStringChoreAssignor(choreID: currentChoreID!, callback: { (assignor_email) in
+            DatabaseAccess.getInstance().getUserProfPicFromEmail(email: assignor_email ?? "") { (prof_pic) in
+                self.choreAssignorImageView.image = prof_pic!
+            }
+        
+        })
+        
+        self.database.getStringChoreAssignee(choreID: currentChoreID!, callback: { (assignor_email) in
+            DatabaseAccess.getInstance().getUserProfPicFromEmail(email: assignor_email ?? "") { (prof_pic) in
+                self.choreAssigneeImageView.image = prof_pic!
+            }
+            
+        })
+        
+        ImageStorage.getInstance().getChoreImageOnce(choreID: currentChoreID!) { (chore_pic) in
+            self.choreImageView.image = chore_pic
+        }
+        
+//        DatabaseAccess.getInstance().getUserProfPicFromEmail(email: self.currentChoreAssignor ?? "") { (prof_pic) in
+//            print("assigning prof pic: \(prof_pic)")
+//            self.choreAssignorImageView.image = prof_pic!
+//        }
+//        
+//        DatabaseAccess.getInstance().getUserProfPicFromEmail(email: self.currentChoreAssignee ?? "") { (prof_pic) in
+//            print("assigning prof pic 2")
+//            self.choreAssigneeImageView.image = prof_pic
+//        }
+//
+//        ImageStorage.getInstance().getChoreImageOnce(choreID: currentChoreID ?? "", view: self) { (chore_pic) in
+//            self.choreImageView.image = chore_pic
+//        }
+//
+//
         // Do any additional setup after loading the view.
     }
 

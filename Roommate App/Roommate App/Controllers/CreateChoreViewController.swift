@@ -45,11 +45,13 @@ class CreateChoreViewController: UIViewController {
         // Notification for chore
         
         let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [userResponsible!], timestamp: date, type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!") 
-        var userUid: String? = nil;
         self.database.getUserUidFromEmail(email: userResponsible!, callback: {(uid) -> Void in
             print("the uid is:\(uid ?? "Error: nil UID")")
-                userUid = uid!
-                self.database.addNotification(notification: newNotif, usersInvolved: [userUid!])
+            if let uid = uid {
+                self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+            } else {
+                
+            }
         })
     }
 

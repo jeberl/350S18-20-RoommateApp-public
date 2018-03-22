@@ -164,7 +164,6 @@
 				757DB938202E1E8500CB9FF6 /* Products */,
 				6026E0721A07997AEC063707 /* Pods */,
 				C314E14BB76D0EE89F7F9B5B /* Frameworks */,
-				88D642A0206325DE00C30737 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -223,8 +222,6 @@
 				888310DB2037848300E4F495 /* ReturnValue.swift */,
 				90F573C9203E8B47001FBEC1 /* CurrentState.swift */,
 				758CF9F82060A1E800DA12E6 /* Notifications.swift */,
-				888C5285205F090700521B65 /* ImageStorage.swift */,
-				888C5289205F12F200521B65 /* attributions.rtf */,
 				88D642A12063268200C30737 /* ChoreAJ.swift */,
 				888C5285205F090700521B65 /* ImageStorage.swift */,
 				888C5289205F12F200521B65 /* attributions.rtf */,
@@ -270,7 +267,6 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		
 		C314E14BB76D0EE89F7F9B5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (

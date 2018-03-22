@@ -658,6 +658,31 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
+    func getUserProfPicFromEmail(email: String, callback: @escaping (UIImage?) -> Void) -> ReturnValue<Bool> {
+        
+        let fake_mapping_email_uid = ["amotta@email.com" : "ajani.jpg",
+                                      "jesse@email.com" : "jesse.jpg",
+                                      "brooke@me.com" : "brooke.jpeg",
+                                      "emi@email.com" : "elena.JPG",
+                                      "nickbuck@wharton.upenn.edu" : "nick.JPG"]
+        
+        if let uid = fake_mapping_email_uid[email] {
+            print("trying to get image for uid \(uid)")
+            ImageStorage.getInstance().getUserProfImageOnce(uid: uid, callback: callback)
+        } else {
+            print("trying to get image for email \(email)")
+
+            getUIDFromEmail(email: email, callback: { (uid) in
+                if let uid = uid {
+                    ImageStorage.getInstance().getUserProfImageOnce(uid: uid, callback: callback)
+                } else {
+                    callback(nil)
+                }
+            })
+        }
+        return ExpectedExecution()
+    }
+    
     /*
      Gets list of chores a given user is a associated with
      Input: String email of user and the callback function to use (aka what to do with the retrieved data)
