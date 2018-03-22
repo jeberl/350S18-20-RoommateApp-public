@@ -81,9 +81,6 @@ class ImageStorage  {
     
     func getChoreImageOnce(choreID : String, callback : @escaping (UIImage?) -> Void) {
         var lookupID = choreID
-        if lookupID == "-L89nwC1sN1RHpSDEbrJ" {
-            lookupID.append(".jpg")
-        }
         print("choreID = \(lookupID)")
         self.storage?.reference().child("chore_images/\(lookupID)").getData(maxSize: 10*1024*1024, completion: { (data, error) in
             if let _ = error {

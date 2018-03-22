@@ -13,7 +13,7 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
     
     let imagePicker = UIImagePickerController()
     var imageStorage : ImageStorage? = nil
-    var chore : ChoreAJ? = nil
+    var choreID : String? = nil
     
     @IBOutlet weak var showImage: UIImageView!
     
@@ -21,11 +21,9 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         super.viewDidLoad()
         imageStorage = ImageStorage.getInstance()
         imagePicker.delegate = self
-        if chore?.choreID == nil {
+        if choreID == nil {
             //Should segue instead back to previous page and throw error
-
-            chore = ChoreAJ(chore_title: "", assignor: "String", assignee: "String", time_assigned: "String", houseID: "String", description: "String")
-            chore?.choreID = "testChoreID"
+            choreID = "-L89nwC1sN1RHpSDEbrJ"
         }
     }
 
@@ -34,8 +32,9 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
+
         }
-        markChoreCompleted()
+        
     }
     
     @IBAction func UploadPhotoButtonPressed(_ sender: UIButton) {
@@ -43,11 +42,7 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion : nil)
-            imageStorage?.getChoreImageOnce(choreID: (chore?.choreID!)!, callback: { (image) in
-                if image != nil {
-                    self.showImage.image = image
-                }
-            })
+        
         }
         
     }
@@ -57,20 +52,30 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         picker.dismiss(animated: true, completion: nil)
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         if let data = UIImageJPEGRepresentation(image!, 0.8) {
-            if let choreID = chore?.choreID {
+            if let choreID = choreID {
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/jpg"
                 imageStorage!.setChoreImage(choreID: choreID, data: data, metadata: metaData, view: self)
                 markChoreCompleted()
+                returnToChoreView()
             } else {
                 print("ChoreID not found")
             }
         } else {
             print("Image not found")
         }
-        
     }
 
+    func returnToChoreView() {
+        print("returning")
+        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+
+    
     func markChoreCompleted() {
 //        let instance = DatabaseAccess.getInstance()
 //        let UIDClosure : (String?) -> Void = { (uid) in

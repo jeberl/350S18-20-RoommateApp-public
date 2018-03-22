@@ -243,6 +243,14 @@
                                     <segue destination="OQn-bJ-nO4" kind="show" id="qiz-CF-Q1d"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-ea-dq7">
+                                <rect key="frame" x="246" y="30" width="112" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Complete Chore"/>
+                                <connections>
+                                    <action selector="completeChoreButtonPressed:" destination="dzs-8K-KLR" eventType="touchUpInside" id="AjA-s2-tY9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="69E-0s-YBx"/>
@@ -601,6 +609,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="GHb-JR-0Ot"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lto-2B-Eyf">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>

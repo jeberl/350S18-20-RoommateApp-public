@@ -114,7 +114,14 @@ class ChoreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func completeChoreButtonPressed(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "CompleteChore", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "CompleteChoreController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

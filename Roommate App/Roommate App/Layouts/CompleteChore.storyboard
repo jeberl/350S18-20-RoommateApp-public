@@ -64,18 +64,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" restorationIdentifier="show_chosen_image" translatesAutoresizingMaskIntoConstraints="NO" id="Y4D-5c-IzL">
-                                <rect key="frame" x="0.0" y="583" width="106" height="84"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sPh-2R-z0d"/>
                     </view>
                     <navigationItem key="navigationItem" id="hEl-hx-oz7"/>
-                    <connections>
-                        <outlet property="showImage" destination="Y4D-5c-IzL" id="kK1-7o-bkQ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAb-PB-cDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
