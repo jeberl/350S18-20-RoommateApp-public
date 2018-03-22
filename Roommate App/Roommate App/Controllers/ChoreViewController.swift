@@ -14,15 +14,64 @@ class ChoreViewController: UIViewController {
     @IBOutlet weak var choreImageView: UIImageView!
     @IBOutlet weak var choreDescriptionLabel: UILabel!
     @IBOutlet weak var choreAssignorImageVIew: UIImageView!
-    @IBOutlet weak var choreAssignorNameLabel: UILabel!
+    @IBOutlet weak var choreAssignorUsername: UILabel!
     @IBOutlet weak var choreAssigneeImageView: UIImageView!
-    @IBOutlet weak var choreAssigneeNameLabel: UILabel!
-    @IBOutlet weak var choreTimeDueLabel: UILabel!
+    @IBOutlet weak var choreAssigneeUsernameLabel: UILabel!
+    //@IBOutlet weak var choreDateDueLabel: UILabel!
+    var database : DatabaseAccess = DatabaseAccess.getInstance()
+    var currentChoreTitle : String?
+    var currentChoreDescription: String?
+    var currentChoreAssignor: String?
+    var currentChoreAssignee: String?
+    /*var chore : ChoreAJ = ChoreAJ(chore_title: <#T##String#>, assignor: <#T##String#>, assignee: <#T##String#>, time_assigned: <#T##String#>, houseID: <#T##String#>, description: <#T##String#>)*/
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // callback for getStringChoreTitle
+        let getChoreTitleClosure = { (returnedChoreTitle: String?) -> Void in self.currentChoreTitle = returnedChoreTitle
+            self.choreTitleLabel.text = "\(self.currentChoreTitle ?? "Error: nil House")"
+        }
+        
+        // calls getStringChoreTitle, handles errors
+        let errorChoreTitle = self.database.getStringChoreTitle(choreID: currentChoreID!, callback: getChoreTitleClosure)
+        if errorChoreTitle.returned_error {
+            errorChoreTitle.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
+        // callback for getStringChoreDescription
+        let getChoreDescriptionClosure = { (returnedChoreDescription: String?) -> Void in self.currentChoreDescription = returnedChoreDescription
+            self.choreDescriptionLabel.text = "\(self.currentChoreDescription ?? "Error: nil House")"
+        }
+        
+        // calls getStringChoreDescription, handles errors
+        let errorChoreDescription = self.database.getStringChoreDescription(choreID: currentChoreID!, callback: getChoreDescriptionClosure)
+        if errorChoreDescription.returned_error {
+            errorChoreDescription.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
+        // callback for getStringChoreAssignor
+        let getChoreAssignorClosure = { (returnedChoreAssignor: String?) -> Void in self.currentChoreAssignor = returnedChoreAssignor
+            self.choreAssignorUsername.text = "\(self.currentChoreAssignor ?? "Error: nil House")"
+        }
+        
+        // calls getStringChoreAssignor, handles errors
+        let errorChoreAssignor = self.database.getStringChoreAssignor(choreID: currentChoreID!, callback: getChoreAssignorClosure)
+        if errorChoreAssignor.returned_error {
+            errorChoreAssignor.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
+        // callback for getStringChoreAssignee
+        let getChoreAssigneeClosure = { (returnedChoreAssignee: String?) -> Void in self.currentChoreAssignee = returnedChoreAssignee
+            self.choreAssigneeUsernameLabel.text = "\(self.currentChoreAssignee ?? "Error: nil House")"
+        }
+        
+        // calls getStringChoreAssignee, handles errors
+        let errorChoreAssignee = self.database.getStringChoreAssignee(choreID: currentChoreID!, callback: getChoreAssigneeClosure)
+        if errorChoreAssignee.returned_error {
+            errorChoreAssignee.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
         // Do any additional setup after loading the view.
     }
 

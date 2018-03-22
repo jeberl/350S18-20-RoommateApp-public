@@ -22,7 +22,6 @@ class AllHousesPageViewController: UITableViewController {
         super.viewDidLoad()
         
         let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
-            print(returned_house_ids)
             
             self.house_ids = returned_house_ids
             
@@ -66,15 +65,6 @@ class AllHousesPageViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is HouseTabBarViewController {
-            let vc = segue.destination as? HouseTabBarViewController
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let currentHouseName = houses[indexPath.row]
-                let currentHID = nameToID[currentHouseName]
-                currentHouseID = currentHID
-            }
-        }
-        
         // Pass the selected object to the new view controller.
         if (segue.destination == ViewController() as UIViewController) {
             do {
@@ -104,7 +94,6 @@ class AllHousesPageViewController: UITableViewController {
     
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         currentHouseID = house_ids[indexPath.row]
         
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
