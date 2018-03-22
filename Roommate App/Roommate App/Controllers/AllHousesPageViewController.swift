@@ -25,10 +25,9 @@ class AllHousesPageViewController: UITableViewController {
             
             self.house_ids = returned_house_ids
             
-            let houseNameClosure = { (houseInfo : [String]?) -> Void in
-                if houseInfo != nil {
-                    self.houses.append(houseInfo![1])
-                    self.nameToID[houseInfo![1]] = houseInfo![0]
+            let houseNameClosure = { (houseName : String?) -> Void in
+                if houseName != nil {
+                    self.houses.append(houseName!)
                     self.tableView.reloadData()
                 }
             }

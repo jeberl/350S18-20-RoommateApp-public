@@ -12,20 +12,20 @@ struct Notification {
     
     var notificationID: String?
     var houseID: String
-    var houseName: String
     var usersInvolved: [String]
-    var timestamp: NSDate
+    var timestamp: String
     var type: String
     var checked: Bool
+    var description: String
     
-    init(houseID: String, houseName: String, usersInvolved: [String], timestamp: NSDate, type: String) {
+    init(houseID: String, usersInvolved: [String], timestamp: String, type: String, description: String) {
         self.notificationID = nil
         self.houseID = houseID
-        self.houseName = houseName
         self.usersInvolved = usersInvolved
-        self.timestamp = timestamp
+        self.timestamp = timestamp 
         self.type = type
         self.checked = false // false upon constructing
+        self.description = description
     }
 
     // Set id once chore is created and added to database

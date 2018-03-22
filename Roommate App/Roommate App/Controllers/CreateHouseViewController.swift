@@ -16,7 +16,7 @@ class CreateHouseViewController: UIViewController {
     @IBOutlet weak var homieUsernameTextField: UITextField!
     var currentUser : UserAccount?
     var homies: [String] = []
-    var database: DatabaseAccess?
+    var database: DatabaseAccess = DatabaseAccess.getInstance()
     var newHome : House!
     
     
@@ -62,8 +62,11 @@ class CreateHouseViewController: UIViewController {
         }
         let address = houseaddressTextField!.text
         // Create new house object to add to database
-        let newHome = House(house_name: houseName!, address : address!, house_users: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recent_charges: [], recent_interactions: [])
-        self.newHome = self.database!.createHouse(house: newHome)
+        var newHome = House(house_name: houseName!, address : address!, house_users: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recent_charges: [], recent_interactions: [])
+        self.newHome = self.database.createHouse(house: newHome)
+        
+        
+        
         
     }
     

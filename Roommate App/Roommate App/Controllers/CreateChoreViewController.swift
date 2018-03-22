@@ -17,6 +17,7 @@ class CreateChoreViewController: UIViewController {
     @IBOutlet weak var createChoreButton: UIButton!
     let database : DatabaseAccess = DatabaseAccess.getInstance()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -33,38 +34,23 @@ class CreateChoreViewController: UIViewController {
         let choreTitle = choreTitleTextField!.text
         let choreDescription = choreDescriptionTextField!.text
         let userResponsible = userResponsibleTextField!.text
-        let date = getTimestampAsString()
+        let date = self.database.getTimestampAsString()
         
        
         // Create new house object to add to database
         let newChore = ChoreAJ(chore_title: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible!, time_assigned: date, houseID: currentHouseID!, description: choreDescription!)
         self.database.createChore(chore: newChore)
+        let assignor = Auth.auth().currentUser?.email!
         
-    }
-    
-    /*
-     Gets the current time stamp and returns it as a string
-     Input: N/A
-     Output: String representation of timestamp
-    */
-    func getTimestampAsString() -> String {
-        let formatter = DateFormatter()
+        // Notification for chore
         
-        // initially set the format based on your datepicker date
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let myString = formatter.string(from: Date())
-        
-        // convert your string to date
-        let yourDate = formatter.date(from: myString)
-        
-        //then again set the date format whhich type of output you need
-        formatter.dateFormat = "dd-MMM-yyyy"
-        
-        // again convert your date to string
-        let dateString = formatter.string(from: yourDate!)
-        print(dateString)
-        return dateString
+        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [userResponsible!], timestamp: date, type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!") 
+        var userUid: String? = nil;
+        self.database.getUserUidFromEmail(email: userResponsible!, callback: {(uid) -> Void in
+            print("the uid is:\(uid ?? "Error: nil UID")")
+                userUid = uid!
+                self.database.addNotification(notification: newNotif, usersInvolved: [userUid!])
+        })
     }
 
 

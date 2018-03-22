@@ -461,15 +461,14 @@ class DatabaseAccess  {
     // All functions above implemented and not tested //
     
     // Function to get a House's string name from its UID
-    func getStringHouseName(house_id: String, callback: @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+    func getStringHouseName(house_id: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         self.ref.child("houses/\(house_id)/house_name").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 print("snapshot : \(snapshot.children.allObjects)")
                 // Get the value of the snapshot (cast to string) and store as house name
                 if let house_name = snapshot.value as? String {
                     //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
-                    let houseInfo : [String] = [house_id, house_name]
-                    callback(houseInfo)
+                    callback(house_name)
                 } else {
                     // If cast could not occur then no house name found so run callback with nil
                     print("House Name not found")
@@ -842,7 +841,7 @@ class DatabaseAccess  {
             newUsersInvolved.append(formatEmail) 
         }
         let notificationValueToAdd : [String: Any?] = ["houseID": newNotification.houseID,
-                                      "house_name": newNotification.houseName,
+                                                       "description": newNotification.description,
                                       //"users_involved": newUsersInvolved,
                                       //"timestamp": newNotification,
                                       "type": newNotification.type]
@@ -859,6 +858,31 @@ class DatabaseAccess  {
             })
         }
         return ExpectedExecution()
+    }
+    
+    /*
+     Gets the current time stamp and returns it as a string
+     Input: N/A
+     Output: String representation of timestamp
+     */
+    func getTimestampAsString() -> String {
+        let formatter = DateFormatter()
+        
+        // initially set the format based on your datepicker date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let myString = formatter.string(from: Date())
+        
+        // convert your string to date
+        let yourDate = formatter.date(from: myString)
+        
+        //then again set the date format whhich type of output you need
+        formatter.dateFormat = "dd-MMM-yyyy"
+        
+        // again convert your date to string
+        let dateString = formatter.string(from: yourDate!)
+        print(dateString)
+        return dateString
     }
     
     // once a user deletes the notification, it is deleted from their account and deletes the user from the notification in db,
@@ -888,9 +912,7 @@ class DatabaseAccess  {
 
     // retrieve a current users notifications for display on screen
     func getNotifications(callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        let currUID = "JEpBdCbTnVOLqzB6RNPWDZXEmrI3"
-        if true {
-        //if let currUID = Auth.auth().currentUser?.uid {
+        if let currUID = Auth.auth().currentUser?.uid {
             // Navigate to the user houses field and get a "Snapshot" of the data stored there
             self.ref.child("users/\(currUID)/notifications").observe(.value, with: { (snapshot) in
                 // This is the closure where we say what to do with the given snapshot, in this case, the houses the

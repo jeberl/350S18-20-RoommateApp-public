@@ -25,8 +25,9 @@ class FeedViewController: UITableViewController {
             self.notifIds = returnedNotifIds!
             
             let notifDataClosure = { (data : NSDictionary?) -> Void in
-                if let data = data {
-                    if let value = data.value(forKey: "description") as? String {
+                var currHouseId = data?.value(forKey: "houseID") as? String
+                if currHouseId == currentHouseID {
+                    if let value = data?.value(forKey: "description") as? String {
                         self.notifData.append(value)
                         self.tableView.reloadData()
                     }
@@ -91,8 +92,10 @@ class FeedViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        let notifString = "New Notification: \(notifData![indexPath.row])"
-        cell.textLabel?.text = notifString
+        if notifData.count > indexPath.row {
+            
+            cell.textLabel?.text = String(notifData![indexPath.row])
+        }
         return cell
     }
     
