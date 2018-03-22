@@ -259,21 +259,20 @@
             </objects>
             <point key="canvasLocation" x="717.60000000000002" y="-1471.2143928035982"/>
         </scene>
-        <!--View Controller-->
+        <!--Feed View Controller-->
         <scene sceneID="klO-XQ-fPh">
             <objects>
-                <viewController id="LsF-MA-fOQ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SMN-UA-GcR">
+                <viewController id="LsF-MA-fOQ" customClass="FeedViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="4YH-pB-Raa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="KhB-Ad-7bG"/>
-                    </view>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </tableView>
                     <navigationItem key="navigationItem" id="xBr-j9-cp5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmp-64-mgW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-58" y="-385"/>
+            <point key="canvasLocation" x="22" y="-385"/>
         </scene>
         <!--User Profile Controller-->
         <scene sceneID="ecA-Eg-2jS">

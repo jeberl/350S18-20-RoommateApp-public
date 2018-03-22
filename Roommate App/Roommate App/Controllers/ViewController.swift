@@ -26,6 +26,34 @@ class ViewController: UIViewController {
             print("got houses:\(houses)")
             new = houses
         })*/
+        /*print("here")
+        let newNotif = Notification(houseID: "test", houseName: "test", usersInvolved: ["test"], timestamp: NSDate.init(), type: "test")
+        var userUid: String? = nil;
+        self.database.getUserUidFromEmail(email: "emi@email.com", callback: {(uid) -> Void in
+            print("the uid is:\(uid)")
+            userUid = uid!
+            self.database.addNotification(notification: newNotif, usersInvolved: [userUid!])
+        })
+        let newNotif = Notification(houseID: "test", houseName: "test", usersInvolved: ["emi@email.com"], timestamp: NSDate.init(), type: "test")
+        var currentGlobalNickname: String = "hi"
+        let userGlobalNicknameClosure = { (returnedGlobalNickname: String?) -> Void in
+            currentGlobalNickname = returnedGlobalNickname!
+            print(currentGlobalNickname)
+            self.database.addNotification(notification: newNotif, usersInvolved: [currentGlobalNickname])
+        }
+        
+        let errorGlobalNickname = self.database.getUserUidFromEmail(email: "emi@email.com", callback: userGlobalNicknameClosure)
+            if errorGlobalNickname.returned_error {
+                errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
+        }*/
+        self.database.getNotifications(callback: {(uid) -> Void in
+            print("notif:\(uid!)")
+            self.database.getNotifData(notifId: uid![0], callback: {(notif) -> Void in
+                print(notif!.value(forKey: "type")!)
+            })
+        })
+        //database.deleteNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
+        //database.removeNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -42,6 +70,7 @@ class ViewController: UIViewController {
         database.login(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
     } 
     /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
         if segue.destination is AllHousesPageViewController {
             let vc = segue.destination as? AllHousesPageViewController
             vc?.currentUser = userLoggingIn
