@@ -415,7 +415,6 @@ class DatabaseAccess  {
                 // Get the value of the snapshot (cast to string) and store as house name
                 if let house_name = snapshot.value as? String {
                     //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
-                    print("Found House \(house_name)")
                     let houseInfo : [String] = [house_id, house_name]
                     callback(houseInfo)
                 } else {
@@ -598,7 +597,6 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 if let uid = snapshot.value as? String {
                     // Get the value of the snapshot (cast to string) and store as uid
-                    print("Found uid from email")
                     callback(uid)
                 }
             } else {
@@ -608,6 +606,134 @@ class DatabaseAccess  {
         })
         return ExpectedExecution()
     }
+    
+    /*
+     Gets list of chores a given user is a associated with
+     Input: String email of user and the callback function to use (aka what to do with the retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
+    */
+    func getUserChores(uid: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+      //self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
+        self.ref.child("users/\(uid)/incompleteChores").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let choreIDs = snapshot.value as? NSDictionary
+                if let choreIDstr = choreIDs?.allKeys as? [String]? {
+                    callback(choreIDstr)
+                }
+                else {
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    
+    /*
+     Gets list of chores in a given house
+     Input: String email of user and the callback function to use (aka what to do with the retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
+     */
+    func getHouseChores(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("houses/\(houseID)/incompleteChores").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let choreIDs = snapshot.value as? NSDictionary
+                if let choreIDstr = choreIDs?.allKeys as? [String]? {
+                    callback(choreIDstr)
+                }
+                else {
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    
+    /*
+     Function to get a chore's string name from its choreID
+    */
+    func getStringChoreTitle(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/title").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let title = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let choreTitle : String = title
+                    callback(choreTitle)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore Name not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a chore's string description from its choreID
+     */
+    func getStringChoreDescription(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/description").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let description = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let choreDescription : String = description
+                    callback(choreDescription)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore description not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a chore's string description from its choreID
+     */
+    func getStringChoreAssignor(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/assigned_by").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let assignor = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let choreAssignor : String = assignor
+                    callback(choreAssignor)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore description not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a chore's string description from its choreID
+     */
+    func getStringChoreAssignee(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/assigned_to").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let assignee = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let choreAssignee : String = assignee
+                    callback(choreAssignee)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore description not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+
     
     /*
      Complete chore

@@ -22,7 +22,6 @@ class AllHousesPageViewController: UITableViewController {
         super.viewDidLoad()
         
         let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
-            print(returned_house_ids)
             
             self.house_ids = returned_house_ids
             
@@ -66,15 +65,6 @@ class AllHousesPageViewController: UITableViewController {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.destination is HouseTabBarViewController {
-            let vc = segue.destination as? HouseTabBarViewController
-            if let indexPath = tableView.indexPathForSelectedRow {
-                let currentHouseName = houses[indexPath.row]
-                let currentHID = nameToID[currentHouseName]
-                currentHouseID = currentHID
-            }
-        }
-        
         // Pass the selected object to the new view controller.
         if (segue.destination == ViewController() as UIViewController) {
             do {
@@ -86,30 +76,12 @@ class AllHousesPageViewController: UITableViewController {
     }
     
     // Only need one section in table because only displaying houses
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    // Return number of rows equal to number of houses
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return houses.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
-        var houseName = houses[indexPath.row]
-        cell.textLabel?.text = houseName
-        return cell
-    }
-
-    // Only need one section in table because only displaying houses
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     // Return number of rows equal to number of houses
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("houses.count = \(houses.count)")
         return houses.count
     }
     
@@ -122,6 +94,12 @@ class AllHousesPageViewController: UITableViewController {
     
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "goToTabBar", sender: self)
+        currentHouseID = house_ids[indexPath.row]
+        
+        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "HouseTabBarController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
     }
 }

@@ -11,4 +11,4 @@ import Foundation
 // this file stores global variables holding the current user and the current house that the user is viewing
 
 var currentHouseID: String?
-
+var currentChoreID: String?
