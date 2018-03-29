@@ -689,7 +689,6 @@ class DatabaseAccess  {
      Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
     */
     func getUserChores(uid: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-      //self.ref.child("users/\(currUID)/houses").observe(.value, with: { (snapshot) in
         self.ref.child("users/\(uid)/incompleteChores").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 let choreIDs = snapshot.value as? NSDictionary
@@ -984,12 +983,7 @@ class DatabaseAccess  {
         })
         return NoSuchUserError()
     }
-//
-//    //TODO: account for n
     
-/*
-     * TODO: Iteration 3- Charges
- */
     /*
      Creates charge in database
      Input: Charge assigned
@@ -1047,24 +1041,76 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
-//
-//    func getCharges(HouseID: String)-> [String] {
-//        var charges: [String] = []
-//        ref.child("houses").child(HouseID).observeSingleEvent(of: .value, with: { (snapshot) in
-//            // Get user value
-//            if snapshot.exists(){
-//                let value = snapshot.value as? NSDictionary
-//                charges = value?["recent_charges"] as? [String] ?? []
-//            }
-//        })
-//        return charges
-//    }
-//
-//
-//    func assignChargeToUser(amount: String, userTo: String, userFrom: String, houseID: String) {
-//        // TO BE IMPLEMENTED
-//    }
-//
+
+    /*
+     Gets list of charges a given user has been charged
+     Input: String ID of user and the callback function to use (aka what to do with the retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
+     Callback Returns: List of string charge IDs.  View controller then uses this to find charge messages and amounts
+     */
+    func getUserCharges(uid: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("users/\(uid)/incompleteCharges").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let chargeIDs = snapshot.value as? NSDictionary
+                if let chargeIDstr = chargeIDs?.allKeys as? [String]? {
+                    callback(chargeIDstr)
+                }
+                else {
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a charge's string message from its chargeID
+     Input: Charge ID of charge you wish to get message for
+     Output: Return value with true and no error messgae if charge messge is found.  False and error code if charge is not found
+     Callback returns: the charge's string messgae
+     */
+    func getChargeMessage(chargeID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("charges/\(chargeID)/message").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as charge name
+                if let message = snapshot.value as? String {
+                    // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
+                    let chargeMessage : String = message
+                    callback(chargeMessage)
+                } else {
+                    // If cast could not occur then no charge message found so run callback with nil
+                    print("Charge Measage not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a charge's double amount from its chargeID
+     Input: Charge ID of charge you wish to get amount of
+     Output: Return value with true and no error messgae if charge messge is found.  False and error code if charge is not found
+     Callback returns: the charge's amount
+     */
+    func getChargeAmount(chargeID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("charges/\(chargeID)/amount").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as charge name
+                if let amount = snapshot.value as? String {
+                    // Run the function, callback, which is given by the frontend, passing it the amount we read from the snapshot as an argument
+                    let chargeAmount : String = amount
+                    callback(chargeAmount)
+                } else {
+                    // If cast could not occur then no charge amount found so run callback with nil
+                    print("Charge amount not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
 //    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
 //        // TO BE IMPLEMENTED
 //    }
