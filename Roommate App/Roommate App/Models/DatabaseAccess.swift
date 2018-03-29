@@ -990,13 +990,63 @@ class DatabaseAccess  {
 /*
      * TODO: Iteration 3- Charges
  */
-//    func userAddCharge(chargeID: String) {
-//        //var curr_chars = getCharges(HouseID: houseID) // dummy n value
-//        // TODO create charge type potentially?
-//        //var newCharge
-//        //curr_chars.append(newCharge)
-//        //self.ref.child("houses/\(houseID)/recent_charges").setValue(curr_chars)
-//    }
+    /*
+     Creates charge in database
+     Input: Charge assigned
+     Output: True if charge added with no error message, false and with error message if not added
+     */
+    func createCharge(charge: Charge) -> ReturnValue<Bool> {
+        var newCharge = charge
+        print("Assigning charge to \(newCharge.to_user) for \(newCharge.amount)")
+        let chargeID = self.ref.child("charges").childByAutoId().key
+        let chargeToAdd : Any = [ "amount" : newCharge.amount,
+                                  "assigned_by" : newCharge.from_user,
+                                  "assigned_to" : newCharge.to_user,
+                                  "houseID" : newCharge.houseID,
+                                  "time_charged" : nil,
+                                  "message" : newCharge.message
+        ]
+        self.ref.child("charges/\(chargeID)").setValue(chargeToAdd)
+        newCharge.setChargeID(ID: chargeID)
+        assignChargeToUser(userEmail: newCharge.to_user, chargeID: chargeID)
+        assignChargeToHouse(houseID: newCharge.houseID, chargeID: chargeID)
+        return ExpectedExecution()
+    }
+    
+    
+    /*
+     Assigns the charge to the user
+     Input: Email of the user the charge was billed to and string ID of charge to add
+     Output: Return value with true and no error if charge was assigned properly.  Otherwise, return value with false and associated error code
+     */
+    func assignChargeToUser(userEmail: String, chargeID: String) -> ReturnValue<Bool> {
+        var userID : String?
+        let getUIDClosure = { (returnedID : String?) -> Void in
+            userID = returnedID
+            
+            if userID == nil {
+                print("User has not yet created an account")
+            } else {
+                // Add chargeID to dictionary of user's incomplete charges
+                self.ref.child("users/\(userID!)/incompleteCharges/\(chargeID)").setValue(true)
+            }
+        }
+        getUIDFromEmail(email: userEmail, callback: getUIDClosure)
+        
+        return ExpectedExecution()
+    }
+    
+    /*
+     Assigns charge to house's list of all incomplete charges
+     Input: String ID of associated house and string ID of charge to add
+     Output: Return value containing true and no error if charge was added.  Otherwise, returns false and an associated error code
+     */
+    func assignChargeToHouse(houseID: String, chargeID: String) -> ReturnValue<Bool> {
+        // Add choreID to dictionary of house's incomplete chores
+        self.ref.child("houses/\(houseID)/incompleteCharges/\(chargeID)").setValue(true)
+        return ExpectedExecution()
+    }
+    
 //
 //    func getCharges(HouseID: String)-> [String] {
 //        var charges: [String] = []
@@ -1011,7 +1061,7 @@ class DatabaseAccess  {
 //    }
 //
 //
-//    func addCharge(amount: String, userTo: String, userFrom: String, houseID: String) {
+//    func assignChargeToUser(amount: String, userTo: String, userFrom: String, houseID: String) {
 //        // TO BE IMPLEMENTED
 //    }
 //

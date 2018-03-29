@@ -12,20 +12,26 @@ import FirebaseDatabase
 
 struct Charge {
     
-    let chargeID: String
-    let from_user: String
-    let to_user: String
-    let house: String
-    let timestamp: NSDate
-    let amount: Double
+    var chargeID: String?
+    var from_user: String
+    var to_user: String
+    var houseID: String
+    var timestamp: String
+    var amount: Double
+    var message: String
     
-    init(uid: String, from_user: String, to_user: String, house: String, timestamp: NSDate, amount: Double) {
-        self.chargeID = uid
+    init(from_user: String, to_user: String, houseID: String, timestamp: String, amount: Double, message: String) {
         self.to_user = to_user
         self.from_user = from_user
-        self.house = house
+        self.houseID = houseID
         self.timestamp = timestamp
         self.amount = amount
+        self.message = message
     }
     
+    mutating func setChargeID(ID: String) {
+        if chargeID == nil {
+            self.chargeID = ID
+        }
+    }
 }
