@@ -18,67 +18,99 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="jsmith" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uAO-Ke-qC3" userLabel="Enter username.">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cfH-Eo-5Kv" userLabel="TopView">
+                                <rect key="frame" x="0.0" y="44" width="375" height="196"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGV-D4-jqm">
+                                        <rect key="frame" x="39.333333333333343" y="75" width="296.66666666666663" height="46.333333333333343"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Roommate App">
+                                                <attributes>
+                                                    <font key="NSFont" size="40" name="ArialRoundedMTBold"/>
+                                                    <font key="NSOriginalFont" size="40" name="ArialRoundedMTBold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NGV-D4-jqm" firstAttribute="centerY" secondItem="cfH-Eo-5Kv" secondAttribute="centerY" id="Sji-Nx-b2f"/>
+                                    <constraint firstAttribute="height" constant="196" id="oC0-HJ-eOZ"/>
+                                    <constraint firstItem="NGV-D4-jqm" firstAttribute="centerX" secondItem="cfH-Eo-5Kv" secondAttribute="centerX" id="qU4-MZ-uLt"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="jsmith" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uAO-Ke-qC3" userLabel="Enter username.">
                                 <rect key="frame" x="89" y="265" width="196" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="196" id="fOU-cg-at6"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dda-Tg-Qq7">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dda-Tg-Qq7">
                                 <rect key="frame" x="89" y="331" width="196" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="196" id="IlQ-oq-h1C"/>
+                                </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-ag-GPc">
-                                <rect key="frame" x="89" y="236" width="93" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDE-ag-GPc">
+                                <rect key="frame" x="89" y="236" width="83.333333333333314" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjB-HJ-vJU">
-                                <rect key="frame" x="89" y="310" width="93" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jjB-HJ-vJU">
+                                <rect key="frame" x="89" y="310" width="78.333333333333314" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4c-MN-xey">
-                                <rect key="frame" x="208" y="381" width="77" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Log In"/>
-                                <connections>
-                                    <action selector="LogInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uxG-vA-Idp"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGV-D4-jqm">
-                                <rect key="frame" x="16" y="88" width="343" height="122"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="Roommate App">
-                                        <attributes>
-                                            <font key="NSFont" size="40" name="ArialRoundedMTBold"/>
-                                            <font key="NSOriginalFont" size="40" name="ArialRoundedMTBold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3X-Ek-aa3">
-                                <rect key="frame" x="75" y="381" width="107" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3X-Ek-aa3">
+                                <rect key="frame" x="89" y="381" width="107" height="48"/>
                                 <accessibility key="accessibilityConfiguration" identifier="create_account"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="6kF-Bo-5fd"/>
+                                </constraints>
                                 <state key="normal" title="Create Account"/>
                                 <connections>
                                     <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7J5-ZO-Eib"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d4c-MN-xey">
+                                <rect key="frame" x="243" y="381" width="42" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="9ld-dV-eCB"/>
+                                </constraints>
+                                <state key="normal" title="Log In"/>
+                                <connections>
+                                    <action selector="LogInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uxG-vA-Idp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Dda-Tg-Qq7" firstAttribute="top" secondItem="jjB-HJ-vJU" secondAttribute="bottom" id="2c2-mF-125"/>
+                            <constraint firstItem="d4c-MN-xey" firstAttribute="top" secondItem="Dda-Tg-Qq7" secondAttribute="bottom" constant="20" id="8Ke-bz-0mZ"/>
+                            <constraint firstItem="PDE-ag-GPc" firstAttribute="top" secondItem="cfH-Eo-5Kv" secondAttribute="bottom" constant="-4" id="9b6-Gb-W2t"/>
+                            <constraint firstItem="jjB-HJ-vJU" firstAttribute="leading" secondItem="Dda-Tg-Qq7" secondAttribute="leading" id="BPs-Pt-2CN"/>
+                            <constraint firstItem="d4c-MN-xey" firstAttribute="trailing" secondItem="Dda-Tg-Qq7" secondAttribute="trailing" id="S7N-qb-3oq"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="cfH-Eo-5Kv" secondAttribute="trailing" id="ZNU-fC-GX7"/>
+                            <constraint firstItem="Dda-Tg-Qq7" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="cWg-lX-EJp"/>
+                            <constraint firstItem="uAO-Ke-qC3" firstAttribute="top" secondItem="PDE-ag-GPc" secondAttribute="bottom" constant="8" id="dDF-tl-gAX"/>
+                            <constraint firstItem="jjB-HJ-vJU" firstAttribute="top" secondItem="uAO-Ke-qC3" secondAttribute="bottom" constant="15" id="fJh-Zx-edg"/>
+                            <constraint firstItem="cfH-Eo-5Kv" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jz6-l3-27L"/>
+                            <constraint firstItem="R3X-Ek-aa3" firstAttribute="top" secondItem="Dda-Tg-Qq7" secondAttribute="bottom" constant="20" id="k82-2z-LGF"/>
+                            <constraint firstItem="cfH-Eo-5Kv" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kEf-kV-P0E"/>
+                            <constraint firstItem="PDE-ag-GPc" firstAttribute="leading" secondItem="uAO-Ke-qC3" secondAttribute="leading" id="qfm-pn-HRr"/>
+                            <constraint firstItem="R3X-Ek-aa3" firstAttribute="leading" secondItem="Dda-Tg-Qq7" secondAttribute="leading" id="xtW-gq-vYL"/>
+                            <constraint firstItem="uAO-Ke-qC3" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="yl7-OC-NFG"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="hrC-YF-08e"/>
@@ -243,8 +275,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ULm-84-1Dn"/>
-        <segue reference="SZw-Tf-XdL"/>
+        <segue reference="tbI-jn-U8S"/>
         <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>
