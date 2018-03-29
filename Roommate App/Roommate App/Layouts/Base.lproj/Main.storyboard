@@ -76,6 +76,15 @@
                                     <action selector="CreateAccountButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7J5-ZO-Eib"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uQD-fs-x1c">
+                                <rect key="frame" x="155" y="562" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="segToCreateCharge:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CnR-n1-hKE"/>
+                                    <segue destination="awg-e6-ajY" kind="show" identifier="addChargeSeg" id="YND-d3-lJ3"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -214,6 +223,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UpP-fk-qQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1724" y="122.66009852216749"/>
+        </scene>
+        <!--AddCharge-->
+        <scene sceneID="0uC-ep-o1k">
+            <objects>
+                <viewControllerPlaceholder storyboardName="AddCharge" id="awg-e6-ajY" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="US4-8Z-0iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="536" y="583"/>
         </scene>
         <!--HouseScreen-->
         <scene sceneID="mps-F5-QAn">
