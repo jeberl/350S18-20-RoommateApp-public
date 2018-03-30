@@ -85,6 +85,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="Dda-Tg-Qq7" id="Din-L5-OL5"/>
                         <outlet property="usernameTextField" destination="uAO-Ke-qC3" id="l9S-22-vCA"/>
+                        <outlet property="view" destination="8bC-Xf-vdC" id="Sls-j5-Dhg"/>
                         <segue destination="zxY-bV-udo" kind="show" identifier="log_in" id="tbI-jn-U8S"/>
                     </connections>
                 </viewController>
@@ -243,8 +244,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ULm-84-1Dn"/>
-        <segue reference="SZw-Tf-XdL"/>
+        <segue reference="tbI-jn-U8S"/>
         <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>

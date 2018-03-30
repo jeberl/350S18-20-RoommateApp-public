@@ -21,6 +21,13 @@ class AllHousesPageViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let layer = CAGradientLayer()
+        let colorOne = UIColor(red: 0x03/255, green: 0x7A/255, blue: 0xDE/255, alpha: 0.5).cgColor
+        let colorTwo = UIColor(red: 0x03/255, green: 0xE5/255, blue: 0xB7/255, alpha: 0.5).cgColor
+        layer.colors = [colorOne, colorTwo]
+        layer.frame = view.frame
+        view.layer.insertSublayer(layer, at: 0)
+        
         let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
             
             self.house_ids = returned_house_ids
