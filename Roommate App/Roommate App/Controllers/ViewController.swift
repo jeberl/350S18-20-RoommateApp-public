@@ -15,12 +15,21 @@ class ViewController: UIViewController {
     //MARK: Properties
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-
+    
     let database: DatabaseAccess = DatabaseAccess.getInstance()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let layer = CAGradientLayer()
+        let colorOne = UIColor(red: 0x03/255, green: 0x7A/255, blue: 0xDE/255, alpha: 0.5).cgColor
+        let colorTwo = UIColor(red: 0x03/255, green: 0xE5/255, blue: 0xB7/255, alpha: 0.5).cgColor
+        layer.colors = [colorOne, colorTwo]
+        layer.frame = view.frame
+        view.layer.insertSublayer(layer, at: 0)
+        
+        
         /*var new:[String] = []
         self.database.getListOfHousesUserMemberOf(email: "me@emailcom", callback: {(houses)-> Void in
             print("got houses:\(houses)")

@@ -29,6 +29,13 @@ class ChoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let layer = CAGradientLayer()
+        let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
+        let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
+        layer.colors = [colorOne, colorTwo]
+        layer.frame = view.frame
+        view.layer.insertSublayer(layer, at: 0)
+        
         // callback for getStringChoreTitle
         let getChoreTitleClosure = { (returnedChoreTitle: String?) -> Void in self.currentChoreTitle = returnedChoreTitle
             self.choreTitleLabel.text = "\(self.currentChoreTitle ?? "Error: nil House")"
