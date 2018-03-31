@@ -1063,6 +1063,25 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
+    
+    /*
+     Gets the list of charges stored in a house to be displayed on the house balance page
+     */
+    func getHouseCharges(houseId: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("houses/\(houseId)/incompleteCharges").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                let chargeIDs = snapshot.value as? NSDictionary
+                if let chargeIDstr = chargeIDs?.allKeys as? [String]? {
+                    callback(chargeIDstr)
+                }
+                else {
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
     /*
      Function to get a charge's string message from its chargeID
      Input: Charge ID of charge you wish to get message for

@@ -21,7 +21,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let layer = CAGradientLayer()
         let colorOne = UIColor(red: 0x03/255, green: 0x7A/255, blue: 0xDE/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x03/255, green: 0xE5/255, blue: 0xB7/255, alpha: 0.5).cgColor
@@ -55,12 +54,12 @@ class ViewController: UIViewController {
             if errorGlobalNickname.returned_error {
                 errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
         }*/
-        self.database.getNotifications(callback: {(uid) -> Void in
+        /*self.database.getNotifications(callback: {(uid) -> Void in
             print("notif:\(uid!)")
             self.database.getNotifData(notifId: uid![0], callback: {(notif) -> Void in
                 print(notif!.value(forKey: "type")!)
             })
-        })
+        })*/
         //database.deleteNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
         //database.removeNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
         // Do any additional setup after loading the view, typically from a nib.

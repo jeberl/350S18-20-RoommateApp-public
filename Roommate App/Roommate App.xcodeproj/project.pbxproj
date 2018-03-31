@@ -25,6 +25,8 @@
 		757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */; };
 		758CF9F92060A1E800DA12E6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9F82060A1E800DA12E6 /* Notifications.swift */; };
 		758CF9FB2062BC8900DA12E6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */; };
+		758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FC207017A800DA12E6 /* BalanceViewController.swift */; };
+		758CFA01207049EA00DA12E6 /* AddChargeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CFA00207049EA00DA12E6 /* AddChargeViewController.swift */; };
 		883393E920339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EA20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EB20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
@@ -92,6 +94,8 @@
 		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		758CF9F82060A1E800DA12E6 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		758CF9FC207017A800DA12E6 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		758CFA00207049EA00DA12E6 /* AddChargeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChargeViewController.swift; sourceTree = "<group>"; };
 		86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.release.xcconfig"; sourceTree = "<group>"; };
 		881CADB72062EFA6000B17A0 /* ChoreAJ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoreAJ.swift; sourceTree = "<group>"; };
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -244,6 +248,8 @@
 				758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */,
 				90F573CD203F4576001FBEC1 /* HouseProfileController.swift */,
 				888C528D205F166B00521B65 /* CompleteChoreController.swift */,
+				758CF9FC207017A800DA12E6 /* BalanceViewController.swift */,
+				758CFA00207049EA00DA12E6 /* AddChargeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -610,9 +616,11 @@
 				3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */,
 				3745D505205CCD3300227F97 /* ChoreListViewController.swift in Sources */,
 				90F573C8203E3390001FBEC1 /* ProfileController.swift in Sources */,
+				758CFA01207049EA00DA12E6 /* AddChargeViewController.swift in Sources */,
 				757DB96F20351F8700CB9FF6 /* House.swift in Sources */,
 				3745D50B205CD57600227F97 /* ChoreViewController.swift in Sources */,
 				88843D5A203539BE00B05F1F /* DatabaseAccess.swift in Sources */,
+				758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */,
 				888310DC2037848300E4F495 /* ReturnValue.swift in Sources */,
 				757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */,
 			);

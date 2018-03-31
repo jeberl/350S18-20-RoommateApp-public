@@ -71,10 +71,6 @@ class CreateHouseViewController: UIViewController {
         // Create new house object to add to database
         var newHome = House(house_name: houseName!, address : address!, house_users: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recent_charges: [], recent_interactions: [])
         self.newHome = self.database.createHouse(house: newHome)
-        
-        
-        
-        
     }
     
     // MARK: - Navigation
