@@ -110,7 +110,7 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testAddingChoreToDatabase() {
-        let chore : ChoreAJ = ChoreAJ(chore_title: "Test Chore 3", assignor: "brooke@me.com", assignee: "brookeb@me.com", time_assigned: getTimestampAsString(), houseID: "xxxxxx", description: "testing adding to database")
+        let chore : ChoreAJ = ChoreAJ(chore_title: "Testing timestamp", assignor: "brooke@me.com", assignee: "brookeb@me.com", time_assigned: getTimestampAsString(), houseID: "abcabcabc", description: "testing with new time stamp")
         database.createChore(chore: chore)
     }
     
@@ -131,8 +131,15 @@ class Roommate_AppTests: XCTestCase {
     }
     
     func testAddingChargeToDatabase() {
-        let charge : Charge = Charge(from_user: "brooke@me.com", to_user: "brookeb@me.com", houseID: "xxxxxx", timestamp: getTimestampAsString(), amount: 10.00, message: "testing adding charge to database")
+        let amt : Double = 10.00
+        let charge : Charge = Charge(from_user: "brooke@me.com", to_user: "brookeb@me.com", houseID: "asdfasdf", timestamp: getTimestampAsString(), amount: amt, message: "test timestamp")
         database.createCharge(charge: charge)
+    }
+    
+    func testFormattingFullTimeStamp() {
+        let str1 = getTimestampAsString()
+        let str2 = "2018-04-01 16:25:05"
+        XCTAssertTrue(str1 > str2)
     }
     
     /*
@@ -144,20 +151,10 @@ class Roommate_AppTests: XCTestCase {
     func getTimestampAsString() -> String {
         let formatter = DateFormatter()
         
-        // initially set the format based on your datepicker date
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        let myString = formatter.string(from: Date())
-        
-        // convert your string to date
-        let yourDate = formatter.date(from: myString)
-        
-        //then again set the date format whhich type of output you need
-        formatter.dateFormat = "dd-MMM-yyyy"
-        
-        // again convert your date to string
-        let dateString = formatter.string(from: yourDate!)
-        print(dateString)
-        return dateString
+        let timeStamp = formatter.string(from: Date())
+        print(timeStamp)
+        return timeStamp
     }
 }

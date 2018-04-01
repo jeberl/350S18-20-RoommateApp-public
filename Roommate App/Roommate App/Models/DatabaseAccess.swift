@@ -892,21 +892,11 @@ class DatabaseAccess  {
     func getTimestampAsString() -> String {
         let formatter = DateFormatter()
         
-        // initially set the format based on your datepicker date
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        let myString = formatter.string(from: Date())
-        
-        // convert your string to date
-        let yourDate = formatter.date(from: myString)
-        
-        //then again set the date format whhich type of output you need
-        formatter.dateFormat = "dd-MMM-yyyy"
-        
-        // again convert your date to string
-        let dateString = formatter.string(from: yourDate!)
-        print(dateString)
-        return dateString
+        let timeStamp = formatter.string(from: Date())
+        print("Current time stamp = \(timeStamp)")
+        return timeStamp
     }
     
     // once a user deletes the notification, it is deleted from their account and deletes the user from the notification in db,
@@ -997,7 +987,7 @@ class DatabaseAccess  {
                                   "assigned_by" : newCharge.from_user,
                                   "assigned_to" : newCharge.to_user,
                                   "houseID" : newCharge.houseID,
-                                  "time_charged" : nil,
+                                  "time_charged" : newCharge.timestamp,
                                   "message" : newCharge.message
         ]
         self.ref.child("charges/\(chargeID)").setValue(chargeToAdd)
@@ -1066,6 +1056,9 @@ class DatabaseAccess  {
     
     /*
      Gets the list of charges stored in a house to be displayed on the house balance page
+     Input: String representation of house id and clalback function to use (aka what to do with retrieved data)
+     Output: ReturnValue object with true and no error code if proper execution, otherwise with false and a corresponding error code
+     Callback Returns: List of string charge IDs for the given house.  View Controller uses this to find charge messages and amounts
      */
     func getHouseCharges(houseId: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         self.ref.child("houses/\(houseId)/incompleteCharges").observe(.value, with: { (snapshot) in

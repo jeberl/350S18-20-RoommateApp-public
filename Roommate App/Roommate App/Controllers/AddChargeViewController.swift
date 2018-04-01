@@ -64,14 +64,15 @@ class AddChargeViewController: UIViewController {
     
     @IBAction func addCharge(_ sender: Any) {
         print("Add charge button pressed")
-        let chargeAmount = amountTextField!.text
+        let strChargeAmount = amountTextField.text
+        let chargeAmount = (strChargeAmount as NSString?)?.doubleValue
         let chargeUserResp = userResponsibleTextField!.text
         let chargeMessage = messageTextField!.text
         let date = self.database.getTimestampAsString()
         
         // Create new house object to add to database
         let assignor = Auth.auth().currentUser?.email!
-        let newCharge = Charge(from_user: assignor!, to_user: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)  
+        let newCharge = Charge(from_user: assignor!, to_user: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)
         self.database.createCharge(charge: newCharge)
         // Notification for charge
         let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], timestamp: date, type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!")
