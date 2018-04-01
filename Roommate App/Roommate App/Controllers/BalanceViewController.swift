@@ -30,23 +30,100 @@ class BalanceViewController: UITableViewController {
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
-        let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
-            self.chargeIds = returnedChargeIds!
+        // Load pending charges specific to house with most recent charge at the top - need front end to test this since
+        //can't do getters in test cases
+        var sortedChargeIDs : [String]! = [String]()  // Array of charge IDs where most recent charge is first
+        var timeToID = [String : String]() // Dictionary of timestamps mapped to their corresponding charge ID
+        var sortedChargeMessages : [String]! = [String]()  // Array of charge messages where most recent change is first
+        var sortedChargeAmounts : [String]! = [String]() // Array of charge amounts where most recent charge is first
+        
+        // Closure to map time stamp to charge ID
+        let getChargeTimeStampClosure = { (idAndTime : [String]?) -> Void in
+            timeToID[(idAndTime?[1])!] = idAndTime?[0]
+        }
+        
+        // Closure to add charge message to sorted charge messages
+        let getChargeMessageClosure = { (chargeMessage : String?) -> Void in
+            sortedChargeMessages.append(chargeMessage!)
+        }
+        
+        // Closure to add charge amount to sorted charge amounts
+        let getChargeAmountClosure = { (chargeAmount : String?) -> Void in
+            sortedChargeAmounts.append(chargeAmount!)
+        }
+        
+        // Closure to sort house charges
+        let sortHouseChargesClosure = { (returnedChargeIDs : [String]?) -> Void in
+            let chargeIDs = returnedChargeIDs ?? []
             
-            let chargeDataClosure = { (data : String?) -> Void in
-                self.chargeData.append(data!)
-                self.tableView.reloadData()
+            // For each charge id, get the timestamp
+            for chargeID in chargeIDs {
+                self.database.getChargeTimeStamp(chargeID: chargeID, callback: getChargeTimeStampClosure)
             }
             
-            self.chargeIds = returnedChargeIds!
-            for charge in self.chargeIds! {
-                self.database.getChargeMessage(chargeID: charge, callback: chargeDataClosure)
+            // Array of timestamps sorted with most recent first
+            var timestamps : [String] = [String](timeToID.keys.sorted(by: >))
+            
+            // Iterate through each time stamp in order to get the corresponding charge ID and append it to the sorted
+            // list of charge IDs
+            while (timestamps.count > 0) {
+                let timestamp : String = timestamps.removeFirst()
+                let id : String = timeToID[timestamp]!
+                sortedChargeIDs.append(id)
             }
+            
+            // I think this will loop through and preserve order?
+            // Loop through all charge IDs in sorted order to get the charge message and amount for the front end
+            // to display
+            for chargeID in sortedChargeIDs {
+                self.database.getChargeMessage(chargeID: chargeID, callback: getChargeMessageClosure)
+                self.database.getChargeAmount(chargeID: chargeID, callback: getChargeAmountClosure)
+            }
+            
         }
-        let error1 = self.database.getHouseCharges(houseId: currentHouseID!, callback: userChargeClosure)
-        if error1.returned_error {
-            error1.raiseErrorAlert(with_title: "Error:", view: self)
+        self.database.getHouseCharges(houseId: currentHouseID!, callback: sortHouseChargesClosure)
+        
+        // Load pending charges specific to user with most recent charge at the top - need front end to test this since can't do getters in test cases
+        /*
+        var sortedChargeIDs : [String]! = [String]()
+        var timeToID = [String : String]()
+        var sortedChargeMessages : [String]! = [String]()
+        var sortedChargeAmounts : [String]! = [String]()
+        
+        let getChargeTimeStampClosure = { (idAndTime : [String]?) -> Void in
+            timeToID[(idAndTime?[1])!] = idAndTime?[0]
         }
+        
+        let getChargeMessageClosure = { (chargeMessage : String?) -> Void in
+            sortedChargeMessages.append(chargeMessage!)
+        }
+        
+        let getChargeAmountClosure = { (chargeAmount : String?) -> Void in
+            sortedChargeAmounts.append(chargeAmount!)
+        }
+        
+        let sortUserChargesClosure = { (returnedChargeIDs : [String]?) -> Void in
+            let chargeIDs = returnedChargeIDs ?? []
+            for chargeID in chargeIDs {
+                self.database.getChargeTimeStamp(chargeID: chargeID, callback: getChargeTimeStampClosure)
+            }
+            
+            var timestamps : [String] = [String](timeToID.keys.sorted(by: >))
+            while (timestamps.count > 0) {
+                let timestamp : String = timestamps.removeFirst()
+                let id : String = timeToID[timestamp]!
+                sortedChargeIDs.append(id)
+            }
+            
+            // I think this will loop through and preserve order?
+            for chargeID in sortedChargeIDs {
+                self.database.getChargeMessage(chargeID: chargeID, callback: getChargeMessageClosure)
+                self.database.getChargeAmount(chargeID: chargeID, callback: getChargeAmountClosure)
+            }
+            
+        }
+        self.database.getUserCharges(uid: (Auth.auth().currentUser?.uid)!, callback: sortUserChargesClosure)
+        */
     }
     
     override func didReceiveMemoryWarning() {
