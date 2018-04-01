@@ -11,6 +11,7 @@ import UIKit
 class CreateChargeController : UIViewController {
 
     var cents : Int = 0
+    var charge : Charge?;
     
     @IBOutlet weak var amountTextFeild: UITextField!
     @IBOutlet weak var chargePaySwitch: UISegmentedControl!
@@ -21,10 +22,16 @@ class CreateChargeController : UIViewController {
         super.viewDidLoad()
         amountTextFeild.keyboardType = UIKeyboardType.numberPad
         houseMemberPicker.reloadAllComponents()
+        
+        charge = nil
     }
     
-    private func getCentsFromText(text: String) -> Int {
-
+    private func getCentsFromTextField() -> Int {
+        let text = amountTextFeild.text
+        let numbers = text!.filter({ (char) -> Bool in
+            return "0123456789".contains(char)
+        })
+        return Int(numbers)!
     }
     
     private func getTextFromCents(cents: Int) -> String {
@@ -32,7 +39,9 @@ class CreateChargeController : UIViewController {
     }
     
     @IBAction func DisplayText(_ sender: UITextField) {
-        let newCents = getCentsFromText(amountTextFeild.text)
+        let newCents = getCentsFromTextField()
+        
+        
         
     }
 }
