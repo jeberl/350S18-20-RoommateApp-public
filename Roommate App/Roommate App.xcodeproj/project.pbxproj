@@ -22,7 +22,6 @@
 		757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96C20351F6F00CB9FF6 /* UserAccount.swift */; };
 		757DB96F20351F8700CB9FF6 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96E20351F8700CB9FF6 /* House.swift */; };
 		757DB97120351F9600CB9FF6 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97020351F9600CB9FF6 /* Charge.swift */; };
-		757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */; };
 		758CF9F92060A1E800DA12E6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9F82060A1E800DA12E6 /* Notifications.swift */; };
 		758CF9FB2062BC8900DA12E6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */; };
 		758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FC207017A800DA12E6 /* BalanceViewController.swift */; };
@@ -92,7 +91,6 @@
 		757DB96C20351F6F00CB9FF6 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		757DB96E20351F8700CB9FF6 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		757DB97020351F9600CB9FF6 /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
-		757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		758CF9F82060A1E800DA12E6 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -240,7 +238,6 @@
 			children = (
 				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
 				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
-				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
 				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
 				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
 				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
@@ -610,7 +607,6 @@
 				C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */,
 				90F573CC203F2AB7001FBEC1 /* UserProfileController.swift in Sources */,
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
-				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
 				88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
