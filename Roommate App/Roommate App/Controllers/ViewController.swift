@@ -57,6 +57,7 @@ class ViewController: UIViewController {
         database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
     }
     
+    //Remove - For testing
     @IBAction func segToCreateCharge(_ sender: Any) {
         performSegue(withIdentifier: "addChargeSeg", sender: self)
     }
