@@ -45,7 +45,7 @@ class CreateChoreViewController: UIViewController {
         
        
         // Create new house object to add to database
-        let newChore = ChoreAJ(chore_title: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible!, time_assigned: date, houseID: currentHouseID!, description: choreDescription!)
+        let newChore = ChoreAJ(choreTitle: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible!, timeAssigned: date, houseID: currentHouseID!, description: choreDescription!)
         self.database.createChore(chore: newChore)
         let assignor = Auth.auth().currentUser?.email!
         

@@ -130,10 +130,10 @@ class Roommate_AppTests: XCTestCase {
         print("userID in test = \(userID)")
     }
     
-    func testAddingChargeToDatabase() {
+    /*func testAddingChargeToDatabase() {
         let charge : Charge = Charge(from_user: "brooke@me.com", to_user: "brookeb@me.com", houseID: "xxxxxx", timestamp: getTimestampAsString(), amount: 10.00, message: "testing adding charge to database")
         database.createCharge(charge: charge)
-    }
+    }*/
     
     /*
      COPIED OVER FROM OTHER FILES FOR TESTING PURPOSES

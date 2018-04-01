@@ -10,22 +10,22 @@ import Foundation
 struct ChoreAJ {
     var choreID: String?
     var title: String
-    var assigned_by: String
+    var assignedBy: String
     var assigned_to: String
     var completed: Bool
-    var time_assigned: String
-    var time_completed: String?
+    var timeAssigned: String
+    var timeCompleted: String?
     var houseID: String
     var description: String
     
-    init(chore_title: String, assignor: String, assignee: String, time_assigned: String, houseID: String, description: String ){
+    init(choreTitle: String, assignor: String, assignee: String, timeAssigned: String, houseID: String, description: String ){
         self.choreID = nil
         self.completed = false
-        self.title = chore_title
-        self.assigned_by = assignor
+        self.title = choreTitle
+        self.assignedBy = assignor
         self.assigned_to = assignee
-        self.time_assigned = time_assigned
-        self.time_completed = nil
+        self.timeAssigned = timeAssigned
+        self.timeCompleted = nil
         self.houseID = houseID
         self.description = description
     }

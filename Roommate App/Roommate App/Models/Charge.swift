@@ -10,27 +10,27 @@ import Foundation
 import Firebase
 import FirebaseDatabase
 
-struct Charge {
+class Charge {
     
     var chargeID: String?
-    var from_user: String
-    var to_user: String
+    var fromUser: String
+    var toUser: String
     var houseID: String
     var timestamp: String
     //var amount: Double
     var amount: String
     var message: String
     
-    init(from_user: String, to_user: String, houseID: String, timestamp: String, amount: String/* amount: Double*/, message: String) {
-        self.to_user = to_user
-        self.from_user = from_user
+    init(fromUser: String, toUser: String, houseID: String, timestamp: String, amount: String/* amount: Double*/, message: String) {
+        self.toUser = toUser
+        self.fromUser = fromUser
         self.houseID = houseID
         self.timestamp = timestamp
         self.amount = amount
         self.message = message
     }
     
-    mutating func setChargeID(ID: String) {
+    func setChargeID(ID: String) {
         if chargeID == nil {
             self.chargeID = ID
         }

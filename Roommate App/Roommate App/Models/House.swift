@@ -13,25 +13,25 @@ import FirebaseDatabase
 struct House {
     
     var houseID: String?
-    var house_name: String
-    var house_users: [String]
+    var houseName: String
+    var houseUsers: [String]
     var address : String
     let owner: String // unique user email
     var incompleteChores : [String]
     var completeChores : [String]
-    var recent_charges: [String] // unique chargeIDs
-    var recent_interactions: [String] // array of all uids for Notifs
+    var recentCharges: [String] // unique chargeIDs
+    var recentInteractions: [String] // array of all uids for Notifs
     
-    init(house_name: String, address: String, house_users:[String], owner: String, incompleteChores : [String], completeChores : [String], recent_charges: [String], recent_interactions:[String]) {
+    init(houseName: String, address: String, houseUsers:[String], owner: String, incompleteChores : [String], completeChores : [String], recentCharges: [String], recentInteractions:[String]) {
         self.houseID = nil
         self.address = address
-        self.house_name = house_name
-        self.house_users = house_users
+        self.houseName = houseName
+        self.houseUsers = houseUsers
         self.owner = owner
         self.incompleteChores = incompleteChores
         self.completeChores = completeChores
-        self.recent_charges = recent_charges
-        self.recent_interactions = recent_interactions
+        self.recentCharges = recentCharges
+        self.recentInteractions = recentInteractions
     }
     
     mutating func setHouseID(ID: String) {
@@ -41,7 +41,7 @@ struct House {
     }
     
     mutating func addUser(email: String) {
-        self.house_users.append(email)
+        self.houseUsers.append(email)
     }
     
     mutating func addChore(newChore : ChoreAJ) {

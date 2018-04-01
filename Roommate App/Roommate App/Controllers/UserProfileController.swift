@@ -34,7 +34,7 @@ class UserProfileController: UIViewController {
         }
         
         // calls getUserGlobalNickname, handles errors
-        let errorGlobalNickname = self.database.getUserGlobalNickname(for_uid: Auth.auth().currentUser?.uid, callback: userGlobalNicknameClosure)
+        let errorGlobalNickname = self.database.getUserGlobalNickname(forUid: Auth.auth().currentUser?.uid, callback: userGlobalNicknameClosure)
         if errorGlobalNickname.returned_error {
             errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
         }
@@ -47,7 +47,7 @@ class UserProfileController: UIViewController {
         }
         
         // calls getUserLocalNickname, handles errors
-        let errorLocalNickname = self.database.getUserLocalNickname(from_houseID: currentHouseID, callback: userLocalNicknameClosure)
+        let errorLocalNickname = self.database.getUserLocalNickname(fromHouseID: currentHouseID, callback: userLocalNicknameClosure)
         if errorLocalNickname.returned_error {
             errorLocalNickname.raiseErrorAlert(with_title: "error", view: self)
         }
@@ -76,7 +76,7 @@ class UserProfileController: UIViewController {
     
     @IBAction func submitGlobalNicknameClicked(_ sender: UIButton) {
         let newGlobalNickname = changeGlobalNicknameField.text
-        database.setUserGlobalNickname(new_nickname: newGlobalNickname!)
+        database.setUserGlobalNickname(newNickname: newGlobalNickname!)
     }
     
     

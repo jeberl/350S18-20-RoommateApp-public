@@ -31,21 +31,21 @@ class ImageStorage  {
         return instance!
     }
     
-    private func database_error(_ error: Error? = nil, error_header: String = "Error", view: UIViewController) {
+    private func databaseError(_ error: Error? = nil, error_header: String = "Error", view: UIViewController) {
         let alert = UIAlertController(title: error_header,
                                       message: error?.localizedDescription ,
                                       preferredStyle: .alert)
-        present_popup(alert: alert, view: view, upload_again: true)
+        presentPopup(alert: alert, view: view, upload_again: true)
     }
     
-    private func upload_ok(view: UIViewController) {
+    private func uploadOk(view: UIViewController) {
         let alert = UIAlertController(title: "Image Sucessfully uploaded",
                                       message: "Your house members thank you for doing your chores",
                                       preferredStyle: .alert)
-        present_popup(alert: alert, view: view, upload_again: false)
+        presentPopup(alert: alert, view: view, upload_again: false)
     }
     
-    private func present_popup(alert: UIAlertController, view: UIViewController, upload_again: Bool) {
+    private func presentPopup(alert: UIAlertController, view: UIViewController, upload_again: Bool) {
         let action = UIAlertAction(title:"They are welcome!",
                                      style: .default)
         if upload_again {
@@ -62,7 +62,7 @@ class ImageStorage  {
     func setChoreImage(choreID: String, data : Data, metadata: StorageMetadata, view: UIViewController){
         self.storage?.reference().child("chore_images/\(choreID)").putData(data, metadata: metadata){ (metaData, error) in
             if let error = error {
-                self.database_error(error, error_header: "Error uploading file to Database", view: view)
+                self.databaseError(error, error_header: "Error uploading file to Database", view: view)
                 print("er")
                 print(error.localizedDescription)
             } else {
@@ -70,7 +70,7 @@ class ImageStorage  {
                 let downloadURL = metaData!.downloadURL()!.absoluteString
                 //store downloadURL at database
                 DatabaseAccess.getInstance().ref.child("chores/\(choreID)/imageDownloadURL").setValue(downloadURL)
-                self.upload_ok(view: view)
+                self.uploadOk(view: view)
             }
         }
     }

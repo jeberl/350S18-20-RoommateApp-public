@@ -17,14 +17,11 @@ class ChoreViewController: UIViewController {
     @IBOutlet weak var choreAssignorUsername: UILabel!
     @IBOutlet weak var choreAssigneeImageView: UIImageView!
     @IBOutlet weak var choreAssigneeUsernameLabel: UILabel!
-    //@IBOutlet weak var choreDateDueLabel: UILabel!
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     var currentChoreTitle : String?
     var currentChoreDescription: String?
     var currentChoreAssignor: String?
     var currentChoreAssignee: String?
-    /*var chore : ChoreAJ = ChoreAJ(chore_title: <#T##String#>, assignor: <#T##String#>, assignee: <#T##String#>, time_assigned: <#T##String#>, houseID: <#T##String#>, description: <#T##String#>)*/
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

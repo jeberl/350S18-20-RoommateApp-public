@@ -35,7 +35,7 @@ class HouseProfileController: UIViewController {
         }
         
         // calls getStringHouseName, handles errors
-        let errorHouseName = self.database.getStringHouseName(house_id: currentHouseID!, callback: getHouseNameClosure)
+        let errorHouseName = self.database.getStringHouseName(houseId: currentHouseID!, callback: getHouseNameClosure)
         if errorHouseName.returned_error {
             errorHouseName.raiseErrorAlert(with_title: "error", view: self)
         }

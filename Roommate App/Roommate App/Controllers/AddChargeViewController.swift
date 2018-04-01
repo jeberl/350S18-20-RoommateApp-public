@@ -38,30 +38,6 @@ class AddChargeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // Uncomment once outlets are fixed
-    /*@IBAction func addCharge(_ sender: UIButton) {
-     print("Add charge button pressed")
-     let chargeAmount = amountTextField!.text as? Double
-     let chargeUserResp = userResponsibleTextField!.text
-     let chargeMessage = messageTextField!.text
-     let date = self.database.getTimestampAsString()
-     
-     // Create new house object to add to database
-     let assignor = Auth.auth().currentUser?.email!
-     let newCharge = Charge(from_user: assignor!, to_user: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)
-     self.database.createCharge(charge: newCharge)
-     // Notification for charge
-     let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], timestamp: date, type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!")
-     self.database.getUserUidFromEmail(email: chargeUserResp!, callback: {(uid) -> Void in
-     print("the uid is:\(uid ?? "Error: nil UID")")
-     if let uid = uid {
-     self.database.addNotification(notification: newNotif, usersInvolved: [uid])
-     } else {
-     
-     }
-     })
-     }*/
-    
     @IBAction func addCharge(_ sender: Any) {
         print("Add charge button pressed")
         let chargeAmount = amountTextField!.text
@@ -71,7 +47,7 @@ class AddChargeViewController: UIViewController {
         
         // Create new house object to add to database
         let assignor = Auth.auth().currentUser?.email!
-        let newCharge = Charge(from_user: assignor!, to_user: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)  
+        let newCharge = Charge(fromUser: assignor!, toUser: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)  
         self.database.createCharge(charge: newCharge)
         // Notification for charge
         let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], timestamp: date, type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!")
@@ -80,7 +56,6 @@ class AddChargeViewController: UIViewController {
             if let uid = uid {
                 self.database.addNotification(notification: newNotif, usersInvolved: [uid])
             } else {
-                print("here")
                 return
             }
         })

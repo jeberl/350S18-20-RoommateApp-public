@@ -69,7 +69,7 @@ class CreateHouseViewController: UIViewController {
         }
         let address = houseaddressTextField!.text
         // Create new house object to add to database
-        var newHome = House(house_name: houseName!, address : address!, house_users: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recent_charges: [], recent_interactions: [])
+        var newHome = House(houseName: houseName!, address : address!, houseUsers: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recentCharges: [], recentInteractions: [])
         self.newHome = self.database.createHouse(house: newHome)
     }
     

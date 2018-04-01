@@ -14,7 +14,7 @@ class AllHousesPageViewController: UITableViewController {
     var currentUser : UserAccount! // Current user
     var nameToID : [String : String]! = [String : String]() // Houses names user is in mapped to corresponding house ids
     var houses : [String]! = [String]() // list of houses user is in
-    var house_ids : [String]! = [String]() // Houses user is in in terms of house ids
+    var houseIds : [String]! = [String]() // Houses user is in in terms of house ids
     var database : DatabaseAccess = DatabaseAccess.getInstance()
 
     
@@ -28,9 +28,9 @@ class AllHousesPageViewController: UITableViewController {
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
-        let userHouseClosure = { (returned_house_ids : [String]?) -> Void in
+        let userHouseClosure = { (returned_houseIds : [String]?) -> Void in
             
-            self.house_ids = returned_house_ids
+            self.houseIds = returned_houseIds
             
             let houseNameClosure = { (houseName : String?) -> Void in
                 if houseName != nil {
@@ -39,9 +39,9 @@ class AllHousesPageViewController: UITableViewController {
                 }
             }
             
-            self.house_ids = returned_house_ids ?? []
-            for house_id in self.house_ids! {
-                self.database.getStringHouseName(house_id: house_id, callback: houseNameClosure)
+            self.houseIds = returned_houseIds ?? []
+            for houseId in self.houseIds! {
+                self.database.getStringHouseName(houseId: houseId, callback: houseNameClosure)
             }
         }
         let error1 = self.database.getListOfHousesUserMemberOf(email: Auth.auth().currentUser!.email!, callback: userHouseClosure)
@@ -100,7 +100,7 @@ class AllHousesPageViewController: UITableViewController {
     
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        currentHouseID = house_ids[indexPath.row]
+        currentHouseID = houseIds[indexPath.row]
         
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         
