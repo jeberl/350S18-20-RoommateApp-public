@@ -49,7 +49,7 @@ class AddChargeViewController: UIViewController {
         // Create new house object to add to database
         let assignor = Auth.auth().currentUser?.email!
         let newCharge = Charge(fromUser: assignor!, toUser: chargeUserResp!, houseID: currentHouseID!, timestamp: date, amount: chargeAmount!, message: chargeMessage!)
-        self.database.createCharge(charge: newCharge) 
+        self.database.createCharge(charge: newCharge)
         // Notification for charge
         let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], timestamp: date, type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!")
         self.database.getUserUidFromEmail(email: chargeUserResp!, callback: {(uid) -> Void in
