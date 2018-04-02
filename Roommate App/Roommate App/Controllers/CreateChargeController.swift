@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class CreateChargeController : UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var charge : Charge?
-    var houseMemberUserNames : [String] = []
+    var houseMemberNickNames : [String] = []
+    var houseMemberUIDs : [String] = []
     var selectedMembers : Set<Int> = Set()
+    var houseID : String = ""
     
     @IBOutlet weak var amountTextFeild: UITextField!
     @IBOutlet weak var chargePaySwitch: UISegmentedControl!
@@ -21,9 +23,8 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         amountTextFeild.keyboardType = UIKeyboardType.numberPad
         amountTextFeild.textAlignment = NSTextAlignment.right
-        charge = nil
         
-        houseMemberUserNames = ["Test House Member 1", "Test House Member 2", "Test House Member 3"]
+        houseMemberNickNames = ["Test House Member 1", "Test House Member 2", "Test House Member 3"]
         selectedMembers.insert(0)
         
     }
@@ -44,18 +45,41 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         return "$ \(cents / 100).\(decimal)"
     }
     
+    @IBAction func createChorePressed() {
+        let database = DatabaseAccess.getInstance()
+        for otherMemberIndex in selectedMembers {
+            var (from, to) = ("", "")
+            //Charge Selected Users
+            if chargePaySwitch.selectedSegmentIndex == 0 {
+                from = Auth.auth().currentUser!.uid
+                to = houseMemberUIDs[otherMemberIndex]
+            }
+            //Pay Selected Users
+            else if chargePaySwitch.selectedSegmentIndex == 1 {
+                to = Auth.auth().currentUser!.uid
+                from = houseMemberUIDs[otherMemberIndex]
+            }
+            let cents = getCentsFromTextField()
+            let dollars = Double(cents) / Double(100)
+            let charge = Charge(from_user: from, to_user: to, houseID: houseID, timestamp: <#String#>, amount: dollars, message: transactionDescriptionTextFeild.text)
+            database.createCharge(charge: charge)
+        }
+        
+        
+    }
+    
     @IBAction func DisplayText(_ sender: UITextField) {
         let newCents = getCentsFromTextField()
         amountTextFeild.text = getTextFromCents(cents: newCents);
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return houseMemberUserNames.count
+        return houseMemberNickNames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberCell", for: indexPath)
-        cell.textLabel?.text = houseMemberUserNames[indexPath.row]
+        cell.textLabel?.text = houseMemberNickNames[indexPath.row]
         if selectedMembers.contains(indexPath.row) {
             cell.backgroundColor = UIColor.green
         } else {
