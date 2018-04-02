@@ -18,13 +18,13 @@ struct ChoreAJ {
     var houseID: String
     var description: String
     
-    init(choreTitle: String, assignor: String, assignee: String, timeAssigned: String, houseID: String, description: String ){
+    init(choreTitle: String, assignor: String, assignee: String, houseID: String, description: String ){
         self.choreID = nil
         self.completed = false
         self.title = choreTitle
         self.assignedBy = assignor
         self.assigned_to = assignee
-        self.timeAssigned = timeAssigned
+        self.timeAssigned = DatabaseAccess.getInstance().getTimestampAsString()
         self.timeCompleted = nil
         self.houseID = houseID
         self.description = description

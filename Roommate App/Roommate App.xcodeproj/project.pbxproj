@@ -97,7 +97,6 @@
 		758CF9FC207017A800DA12E6 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		758CFA00207049EA00DA12E6 /* AddChargeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChargeViewController.swift; sourceTree = "<group>"; };
 		86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.release.xcconfig"; sourceTree = "<group>"; };
-		881CADB72062EFA6000B17A0 /* ChoreAJ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChoreAJ.swift; sourceTree = "<group>"; };
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		888310DB2037848300E4F495 /* ReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValue.swift; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
@@ -222,7 +221,6 @@
 				757DB96C20351F6F00CB9FF6 /* UserAccount.swift */,
 				757DB96E20351F8700CB9FF6 /* House.swift */,
 				757DB97020351F9600CB9FF6 /* Charge.swift */,
-				881CADB72062EFA6000B17A0 /* ChoreAJ.swift */,
 				888310DB2037848300E4F495 /* ReturnValue.swift */,
 				90F573C9203E8B47001FBEC1 /* CurrentState.swift */,
 				758CF9F82060A1E800DA12E6 /* Notifications.swift */,

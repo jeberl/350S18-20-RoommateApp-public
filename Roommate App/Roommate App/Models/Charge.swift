@@ -20,11 +20,11 @@ class Charge {
     var amount: Double
     var message: String
     
-    init(fromUser: String, toUser: String, houseID: String, timestamp: String, amount: Double, message: String) {
+    init(fromUser: String, toUser: String, houseID: String, amount: Double, message: String) {
         self.toUser = toUser
         self.fromUser = fromUser
         self.houseID = houseID
-        self.timestamp = timestamp
+        self.timestamp = DatabaseAccess.getInstance().getTimestampAsString()
         self.amount = amount
         self.message = message
     }

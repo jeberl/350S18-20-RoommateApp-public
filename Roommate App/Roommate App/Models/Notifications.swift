@@ -18,11 +18,11 @@ struct Notification {
     var checked: Bool
     var description: String
     
-    init(houseID: String, usersInvolved: [String], timestamp: String, type: String, description: String) {
+    init(houseID: String, usersInvolved: [String], type: String, description: String) {
         self.notificationID = nil
         self.houseID = houseID
         self.usersInvolved = usersInvolved
-        self.timestamp = timestamp 
+        self.timestamp = DatabaseAccess.getInstance().getTimestampAsString()
         self.type = type
         self.checked = false // false upon constructing
         self.description = description
