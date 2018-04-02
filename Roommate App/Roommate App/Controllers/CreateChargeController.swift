@@ -23,10 +23,6 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         amountTextFeild.keyboardType = UIKeyboardType.numberPad
         amountTextFeild.textAlignment = NSTextAlignment.right
-        
-        houseMemberNickNames = ["Test House Member 1", "Test House Member 2", "Test House Member 3"]
-        selectedMembers.insert(0)
-        
     }
     
     private func getCentsFromTextField() -> Int {
@@ -46,26 +42,37 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     @IBAction func createChorePressed() {
-        let database = DatabaseAccess.getInstance()
-        for otherMemberIndex in selectedMembers {
-            var (from, to) = ("", "")
-            //Charge Selected Users
-            if chargePaySwitch.selectedSegmentIndex == 0 {
-                from = Auth.auth().currentUser!.uid
-                to = houseMemberUIDs[otherMemberIndex]
+        let message = transactionDescriptionTextFeild.text
+        if message == "" || message?.lowercased() == "message" {
+            chargeNeedsMessageError()
+        } else {
+            let database = DatabaseAccess.getInstance()
+            for otherMemberIndex in selectedMembers {
+                var (from, to) = ("", "")
+                //Charge Selected Users
+                if chargePaySwitch.selectedSegmentIndex == 0 {
+                    from = Auth.auth().currentUser!.uid
+                    to = houseMemberUIDs[otherMemberIndex]
+                }
+                    //Pay Selected Users
+                else if chargePaySwitch.selectedSegmentIndex == 1 {
+                    to = Auth.auth().currentUser!.uid
+                    from = houseMemberUIDs[otherMemberIndex]
+                }
+                let cents = getCentsFromTextField()
+                let dollars = Double(cents) / Double(100)
+                let charge = Charge(from_user: from, to_user: to, houseID: houseID, timestamp: "", amount: dollars, message: transactionDescriptionTextFeild.text)
+                database.createCharge(charge: charge)
+                let notif = Notification(houseID: houseID, usersInvolved: [from, to], timestamp: "", type: <#T##String#>, description: <#T##String#>)
+                database.addNotification(notification: notif, usersInvolved: [from, to])
             }
-            //Pay Selected Users
-            else if chargePaySwitch.selectedSegmentIndex == 1 {
-                to = Auth.auth().currentUser!.uid
-                from = houseMemberUIDs[otherMemberIndex]
-            }
-            let cents = getCentsFromTextField()
-            let dollars = Double(cents) / Double(100)
-            let charge = Charge(from_user: from, to_user: to, houseID: houseID, timestamp: <#String#>, amount: dollars, message: transactionDescriptionTextFeild.text)
-            database.createCharge(charge: charge)
         }
-        
-        
+    }
+    
+    func chargeNeedsMessageError() {
+        let alert = UIAlertController(title: "Please enter a messgae for the charge", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     @IBAction func DisplayText(_ sender: UITextField) {

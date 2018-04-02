@@ -22,7 +22,7 @@ class ChoreListViewController: UITableViewController {
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     
     
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
