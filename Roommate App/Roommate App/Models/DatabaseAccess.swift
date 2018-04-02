@@ -832,9 +832,9 @@ class DatabaseAccess  {
     
     //ELENA+Jesse - FIX COMMENTED FUNCTIONS
     func getListOfUsersInHouse(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        if Auth.auth().currentUser?.uid != nil {
+        //if Auth.auth().currentUser?.uid != nil {
             // Navigate to the houses users field and get a "Snapshot" of the data stored there
-            self.ref.child("houses/\(houseID)/users").observe(.value, with: { (snapshot) in
+            self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
                 // This is the closure where we say what to do with the given snapshot, in this case, the users in
                 // a given house
                 // Check if snapshot exists i.e. if data is stored there
@@ -852,8 +852,8 @@ class DatabaseAccess  {
                 }
             })
             return ExpectedExecution()
-        }
-        return NoSuchUserError()
+        //}
+        //return NoSuchUserError()
     }
     
     // Adds notification value to all notifications part of db and ongoing list of notifications in a user's account
