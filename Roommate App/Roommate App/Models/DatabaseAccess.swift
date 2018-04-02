@@ -259,27 +259,21 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
-    // NEW CODE
-    func getUserLocalNickname(fromHouse house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
-        if let uid : String = Auth.auth().currentUser?.uid {
-            self.ref.child("houses/\(house.houseID)/house_users").observe(.value, with: { (snapshot) in
-                if snapshot.exists() && snapshot.hasChild(uid) {
-                    let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
-                    callback(nickname)
-                } else {
-                    //return nil if house not found or user not member of house
-                    callback(nil)
-                }
-            })
-            return ExpectedExecution()
+    func getCurrentUserLocalNickname(fromHouse house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        return getCurrentUserLocalNickname(fromHouse : house.houseID, callback: callback)
+    }
+    
+    
+    func getCurrentUserLocalNickname(fromHouse houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if let uid = Auth.auth().currentUser?.uid {
+            return getUserLocalNicknameFromUID(fromHouse: houseID, uid: uid, callback : callback)
         }
         return NoSuchUserError()
     }
     
-    // NEW CODE
-    func getUserLocalNickname(fromHouseID houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
-        if let uid : String = Auth.auth().currentUser?.uid {
-            self.ref.child("houses/\(houseID!)/house_users").observe(.value, with: { (snapshot) in
+    func getUserLocalNicknameFromUID(fromHouse houseID: String?, uid : String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if let houseID = houseID {
+            self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
                 if snapshot.exists() && snapshot.hasChild(uid) {
                     let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
                     callback(nickname)
@@ -290,7 +284,7 @@ class DatabaseAccess  {
             })
             return ExpectedExecution()
         }
-        return NoSuchUserError()
+        return NoSuchHouseError()
     }
     
     // NEW CODE
@@ -830,8 +824,7 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
-    //ELENA+Jesse - FIX COMMENTED FUNCTIONS
-    func getListOfUsersInHouse(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+    func getListOfUIDSInHouse(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         if Auth.auth().currentUser?.uid != nil {
             // Navigate to the houses users field and get a "Snapshot" of the data stored there
             self.ref.child("houses/\(houseID)/users").observe(.value, with: { (snapshot) in
@@ -854,6 +847,32 @@ class DatabaseAccess  {
             return ExpectedExecution()
         }
         return NoSuchUserError()
+    }
+    
+    func setGlobalHouseVariables() {
+        getCurrentUserLocalNickname(fromHouse: currentHouseID!) { (localNick) in
+            currentUserLocalNickName = localNick
+        }
+        getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
+            if let UIDs = UIDs {
+                currentHouseMemberUIDs = UIDs
+                currentHouseMemberNicknames = []
+                for uid in UIDs {
+                    self.getUserLocalNicknameFromUID(fromHouse: currentHouseID, uid: uid, callback: { (nickname) in
+                        if let nickname = nickname {
+                            currentHouseMemberNicknames?.append(nickname)
+                        } else {
+                           currentHouseMemberNicknames?.append("nickname not found")
+                        }
+                    })
+                }
+            } else {
+                print("UIDs not found")
+            }
+            
+            
+        }
+        
     }
     
     // Adds notification value to all notifications part of db and ongoing list of notifications in a user's account

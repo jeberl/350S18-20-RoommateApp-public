@@ -50,7 +50,7 @@ class AddChargeViewController: UIViewController {
         let newCharge = Charge(fromUser: assignor!, toUser: chargeUserResp!, houseID: currentHouseID!, amount: chargeAmount!, message: chargeMessage!)
         self.database.createCharge(charge: newCharge)
         // Notification for charge
-        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!") 
+        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [chargeUserResp!], type: "Charge", description: "\(assignor ?? "Error: nil Assignor") charged you!")
         self.database.getUserUidFromEmail(email: chargeUserResp!, callback: {(uid) -> Void in
             print("the uid is:\(uid ?? "Error: nil UID")")
             if let uid = uid {

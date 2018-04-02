@@ -49,19 +49,18 @@ class BalanceViewController: UITableViewController {
         }
     }
     
+    @IBAction func createChargeButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "createChargeStoryboard", bundle: nil)
+        
+        let controller = storyboard.instantiateViewController(withIdentifier: "CreateChargeController") as UIViewController
+        
+        self.present(controller, animated: true, completion: nil)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    /*@IBAction func addChargeButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "CreateCharge", bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: "AddChargeController") as UIViewController
-        
-        self.present(controller, animated: true, completion: nil)
-    }*/
-    
     
     // Only need one section in table
     override func numberOfSections(in tableView: UITableView) -> Int {
