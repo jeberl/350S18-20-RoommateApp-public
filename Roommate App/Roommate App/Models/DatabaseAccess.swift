@@ -272,10 +272,12 @@ class DatabaseAccess  {
     }
     
     func getUserLocalNicknameFromUID(fromHouse houseID: String?, uid : String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        print("uid =  \(uid)")
         if let houseID = houseID {
             self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
                 if snapshot.exists() && snapshot.hasChild(uid) {
                     let nickname = snapshot.childSnapshot(forPath: "\(uid)/nickname").value as? String
+                    print("found nickname \(nickname)")
                     callback(nickname)
                 } else {
                     //return nil if house not found or user not member of house
@@ -401,7 +403,8 @@ class DatabaseAccess  {
                     }
                     self.getUserGlobalNickname(for_email: email, callback: addUserToHouseCallback)
                 } else {
-                    snapshot.setValue(true, forKey: "houses/\(houseId)")
+                    let uid = snapshot.childSnapshot(forPath: "uid").value as! String
+                    self.ref.child("users/\(uid)/houses/\(houseId)").setValue(true)
                 }
             }
         })
@@ -825,9 +828,10 @@ class DatabaseAccess  {
     }
     
     func getListOfUIDSInHouse(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        print("getting list of UIDs")
         if Auth.auth().currentUser?.uid != nil {
             // Navigate to the houses users field and get a "Snapshot" of the data stored there
-            self.ref.child("houses/\(houseID)/users").observe(.value, with: { (snapshot) in
+            self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
                 // This is the closure where we say what to do with the given snapshot, in this case, the users in
                 // a given house
                 // Check if snapshot exists i.e. if data is stored there
@@ -840,8 +844,11 @@ class DatabaseAccess  {
                         callback(userIdsStrings)
                     } else {
                         // If cast could not occur aka no users found, run callback with nil
+                        print("couldnt cast to [String] = \(userIds?.allKeys)")
                         callback(nil)
                     }
+                } else {
+                    print("House \(houseID) not found")
                 }
             })
             return ExpectedExecution()
@@ -850,16 +857,19 @@ class DatabaseAccess  {
     }
     
     func setGlobalHouseVariables() {
-        print("attempting to set global house vars")
-        getCurrentUserLocalNickname(fromHouse: currentHouseID!) { (localNick) in
+        print("attempting to set global house vars with houseID = \(currentHouseID)")
+        var result = getCurrentUserLocalNickname(fromHouse: currentHouseID!) { (localNick) in
             if let localNick = localNick {
                 currentUserLocalNickName = localNick
                 print("set currentUserLocalNickName to \(localNick)")
             } else {
-                print("couldnt find local nickname to set global")
+                print("couldnt find local nickname to set global var")
             }
         }
-        getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
+        if result.returned_error {
+            print(result.error_message)
+        }
+        result = getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
             if let UIDs = UIDs {
                 currentHouseMemberUIDs = UIDs
                 print("set currentHouseMemberUIDs to \(UIDs)")
@@ -877,8 +887,9 @@ class DatabaseAccess  {
             } else {
                 print("UIDs not found")
             }
-            
-            
+        }
+        if result.returned_error {
+            print(result.error_message)
         }
         
     }

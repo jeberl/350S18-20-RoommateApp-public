@@ -51,40 +51,97 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         let message = transactionDescriptionTextFeild.text
         if message == "" || message?.lowercased() == "message" {
             chargeNeedsMessageError()
+        } else if getCentsFromTextField() == 0 {
+            zeroAmoutError()
         } else {
-            let database = DatabaseAccess.getInstance()
-            for otherMemberIndex in selectedMembers {
-                let cents = getCentsFromTextField()
-                let dollars = Double(cents) / Double(100)
-                var (notifFrom , notifTo) : (Notification?, Notification?) = (nil, nil)
-                var (from, to) = ("", "")
-                //Charge Selected Users
-                if chargePaySwitch.selectedSegmentIndex == 0 {
-                    to = Auth.auth().currentUser!.uid
-                    from = currentHouseMemberUIDs![otherMemberIndex]
-                    let fromNickname = currentHouseMemberNicknames[otherMemberIndex]
-                    notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
-                    notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "You charged \(fromNickname) $ \(dollars)")
-                }
-                    //Pay Selected Users
-                else if chargePaySwitch.selectedSegmentIndex == 1 {
-                    from = Auth.auth().currentUser!.uid
-                    to = currentHouseMemberUIDs![otherMemberIndex]
-                    let toNickname = currentHouseMemberNicknames[otherMemberIndex]
-                    notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "You paid \(toNickname) $ \(dollars)!")
-                    notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
-                }
-                let charge = Charge(fromUser: from, toUser: to, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
-                database.createCharge(charge: charge)
-                database.addNotification(notification: notifFrom!, usersInvolved: [from])
-                database.addNotification(notification: notifTo!, usersInvolved: [to])
-
-            }
+            confirm()
         }
     }
     
+    @IBAction func unwindToView(_ sender: UIStoryboardSegue) {}
+    
+    func addChargesToDB(dollars: Double, charge: Bool) {
+        let database = DatabaseAccess.getInstance()
+        var result : ReturnValue<Bool> = ExpectedExecution<Bool>()
+        for otherMemberIndex in selectedMembers {
+            var (notifFrom , notifTo) : (Notification?, Notification?) = (nil, nil)
+            var (from, to) = ("", "")
+            //Charge Selected Users
+            var otherNickname = ""
+            if charge {
+                to = Auth.auth().currentUser!.uid
+                from = currentHouseMemberUIDs![otherMemberIndex]
+                otherNickname = currentHouseMemberNicknames[otherMemberIndex]
+                notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
+                notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")
+            }
+                //Pay Selected Users
+            else {
+                from = Auth.auth().currentUser!.uid
+                to = currentHouseMemberUIDs![otherMemberIndex]
+                otherNickname = currentHouseMemberNicknames[otherMemberIndex]
+                notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")
+                notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
+            }
+            let charge = Charge(fromUser: from, toUser: to, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
+            result = database.createCharge(charge: charge)
+            if result.returned_error {
+                raiseError(title : "Couldnt completed charge with \(otherNickname)")
+            }
+            database.addNotification(notification: notifFrom!, usersInvolved: [from])
+            database.addNotification(notification: notifTo!, usersInvolved: [to])
+        }
+        if !result.returned_error {
+            returnPopup(title : "Sucessfully added charge(s)")
+        }
+    }
+    
+    func confirm() {
+        let cents = getCentsFromTextField()
+        let dollars = Double(cents) / Double(100)
+        let charge = chargePaySwitch.selectedSegmentIndex == 0
+        var title = "Are you sure you want to "
+        if charge {
+            title.append("charge $\(dollars) to ")
+        } else {
+            title.append("settle up to the amount of $\(dollars) with ")
+        }
+        for otherMemberIndex in selectedMembers {
+            title.append(currentHouseMemberNicknames[otherMemberIndex] + ", ")
+        }
+        title.removeLast()
+        title.removeLast()
+        title.append("?")
+        
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Not Yet", style: UIAlertActionStyle.default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler : { (alert) in
+            self.addChargesToDB(dollars: dollars, charge: charge)
+            
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func returnPopup(title : String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
+            (_) in
+            self.performSegue(withIdentifier: "unwindToBalances", sender: self)
+        }))
+        present(alert, animated: true, completion: nil)
+        
+    }
+    
     func chargeNeedsMessageError() {
-        let alert = UIAlertController(title: "Please enter a messgae for the charge", message: nil, preferredStyle: .alert)
+        raiseError(title : "Please enter a messgae for the charge")
+    }
+    
+    func zeroAmoutError() {
+        raiseError(title : "Amount must be greater than 0")
+    }
+    
+    func raiseError(title : String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
