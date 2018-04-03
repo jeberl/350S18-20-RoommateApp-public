@@ -101,6 +101,7 @@ class AllHousesPageViewController: UITableViewController {
     // connect this page to the house main page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentHouseID = houseIds[indexPath.row]
+        DatabaseAccess.getInstance().setGlobalHouseVariables()
         
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         

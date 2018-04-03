@@ -22,7 +22,6 @@
 		757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96C20351F6F00CB9FF6 /* UserAccount.swift */; };
 		757DB96F20351F8700CB9FF6 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96E20351F8700CB9FF6 /* House.swift */; };
 		757DB97120351F9600CB9FF6 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97020351F9600CB9FF6 /* Charge.swift */; };
-		757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */; };
 		758CF9F92060A1E800DA12E6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9F82060A1E800DA12E6 /* Notifications.swift */; };
 		758CF9FB2062BC8900DA12E6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */; };
 		758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FC207017A800DA12E6 /* BalanceViewController.swift */; };
@@ -36,6 +35,8 @@
 		888C5288205F119D00521B65 /* CompleteChore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 888C5287205F119D00521B65 /* CompleteChore.storyboard */; };
 		888C528A205F12F200521B65 /* attributions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 888C5289205F12F200521B65 /* attributions.rtf */; };
 		888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888C528D205F166B00521B65 /* CompleteChoreController.swift */; };
+		88984EE9206D67DF00E2E9E6 /* AddCharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */; };
+		88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */; };
 		88D642A22063268200C30737 /* ChoreAJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D642A12063268200C30737 /* ChoreAJ.swift */; };
 		905CA2E0203CA65D0006077B /* HouseScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905CA2DF203CA65D0006077B /* HouseScreen.storyboard */; };
 		90F573C8203E3390001FBEC1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F573C7203E3390001FBEC1 /* ProfileController.swift */; };
@@ -90,7 +91,6 @@
 		757DB96C20351F6F00CB9FF6 /* UserAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccount.swift; sourceTree = "<group>"; };
 		757DB96E20351F8700CB9FF6 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		757DB97020351F9600CB9FF6 /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
-		757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewController.swift; sourceTree = "<group>"; };
 		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		758CF9F82060A1E800DA12E6 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -104,6 +104,8 @@
 		888C5287205F119D00521B65 /* CompleteChore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CompleteChore.storyboard; sourceTree = "<group>"; };
 		888C5289205F12F200521B65 /* attributions.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = attributions.rtf; sourceTree = "<group>"; };
 		888C528D205F166B00521B65 /* CompleteChoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoreController.swift; sourceTree = "<group>"; };
+		88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCharge.storyboard; sourceTree = "<group>"; };
+		88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChargeController.swift; sourceTree = "<group>"; };
 		88D642A12063268200C30737 /* ChoreAJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreAJ.swift; sourceTree = "<group>"; };
 		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
 		905CA2DF203CA65D0006077B /* HouseScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HouseScreen.storyboard; sourceTree = "<group>"; };
@@ -236,7 +238,6 @@
 			children = (
 				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
 				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
-				757DB9722035219700CB9FF6 /* LoginScreenViewController.swift */,
 				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
 				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
 				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
@@ -248,6 +249,7 @@
 				888C528D205F166B00521B65 /* CompleteChoreController.swift */,
 				758CF9FC207017A800DA12E6 /* BalanceViewController.swift */,
 				758CFA00207049EA00DA12E6 /* AddChargeViewController.swift */,
+				88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -259,6 +261,7 @@
 				757DB943202E1E8500CB9FF6 /* LaunchScreen.storyboard */,
 				905CA2DF203CA65D0006077B /* HouseScreen.storyboard */,
 				888C5287205F119D00521B65 /* CompleteChore.storyboard */,
+				88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				888C528A205F12F200521B65 /* attributions.rtf in Resources */,
 				888C5288205F119D00521B65 /* CompleteChore.storyboard in Resources */,
 				757DB942202E1E8500CB9FF6 /* Assets.xcassets in Resources */,
+				88984EE9206D67DF00E2E9E6 /* AddCharge.storyboard in Resources */,
 				757DB940202E1E8500CB9FF6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -603,7 +607,7 @@
 				C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */,
 				90F573CC203F2AB7001FBEC1 /* UserProfileController.swift in Sources */,
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
-				757DB9732035219700CB9FF6 /* LoginScreenViewController.swift in Sources */,
+				88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,

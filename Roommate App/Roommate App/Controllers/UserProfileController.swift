@@ -26,6 +26,8 @@ class UserProfileController: UIViewController {
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
+        currentLocalNickname = currentUserLocalNickName
+        
         // closure for getUserGlobalNickname
         let userGlobalNicknameClosure = { (returnedGlobalNickname: String?) -> Void in
             self.currentGlobalNickname = returnedGlobalNickname
@@ -39,18 +41,6 @@ class UserProfileController: UIViewController {
             errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
         }
         
-        // closure for getUserLocalNickname
-        let userLocalNicknameClosure = { (returnedLocalNickname: String?) -> Void in
-            self.currentLocalNickname = returnedLocalNickname
-            let textForLocalNickname: String = "Current Local Nickname: \(self.currentLocalNickname ?? "Error: nil Nickname")"
-            self.userProfileLocalNickname.text = textForLocalNickname
-        }
-        
-        // calls getUserLocalNickname, handles errors
-        let errorLocalNickname = self.database.getUserLocalNickname(fromHouseID: currentHouseID, callback: userLocalNicknameClosure)
-        if errorLocalNickname.returned_error {
-            errorLocalNickname.raiseErrorAlert(with_title: "error", view: self)
-        }
         
         // displays current profile email address
         let profileForText: String = "User Profile For: \(Auth.auth().currentUser!.email ?? "Error: nil User")"
@@ -74,18 +64,29 @@ class UserProfileController: UIViewController {
         
     }
     
+    func invalidNicknameEntry() {
+        let alert = UIAlertController(title: "Please enter a valid Nickname", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     @IBAction func submitGlobalNicknameClicked(_ sender: UIButton) {
-        let newGlobalNickname = changeGlobalNicknameField.text
-        database.setUserGlobalNickname(newNickname: newGlobalNickname!)
+        if let newGlobalNickname = changeGlobalNicknameField.text{
+            database.setUserGlobalNickname(newNickname: newGlobalNickname)
+        } else {
+            invalidNicknameEntry()
+        }
     }
     
     
     @IBAction func submitLocalNicknameClicked(_ sender: UIButton) {
-        let newLocalNickname = changeLocalNicknameField.text
-        database.setUserLocalNickname(inHouseID: currentHouseID!, to: newLocalNickname!, view: self)
+        if let newLocalNickname = changeLocalNicknameField.text {
+            currentUserLocalNickName = newLocalNickname
+            database.setUserLocalNickname(inHouseID: currentHouseID!, to: newLocalNickname, view: self)
+        } else {
+            invalidNicknameEntry()
+        }
     }
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

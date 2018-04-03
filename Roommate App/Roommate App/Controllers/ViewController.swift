@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         self.database.getListOfHousesUserMemberOf(email: "me@emailcom", callback: {(houses)-> Void in
             print("got houses:\(houses)")
             new = houses
-        })*/
+        })
         /*print("here")
         let newNotif = Notification(houseID: "test", houseName: "test", usersInvolved: ["test"], timestamp: NSDate.init(), type: "test")
         var userUid: String? = nil;
@@ -54,15 +54,17 @@ class ViewController: UIViewController {
             if errorGlobalNickname.returned_error {
                 errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
         }*/
-        /*self.database.getNotifications(callback: {(uid) -> Void in
+        self.database.getNotifications(callback: {(uid) -> Void in
             print("notif:\(uid!)")
             self.database.getNotifData(notifId: uid![0], callback: {(notif) -> Void in
                 print(notif!.value(forKey: "type")!)
             })
-        })*/
+        })
         //database.deleteNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
         //database.removeNotification(notifId: "-L84AwQ5wP-uSPeLzUPw")
         // Do any additional setup after loading the view, typically from a nib.
+        })
+     */
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,5 +94,9 @@ class ViewController: UIViewController {
         database.createAccount(username: usernameTextField.text!, password: passwordTextField.text!, view: self)
     }
     
+    //Remove - For testing
+    @IBAction func segToCreateCharge(_ sender: Any) {
+        performSegue(withIdentifier: "addChargeSeg", sender: self)
+    }
 }
 

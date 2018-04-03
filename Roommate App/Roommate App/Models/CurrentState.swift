@@ -12,3 +12,7 @@ import Foundation
 
 var currentHouseID: String?
 var currentChoreID: String?
+
+var currentUserLocalNickName: String = "default"
+var currentHouseMemberNicknames: [String] = []
+var currentHouseMemberUIDs: [String]? = []

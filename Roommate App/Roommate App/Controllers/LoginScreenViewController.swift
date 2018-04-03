@@ -16,9 +16,9 @@ import FirebaseAuthUI
 
 //Elements taken from: https://www.raywenderlich.com/139322/firebase-tutorial-getting-started-2
 
-class LoginScreenViewController: UIViewController {
-    //MARK: Properties
-    var user: UserAccount!
-    
-}
+//class LoginScreenViewController: UIViewController {
+//    //MARK: Properties
+//    var user: UserAccount!
+//    
+//}
 
