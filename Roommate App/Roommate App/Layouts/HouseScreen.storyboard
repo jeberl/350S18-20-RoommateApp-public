@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Rd-t4-Wtn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Rd-t4-Wtn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -43,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeC-Sz-DP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="686" y="-1798"/>
+            <point key="canvasLocation" x="-28" y="-1800"/>
         </scene>
         <!--Create Chore View Controller-->
         <scene sceneID="BUI-a1-t2G">
@@ -94,7 +94,7 @@
                                 <state key="normal" title="Create Chore!"/>
                                 <connections>
                                     <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
-                                    <segue destination="OQn-bJ-nO4" kind="show" id="50B-n1-j0c"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="8tH-OO-Vwc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Homie Responsible" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn7-Lt-Ztl">
@@ -113,7 +113,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back to All Chores"/>
                                 <connections>
-                                    <segue destination="OQn-bJ-nO4" kind="show" id="QH3-BS-Ff3"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="OWm-CQ-Smz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZ3-cF-9Wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1662" y="-2579"/>
+            <point key="canvasLocation" x="1374" y="-2491"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gzy-Iv-kfy">
@@ -268,7 +268,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back to All Chores"/>
                                 <connections>
-                                    <segue destination="OQn-bJ-nO4" kind="show" id="qiz-CF-Q1d"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="lg0-4u-dS0"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-ea-dq7">
@@ -295,7 +295,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKV-cz-taM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1662" y="-1799"/>
+            <point key="canvasLocation" x="1374" y="-1798"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="klO-XQ-fPh">
@@ -595,7 +595,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="OQn-bJ-nO4" kind="relationship" relationship="rootViewController" id="BHd-B0-Hqc"/>
+                        <segue destination="3uT-YX-DrR" kind="relationship" relationship="rootViewController" id="Wg1-cA-lcq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcE-Gi-kfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -660,31 +660,13 @@
             <point key="canvasLocation" x="-751" y="358"/>
         </scene>
         <!--Tab Bar Controller-->
-        <scene sceneID="IYO-mB-WeN">
-            <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="OQn-bJ-nO4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="GHb-JR-0Ot"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="lto-2B-Eyf">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="3uT-YX-DrR" kind="relationship" relationship="viewControllers" id="X78-O3-lY0"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Xr-iu-xy6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-39" y="-1798"/>
-        </scene>
-        <!--Tab Bar Controller-->
         <scene sceneID="rgA-im-Uuv">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="WjJ-LG-Sss" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="AbT-rx-SqZ"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xGO-3H-qin">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -708,6 +690,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qiz-CF-Q1d"/>
+        <segue reference="OWm-CQ-Smz"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -42,7 +42,7 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
                 self.database.getUserGlobalNickname(forUid: userID, callback: usernameClosure)
             }
         }
-        let error1 = self.database.getListOfUsersInHouse(houseID: currentHouseID!, callback: usernamesClosure)
+        let error1 = self.database.getListOfUIDSInHouse(houseID: currentHouseID!, callback: usernamesClosure)
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
@@ -69,9 +69,6 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
         let userResponsible = self.assignee
         let date = self.database.getTimestampAsString()
         
-        if (userResponsible == ""){
-            
-        }
         
        
         // Create new house object to add to database

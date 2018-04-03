@@ -852,8 +852,8 @@ class DatabaseAccess  {
                 }
             })
             return ExpectedExecution()
-        //}
-        //return NoSuchUserError()
+        }
+        return NoSuchUserError()
     }
     
     func setGlobalHouseVariables() {
