@@ -10,7 +10,7 @@ import UIKit
 
 class ProfileController: UITableViewController {
     
-    let initialOptions = ["Edit Profile", "Edit House"]
+    let initialOptions = ["Edit Profile", "Edit House", "View Housemates"]
     
     // methods for TableView
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,6 +33,8 @@ class ProfileController: UITableViewController {
             performSegue(withIdentifier: "UserProfileSegue", sender: self)
         } else if (indexPath.row == 1) {
             performSegue(withIdentifier: "HouseProfileSegue", sender: self)
+        } else if (indexPath.row == 2) {
+            performSegue(withIdentifier: "HousematesSegue", sender: self)
         }
     }
     

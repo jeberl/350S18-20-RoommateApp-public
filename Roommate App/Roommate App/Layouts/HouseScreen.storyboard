@@ -474,6 +474,34 @@
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="1094.3028485757122"/>
         </scene>
+        <!--Housemates View Controller-->
+        <scene sceneID="FGd-Kj-gcb">
+            <objects>
+                <tableViewController id="2Dy-tf-mWP" customClass="HousematesViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="PEV-HI-EQw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dlV-HJ-gIe">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dlV-HJ-gIe" id="XlH-EP-MM5">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="2Dy-tf-mWP" id="bNV-ku-eFh"/>
+                            <outlet property="delegate" destination="2Dy-tf-mWP" id="ok1-Gi-F5J"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kbm-Ek-pKB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="710" y="1809"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Eh4-Hf-ABD">
             <objects>
@@ -548,6 +576,7 @@
                     <connections>
                         <segue destination="n4w-bB-gCw" kind="show" identifier="UserProfileSegue" id="fXS-jc-1gw"/>
                         <segue destination="IPF-IF-4Ss" kind="show" identifier="HouseProfileSegue" id="sy6-9M-cOG"/>
+                        <segue destination="2Dy-tf-mWP" kind="show" identifier="HousematesSegue" id="tEe-Nd-Jy4"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Go-Wa-qoa" userLabel="First Responder" sceneMemberID="firstResponder"/>

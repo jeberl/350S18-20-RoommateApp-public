@@ -39,7 +39,7 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
             }
             self.userIDs = returnedUserIDs ?? []
             for userID in self.userIDs {
-                self.database.getUserGlobalNickname(for_uid: userID, callback: usernameClosure)
+                self.database.getUserGlobalNickname(forUid: userID, callback: usernameClosure)
             }
         }
         let error1 = self.database.getListOfUsersInHouse(houseID: currentHouseID!, callback: usernamesClosure)
@@ -75,13 +75,13 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
         
        
         // Create new house object to add to database
-        let newChore = ChoreAJ(chore_title: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible, time_assigned: date, houseID: currentHouseID!, description: choreDescription!)
+        let newChore = ChoreAJ(choreTitle: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible, houseID: currentHouseID!, description: choreDescription!)
         self.database.createChore(chore: newChore)
         let assignor = Auth.auth().currentUser?.email!
         
         // Notification for chore
         
-        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [userResponsible], timestamp: date, type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
+        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [userResponsible], type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
         self.database.getUserUidFromEmail(email: userResponsible, callback: {(uid) -> Void in
             print("the uid is:\(uid ?? "Error: nil UID")")
             if let uid = uid {
