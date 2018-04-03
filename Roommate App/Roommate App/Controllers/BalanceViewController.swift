@@ -86,19 +86,14 @@ class BalanceViewController: UITableViewController {
     
     // connect this page to the feed page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        print("presenting")
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         
-        let controller = storyboard.instantiateViewController(withIdentifier: "HouseTabBarController") as UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "BalanceViewController") as UIViewController
         
         self.present(controller, animated: true, completion: nil)
         
     }
     
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
 }
 

@@ -850,22 +850,30 @@ class DatabaseAccess  {
     }
     
     func setGlobalHouseVariables() {
+        print("attempting to set global house vars")
         getCurrentUserLocalNickname(fromHouse: currentHouseID!) { (localNick) in
-            currentUserLocalNickName = localNick
+            if let localNick = localNick {
+                currentUserLocalNickName = localNick
+                print("set currentUserLocalNickName to \(localNick)")
+            } else {
+                print("couldnt find local nickname to set global")
+            }
         }
         getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
             if let UIDs = UIDs {
                 currentHouseMemberUIDs = UIDs
+                print("set currentHouseMemberUIDs to \(UIDs)")
                 currentHouseMemberNicknames = []
                 for uid in UIDs {
                     self.getUserLocalNicknameFromUID(fromHouse: currentHouseID, uid: uid, callback: { (nickname) in
                         if let nickname = nickname {
-                            currentHouseMemberNicknames?.append(nickname)
+                            currentHouseMemberNicknames.append(nickname)
                         } else {
-                           currentHouseMemberNicknames?.append("nickname not found")
+                           currentHouseMemberNicknames.append("nickname not found")
                         }
                     })
                 }
+                print("set currentHouseMemberNicknames to \(currentHouseMemberNicknames)")
             } else {
                 print("UIDs not found")
             }

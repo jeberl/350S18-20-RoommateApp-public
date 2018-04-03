@@ -19,6 +19,14 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let layer = CAGradientLayer()
+        let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
+        let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
+        layer.colors = [colorOne, colorTwo]
+        layer.frame = view.frame
+        view.layer.insertSublayer(layer, at: 0)
+        
         amountTextFeild.keyboardType = UIKeyboardType.numberPad
         amountTextFeild.textAlignment = NSTextAlignment.right
     }
@@ -54,17 +62,17 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
                 if chargePaySwitch.selectedSegmentIndex == 0 {
                     to = Auth.auth().currentUser!.uid
                     from = currentHouseMemberUIDs![otherMemberIndex]
-                    let fromNickname = currentHouseMemberNicknames![otherMemberIndex]
-                    notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "\(currentUserLocalNickName!) charged you $ \(dollars)")
+                    let fromNickname = currentHouseMemberNicknames[otherMemberIndex]
+                    notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
                     notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "You charged \(fromNickname) $ \(dollars)")
                 }
                     //Pay Selected Users
                 else if chargePaySwitch.selectedSegmentIndex == 1 {
                     from = Auth.auth().currentUser!.uid
                     to = currentHouseMemberUIDs![otherMemberIndex]
-                    let toNickname = currentHouseMemberNicknames![otherMemberIndex]
+                    let toNickname = currentHouseMemberNicknames[otherMemberIndex]
                     notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "You paid \(toNickname) $ \(dollars)!")
-                    notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "\(currentUserLocalNickName!) payed you $ \(dollars)")
+                    notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
                 }
                 let charge = Charge(fromUser: from, toUser: to, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
                 database.createCharge(charge: charge)
@@ -87,12 +95,12 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentHouseMemberNicknames!.count
+        return currentHouseMemberNicknames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberCell", for: indexPath)
-        cell.textLabel?.text = currentHouseMemberNicknames![indexPath.row]
+        cell.textLabel?.text = currentHouseMemberNicknames[indexPath.row]
         if selectedMembers.contains(indexPath.row) {
             cell.backgroundColor = UIColor.green
         } else {
