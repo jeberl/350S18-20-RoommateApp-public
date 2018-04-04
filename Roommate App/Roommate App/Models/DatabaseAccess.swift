@@ -266,12 +266,12 @@ class DatabaseAccess  {
     
     func getCurrentUserLocalNickname(fromHouse houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         if let uid = Auth.auth().currentUser?.uid {
-            return getUserLocalNicknameFromUID(fromHouse: houseID, uid: uid, callback : callback)
+            return getUserLocalNicknamefromUID(fromHouse: houseID, uid: uid, callback : callback)
         }
         return NoSuchUserError()
     }
     
-    func getUserLocalNicknameFromUID(fromHouse houseID: String?, uid : String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+    func getUserLocalNicknamefromUID(fromHouse houseID: String?, uid : String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         print("uid =  \(uid)")
         if let houseID = houseID {
             self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
@@ -295,7 +295,7 @@ class DatabaseAccess  {
             return setUserLocalNickname(inHouseID : hId, to: newNickname, view: view)
         }
         return NoSuchHouseError()
-    } 
+    }
     
     // NEW CODE
     func setUserLocalNickname(inHouseID : String, to newNickname: String, view: UIViewController) -> ReturnValue<Bool>{
@@ -814,7 +814,7 @@ class DatabaseAccess  {
     */
     func completeChore() {
     
-	}    
+	}
     
     // NEW CODE
     func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
@@ -875,7 +875,7 @@ class DatabaseAccess  {
                 print("set currentHouseMemberUIDs to \(UIDs)")
                 currentHouseMemberNicknames = []
                 for uid in UIDs {
-                    self.getUserLocalNicknameFromUID(fromHouse: currentHouseID, uid: uid, callback: { (nickname) in
+                    self.getUserLocalNicknamefromUID(fromHouse: currentHouseID, uid: uid, callback: { (nickname) in
                         if let nickname = nickname {
                             currentHouseMemberNicknames.append(nickname)
                         } else {
@@ -895,15 +895,10 @@ class DatabaseAccess  {
     }
     
     // Adds notification value to all notifications part of db and ongoing list of notifications in a user's account
-    func addNotification(notification: Notification, usersInvolved: [String])-> ReturnValue<Bool> {
+    func addNotification(notification: Notification)-> ReturnValue<Bool> {
         let notifID = self.ref.child("notifications").childByAutoId().key
         var newNotification = notification
         newNotification.setNotificationID(ID: notifID)
-        var newUsersInvolved : [String] = []
-        for user in newNotification.usersInvolved {
-            var formatEmail = reformatEmail(email: user)
-            newUsersInvolved.append(formatEmail) 
-        }
         let notificationValueToAdd : [String: Any?] = ["houseID": newNotification.houseID,
                                                        "description": newNotification.description,
                                       //"users_involved": newUsersInvolved,
@@ -911,15 +906,16 @@ class DatabaseAccess  {
                                       "type": newNotification.type]
         self.ref.child("notifications/\(notifID)").setValue(notificationValueToAdd)
         // For each user in usersInvolved add the notifId to their notifications and send notifier to user
-        for someUser in newUsersInvolved {
-            self.ref.child("notifications/\(notifID)/users_involved/\(someUser)").setValue(true)
-        }
-        for currUser in notification.usersInvolved {
-            let formattedEmail = reformatEmail(email: currUser)
-            self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: { (snapshot) in
-                let uid = snapshot.value!
-                self.ref.child("users/\(uid)/notifications/\(notifID)").setValue(true)
-            })
+        for someUID in notification.UIDsInvolved {
+            self.ref.child("users/\(someUID)/notifications/\(notifID)").setValue(true)
+            self.ref.child("users/\(someUID)/notifications/\(notifID)").setValue(true)
+            self.ref.child("users/\(someUID)/formatted_email").observeSingleEvent(of: .value) { (snapshot) in
+                if snapshot.exists() {
+                    if let formattedEmail = snapshot.value as? String {
+                        self.ref.child("notifications/\(notifID)/users_involved/\(formattedEmail)").setValue(true)
+                    }
+                }
+            }
         }
         return ExpectedExecution()
     }
@@ -1015,82 +1011,68 @@ class DatabaseAccess  {
     }
     
     /*
-     Creates charge in database
+     Does everything part of adding a charge to the database. Adding to users list of charges, house's list of charges,
+        and updating house balances
      Input: Charge assigned
      Output: True if charge added with no error message, false and with error message if not added
      */
     func createCharge(charge: Charge) -> ReturnValue<Bool> {
         let newCharge = charge
-        print("Assigning charge to \(newCharge.toUser) for \(newCharge.amount)")
+        print("Assigning charge to \(newCharge.giveToUID) for \(newCharge.amount)")
         let chargeID = self.ref.child("charges").childByAutoId().key
         let chargeToAdd : Any = [ "amount" : newCharge.amount,
-                                  "assigned_by" : newCharge.fromUser,
-                                  "assigned_to" : newCharge.toUser,
+                                  "takeFromUID" : newCharge.takeFromUID,
+                                  "giveToUID" : newCharge.giveToUID,
                                   "houseID" : newCharge.houseID,
                                   "time_charged" : newCharge.timestamp,
                                   "message" : newCharge.message
         ]
         self.ref.child("charges/\(chargeID)").setValue(chargeToAdd)
         newCharge.setChargeID(ID: chargeID)
-        assignChargeToUser(userEmail: newCharge.toUser, chargeID: chargeID)
+        assignChargeToUser(UID: newCharge.giveToUID, chargeID: chargeID)
+        assignChargeToUser(UID: newCharge.takeFromUID, chargeID: chargeID)
         assignChargeToHouse(houseID: newCharge.houseID, chargeID: chargeID)
+        addToUserBalance(HouseID: newCharge.houseID, owesUID: newCharge.takeFromUID, owedUID: newCharge.giveToUID, amount: newCharge.amount)
         return ExpectedExecution()
     }
     
     
     /*
-     Assigns the charge to the user
-     Input: Email of the user the charge was billed to and string ID of charge to add
-     Output: Return value with true and no error if charge was assigned properly.  Otherwise, return value with false and associated error code
+     Private function - to add charge use CreateChargeFunction
+     Assigns the charge to the user's list of charges
+     Input: UID of the user the charge was billed to and string ID of charge to add
      */
-    func assignChargeToUser(userEmail: String, chargeID: String) -> ReturnValue<Bool> {
-        var userID : String?
-        let getUIDClosure = { (returnedID : String?) -> Void in
-            userID = returnedID
-            
-            if userID == nil {
-                print("User has not yet created an account")
-            } else {
-                // Add chargeID to dictionary of user's incomplete charges
-                self.ref.child("users/\(userID!)/incompleteCharges/\(chargeID)").setValue(true)
-            }
-        }
-        getUIDFromEmail(email: userEmail, callback: getUIDClosure)
-        
-        return ExpectedExecution()
+    private func assignChargeToUser(UID: String, chargeID: String){
+        self.ref.child("users/\(UID)/charges/\(chargeID)").setValue(true)
     }
     
     /*
+     Private function - to add charge use CreateChargeFunction
      Assigns charge to house's list of all incomplete charges
      Input: String ID of associated house and string ID of charge to add
-     Output: Return value containing true and no error if charge was added.  Otherwise, returns false and an associated error code
      */
-    func assignChargeToHouse(houseID: String, chargeID: String) -> ReturnValue<Bool> {
+    private func assignChargeToHouse(houseID: String, chargeID: String) {
         // Add choreID to dictionary of house's incomplete chores
-        self.ref.child("houses/\(houseID)/incompleteCharges/\(chargeID)").setValue(true)
-        return ExpectedExecution()
+        self.ref.child("houses/\(houseID)/charges/\(chargeID)").setValue(true)
     }
     
 
     /*
-     Gets list of charges a given user has been charged
+     Gets list of charges a given user is involed in
      Input: String ID of user and the callback function to use (aka what to do with the retrieved data)
-     Output: ReturnValue object with true and no error code if proper execution, othewise with false and a corresponding error code
      Callback Returns: List of string charge IDs.  View controller then uses this to find charge messages and amounts
      */
-    func getUserCharges(uid: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        self.ref.child("users/\(uid)/incompleteCharges").observe(.value, with: { (snapshot) in
+    func getUserCharges(uid: String, callback : @escaping ([String]?) -> Void){
+        self.ref.child("users/\(uid)/charges").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 let chargeIDs = snapshot.value as? NSDictionary
                 if let chargeIDstr = chargeIDs?.allKeys as? [String]? {
                     callback(chargeIDstr)
-                }
-                else {
-                    callback(nil)
+                    return
                 }
             }
+            callback(nil)
         })
-        return ExpectedExecution()
     }
     
     
@@ -1100,72 +1082,93 @@ class DatabaseAccess  {
      Output: ReturnValue object with true and no error code if proper execution, otherwise with false and a corresponding error code
      Callback Returns: List of string charge IDs for the given house.  View Controller uses this to find charge messages and amounts
      */
-    func getHouseCharges(houseId: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
-        self.ref.child("houses/\(houseId)/incompleteCharges").observe(.value, with: { (snapshot) in
+    func getHouseCharges(houseId: String, callback : @escaping ([String]?) -> Void){
+        self.ref.child("houses/\(houseId)/charges").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 let chargeIDs = snapshot.value as? NSDictionary
                 if let chargeIDstr = chargeIDs?.allKeys as? [String]? {
                     callback(chargeIDstr)
-                }
-                else {
-                    callback(nil)
+                    return
                 }
             }
+            callback(nil)
         })
-        return ExpectedExecution()
     }
     
     /*
      Function to get a charge's string message from its chargeID
      Input: Charge ID of charge you wish to get message for
-     Output: Return value with true and no error messgae if charge messge is found.  False and error code if charge is not found
-     Callback returns: the charge's string messgae
+     Callback returns: the charge's string message or nil if no charge found
      */
-    func getChargeMessage(chargeID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+    func getChargeMessage(chargeID: String, callback: @escaping (String?) -> Void){
         self.ref.child("charges/\(chargeID)/message").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as charge name
                 if let message = snapshot.value as? String {
                     // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
-                    let chargeMessage : String = message
-                    callback(chargeMessage)
-                } else {
-                    // If cast could not occur then no charge message found so run callback with nil
-                    print("Charge Measage not found")
-                    callback(nil)
+                    callback(message)
+                    return
                 }
             }
+            // If no charge found or cast could not occur then no charge message found so run callback with nil
+            print("Charge Measage not found")
+            callback(nil)
         })
-        return ExpectedExecution()
     }
     
     /*
      Function to get a charge's double amount from its chargeID
-     Input: Charge ID of charge you wish to get amount of
-     Output: Return value with true and no error messgae if charge messge is found.  False and error code if charge is not found
+     Input: Charge ID of charge you wish to get amount of or nil if no charge found
      Callback returns: the charge's amount
      */
-    func getChargeAmount(chargeID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+    func getChargeAmount(chargeID: String, callback: @escaping (Double?) -> Void){
         self.ref.child("charges/\(chargeID)/amount").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as charge name
-                if let amount = snapshot.value as? String {
+                if let amount = snapshot.value as? Double {
                     // Run the function, callback, which is given by the frontend, passing it the amount we read from the snapshot as an argument
-                    let chargeAmount : String = amount
-                    callback(chargeAmount)
+                    callback(amount)
                 } else {
-                    // If cast could not occur then no charge amount found so run callback with nil
-                    print("Charge amount not found")
-                    callback(nil)
                 }
             }
+            // If no charge found or cast could not occur then no charge amount found so run callback with nil
+            print("Charge amount not found")
+            callback(nil)
         })
-        return ExpectedExecution()
+    }
+    /*
+     Function to get the balance between 2 individuals in a house
+     Input: UIDs and house
+     Callback returns: the amount owed to owedUID by owesUID
+     */
+    func getBalanceBetweenUsers(HouseID: String, owesUID: String, owedUID: String, callback: @escaping (Double) -> Void) {
+        self.ref.child("houses/\(HouseID)/balances/\(owedUID)/\(owesUID)").observeSingleEvent(of: .value, with: { (snapshot) in
+            var current_balance = 0.0
+            if snapshot.exists() {
+                if let read_balance = snapshot.value as? Double {
+                    current_balance = read_balance
+                }
+            }
+            callback(current_balance)
+        })
     }
     
-//    func getBalanceBetweenUsers(HouseID: String, User1Email: String, User2Email: String) {
-//        // TO BE IMPLEMENTED
-//    }
-//
+    /*
+     Function to get the balance between 2 individuals in a house
+     Input: UIDs and house and amount
+     Effect: adds amount to balance owed to owedUID by owesUID
+     */
+    private func addToUserBalance(HouseID: String, owesUID: String, owedUID: String, amount : Double) {
+        self.ref.child("houses/\(HouseID)/balances/\(owedUID)/\(owesUID)").observeSingleEvent(of: .value, with: { (snapshot) in
+            var current_balance = 0.0
+            if snapshot.exists() {
+                if let read_balance = snapshot.value as? Double {
+                    current_balance = read_balance
+                }
+            }
+            self.ref.child("houses/\(HouseID)/balances/\(owedUID)/\(owesUID)").setValue(current_balance + amount)
+            self.ref.child("houses/\(HouseID)/balances/\(owesUID)/\(owedUID)").setValue(-1 * (current_balance + amount))
+        })
+    }
 
 }

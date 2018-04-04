@@ -12,16 +12,16 @@ struct Notification {
     
     var notificationID: String?
     var houseID: String
-    var usersInvolved: [String]
+    var UIDsInvolved: [String]
     var timestamp: String
     var type: String
     var checked: Bool
     var description: String
     
-    init(houseID: String, usersInvolved: [String], type: String, description: String) {
+    init(houseID: String, UIDsInvolved: [String], type: String, description: String) {
         self.notificationID = nil
         self.houseID = houseID
-        self.usersInvolved = usersInvolved
+        self.UIDsInvolved = UIDsInvolved
         self.timestamp = DatabaseAccess.getInstance().getTimestampAsString()
         self.type = type
         self.checked = false // false upon constructing

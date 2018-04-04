@@ -65,31 +65,31 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         var result : ReturnValue<Bool> = ExpectedExecution<Bool>()
         for otherMemberIndex in selectedMembers {
             var (notifFrom , notifTo) : (Notification?, Notification?) = (nil, nil)
-            var (from, to) = ("", "")
+            var (takeFromUID, giveToUID) = ("", "")
             //Charge Selected Users
             var otherNickname = ""
             if charge {
-                to = Auth.auth().currentUser!.uid
-                from = currentHouseMemberUIDs![otherMemberIndex]
+                giveToUID = Auth.auth().currentUser!.uid
+                takeFromUID = currentHouseMemberUIDs![otherMemberIndex]
                 otherNickname = currentHouseMemberNicknames[otherMemberIndex]
-                notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
-                notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")
+                notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
+                notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")
             }
                 //Pay Selected Users
             else {
-                from = Auth.auth().currentUser!.uid
-                to = currentHouseMemberUIDs![otherMemberIndex]
+                takeFromUID = Auth.auth().currentUser!.uid
+                giveToUID = currentHouseMemberUIDs![otherMemberIndex]
                 otherNickname = currentHouseMemberNicknames[otherMemberIndex]
-                notifFrom = Notification(houseID: currentHouseID!, usersInvolved: [from], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")
-                notifTo = Notification(houseID: currentHouseID!, usersInvolved: [to], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
+                notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")
+                notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
             }
-            let charge = Charge(fromUser: from, toUser: to, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
+            let charge = Charge(takeFromUID: takeFromUID, giveToUID: giveToUID, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
             result = database.createCharge(charge: charge)
             if result.returned_error {
                 raiseError(title : "Couldnt completed charge with \(otherNickname)")
             }
-            database.addNotification(notification: notifFrom!, usersInvolved: [from])
-            database.addNotification(notification: notifTo!, usersInvolved: [to])
+            database.addNotification(notification: notifFrom!)
+            database.addNotification(notification: notifTo!)
         }
         if !result.returned_error {
             returnPopup(title : "Sucessfully added charge(s)")

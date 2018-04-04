@@ -13,16 +13,16 @@ import FirebaseDatabase
 class Charge {
     
     var chargeID: String?
-    var fromUser: String
-    var toUser: String
+    var takeFromUID: String
+    var giveToUID: String
     var houseID: String
     var timestamp: String
     var amount: Double
     var message: String
     
-    init(fromUser: String, toUser: String, houseID: String, amount: Double, message: String) {
-        self.toUser = toUser
-        self.fromUser = fromUser
+    init(takeFromUID: String, giveToUID: String, houseID: String, amount: Double, message: String) {
+        self.giveToUID = giveToUID
+        self.takeFromUID = takeFromUID
         self.houseID = houseID
         self.timestamp = DatabaseAccess.getInstance().getTimestampAsString()
         self.amount = amount
