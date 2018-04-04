@@ -81,11 +81,11 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
         
         // Notification for chore
         
-        let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [userResponsible], type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
         self.database.getUserUidFromEmail(email: userResponsible, callback: {(uid) -> Void in
             print("the uid is:\(uid ?? "Error: nil UID")")
             if let uid = uid {
-                self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+                let newNotif = Notification(houseID: currentHouseID!, UIDsInvolved: [uid], type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
+                self.database.addNotification(notification: newNotif)
             } else {
                 
             }

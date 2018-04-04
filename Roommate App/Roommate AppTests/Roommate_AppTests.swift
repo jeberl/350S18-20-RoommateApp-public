@@ -38,7 +38,6 @@ class Roommate_AppTests: XCTestCase {
     }
     
     
-    
     func testUserHasCorrectInitial (){
         //let error = database!.getUserModelFromCurrentUser(view: UIViewController(), callback: { (user) in
         //    print("created initial user")

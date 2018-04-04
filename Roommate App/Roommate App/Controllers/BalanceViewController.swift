@@ -31,22 +31,27 @@ class BalanceViewController: UITableViewController {
         view.layer.insertSublayer(layer, at: 0)
         
         let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
-            self.chargeIds = returnedChargeIds!
-            
-            let chargeDataClosure = { (data : String?) -> Void in
-                self.chargeData.append(data!)
-                self.tableView.reloadData()
+            if let returnedChargeIds = returnedChargeIds {
+                self.chargeIds = returnedChargeIds
+                let chargeDataClosure = { (data : String?) -> Void in
+                    if let data = data {
+                        self.chargeData.append(data)
+                    } else {
+                        self.chargeData.append("No message/Charge not Found")
+                    }
+                    self.tableView.reloadData()
+                }
+    
+                for charge in self.chargeIds! {
+                    self.database.getChargeMessage(chargeID: charge, callback: chargeDataClosure)
+                }
             }
-            
-            self.chargeIds = returnedChargeIds!
-            for charge in self.chargeIds! {
-                self.database.getChargeMessage(chargeID: charge, callback: chargeDataClosure)
+            else {
+                print("House Charges not found!")
             }
         }
-        let error1 = self.database.getHouseCharges(houseId: currentHouseID!, callback: userChargeClosure)
-        if error1.returned_error {
-            error1.raiseErrorAlert(with_title: "Error:", view: self)
-        }
+        self.database.getHouseCharges(houseId: currentHouseID!, callback: userChargeClosure)
+
     }
     
     @IBAction func createChargeButton(_ sender: UIButton) {
