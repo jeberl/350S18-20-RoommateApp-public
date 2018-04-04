@@ -19,6 +19,11 @@ class HouseProfileController: UIViewController {
     // outlet for text input field
     @IBOutlet weak var changeHouseNameText: UITextField!
     
+    // outlet for new housemate input field
+    @IBOutlet weak var newHousemateTextField: UITextField!
+    @IBOutlet weak var addHousemateButton: UIButton!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -51,6 +56,33 @@ class HouseProfileController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
+    @IBAction func addHousemateButtonPressed(_ sender: UIButton){
+        var alert = UIAlertController(title: "Empty Name Field",
+                                      message: "Try again",
+                                      preferredStyle: .alert)
+        if let homie = newHousemateTextField!.text {
+            if homie == "" {
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            }
+            else {
+                let errorAddUserToHouse = self.database.addNewUserToHouse(withEmail: homie, to_house: currentHouseID!)
+                if errorAddUserToHouse.returned_error {
+                    // do we want to do anything if the email is not associated with an account?
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    present(alert, animated: true, completion: nil)
+                } else {
+                    newHousemateTextField.text = ""
+                    alert = UIAlertController(title: "Homie Added",
+                                              message: "Homie Added!" ,
+                                              preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                    present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+    
+    
 
 }

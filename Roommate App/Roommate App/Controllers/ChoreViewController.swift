@@ -17,11 +17,15 @@ class ChoreViewController: UIViewController {
     @IBOutlet weak var choreAssignorUsername: UILabel!
     @IBOutlet weak var choreAssigneeImageView: UIImageView!
     @IBOutlet weak var choreAssigneeUsernameLabel: UILabel!
+    @IBOutlet weak var nudgeButton: UIButton!
+    
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     var currentChoreTitle : String?
     var currentChoreDescription: String?
     var currentChoreAssignor: String?
     var currentChoreAssignee: String?
+    var timesNudged : Int?
+    var lastTimeNudged: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +81,27 @@ class ChoreViewController: UIViewController {
             errorChoreAssignee.raiseErrorAlert(with_title: "error", view: self)
         }
         
+        //callback for getLastTimeNudged
+        let getLastTimeNudgedClosure = { (returnedLastTimeNudged: String?) -> Void in
+            self.lastTimeNudged = returnedLastTimeNudged
+        }
+        
+        //calls getLastTimeNudged, handles errors
+        let errorLastTimeNudged = self.database.getLastTimeNudged(choreID: currentChoreID!, callback: getLastTimeNudgedClosure)
+        if errorLastTimeNudged.returned_error {
+            errorLastTimeNudged.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
+        //callback for getTimesNudged
+        let getTimesNudgedClosure = { (returnedTimesNudged: Int?) -> Void in
+            self.timesNudged = returnedTimesNudged
+        }
+        //calls getTimesNudged, handles errors
+        let errorTimesNudged = self.database.getTimesNudged(choreID: currentChoreID!, callback: getTimesNudgedClosure)
+        if errorTimesNudged.returned_error {
+            errorTimesNudged.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
         self.database.getStringChoreAssignor(choreID: currentChoreID!, callback: { (assignor_email) in
             DatabaseAccess.getInstance().getUserProfPicFromEmail(email: assignor_email ?? "") { (prof_pic) in
                 self.choreAssignorImageView.image = prof_pic!
@@ -94,6 +119,12 @@ class ChoreViewController: UIViewController {
         ImageStorage.getInstance().getChoreImageOnce(choreID: currentChoreID!) { (chore_pic) in
             self.choreImageView.image = chore_pic
         }
+        
+        
+        let currentTime = self.database.getTimestampAsString()
+        
+        
+        
         
 //        DatabaseAccess.getInstance().getUserProfPicFromEmail(email: self.currentChoreAssignor ?? "") { (prof_pic) in
 //            print("assigning prof pic: \(prof_pic)")
@@ -125,6 +156,78 @@ class ChoreViewController: UIViewController {
         
         self.present(controller, animated: true, completion: nil)
     }
+    
+    @IBAction func nudgeButtonPressed(_ sender: Any) {
+        
+        let currentTime = self.database.getTimestampAsString()
+        
+        //converts currentTime and lastTimeNudged to Date(s)
+        let currentDate = self.database.getTimestampAsDate(timestamp: currentTime)
+        if self.timesNudged == 0 {
+            //updates last time nudged
+            self.database.setLastTimeNudged(choreID: currentChoreID!, newTime: currentTime, view: self)
+            
+            //updates amount of time nudged
+            let newAmount = self.timesNudged! + 1
+            self.database.setTimesNudged(choreID: currentChoreID!, newAmount: newAmount, view: self)
+            
+            // Notification for chore
+            
+            let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
+            self.database.getUserUidFromEmail(email: choreAssigneeUsernameLabel.text!, callback: {(uid) -> Void in
+                print("the uid is:\(uid ?? "Error: nil UID")")
+                if let uid = uid {
+                    self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+                } else {
+                    
+                }
+            })
+        } else {
+            let dateLastNudged = self.database.getTimestampAsDate(timestamp: self.lastTimeNudged!)
+            
+            var dateComponents = DateComponents()
+            let minutesToAdd = 5
+            //let daysToAdd = 1
+            dateComponents.minute = minutesToAdd
+            //dateComponents.day = daysToAdd
+            let dateAllowNewNudge = Calendar.current.date(byAdding: dateComponents, to: dateLastNudged)
+            
+            if currentDate.compare(dateAllowNewNudge!) == .orderedAscending {
+                let lastTime = self.database.formatStringTimestamp(timestamp: self.lastTimeNudged!)
+                let alert = UIAlertController(title: "Already Been Nudged!",
+                                              message: "It's too early to nudge \(self.currentChoreAssignee!). Must wait 5 minutes after \(lastTime)" ,
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                present(alert, animated: true, completion: nil)
+            } else {
+                //updates last time nudged
+                self.database.setLastTimeNudged(choreID: currentChoreID!, newTime: currentTime, view: self)
+                
+                //updates amount of time nudged
+                let newAmount = self.timesNudged! + 1
+                self.database.setTimesNudged(choreID: currentChoreID!, newAmount: newAmount, view: self)
+                
+                // Notification for chore
+                
+                let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
+                self.database.getUserUidFromEmail(email: choreAssigneeUsernameLabel.text!, callback: {(uid) -> Void in
+                    print("the uid is:\(uid ?? "Error: nil UID")")
+                    if let uid = uid {
+                        self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+                    } else {
+                        
+                    }
+                })
+                
+                //add charge if nudged 3 times
+                if newAmount == 3 {
+                    
+                }
+            }
+        }
+        //let timeDifference = self.database.getTimeDifferenceAsString(startDate: currentDate, endDate: dateLastNudged)
+    }
+    
     
     /*
     // MARK: - Navigation

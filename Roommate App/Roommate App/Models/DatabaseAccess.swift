@@ -588,16 +588,18 @@ class DatabaseAccess  {
         let choreID = self.ref.child("chores").childByAutoId().key
         let choreToAdd : Any = [ "title" : newChore.title,
                                  "assigned_by" : newChore.assignedBy,
-                                 "assigned_to" : newChore.assigned_to,
+                                 "assigned_to" : newChore.assignedTo,
                                  "completed" : false,
                                  "time_assigned" : newChore.timeAssigned,
+                                 "lastTimeNudged" : newChore.lastTimeNudged,
+                                 "timesNudged" : newChore.timesNudged,
                                  "time_completed" : nil,
                                  "houseID" : newChore.houseID,
                                  "description" : newChore.description
         ]
         self.ref.child("chores/\(choreID)").setValue(choreToAdd)
         newChore.setChoreID(ID: choreID)
-        assignChoreToUser(userEmail: chore.assigned_to, choreID: choreID)
+        assignChoreToUser(userEmail: chore.assignedTo, choreID: choreID)
         assignChoreToHouse(houseID: newChore.houseID, choreID: choreID)
         return ExpectedExecution()
     }
@@ -770,7 +772,7 @@ class DatabaseAccess  {
      Function to get a chore's string description from its choreID
      */
     func getStringChoreAssignor(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
-        self.ref.child("chores/\(choreID)/assignedBy").observe(.value, with: { (snapshot) in
+        self.ref.child("chores/\(choreID)/assigned_by").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let assignor = snapshot.value as? String {
@@ -779,7 +781,7 @@ class DatabaseAccess  {
                     callback(choreAssignor)
                 } else {
                     // If cast could not occur then no chore name found so run callback with nil
-                    print("Chore description not found")
+                    print("Chore assignor not found")
                     callback(nil)
                 }
             }
@@ -800,7 +802,28 @@ class DatabaseAccess  {
                     callback(choreAssignee)
                 } else {
                     // If cast could not occur then no chore name found so run callback with nil
-                    print("Chore description not found")
+                    print("Chore assignee not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a chore's last time nudged from its choreID
+     */
+    func getLastTimeNudged(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/lastTimeNudged").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let lastTimeNudged = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let time : String = lastTimeNudged
+                    callback(time)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore last time nudged not found")
                     callback(nil)
                 }
             }
@@ -808,6 +831,70 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
 
+    /*
+     Function to update a chore's last time nudged from its choreID
+     */
+    func setLastTimeNudged(choreID : String, newTime: String, view: UIViewController) -> ReturnValue<Bool>{
+        //if let uid : String = Auth.auth().currentUser?.uid {
+            self.ref.child("chores/\(choreID)/lastTimeNudged").observe(.value, with: { (snapshot) in
+                if snapshot.exists() {
+                    //if snapshot.hasChild(uid) {
+                        self.ref.child("chores/\(choreID)/lastTimeNudged").setValue(newTime)
+                    //} else {
+                        //self.databaseError(error_header: "Error: User not member of house", view: view)
+                    //}
+                } else {
+                    self.databaseError(error_header: "Error: Chore last time nudged not found", view: view)
+                }
+            })
+            
+        //}
+        return ExpectedExecution()
+    }
+    
+    
+    /*
+     Function to get a chore's amount of times nudged from its choreID
+     */
+    func getTimesNudged(choreID: String, callback: @escaping (Int?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/timesNudged").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let timesNudged = snapshot.value as? Int {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    let times : Int = timesNudged
+                    callback(times)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore's times nudged not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to update a chore's amount of times nudged from its choreID
+     */
+    func setTimesNudged(choreID : String, newAmount: Int, view: UIViewController) -> ReturnValue<Bool>{
+        //if let uid : String = Auth.auth().currentUser?.uid {
+        self.ref.child("chores/\(choreID)/timesNudged").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                //if snapshot.hasChild(uid) {
+                self.ref.child("chores/\(choreID)/timesNudged").setValue(newAmount)
+                //} else {
+                //self.databaseError(error_header: "Error: User not member of house", view: view)
+                //}
+            } else {
+                self.databaseError(error_header: "Error: Chore (timesNudged) not found", view: view)
+            }
+        })
+        
+        //}
+        return ExpectedExecution()
+    }
+    
     
     /*
      Complete chore
@@ -934,6 +1021,52 @@ class DatabaseAccess  {
         print("Current time stamp = \(timeStamp)")
         return timeStamp
     }
+    
+    /*
+     Returns the given time stamp as a string and returns it as an NSDate
+     Input: String representation of timestamp
+     Output: Date representation of timestamp
+     */
+    func getTimestampAsDate(timestamp: String) -> Date {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let date = formatter.date(from: timestamp)
+        print("Current time stamp = \(timestamp)")
+        return date!
+    }
+    
+    /*
+     Returns the given time stamp as a string and returns it as an NSDate
+     Input: String representation of timestamp
+     Output: Date representation of timestamp
+     */
+    func formatStringTimestamp(timestamp: String) -> String {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let date = formatter.date(from: timestamp)
+        formatter.dateFormat = "hh:mm MM/dd/YYYY "
+        let newTime = formatter.string(from: date!)
+        print("Current time stamp = \(timestamp)")
+        return newTime
+    }
+    
+    
+    /*
+     Returns a formatted string based on the time difference between two dates
+     */
+    func getTimeDifferenceAsString(startDate: Date, endDate: Date) -> String? {
+        let formatter = DateComponentsFormatter()
+        
+        let timeStamp = formatter.string(from: startDate, to: endDate)
+        print (timeStamp!)
+        return timeStamp
+    }
+    
+    
     
     // once a user deletes the notification, it is deleted from their account and deletes the user from the notification in db,
     // it is deleted from db altogether if no other users are dependent on it
