@@ -43,7 +43,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XeC-Sz-DP2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-28" y="-1800"/>
+            <point key="canvasLocation" x="-28" y="-1799"/>
         </scene>
         <!--Create Chore View Controller-->
         <scene sceneID="BUI-a1-t2G">
@@ -94,7 +94,7 @@
                                 <state key="normal" title="Create Chore!"/>
                                 <connections>
                                     <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="8tH-OO-Vwc"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="3cP-Pt-WV0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Homie Responsible" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn7-Lt-Ztl">
@@ -109,11 +109,11 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfp-Gg-wIh">
-                                <rect key="frame" x="124" y="585" width="126" height="30"/>
+                                <rect key="frame" x="122" y="585" width="131" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back to All Chores"/>
+                                <state key="normal" title="Back to Main Menu"/>
                                 <connections>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="OWm-CQ-Smz"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="BHg-jE-v5k"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -239,14 +239,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Assignee" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLc-EW-1pr" userLabel="choreAssigneeUsernameLabel">
-                                <rect key="frame" x="7" y="581" width="351" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time Due: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ebc-LI-irf">
-                                <rect key="frame" x="18" y="610" width="83" height="21"/>
+                                <rect key="frame" x="67" y="581" width="240" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -264,11 +257,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDq-wS-G1d">
-                                <rect key="frame" x="236" y="623" width="126" height="30"/>
+                                <rect key="frame" x="234" y="623" width="131" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back to All Chores"/>
+                                <state key="normal" title="Back to Main Menu"/>
                                 <connections>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="lg0-4u-dS0"/>
+                                    <segue destination="3uT-YX-DrR" kind="show" id="ih2-cW-bjf"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-ea-dq7">
@@ -277,6 +270,14 @@
                                 <state key="normal" title="Complete Chore"/>
                                 <connections>
                                     <action selector="completeChoreButtonPressed:" destination="dzs-8K-KLR" eventType="touchUpInside" id="AjA-s2-tY9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FC-I1-zcJ">
+                                <rect key="frame" x="36" y="623" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Nudge"/>
+                                <connections>
+                                    <action selector="nudgeButtonPressed:" destination="dzs-8K-KLR" eventType="touchUpInside" id="Xzd-gF-L6i"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -291,11 +292,12 @@
                         <outlet property="choreDescriptionLabel" destination="JOA-SJ-wWM" id="GTc-Hh-08M"/>
                         <outlet property="choreImageView" destination="hec-M8-0Sp" id="5eF-ln-tYi"/>
                         <outlet property="choreTitleLabel" destination="hPy-rX-hkX" id="ga2-Z7-ATG"/>
+                        <outlet property="nudgeButton" destination="7FC-I1-zcJ" id="JLb-Z7-KMy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKV-cz-taM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="-1798"/>
+            <point key="canvasLocation" x="1373.5999999999999" y="-1798.6506746626687"/>
         </scene>
         <!--Feed View Controller-->
         <scene sceneID="klO-XQ-fPh">
@@ -461,13 +463,37 @@
                                     <action selector="changeHouseNameTextSubmitClicked:" destination="IPF-IF-4Ss" eventType="touchUpInside" id="xyD-DO-izg"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add Housemate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HM-iX-cSk">
+                                <rect key="frame" x="103" y="366" width="163" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhF-3v-co6">
+                                <rect key="frame" x="164" y="444" width="41" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add!"/>
+                                <connections>
+                                    <action selector="addHousemateButtonPressed:" destination="IPF-IF-4Ss" eventType="touchUpInside" id="bOm-za-aFA"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-Jv-ZRq">
+                                <rect key="frame" x="97" y="406" width="174" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="qfD-Y9-7MF"/>
                     </view>
                     <connections>
                         <outlet property="GetHouseNameLabel" destination="hUR-yQ-l8P" id="Osf-vC-elx"/>
+                        <outlet property="addHousemateButton" destination="YhF-3v-co6" id="Drz-zQ-LT5"/>
                         <outlet property="changeHouseNameText" destination="3vR-V0-RJn" id="Kpo-Yg-XHi"/>
+                        <outlet property="newHousemateTextField" destination="1jG-Jv-ZRq" id="6aL-tw-1p1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IpY-Xk-MeQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -595,7 +621,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="3uT-YX-DrR" kind="relationship" relationship="rootViewController" id="Wg1-cA-lcq"/>
+                        <segue destination="3uT-YX-DrR" kind="relationship" relationship="rootViewController" id="k8O-GF-Z3m"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lcE-Gi-kfF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -690,6 +716,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OWm-CQ-Smz"/>
+        <segue reference="ih2-cW-bjf"/>
     </inferredMetricsTieBreakers>
 </document>
