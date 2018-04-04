@@ -42,7 +42,7 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
                 self.database.getUserGlobalNickname(forUid: userID, callback: usernameClosure)
             }
         }
-        let error1 = self.database.getListOfUsersInHouse(houseID: currentHouseID!, callback: usernamesClosure)
+        let error1 = self.database.getListOfUIDSInHouse(houseID: currentHouseID!, callback: usernamesClosure)
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }

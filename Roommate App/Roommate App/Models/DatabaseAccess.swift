@@ -295,7 +295,7 @@ class DatabaseAccess  {
             return setUserLocalNickname(inHouseID : hId, to: newNickname, view: view)
         }
         return NoSuchHouseError()
-    } 
+    }
     
     // NEW CODE
     func setUserLocalNickname(inHouseID : String, to newNickname: String, view: UIViewController) -> ReturnValue<Bool>{
@@ -814,7 +814,7 @@ class DatabaseAccess  {
     */
     func completeChore() {
     
-	}    
+	}
     
     // NEW CODE
     func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
@@ -852,8 +852,8 @@ class DatabaseAccess  {
                 }
             })
             return ExpectedExecution()
-        //}
-        //return NoSuchUserError()
+        }
+        return NoSuchUserError()
     }
     
     func setGlobalHouseVariables() {
