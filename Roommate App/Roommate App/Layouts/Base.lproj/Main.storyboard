@@ -224,15 +224,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1Y-BA-BgD">
-                                <rect key="frame" x="146" y="629" width="84" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Build Home!"/>
-                                <connections>
-                                    <action selector="buildHomeButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="gZb-fU-r9w"/>
-                                    <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ub0-ad-1Xc">
                                 <rect key="frame" x="96" y="292" width="183" height="30"/>
                                 <nil key="textColor"/>
@@ -246,22 +237,35 @@
                                     <action selector="addButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="cp2-xu-NEK"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i1Y-BA-BgD">
+                                <rect key="frame" x="145" y="526" width="84" height="30"/>
+                                <state key="normal" title="Build Home!"/>
+                                <connections>
+                                    <action selector="buildHomeButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="gZb-fU-r9w"/>
+                                    <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Ub0-ad-1Xc" firstAttribute="top" secondItem="wkL-C0-eL9" secondAttribute="bottom" constant="8" id="11A-lt-JDk"/>
                             <constraint firstItem="WXb-xI-VSi" firstAttribute="top" secondItem="Ub0-ad-1Xc" secondAttribute="bottom" constant="8" id="530-c2-qrs"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" secondItem="wkL-C0-eL9" secondAttribute="trailing" constant="175" id="6cK-bG-MmY"/>
+                            <constraint firstItem="i1Y-BA-BgD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bBS-L2-w2X" secondAttribute="leading" id="6tV-CT-wDw"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="G4t-9G-pAr" secondAttribute="trailing" id="7g5-Vc-Zf3"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" secondItem="Vlv-ic-hIL" secondAttribute="trailing" constant="189.5" id="Axe-wM-1Hq"/>
                             <constraint firstItem="2cV-Gr-GnL" firstAttribute="top" secondItem="G4t-9G-pAr" secondAttribute="bottom" constant="8" id="DoS-sU-R4z"/>
                             <constraint firstItem="Ub0-ad-1Xc" firstAttribute="centerX" secondItem="bBS-L2-w2X" secondAttribute="centerX" id="FvA-U6-wwc"/>
                             <constraint firstItem="G4t-9G-pAr" firstAttribute="top" secondItem="Vlv-ic-hIL" secondAttribute="bottom" constant="8" id="GI2-1o-7hx"/>
+                            <constraint firstItem="bBS-L2-w2X" firstAttribute="bottom" secondItem="i1Y-BA-BgD" secondAttribute="bottom" constant="67" id="Heh-Uh-2hc"/>
                             <constraint firstItem="G4t-9G-pAr" firstAttribute="centerX" secondItem="bBS-L2-w2X" secondAttribute="centerX" id="JAa-y5-GfX"/>
+                            <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="i1Y-BA-BgD" secondAttribute="trailing" id="Jad-15-pxP"/>
                             <constraint firstItem="wkL-C0-eL9" firstAttribute="leading" secondItem="Ub0-ad-1Xc" secondAttribute="leading" id="R7Z-bX-NlA"/>
                             <constraint firstItem="Ub0-ad-1Xc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bBS-L2-w2X" secondAttribute="leading" id="RMO-nb-dci"/>
                             <constraint firstItem="Vlv-ic-hIL" firstAttribute="top" secondItem="04t-ab-99N" secondAttribute="bottom" constant="8" id="SpK-1C-543"/>
                             <constraint firstItem="G4t-9G-pAr" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bBS-L2-w2X" secondAttribute="leading" id="TR9-26-LaP"/>
+                            <constraint firstItem="i1Y-BA-BgD" firstAttribute="centerX" secondItem="bBS-L2-w2X" secondAttribute="centerX" id="Vgm-tY-ax2"/>
+                            <constraint firstItem="i1Y-BA-BgD" firstAttribute="top" secondItem="2cV-Gr-GnL" secondAttribute="bottom" constant="32" id="XWL-ho-bFS"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="04t-ab-99N" secondAttribute="trailing" id="agB-8c-yoM"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" secondItem="2cV-Gr-GnL" secondAttribute="trailing" constant="249" id="cDU-hc-eVB"/>
                             <constraint firstItem="bBS-L2-w2X" firstAttribute="trailing" secondItem="WXb-xI-VSi" secondAttribute="trailing" constant="158" id="cb3-6S-oSG"/>
