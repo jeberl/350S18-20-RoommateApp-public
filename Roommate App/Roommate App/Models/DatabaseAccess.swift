@@ -893,6 +893,8 @@ class DatabaseAccess  {
         if result.returned_error {
             print(result.error_message)
         }
+        currentHouseUIDtoNickname.removeAll()
+        currentHouseOrderedUIDs.removeAll()
         result = getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
             if let UIDs = UIDs {
                 print("getListOfUIDSInHouse with \(currentHouseID) returned \(UIDs)" )
@@ -908,10 +910,12 @@ class DatabaseAccess  {
                         print("currentHouseUIDtoNickname = \(currentHouseUIDtoNickname)")
                     })
                 }
-                print("set currentHouseUIDtoNickname to \(currentHouseUIDtoNickname)")
             } else {
                 print("UIDs not found")
             }
+            currentHouseUIDtoNickname["houseFund"] = "House Fund"
+            currentHouseOrderedUIDs.append("houseFund")
+            print("set currentHouseUIDtoNickname to \(currentHouseUIDtoNickname)")
         }
         if result.returned_error {
             print(result.error_message)
@@ -1250,15 +1254,17 @@ class DatabaseAccess  {
      Output: callback returns user's associated email
      */
     func getNicknameFromUID(uid: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        if uid == "houseFund" {
+            callback("House Fund")
+            return ExpectedExecution()
+        }
         self.ref.child("users/\(uid)/nickname").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
-                print("snapshot exists in uid email")
                 if let nickname = snapshot.value as? String {
                     // Get the value of the snapshot (cast to string) and store as uid
                     callback(nickname)
                 }
             } else {
-                print("User has not yet created an account")
                 callback(nil)
             }
         })

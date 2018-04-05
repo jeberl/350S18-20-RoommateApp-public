@@ -114,7 +114,7 @@ class ChoreViewController: UIViewController {
         
         self.database.getStringChoreAssignee(choreID: currentChoreID!, callback: { (assignor_email) in
             DatabaseAccess.getInstance().getUserProfPicFromEmail(email: assignor_email ?? "") { (prof_pic) in
-                self.choreAssigneeImageView.image = prof_pic!
+                self.choreAssigneeImageView.image = prof_pic ?? #imageLiteral(resourceName: "defaultChoreImage")
             }
             
         })

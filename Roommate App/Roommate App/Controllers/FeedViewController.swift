@@ -136,12 +136,22 @@ class FeedViewController: UITableViewController {
         cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         if notifData.count > indexPath.row {
             if indexPath.row == 0 {
-                cell.textLabel?.text = String(notifData![indexPath.row])
+                
             } else {
                 cell.textLabel?.text = String(notifData![indexPath.row])
             }
+            cell.textLabel?.text = String(notifData![indexPath.row])
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
+    }
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return UITableViewAutomaticDimension
     }
     
     // connect this page to the feed page

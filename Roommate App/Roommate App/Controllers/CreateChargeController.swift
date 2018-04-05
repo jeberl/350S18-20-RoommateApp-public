@@ -56,6 +56,8 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
             chargeNeedsMessageError()
         } else if getCentsFromTextField() == 0 {
             zeroAmoutError()
+        } else if selectedMembersUIDs.contains(Auth.auth().currentUser!.uid) {
+            chargeSelfError()
         } else {
             confirm()
         }
@@ -141,6 +143,10 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     
     func zeroAmoutError() {
         raiseError(title : "Amount must be greater than 0")
+    }
+    
+    func chargeSelfError() {
+        raiseError(title : "You cannot charge/Settle up with yourself")
     }
     
     func raiseError(title : String) {
