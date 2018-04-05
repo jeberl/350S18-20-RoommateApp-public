@@ -14,14 +14,13 @@ class HouseBalanceController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var balanceTable: UITableView!
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("currentHouseMemberNicknames = \(currentHouseMemberNicknames)")
-        return currentHouseMemberNicknames.count
+        return currentHouseUIDtoNickname.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberBalanceCell", for: indexPath) as! BalanceCell
         cell.awakeFromNib()
-        cell.textLabel?.text = currentHouseMemberNicknames[indexPath.row]
+        cell.textLabel?.text = currentHouseUIDtoNickname[currentHouseOrderedUIDs[indexPath.row]]
         cell.backgroundColor = UIColor.green
         cell.amountLabel.text = "Loading balance"
         
@@ -40,7 +39,7 @@ class HouseBalanceController: UIViewController, UITableViewDelegate, UITableView
         }
         
         DatabaseAccess.getInstance().getBalanceBetweenUsers(HouseID: currentHouseID!,
-                                                            owesUID: currentHouseMemberUIDs![indexPath.row],
+                                                            owesUID: currentHouseOrderedUIDs[indexPath.row],
                                                             owedUID: Auth.auth().currentUser!.uid,
                                                             callback: updateTableCallback)
         return cell

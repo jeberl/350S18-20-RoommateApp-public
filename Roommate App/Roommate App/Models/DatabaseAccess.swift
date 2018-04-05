@@ -963,19 +963,20 @@ class DatabaseAccess  {
         }
         result = getListOfUIDSInHouse(houseID: currentHouseID!) { (UIDs) in
             if let UIDs = UIDs {
-                currentHouseMemberUIDs = UIDs
-                print("set currentHouseMemberUIDs to \(UIDs)")
-                currentHouseMemberNicknames = []
+                print("getListOfUIDSInHouse with \(currentHouseID) returned \(UIDs)" )
                 for uid in UIDs {
                     self.getUserLocalNicknamefromUID(fromHouse: currentHouseID, uid: uid, callback: { (nickname) in
+                        print("found nickname \(nickname) for UID \(uid)")
                         if let nickname = nickname {
-                            currentHouseMemberNicknames.append(nickname)
+                            currentHouseUIDtoNickname[uid] = nickname
                         } else {
-                           currentHouseMemberNicknames.append("nickname not found")
+                            currentHouseUIDtoNickname[uid] = uid
                         }
+                        currentHouseOrderedUIDs.append(uid)
+                        print("currentHouseUIDtoNickname = \(currentHouseUIDtoNickname)")
                     })
                 }
-                print("set currentHouseMemberNicknames to \(currentHouseMemberNicknames)")
+                print("set currentHouseUIDtoNickname to \(currentHouseUIDtoNickname)")
             } else {
                 print("UIDs not found")
             }

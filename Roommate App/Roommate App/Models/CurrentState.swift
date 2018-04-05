@@ -14,5 +14,7 @@ var currentHouseID: String?
 var currentChoreID: String?
 
 var currentUserLocalNickName: String = "default"
-var currentHouseMemberNicknames: [String] = []
-var currentHouseMemberUIDs: [String]? = []
+//var currentHouseMemberNicknames: [String] = []
+//var currentHouseMemberUIDs: [String]? = []
+var currentHouseOrderedUIDs : [String] = []
+var currentHouseUIDtoNickname : [String : String] = [:]

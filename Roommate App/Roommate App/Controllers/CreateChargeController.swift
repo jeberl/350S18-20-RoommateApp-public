@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 
 class CreateChargeController : UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var selectedMembers : Set<Int> = Set()
+    var selectedMembersUIDs : Set<String> = Set()
     
     @IBOutlet weak var amountTextFeild: UITextField!
     @IBOutlet weak var chargePaySwitch: UISegmentedControl!
@@ -29,6 +29,7 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         
         amountTextFeild.keyboardType = UIKeyboardType.numberPad
         amountTextFeild.textAlignment = NSTextAlignment.right
+        
     }
     
     private func getCentsFromTextField() -> Int {
@@ -63,15 +64,15 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     func addChargesToDB(dollars: Double, charge: Bool) {
         let database = DatabaseAccess.getInstance()
         var result : ReturnValue<Bool> = ExpectedExecution<Bool>()
-        for otherMemberIndex in selectedMembers {
+        for otherUID in selectedMembersUIDs {
             var (notifFrom , notifTo) : (Notification?, Notification?) = (nil, nil)
             var (takeFromUID, giveToUID) = ("", "")
             //Charge Selected Users
             var otherNickname = ""
             if charge {
                 giveToUID = Auth.auth().currentUser!.uid
-                takeFromUID = currentHouseMemberUIDs![otherMemberIndex]
-                otherNickname = currentHouseMemberNicknames[otherMemberIndex]
+                takeFromUID = otherUID
+                otherNickname = currentHouseUIDtoNickname[otherUID] ?? otherUID
                 notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
                 /*notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")*/ // this is pointless
                 database.addNotification(notification: notifFrom!)
@@ -79,8 +80,8 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
                 //Pay Selected Users
             else {
                 takeFromUID = Auth.auth().currentUser!.uid
-                giveToUID = currentHouseMemberUIDs![otherMemberIndex]
-                otherNickname = currentHouseMemberNicknames[otherMemberIndex]
+                giveToUID = otherUID
+                otherNickname = currentHouseUIDtoNickname[otherUID] ?? otherUID
                 /*notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")*/ // this is pointless
                 notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "\(currentUserLocalNickName) paid you $ \(dollars)")
                 database.addNotification(notification: notifTo!)
@@ -106,8 +107,8 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         } else {
             title.append("settle up to the amount of $\(dollars) with ")
         }
-        for otherMemberIndex in selectedMembers {
-            title.append(currentHouseMemberNicknames[otherMemberIndex] + ", ")
+        for otherMemberUID in selectedMembersUIDs {
+            title.append((currentHouseUIDtoNickname[otherMemberUID] ?? otherMemberUID)  + ", ")
         }
         title.removeLast()
         title.removeLast()
@@ -152,13 +153,13 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currentHouseMemberNicknames.count
+        return currentHouseUIDtoNickname.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberCell", for: indexPath)
-        cell.textLabel?.text = currentHouseMemberNicknames[indexPath.row]
-        if selectedMembers.contains(indexPath.row) {
+        cell.textLabel?.text = currentHouseUIDtoNickname[currentHouseOrderedUIDs[indexPath.row]]
+        if selectedMembersUIDs.contains(currentHouseOrderedUIDs[indexPath.row]) {
             cell.backgroundColor = UIColor.green
         } else {
             cell.backgroundColor = UIColor.white
@@ -167,10 +168,10 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if selectedMembers.contains(indexPath.row) {
-            selectedMembers.remove(indexPath.row)
+        if selectedMembersUIDs.contains(currentHouseOrderedUIDs[indexPath.row]) {
+            selectedMembersUIDs.remove(currentHouseOrderedUIDs[indexPath.row])
         } else {
-            selectedMembers.insert(indexPath.row)
+            selectedMembersUIDs.insert(currentHouseOrderedUIDs[indexPath.row])
         }
         print("caught pressed cell \(indexPath.row)")
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
