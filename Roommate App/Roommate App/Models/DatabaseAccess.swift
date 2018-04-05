@@ -25,11 +25,13 @@ class DatabaseAccess  {
     var ref: DatabaseReference!
     var error_logging_in: Error? = nil
     
+    // Initializes database
     private init(){
         FirebaseApp.configure()
         ref = Database.database().reference()
     }
     
+    // Gets instance of data base
     public static func getInstance() -> DatabaseAccess {
         if instance == nil {
             instance = DatabaseAccess()
@@ -157,6 +159,8 @@ class DatabaseAccess  {
         }
     }
     
+    // DEPRECIATED
+    // Gets user model object for current user
     func getUserModelFromCurrentUser(view: UIViewController, callback: @escaping (_ user: UserAccount)->Void) -> ReturnValue<Bool> {
         if let uid : String = Auth.auth().currentUser?.uid {
             print("getting user from local db: \(uid)")
@@ -176,42 +180,9 @@ class DatabaseAccess  {
         }
     }
     
-    //TODO : Implement and TEST!!
-   /* func changePassword(new_password: String) -> ReturnValue<Bool>{
-        //Use Auth.auth()
-        return UnimplementedFunctionError()
-    }
-    
-    func deleteUserAccount(view: UIViewController) -> ReturnValue<Bool> {
-        if let uid = Auth.auth().currentUser?.uid {
-            let user : DatabaseReference = self.ref.child("users/\(uid)")
-            
-            // Remove User from associated houses
-            user.child("houses").observeSingleEvent(of: .value, with: { (snapshot) in
-                if snapshot.exists() {
-                    for houseID in snapshot.children {
-                        self.ref.child("houses/\(houseID as! String)/houseUsers/\(uid)").removeValue()
-                    }
-                }
-            })
-            //Remove User from database
-            user.removeValue()
-            //Remove User Authentication
-            Auth.auth().currentUser?.delete { error in
-                if error != nil {
-                    print(error!.localizedDescription)
-                    self.databaseError(error!, error_header: "Error: Could not delete user", view: view)
-                }
-            }
-            return ExpectedExecution()
-        }
-        return NoSuchUserError()
-    }*/
-    
-    /*
-     Several getters and setters, names intuitive to function
-     */
-    
+    // Gets current user's global nickname in database
+    // Input: user's UID
+    // Callback returns: user's global nickname
     func getUserGlobalNickname(for_email: String, callback : @escaping (String?) -> Void){
         let name_callback : (DataSnapshot) -> Void = { (uid) in
             self.getUserGlobalNickname(forUid: (uid.value as! String), callback: callback)
@@ -220,6 +191,9 @@ class DatabaseAccess  {
         self.ref.child("user_emails/\(formattedEmail)/uid").observe(.value, with: name_callback)
     }
     
+    // Gets current user's global nickname in database
+    // Input: user's UID
+    // Callback returns: user's global nickname
     func getUserGlobalNickname(forUid: String?, callback : @escaping (String?) -> Void) -> ReturnValue<Bool> {
         //Check specific uid was given if not return for current user
         var uid = forUid
@@ -254,6 +228,9 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // Sets the user's global nickname in the database
+    // Input: new nickname for user
+    // Output: N/A
     func setUserGlobalNickname(newNickname: String) -> ReturnValue<Bool> {
         //Check if user is logged in
         if let uid : String = Auth.auth().currentUser?.uid {
@@ -264,11 +241,12 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    // Get (and returns via callback) current user's house specific nickname for the house specified in the inputs
     func getCurrentUserLocalNickname(fromHouse house: House, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         return getCurrentUserLocalNickname(fromHouse : house.houseID, callback: callback)
     }
     
-    
+    // Get (and returns via callback) current user's house specific nickname for the house specified in the inputs
     func getCurrentUserLocalNickname(fromHouse houseID: String?, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         if let uid = Auth.auth().currentUser?.uid {
             return getUserLocalNicknamefromUID(fromHouse: houseID, uid: uid, callback : callback)
