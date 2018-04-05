@@ -5,6 +5,9 @@
 //  Created by Jesse Berliner-Sachs on 3/18/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controls the complete chore page.  Takes in user input for which way they want to complete chore (photo,
+// message, etc.) and then marks the chore complete in the database
+//
 
 import UIKit
 import FirebaseStorage

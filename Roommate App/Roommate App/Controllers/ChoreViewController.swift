@@ -5,6 +5,9 @@
 //  Created by Ajani Motta on 3/17/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Populates and controls page that displays information about a chore when you
+// click on the chore in the chore list page
+//
 
 import UIKit
 

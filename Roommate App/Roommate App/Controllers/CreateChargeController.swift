@@ -5,6 +5,8 @@
 //  Created by Jesse Berliner-Sachs on 3/29/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controls create charge page by taking in user input about the charge and creating it in the database
+//
 
 import UIKit
 import FirebaseAuth

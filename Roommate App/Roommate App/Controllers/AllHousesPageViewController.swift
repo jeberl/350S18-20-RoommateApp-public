@@ -5,6 +5,8 @@
 //  Created by behrbaum on 2/19/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Populates page with list of all houses visible after logging in
+//
 
 import UIKit
 import FirebaseAuth

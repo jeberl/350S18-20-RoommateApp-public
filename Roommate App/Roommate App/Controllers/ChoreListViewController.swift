@@ -5,17 +5,15 @@
 //  Created by Ajani Motta on 3/17/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controls the chore list page.  Displays all chores a user needs to complete by getting these
+// incomplete chores from the database and displaying to the user
+//
 
 import UIKit
 import FirebaseAuth
 
 class ChoreListViewController: UITableViewController {
     
-
-    //@IBOutlet weak var choreCountLabel: UILabel!
-    //@IBOutlet weak var createChoreButton: UIButton!
-    //@IBOutlet weak var choreTableView: UITableView!
-    //@IBOutlet weak var showCompletedButton: UIButton!
     var currentUser : UserAccount! // Current user
     var incompleteChoreNames : [String]! = [String]() // Chores in the house
     var incompleteChoreIDs : [String]! = [String]() // ChoreIDs of chores in the house

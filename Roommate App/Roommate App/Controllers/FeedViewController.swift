@@ -5,6 +5,9 @@
 //  Created by Elena Iaconis on 3/21/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controls the feed page.  Grabs all notifications specific to a user in the database
+// and displays it to the current user
+//
 
 import UIKit
 import FirebaseAuth

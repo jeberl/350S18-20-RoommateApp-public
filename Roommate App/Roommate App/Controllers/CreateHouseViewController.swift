@@ -5,6 +5,9 @@
 //  Created by Ajani Motta on 2/22/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controller for creating house page.  Takes in user input for house information and creates
+// a house in the database
+//
 
 import UIKit
 import FirebaseAuth

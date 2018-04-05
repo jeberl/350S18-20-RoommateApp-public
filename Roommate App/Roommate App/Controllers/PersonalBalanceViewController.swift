@@ -36,7 +36,7 @@ class PersonalBalanceViewController: UITableViewController {
         
         let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
             if let returnedChargeIds = returnedChargeIds {
-                self.chargeIds = returnedChargeIds
+                self.chargeIds = returnedChargeIds.sorted(by: >)
                 let chargeDataClosure = { (data : NSDictionary?) -> Void in
                     if let data = data {
                         self.chargeData.append(data)

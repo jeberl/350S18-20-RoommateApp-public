@@ -5,6 +5,9 @@
 //  Created by Ajani Motta on 3/17/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controller for creating chores page.  Takes in user input for chore information and creates
+// a chore in the database
+//
 
 import UIKit
 import FirebaseAuth

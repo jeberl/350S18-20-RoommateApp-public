@@ -5,6 +5,9 @@
 //  Created by Elena Iaconis on 3/31/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+// Controls the house transactions page by getting all charges specific to the house from the
+// database and displaying them with the most recent transaction at the top
+//
 
 import Foundation
 
