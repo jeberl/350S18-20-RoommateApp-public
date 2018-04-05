@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseAuth
 
+/*
+ Controls creation of a house
+ */
 class CreateHouseViewController: UIViewController {
     
     @IBOutlet weak var houseNameTextField: UITextField!

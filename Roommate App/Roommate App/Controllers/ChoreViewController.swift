@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Controls creation of a chore
+ */
 class ChoreViewController: UIViewController {
 
     @IBOutlet weak var choreTitleLabel: UILabel!

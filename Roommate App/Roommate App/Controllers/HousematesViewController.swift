@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Controls rendering the users that are members of the currently logged in house
+ */
 class HousematesViewController: UITableViewController {
     
     let database : DatabaseAccess = DatabaseAccess.getInstance()

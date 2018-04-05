@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseAuth
 
+/*
+ Controls rendering the chores that are related to the currently logged in house
+ */
 class ChoreListViewController: UITableViewController {
     
 

@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseAuth
 
+/*
+ Controls rendering the current user/house info and allows options to edit
+ */
 class UserProfileController: UIViewController {
     
     // stores the instance of the database

@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+    Controls creating a new house
+ */
 class HouseProfileController: UIViewController {
     
     var currentHouseName : String?

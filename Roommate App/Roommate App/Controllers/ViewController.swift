@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+// NOT NEEDED
 class ViewController: UIViewController {
    
     //MARK: Properties

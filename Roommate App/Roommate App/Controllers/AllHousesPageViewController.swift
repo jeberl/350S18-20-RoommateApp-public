@@ -9,6 +9,10 @@
 import UIKit
 import FirebaseAuth
 
+/*
+ Controls rendering all of the houses a current user is in and allows user to select which
+ to enter.
+ */
 class AllHousesPageViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user

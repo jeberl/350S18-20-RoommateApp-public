@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseAuth
 
+/*
+ Controls frontend for creating a charge/payment 
+ */
 class CreateChargeController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     var selectedMembers : Set<Int> = Set()
     

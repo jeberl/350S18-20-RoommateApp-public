@@ -9,6 +9,10 @@
 import UIKit
 import FirebaseAuth
 
+
+/*
+ Controls creation of a chore
+ */
 class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
     @IBOutlet weak var choreTitleTextField: UITextField!

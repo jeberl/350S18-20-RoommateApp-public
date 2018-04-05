@@ -9,6 +9,10 @@
 import UIKit
 import FirebaseAuth
 
+
+/*
+ Controls rendering the notifications relevant to an account in a given house
+ */
 class FeedViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user

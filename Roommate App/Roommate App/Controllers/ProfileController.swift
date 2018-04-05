@@ -8,6 +8,9 @@
 
 import UIKit
 
+/*
+ Controls rendering the current user/house info and allows options to edit
+ */
 class ProfileController: UITableViewController {
     
     let initialOptions = ["Edit Profile", "Edit House", "View Housemates"]

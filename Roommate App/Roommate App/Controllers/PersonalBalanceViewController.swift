@@ -12,6 +12,9 @@ import Foundation
 import UIKit
 import FirebaseAuth
 
+/*
+    Controls rendering the balances that are directly related to the currently logged in account
+ */
 class PersonalBalanceViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user

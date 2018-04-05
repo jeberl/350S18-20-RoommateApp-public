@@ -9,6 +9,9 @@
 import UIKit
 import FirebaseStorage
 
+/*
+ Controls frontend to complete a chore, including uploading image as proof
+ */
 class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
