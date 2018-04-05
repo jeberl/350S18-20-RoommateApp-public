@@ -13,12 +13,11 @@ class HousematesViewController: UITableViewController {
     let database : DatabaseAccess = DatabaseAccess.getInstance()
     var usernames : [String]! = [String]() // Users in the house
     var userIDs : [String]! = [String]() // userIDs of homies
-    
+    let layer = CAGradientLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CAGradientLayer()
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -45,6 +44,14 @@ class HousematesViewController: UITableViewController {
 
         // Do any additional setup after loading the view.
     }
+    
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -66,6 +73,7 @@ class HousematesViewController: UITableViewController {
             print("array is empty")
         }
         let username = usernames[indexPath.row]
+        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         cell.textLabel?.text = username
         return cell
     }

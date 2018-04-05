@@ -25,6 +25,7 @@ class ProfileController: UITableViewController {
         let cell = UITableViewCell()
         let cellText = initialOptions[indexPath.row]
         cell.textLabel?.text = cellText
+        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         return cell
     }
     
