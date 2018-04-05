@@ -909,15 +909,11 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
-    
     /*
-     Complete chore
+     Function to change house's name
+     Input: House ID of house to change name for and the string new name to change it to
+     Output: N/A
     */
-    func completeChore() {
-    
-	}
-    
-    // NEW CODE
     func changeHouseName(currHouseID : String, newName: String)-> ReturnValue<Bool> {
         //Check if user is logged in
         if Auth.auth().currentUser?.uid != nil {
@@ -928,6 +924,11 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
+    /*
+     Function to get list of UIDs of all house members
+     Input: House ID of house to get all members' UIDs from
+     Callback returns: String array of all users' UIDs
+    */
     func getListOfUIDSInHouse(houseID: String, callback : @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
         print("getting list of UIDs")
         if Auth.auth().currentUser?.uid != nil {
@@ -957,6 +958,11 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    /*
+     Instantiates global state to assist in maintaining characteristics about a house
+     Input: N/A
+     Output: N/A
+    */
     func setGlobalHouseVariables() {
         print("attempting to set global house vars with houseID = \(currentHouseID)")
         var result = getCurrentUserLocalNickname(fromHouse: currentHouseID!) { (localNick) in
@@ -1135,6 +1141,11 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }
     
+    /*
+     Function to get all data pertaining to a notification
+     Input: ID of notification to get information about
+     Callback returns: All data related to the notification
+    */
     func getNotifData(notifId: String, callback: @escaping (NSDictionary?) -> Void) -> ReturnValue<Bool> {
         //Navigate to the formatted email field and get a "Snapshot" of the data stored there
         self.ref.child("notifications/\(notifId)").observe(.value, with: { (snapshot) in
@@ -1267,6 +1278,11 @@ class DatabaseAccess  {
         })
     }
     
+    /*
+     Gets all information related to a charge
+     Input: Charge ID of charge to get all information about
+     Callback Returns: Dictionary of all info about a charge
+    */
     func getChargeData(chargeID: String, callback: @escaping (NSDictionary?) -> Void){
         self.ref.child("charges/\(chargeID)").observe(.value, with: { (snapshot) in
             if snapshot.exists() {
