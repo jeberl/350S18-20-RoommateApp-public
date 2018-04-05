@@ -1179,8 +1179,13 @@ class DatabaseAccess  {
         ]
         self.ref.child("charges/\(chargeID)").setValue(chargeToAdd)
         newCharge.setChargeID(ID: chargeID)
-        assignChargeToUser(UID: newCharge.giveToUID, chargeID: chargeID)
-        assignChargeToUser(UID: newCharge.takeFromUID, chargeID: chargeID)
+        if newCharge.giveToUID != "houseFund" {
+            assignChargeToUser(UID: newCharge.giveToUID, chargeID: chargeID)
+
+        }
+        if newCharge.takeFromUID != "houseFund" {
+            assignChargeToUser(UID: newCharge.takeFromUID, chargeID: chargeID)
+        }
         assignChargeToHouse(houseID: newCharge.houseID, chargeID: chargeID)
         addToUserBalance(HouseID: newCharge.houseID, owesUID: newCharge.takeFromUID, owedUID: newCharge.giveToUID, amount: newCharge.amount)
         return ExpectedExecution()
