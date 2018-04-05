@@ -17,10 +17,8 @@ class FeedViewController: UITableViewController {
     var notifData : [String]! = [String]()
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let layer = CAGradientLayer()
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
@@ -33,11 +31,16 @@ class FeedViewController: UITableViewController {
             
             let notifDataClosure = { (data : NSDictionary?) -> Void in
                 var currHouseId = data?.value(forKey: "houseID") as? String
-                if currHouseId == currentHouseID {
+                let type = data?.value(forKey: "type") as? String
+                if currHouseId == currentHouseID && type != "Charge"  {
                     if let value = data?.value(forKey: "description") as? String {
                         self.notifData.append(value)
                         self.tableView.reloadData()
                     }
+                } else if type == "Charge" {
+                    let value = data?.value(forKey: "description") as? String
+                    self.notifData.append(value!)
+                    self.tableView.reloadData()
                 }
             }
             
@@ -100,8 +103,11 @@ class FeedViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if notifData.count > indexPath.row {
-            
-            cell.textLabel?.text = String(notifData![indexPath.row])
+            if indexPath.row == 0 {
+                cell.textLabel?.text = String(notifData![indexPath.row])
+            } else {
+                cell.textLabel?.text = String(notifData![indexPath.row])
+            }
         }
         return cell
     }

@@ -208,6 +208,10 @@ class DatabaseAccess  {
         return NoSuchUserError()
     }*/
     
+    /*
+     Several getters and setters, names intuitive to function
+     */
+    
     func getUserGlobalNickname(for_email: String, callback : @escaping (String?) -> Void){
         let name_callback : (DataSnapshot) -> Void = { (uid) in
             self.getUserGlobalNickname(forUid: (uid.value as! String), callback: callback)
@@ -289,7 +293,7 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
-    // NEW CODE
+    // Updates a user's nickname
     func setUserLocalNickname(inHouse : House, to newNickname: String, view: UIViewController) -> ReturnValue<Bool>{
         if let hId = inHouse.houseID {
             return setUserLocalNickname(inHouseID : hId, to: newNickname, view: view)
@@ -297,7 +301,7 @@ class DatabaseAccess  {
         return NoSuchHouseError()
     }
     
-    // NEW CODE
+    // Updates a user's nickname
     func setUserLocalNickname(inHouseID : String, to newNickname: String, view: UIViewController) -> ReturnValue<Bool>{
         if let uid : String = Auth.auth().currentUser?.uid {
             self.ref.child("houses/\(inHouseID)/house_users").observe(.value, with: { (snapshot) in
@@ -657,6 +661,7 @@ class DatabaseAccess  {
         return ExpectedExecution()
     }
     
+    /*Gets user's profile picture from db*/
     func getUserProfPicFromEmail(email: String, callback: @escaping (UIImage?) -> Void) -> ReturnValue<Bool> {
         
         let fake_mapping_email_uid = ["amotta@email.com" : "ajani.jpg",
@@ -1111,7 +1116,23 @@ class DatabaseAccess  {
                 }
             }
             // If no charge found or cast could not occur then no charge message found so run callback with nil
-            print("Charge Measage not found")
+            print("Charge Message not found")
+            callback(nil)
+        })
+    }
+    
+    func getChargeData(chargeID: String, callback: @escaping (NSDictionary?) -> Void){
+        self.ref.child("charges/\(chargeID)").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as charge name
+                if let data = snapshot.value as? NSDictionary {
+                    // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
+                    callback(data)
+                    return
+                }
+            }
+            // If no charge found or cast could not occur then no charge message found so run callback with nil
+            print("Charge not found")
             callback(nil)
         })
     }
