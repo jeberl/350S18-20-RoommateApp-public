@@ -235,7 +235,8 @@ class DatabaseAccess  {
                 if snapshot.exists() {
                     // Get the value of the snapshot (cast to string) and store as nickname
                     if let nickname = snapshot.value as? String {
-                        //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                        //Run the function, callback, which is given by the frontend, passing it the nickname
+                        // we read from the snapshot as an argument
                         callback(nickname)
                     } else {
                         // If cast coulnt occur no nickname found, run  callback with nil
@@ -363,7 +364,8 @@ class DatabaseAccess  {
                 if snapshot.exists() {
                     // Get the value of the snapshot (cast to string) and store as nickname
                     if let userUid = snapshot.value as? String {
-                        //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                        //Run the function, callback, which is given by the frontend, passing it the nickname
+                        // we read from the snapshot as an argument
                         callback(userUid)
                     } else {
                         // If cast coulnt occur no uid found, run  callback with nil
@@ -470,7 +472,8 @@ class DatabaseAccess  {
                 print("snapshot : \(snapshot.children.allObjects)")
                 // Get the value of the snapshot (cast to string) and store as house name
                 if let houseName = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
                     callback(houseName)
                 } else {
                     // If cast could not occur then no house name found so run callback with nil
@@ -739,7 +742,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let title = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we
+                    // read from the snapshot as an argument
                     let choreTitle : String = title
                     callback(choreTitle)
                 } else {
@@ -760,7 +764,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let description = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
                     let choreDescription : String = description
                     callback(choreDescription)
                 } else {
@@ -781,7 +786,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let assignor = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname we
+                    // read from the snapshot as an argument
                     let choreAssignor : String = assignor
                     callback(choreAssignor)
                 } else {
@@ -802,7 +808,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let assignee = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
                     let choreAssignee : String = assignee
                     callback(choreAssignee)
                 } else {
@@ -823,7 +830,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let lastTimeNudged = snapshot.value as? String {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
                     let time : String = lastTimeNudged
                     callback(time)
                 } else {
@@ -866,7 +874,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as chore name
                 if let timesNudged = snapshot.value as? Int {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
                     let times : Int = timesNudged
                     callback(times)
                 } else {
@@ -1074,7 +1083,8 @@ class DatabaseAccess  {
     
     
     
-    // once a user deletes the notification, it is deleted from their account and deletes the user from the notification in db,
+    // once a user deletes the notification, it is deleted from their account and deletes the user from the
+    // notification in db,
     // it is deleted from db altogether if no other users are dependent on it
     func deleteNotification(notifId: String) -> ReturnValue<Bool> {
         //let currUser = Auth.auth().currentUser?.email
@@ -1133,7 +1143,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as nickname
                 if let notification = snapshot.value as? NSDictionary {
-                    //Run the function, callback, which is given by the frontend, passing it the nickname we read from the snapshot as an argument
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    //we read from the snapshot as an argument
                     callback(notification)
                 } else {
                     // If cast coulnt occur no uid found, run  callback with nil
@@ -1244,7 +1255,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as charge name
                 if let message = snapshot.value as? String {
-                    // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
+                    // Run the function, callback, which is given by the frontend, passing it the message
+                    //we read from the snapshot as an argument
                     callback(message)
                     return
                 }
@@ -1260,7 +1272,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as charge name
                 if let data = snapshot.value as? NSDictionary {
-                    // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
+                    // Run the function, callback, which is given by the frontend, passing it the message
+                    //we read from the snapshot as an argument
                     callback(data)
                     return
                 }
@@ -1281,7 +1294,8 @@ class DatabaseAccess  {
             if snapshot.exists() {
                 // Get the value of the snapshot (cast to string) and store as charge name
                 if let amount = snapshot.value as? Double {
-                    // Run the function, callback, which is given by the frontend, passing it the amount we read from the snapshot as an argument
+                    // Run the function, callback, which is given by the frontend, passing it the amount
+                    // we read from the snapshot as an argument
                     callback(amount)
                 } else {
                 }

@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
+/*
+ Class thatruns on load. Used for testing. Not for functional use by app.ß
+ */
 class ViewController: UIViewController {
    
     //MARK: Properties
