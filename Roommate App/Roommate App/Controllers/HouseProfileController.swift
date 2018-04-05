@@ -22,12 +22,12 @@ class HouseProfileController: UIViewController {
     // outlet for new housemate input field
     @IBOutlet weak var newHousemateTextField: UITextField!
     @IBOutlet weak var addHousemateButton: UIButton!
-    
+    let layer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CAGradientLayer()
+        
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -49,6 +49,14 @@ class HouseProfileController: UIViewController {
     
     @IBAction func changeHouseNameTextSubmitClicked(_ sender: UIButton) {
         database.changeHouseName(currHouseID: currentHouseID!, newName: changeHouseNameText.text!)
+    }
+    
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
     }
 
     override func didReceiveMemoryWarning() {
