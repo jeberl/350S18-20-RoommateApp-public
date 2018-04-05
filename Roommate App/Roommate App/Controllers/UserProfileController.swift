@@ -15,11 +15,12 @@ class UserProfileController: UIViewController {
     var database: DatabaseAccess = DatabaseAccess.getInstance()
     var currentGlobalNickname: String?
     var currentLocalNickname: String?
+    let layer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CAGradientLayer()
+        
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -41,11 +42,33 @@ class UserProfileController: UIViewController {
             errorGlobalNickname.raiseErrorAlert(with_title: "error", view: self)
         }
         
+        // closure for getUserLocalNickname
+        let userLocalNicknameClosure = { (returnedLocalNickname: String?) -> Void in
+            self.currentLocalNickname = returnedLocalNickname
+            let textForLocalNickname: String = "Current Local Nickname: \(self.currentLocalNickname ?? "Error: nil Nickname")"
+            self.userProfileLocalNickname.text = textForLocalNickname
+        }
+        
+        // calls getUserLocalNickname, handles errors
+        let errorLocalNickname =
+            self.database.getCurrentUserLocalNickname(fromHouse: currentHouseID, callback: userLocalNicknameClosure)
+        if errorLocalNickname.returned_error {
+            errorLocalNickname.raiseErrorAlert(with_title: "error", view: self)
+        }
+        
         
         // displays current profile email address
         let profileForText: String = "User Profile For: \(Auth.auth().currentUser!.email ?? "Error: nil User")"
         userProfileFor.text = profileForText
         
+    }
+    
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
     }
     
     // outlets for displaying user profile information
