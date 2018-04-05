@@ -44,10 +44,5 @@ struct House {
         self.houseUsers.append(email)
     }
     
-    mutating func addChore(newChore : ChoreAJ) {
-        let choreID = newChore.choreID!
-        self.incompleteChores.append(choreID)
-    }
-    
     
 }
