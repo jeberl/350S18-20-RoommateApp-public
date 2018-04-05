@@ -212,8 +212,8 @@
                                     <segue destination="zxY-bV-udo" kind="show" id="SZw-Tf-XdL"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cV-Gr-GnL">
-                                <rect key="frame" x="305" y="420" width="30" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2cV-Gr-GnL">
+                                <rect key="frame" x="305" y="425" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
                                     <action selector="addButtonPressed:" destination="lMg-ro-Lsi" eventType="touchUpInside" id="cp2-xu-NEK"/>
@@ -243,12 +243,12 @@
                             <constraint firstItem="04t-ab-99N" firstAttribute="leading" secondItem="wkL-C0-eL9" secondAttribute="leading" id="jJ8-0B-WsP"/>
                             <constraint firstItem="wkL-C0-eL9" firstAttribute="leading" secondItem="bBS-L2-w2X" secondAttribute="leading" constant="40" id="kBW-IB-IeM"/>
                             <constraint firstItem="G4t-9G-pAr" firstAttribute="trailing" secondItem="2cV-Gr-GnL" secondAttribute="trailing" id="lJl-ct-bdB"/>
-                            <constraint firstItem="G4t-9G-pAr" firstAttribute="top" secondItem="2cV-Gr-GnL" secondAttribute="bottom" constant="8" symbolic="YES" id="lOk-9q-O10"/>
                             <constraint firstItem="3cV-aH-fKy" firstAttribute="centerX" secondItem="bBS-L2-w2X" secondAttribute="centerX" id="miq-DM-vjU"/>
                             <constraint firstItem="Vlv-ic-hIL" firstAttribute="leading" secondItem="wkL-C0-eL9" secondAttribute="leading" id="oAf-HZ-Se9"/>
                             <constraint firstItem="wkL-C0-eL9" firstAttribute="top" secondItem="h8v-91-9Jg" secondAttribute="bottom" id="pD7-ey-hmX"/>
                             <constraint firstItem="04t-ab-99N" firstAttribute="centerX" secondItem="bBS-L2-w2X" secondAttribute="centerX" id="rxN-tf-J1I"/>
                             <constraint firstItem="04t-ab-99N" firstAttribute="centerX" secondItem="Ub0-ad-1Xc" secondAttribute="centerX" id="uyp-1t-MrW"/>
+                            <constraint firstItem="2cV-Gr-GnL" firstAttribute="baseline" secondItem="Vlv-ic-hIL" secondAttribute="baseline" id="wBe-df-iUa"/>
                             <constraint firstItem="G4t-9G-pAr" firstAttribute="centerX" secondItem="Ub0-ad-1Xc" secondAttribute="centerX" id="xLk-ml-y42"/>
                             <constraint firstItem="i1Y-BA-BgD" firstAttribute="centerY" secondItem="3cV-aH-fKy" secondAttribute="centerY" id="xY9-Qp-iei"/>
                         </constraints>
