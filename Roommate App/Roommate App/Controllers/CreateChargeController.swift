@@ -73,23 +73,23 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
                 takeFromUID = currentHouseMemberUIDs![otherMemberIndex]
                 otherNickname = currentHouseMemberNicknames[otherMemberIndex]
                 notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "\(currentUserLocalNickName) charged you $ \(dollars)")
-                notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")
+                /*notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "You charged \(otherNickname) $ \(dollars)")*/ // this is pointless
+                database.addNotification(notification: notifFrom!)
             }
                 //Pay Selected Users
             else {
                 takeFromUID = Auth.auth().currentUser!.uid
                 giveToUID = currentHouseMemberUIDs![otherMemberIndex]
                 otherNickname = currentHouseMemberNicknames[otherMemberIndex]
-                notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")
-                notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "\(currentUserLocalNickName) payed you $ \(dollars)")
+                /*notifFrom = Notification(houseID: currentHouseID!, UIDsInvolved: [takeFromUID], type: "Charge", description: "You paid \(otherNickname) $ \(dollars)!")*/ // this is pointless
+                notifTo = Notification(houseID: currentHouseID!, UIDsInvolved: [giveToUID], type: "Charge", description: "\(currentUserLocalNickName) paid you $ \(dollars)")
+                database.addNotification(notification: notifTo!)
             }
             let charge = Charge(takeFromUID: takeFromUID, giveToUID: giveToUID, houseID: currentHouseID!, amount: dollars, message: transactionDescriptionTextFeild.text)
             result = database.createCharge(charge: charge)
             if result.returned_error {
                 raiseError(title : "Couldnt completed charge with \(otherNickname)")
             }
-            database.addNotification(notification: notifFrom!)
-            database.addNotification(notification: notifTo!)
         }
         if !result.returned_error {
             returnPopup(title : "Sucessfully added charge(s)")

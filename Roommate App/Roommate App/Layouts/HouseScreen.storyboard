@@ -150,6 +150,7 @@
         <!--Item-->
         <scene sceneID="2vz-2X-6rz">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NSh-58-eWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="jrW-7V-d83" customClass="BalanceViewController" customModule="Roommate_App" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wN1-0h-c8x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -190,7 +191,6 @@
                         <outlet property="view" destination="cwT-EW-uns" id="1Hk-eB-mYM"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NSh-58-eWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1572" y="-1050"/>
         </scene>

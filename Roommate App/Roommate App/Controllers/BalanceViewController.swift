@@ -16,7 +16,7 @@ class BalanceViewController: UITableViewController {
     var currentUser : UserAccount! // Current user
     var charges : [String]! = [String]()
     var chargeIds : [String]! = [String]()
-    var chargeData : [String]! = [String]()
+    var chargeData : [NSDictionary]! = [NSDictionary]()
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     
     
@@ -33,17 +33,17 @@ class BalanceViewController: UITableViewController {
         let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
             if let returnedChargeIds = returnedChargeIds {
                 self.chargeIds = returnedChargeIds
-                let chargeDataClosure = { (data : String?) -> Void in
+                let chargeDataClosure = { (data : NSDictionary?) -> Void in
                     if let data = data {
                         self.chargeData.append(data)
                     } else {
-                        self.chargeData.append("No message/Charge not Found")
+                        //self.chargeData.append("No charges yet.")
                     }
                     self.tableView.reloadData()
                 }
     
                 for charge in self.chargeIds! {
-                    self.database.getChargeMessage(chargeID: charge, callback: chargeDataClosure)
+                    self.database.getChargeData(chargeID: charge, callback: chargeDataClosure)
                 }
             }
             else {
@@ -74,29 +74,37 @@ class BalanceViewController: UITableViewController {
     
     // Return number of rows equal to number of houses
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       /* print("notifications.count = \(notifIds.count)")
-        return notifIds.count*/
-        return 0
+        //print("charges.count = \(chargeIds.count)")
+        return chargeIds.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        /*if notifData.count > indexPath.row {
-            
-            cell.textLabel?.text = String(notifData![indexPath.row])
+        if chargeData.count > indexPath.row {
+            let timestamp = chargeData![indexPath.row].value(forKey: "time_charged")!
+            let amount = chargeData![indexPath.row].value(forKey: "amount")! //credit or debit
+            var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
+            var currUser = Auth.auth().currentUser?.uid as? String
+            if userFrom! ==  currUser {
+                cell.textLabel?.text = ("\(timestamp): \(userFrom!) charged you \(amount)")
+            } else {
+                cell.textLabel?.text = ("\(timestamp): \(userFrom!) paid you \(amount)")
+
+            }
         }
-        return cell*/
         return cell
     }
     
     // connect this page to the feed page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("presenting")
-        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        var currentChargeId = chargeIds[indexPath.row]
         
-        let controller = storyboard.instantiateViewController(withIdentifier: "BalanceViewController") as UIViewController
+        /*let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         
-        self.present(controller, animated: true, completion: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as UIViewController*/
+        
+        
+        //self.present(controller, animated: true, completion: nil)
         
     }
     
