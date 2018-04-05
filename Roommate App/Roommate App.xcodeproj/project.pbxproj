@@ -47,6 +47,7 @@
 		90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F573CD203F4576001FBEC1 /* HouseProfileController.swift */; };
 		A6D6C88B9D3B8DEAE7928653 /* Pods_Roommate_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E718FC3D196C2913529BAF /* Pods_Roommate_AppUITests.framework */; };
 		C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */; };
+		C2CCF5D02076B79D0054A53E /* PersonalBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */; };
 		DDDB8702CB170AFD719C4AAF /* Pods_Roommate_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		90F573CD203F4576001FBEC1 /* HouseProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseProfileController.swift; sourceTree = "<group>"; };
 		C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesPageViewController.swift; sourceTree = "<group>"; };
+		C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBalanceViewController.swift; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.debug.xcconfig"; sourceTree = "<group>"; };
 		FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_AppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,6 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
+				C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */,
 				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
 				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
 				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
@@ -626,6 +629,7 @@
 				90F573CA203E8B47001FBEC1 /* CurrentState.swift in Sources */,
 				3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */,
 				3745D505205CCD3300227F97 /* ChoreListViewController.swift in Sources */,
+				C2CCF5D02076B79D0054A53E /* PersonalBalanceViewController.swift in Sources */,
 				90F573C8203E3390001FBEC1 /* ProfileController.swift in Sources */,
 				757DB96F20351F8700CB9FF6 /* House.swift in Sources */,
 				3745D50B205CD57600227F97 /* ChoreViewController.swift in Sources */,

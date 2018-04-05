@@ -1305,6 +1305,28 @@ class DatabaseAccess  {
             callback(nil)
         })
     }
+    
+    /*
+     Finds and returns the user's email given their uid
+     Input: User's uid
+     Output: callback returns user's associated email
+     */
+    func getNicknameFromUID(uid: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("users/\(uid)/nickname").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                print("snapshot exists in uid email")
+                if let nickname = snapshot.value as? String {
+                    // Get the value of the snapshot (cast to string) and store as uid
+                    callback(nickname)
+                }
+            } else {
+                print("User has not yet created an account")
+                callback(nil)
+            }
+        })
+        return ExpectedExecution()
+    }
+    
     /*
      Function to get the balance between 2 individuals in a house
      Input: UIDs and house

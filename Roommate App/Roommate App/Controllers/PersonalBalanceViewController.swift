@@ -1,17 +1,21 @@
 //
-//  BalanceViewController.swift
+//  PersonalBalanceViewController.swift
 //  Roommate App
 //
-//  Created by Elena Iaconis on 3/31/18.
+//  Created by Elena Iaconis on 4/5/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+
 
 import Foundation
 
 import UIKit
 import FirebaseAuth
 
-class BalanceViewController: UITableViewController {
+/*
+ Controls rendering the balances that are directly related to the currently logged in account
+ */
+class PersonalBalanceViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user
     var charges : [String]! = [String]()
@@ -32,14 +36,14 @@ class BalanceViewController: UITableViewController {
         
         let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
             if let returnedChargeIds = returnedChargeIds {
-                self.chargeIds = returnedChargeIds.sorted(by: >)
+                self.chargeIds = returnedChargeIds
                 let chargeDataClosure = { (data : NSDictionary?) -> Void in
                     if let data = data {
                         self.chargeData.append(data)
                     }
                     self.tableView.reloadData()
                 }
-    
+                
                 for charge in self.chargeIds! {
                     self.database.getChargeData(chargeID: charge, callback: chargeDataClosure)
                 }
@@ -49,7 +53,7 @@ class BalanceViewController: UITableViewController {
             }
         }
         self.database.getHouseCharges(houseId: currentHouseID!, callback: userChargeClosure)
-
+        
     }
     
     @IBAction func createChargeButton(_ sender: UIButton) {
@@ -78,28 +82,31 @@ class BalanceViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if chargeData.count > indexPath.row {
+            print("in personal balances")
             let timestamp = chargeData![indexPath.row].value(forKey: "time_charged")!
             let amount = chargeData![indexPath.row].value(forKey: "amount")! //credit or debit
-            let userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
-            let userTo  = chargeData![indexPath.row].value(forKey: "giveToUID") as? String
-            var currUser = Auth.auth().currentUser?.uid
-            var userNnOne : String = ""
-            var userNnTwo : String = ""
-            let getNnClosure = { (returnedNn: String?) -> Void in
-                userNnOne = returnedNn!
-            }
-            let getNnClosureTwo = { (returnedNn2: String?) -> Void in
-                userNnTwo = returnedNn2!
-                if (userFrom! == currUser) {
-                    userNnOne = "you"
+            var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
+            var userTo  = chargeData![indexPath.row].value(forKey: "giveToUID") as? String
+            var currUser = Auth.auth().currentUser?.uid as? String
+            if currUser == userFrom || currUser == userTo {
+                var userNnOne : String = ""
+                var userNnTwo : String = ""
+                let getNnClosure = { (returnedNn: String?) -> Void in
+                    userNnOne = returnedNn!
                 }
-                if (userTo! == currUser) {
-                    userNnTwo = "you"
+                let getNnClosureTwo = { (returnedNn2: String?) -> Void in
+                    userNnTwo = returnedNn2!
+                    if (userFrom! == currUser) {
+                        userNnOne = "you"
+                    }
+                    if (userTo! == currUser) {
+                        userNnTwo = "you"
+                    }
+                    cell.textLabel?.text = ("\(userNnOne) and \(userNnTwo) have $\(amount) transaction ")
                 }
-                cell.textLabel?.text = ("\(userNnOne) and \(userNnTwo) have $\(amount) transaction ")
+                self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
+                self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)
             }
-            self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
-            self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)
         }
         return cell
     }
@@ -107,15 +114,6 @@ class BalanceViewController: UITableViewController {
     // connect this page to the feed page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var currentChargeId = chargeIds[indexPath.row]
-        
-        /*let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as UIViewController*/
-        
-        
-        //self.present(controller, animated: true, completion: nil)
-        
     }
     
 }
-
