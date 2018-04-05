@@ -90,6 +90,12 @@ class BalanceViewController: UITableViewController {
             }
             let getNnClosureTwo = { (returnedNn2: String?) -> Void in
                 userNnTwo = returnedNn2!
+                if (userFrom! == currUser) {
+                    userNnOne = "you"
+                }
+                if (userTo! == currUser) {
+                    userNnTwo = "you"
+                }
                 cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
             }
             self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)

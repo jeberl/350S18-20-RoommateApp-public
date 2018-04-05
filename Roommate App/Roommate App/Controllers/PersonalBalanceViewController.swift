@@ -79,6 +79,7 @@ class PersonalBalanceViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         if chargeData.count > indexPath.row {
+            print("in personal balances")
             let timestamp = chargeData![indexPath.row].value(forKey: "time_charged")!
             let amount = chargeData![indexPath.row].value(forKey: "amount")! //credit or debit
             var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
@@ -92,6 +93,12 @@ class PersonalBalanceViewController: UITableViewController {
                 }
                 let getNnClosureTwo = { (returnedNn2: String?) -> Void in
                     userNnTwo = returnedNn2!
+                    if (userFrom! == currUser) {
+                        userNnOne = "you"
+                    }
+                    if (userTo! == currUser) {
+                        userNnTwo = "you"
+                    }
                     cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
                 }
                 self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)

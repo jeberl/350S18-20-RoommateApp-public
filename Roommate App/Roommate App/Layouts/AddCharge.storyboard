@@ -114,7 +114,7 @@
         <!--Personal Balance View Controller-->
         <scene sceneID="6Kt-Pb-TA7">
             <objects>
-                <tableViewController id="vt1-Lc-p6Q" customClass="PersonalBalanceViewController" sceneMemberID="viewController">
+                <tableViewController id="vt1-Lc-p6Q" customClass="PersonalBalanceViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="5YC-x7-WC3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
