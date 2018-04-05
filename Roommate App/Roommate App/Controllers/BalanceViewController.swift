@@ -32,7 +32,7 @@ class BalanceViewController: UITableViewController {
         
         let userChargeClosure = { (returnedChargeIds : [String]?) -> Void in
             if let returnedChargeIds = returnedChargeIds {
-                self.chargeIds = returnedChargeIds
+                self.chargeIds = returnedChargeIds.sorted(by: >)
                 let chargeDataClosure = { (data : NSDictionary?) -> Void in
                     if let data = data {
                         self.chargeData.append(data)
@@ -80,12 +80,16 @@ class BalanceViewController: UITableViewController {
         if chargeData.count > indexPath.row {
             let timestamp = chargeData![indexPath.row].value(forKey: "time_charged")!
             let amount = chargeData![indexPath.row].value(forKey: "amount")! //credit or debit
-            var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
+            var userFromID  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
+            var userFromNickname : String = ""
+            if let nickname = currentHouseUIDtoNickname[userFromID!] {
+                userFromNickname = nickname
+            }
             var currUser = Auth.auth().currentUser?.uid as? String
-            if userFrom! ==  currUser {
-                cell.textLabel?.text = ("\(timestamp): \(userFrom!) charged you \(amount)")
+            if userFromID! ==  currUser {
+                cell.textLabel?.text = ("\(timestamp): \(userFromNickname) charged you \(amount)")
             } else {
-                cell.textLabel?.text = ("\(timestamp): \(userFrom!) paid you \(amount)")
+                cell.textLabel?.text = ("\(timestamp): \(userFromNickname) paid you \(amount)")
 
             }
         }
