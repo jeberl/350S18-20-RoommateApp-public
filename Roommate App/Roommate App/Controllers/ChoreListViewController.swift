@@ -69,8 +69,8 @@ class ChoreListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        if incompleteChoreNames == nil {
-            print("array is nil")
+        if incompleteChoreNames.count == 0 {
+            print("Array is empty")
         }
         let choreName = incompleteChoreNames[indexPath.row]
         cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)

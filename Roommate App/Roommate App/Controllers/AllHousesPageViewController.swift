@@ -30,17 +30,14 @@ class AllHousesPageViewController: UITableViewController {
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
-        let userHouseClosure = { (returned_houseIds : [String]?) -> Void in
-            
-            self.houseIds = returned_houseIds
-            
-            let houseNameClosure = { (houseName : String?) -> Void in
-                if houseName != nil {
-                    self.houses.append(houseName!)
-                    self.tableView.reloadData()
-                }
+        let houseNameClosure = { (houseName : String?) -> Void in
+            if houseName != nil {
+                self.houses.append(houseName!)
+                self.tableView.reloadData()
             }
-            
+        }
+        
+        let userHouseClosure = { (returned_houseIds : [String]?) -> Void in
             self.houseIds = returned_houseIds ?? []
             for houseId in self.houseIds! {
                 self.database.getStringHouseName(houseId: houseId, callback: houseNameClosure)
