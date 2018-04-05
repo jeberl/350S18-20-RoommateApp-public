@@ -1,17 +1,18 @@
 //
-//  BalanceViewController.swift
+//  PersonalBalanceViewController.swift
 //  Roommate App
 //
-//  Created by Elena Iaconis on 3/31/18.
+//  Created by Elena Iaconis on 4/5/18.
 //  Copyright © 2018 Team 20. All rights reserved.
 //
+
 
 import Foundation
 
 import UIKit
 import FirebaseAuth
 
-class BalanceViewController: UITableViewController {
+class PersonalBalanceViewController: UITableViewController {
     
     var currentUser : UserAccount! // Current user
     var charges : [String]! = [String]()
@@ -83,25 +84,28 @@ class BalanceViewController: UITableViewController {
             var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
             var userTo  = chargeData![indexPath.row].value(forKey: "giveToUID") as? String
             var currUser = Auth.auth().currentUser?.uid as? String
-            var userNnOne : String = ""
-            var userNnTwo : String = ""
-            let getNnClosure = { (returnedNn: String?) -> Void in
-                userNnOne = returnedNn!
+            if currUser == userFrom || currUser == userTo {
+                var userNnOne : String = ""
+                var userNnTwo : String = ""
+                let getNnClosure = { (returnedNn: String?) -> Void in
+                    userNnOne = returnedNn!
+                }
+                let getNnClosureTwo = { (returnedNn2: String?) -> Void in
+                    userNnTwo = returnedNn2!
+                    cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
+                }
+                self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
+                self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)
             }
-            let getNnClosureTwo = { (returnedNn2: String?) -> Void in
-                userNnTwo = returnedNn2!
-                cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
-            }
-            self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
-            self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)
         }
         return cell
     }
     
     // connect this page to the feed page
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var currentChargeId = chargeIds[indexPath.row] 
+        var currentChargeId = chargeIds[indexPath.row]
     }
     
 }
+
 
