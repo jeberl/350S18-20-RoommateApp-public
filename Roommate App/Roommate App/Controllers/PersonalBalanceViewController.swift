@@ -99,7 +99,7 @@ class PersonalBalanceViewController: UITableViewController {
                     if (userTo! == currUser) {
                         userNnTwo = "you"
                     }
-                    cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
+                    cell.textLabel?.text = ("\(userNnOne) and \(userNnTwo) have $\(amount) transaction ")
                 }
                 self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
                 self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)

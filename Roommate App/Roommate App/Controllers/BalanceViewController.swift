@@ -80,9 +80,9 @@ class BalanceViewController: UITableViewController {
         if chargeData.count > indexPath.row {
             let timestamp = chargeData![indexPath.row].value(forKey: "time_charged")!
             let amount = chargeData![indexPath.row].value(forKey: "amount")! //credit or debit
-            var userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
-            var userTo  = chargeData![indexPath.row].value(forKey: "giveToUID") as? String
-            var currUser = Auth.auth().currentUser?.uid as? String
+            let userFrom  = chargeData![indexPath.row].value(forKey: "takeFromUID") as? String
+            let userTo  = chargeData![indexPath.row].value(forKey: "giveToUID") as? String
+            var currUser = Auth.auth().currentUser?.uid
             var userNnOne : String = ""
             var userNnTwo : String = ""
             let getNnClosure = { (returnedNn: String?) -> Void in
@@ -96,7 +96,7 @@ class BalanceViewController: UITableViewController {
                 if (userTo! == currUser) {
                     userNnTwo = "you"
                 }
-                cell.textLabel?.text = ("\(userNnOne) exchanged $\(amount) with \(userNnTwo) ")
+                cell.textLabel?.text = ("\(userNnOne) and \(userNnTwo) have $\(amount) transaction ")
             }
             self.database.getNicknameFromUID(uid: userFrom!, callback: getNnClosure)
             self.database.getNicknameFromUID(uid: userTo!, callback: getNnClosureTwo)
