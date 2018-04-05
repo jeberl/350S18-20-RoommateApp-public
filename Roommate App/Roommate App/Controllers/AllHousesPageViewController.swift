@@ -16,12 +16,12 @@ class AllHousesPageViewController: UITableViewController {
     var houses : [String]! = [String]() // list of houses user is in
     var houseIds : [String]! = [String]() // Houses user is in in terms of house ids
     var database : DatabaseAccess = DatabaseAccess.getInstance()
-
+    let layer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let layer = CAGradientLayer()
+        
         let colorOne = UIColor(red: 0x03/255, green: 0x7A/255, blue: 0xDE/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x03/255, green: 0xE5/255, blue: 0xB7/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -48,6 +48,14 @@ class AllHousesPageViewController: UITableViewController {
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
+    }
+    
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
     }
 
     func loginError(message : String = "User not found") {
@@ -95,6 +103,7 @@ class AllHousesPageViewController: UITableViewController {
         let cell = UITableViewCell()
         let houseName = houses[indexPath.row]
         cell.textLabel?.text = houseName
+        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         return cell
     }
     

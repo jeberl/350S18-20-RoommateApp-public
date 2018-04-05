@@ -19,11 +19,11 @@ class CreateHouseViewController: UIViewController {
     var database: DatabaseAccess = DatabaseAccess.getInstance()
     var newHome : House!
     
-    
+    let layer = CAGradientLayer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layer = CAGradientLayer()
+        
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -53,6 +53,14 @@ class CreateHouseViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
     }
     
     @IBAction func buildHomeButtonPressed(_ sender: Any) {
