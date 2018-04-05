@@ -29,13 +29,12 @@ class HouseBalanceController: UIViewController, UITableViewDelegate, UITableView
             cell.amountLabel.text = self.stringFromAmount(amount)
             if amount < 0 {
                 cell.backgroundColor = UIColor.red
-            } else if amount > 0{
+            } else if amount > 0 {
                 cell.backgroundColor = UIColor.green
             } else {
                 cell.backgroundColor = UIColor.yellow
             }
-            print(self.backgorundColorFromAmount(amount))
-            print(cell.backgroundColor)
+
         }
         
         DatabaseAccess.getInstance().getBalanceBetweenUsers(HouseID: currentHouseID!,
