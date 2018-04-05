@@ -5,22 +5,25 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--House Balance Controller-->
         <scene sceneID="X56-M4-LPs">
             <objects>
-                <viewController id="kTX-Ff-ifc" sceneMemberID="viewController">
+                <viewController id="kTX-Ff-ifc" customClass="HouseBalanceController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6xz-bo-EOK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDZ-6f-Nmb">
-                                <rect key="frame" x="16" y="45" width="343" height="111"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDZ-6f-Nmb">
+                                <rect key="frame" x="16" y="20" width="343" height="111"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="111" id="dDe-Ag-Fuq"/>
+                                </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Your Balances">
                                         <attributes>
@@ -31,9 +34,60 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmN-yl-1i1">
-                                <rect key="frame" x="194" y="617" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9P-op-M9o">
+                                <rect key="frame" x="16" y="572" width="165" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="165" id="c1q-cs-g7x"/>
+                                </constraints>
+                                <state key="normal" title="View All Transactions">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="createChorePressed" destination="upn-EB-Fos" eventType="touchUpInside" id="6hg-MA-wf8"/>
+                                    <segue destination="g5u-GE-f89" kind="show" id="XiM-yp-aLK"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="sps-tL-A1s">
+                                <rect key="frame" x="0.0" y="126" width="375" height="369"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="369" id="MA3-Ej-XoR"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HouseMemberBalanceCell" id="q5b-Oe-fRA" customClass="BalanceCell" customModule="Roommate_App" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q5b-Oe-fRA" id="6WX-cI-z3b">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" restorationIdentifier="amountLabel" text="amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cJs-IC-xq8">
+                                                    <rect key="frame" x="297" y="11" width="58" height="21"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="amountLabel"/>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="cJs-IC-xq8" secondAttribute="trailing" constant="4" id="qfC-eZ-Vxw"/>
+                                                <constraint firstItem="cJs-IC-xq8" firstAttribute="centerY" secondItem="6WX-cI-z3b" secondAttribute="centerY" id="yf7-wc-Hg0"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="amountLabel" destination="cJs-IC-xq8" id="AqK-D1-xe2"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                                <connections>
+                                    <outlet property="dataSource" destination="kTX-Ff-ifc" id="fBp-Xm-qGb"/>
+                                    <outlet property="delegate" destination="kTX-Ff-ifc" id="It8-g2-cdQ"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dmN-yl-1i1">
+                                <rect key="frame" x="194" y="572" width="165" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Add Charge/Settle Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -43,22 +97,28 @@
                                     <segue destination="upn-EB-Fos" kind="show" id="MDX-aa-TS5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C9P-op-M9o">
-                                <rect key="frame" x="16" y="617" width="165" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="View All Transactions">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="createChorePressed" destination="upn-EB-Fos" eventType="touchUpInside" id="6hg-MA-wf8"/>
-                                    <segue destination="Feg-V8-64a" kind="push" id="DWO-by-Dcc"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="sps-tL-A1s" firstAttribute="leading" secondItem="6xz-bo-EOK" secondAttribute="leading" id="CJS-kR-mk8"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="dmN-yl-1i1" secondAttribute="bottom" constant="65" id="DyX-Li-sSr"/>
+                            <constraint firstItem="yDZ-6f-Nmb" firstAttribute="centerX" secondItem="sps-tL-A1s" secondAttribute="centerX" id="Iug-lQ-knY"/>
+                            <constraint firstAttribute="trailing" secondItem="sps-tL-A1s" secondAttribute="trailing" id="Kd1-CF-j16"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="C9P-op-M9o" secondAttribute="bottom" constant="65" id="Ok2-mS-paE"/>
+                            <constraint firstItem="dmN-yl-1i1" firstAttribute="leading" secondItem="C9P-op-M9o" secondAttribute="trailing" constant="13" id="V2Y-sM-qTk"/>
+                            <constraint firstItem="yDZ-6f-Nmb" firstAttribute="leading" secondItem="6xz-bo-EOK" secondAttribute="leadingMargin" id="Woo-Ti-cgf"/>
+                            <constraint firstItem="sps-tL-A1s" firstAttribute="top" secondItem="8Pv-md-ayE" secondAttribute="top" constant="106" id="aG4-xg-5W6"/>
+                            <constraint firstItem="yDZ-6f-Nmb" firstAttribute="trailing" secondItem="dmN-yl-1i1" secondAttribute="trailing" id="cPB-pz-KXd"/>
+                            <constraint firstItem="yDZ-6f-Nmb" firstAttribute="top" secondItem="8Pv-md-ayE" secondAttribute="top" id="f9i-rv-gNF"/>
+                            <constraint firstItem="C9P-op-M9o" firstAttribute="baseline" secondItem="dmN-yl-1i1" secondAttribute="baseline" id="nsb-go-EOn"/>
+                            <constraint firstItem="yDZ-6f-Nmb" firstAttribute="leading" secondItem="C9P-op-M9o" secondAttribute="leading" id="wRR-El-c8b"/>
+                            <constraint firstAttribute="bottom" secondItem="C9P-op-M9o" secondAttribute="bottom" constant="20" symbolic="YES" id="x44-tY-tlv"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="8Pv-md-ayE"/>
                     </view>
+                    <connections>
+                        <outlet property="balanceTable" destination="sps-tL-A1s" id="1iH-yZ-IIQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jbr-qh-jMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -38,6 +38,8 @@
 		88984EE9206D67DF00E2E9E6 /* AddCharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */; };
 		88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */; };
 		88D642A22063268200C30737 /* ChoreAJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D642A12063268200C30737 /* ChoreAJ.swift */; };
+		88FB72312075932C00B90EB0 /* HouseBalanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB72302075932C00B90EB0 /* HouseBalanceController.swift */; };
+		88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB72322075CF2400B90EB0 /* BalanceCell.swift */; };
 		905CA2E0203CA65D0006077B /* HouseScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905CA2DF203CA65D0006077B /* HouseScreen.storyboard */; };
 		90F573C8203E3390001FBEC1 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F573C7203E3390001FBEC1 /* ProfileController.swift */; };
 		90F573CA203E8B47001FBEC1 /* CurrentState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F573C9203E8B47001FBEC1 /* CurrentState.swift */; };
@@ -108,6 +110,8 @@
 		88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChargeController.swift; sourceTree = "<group>"; };
 		88D642A12063268200C30737 /* ChoreAJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreAJ.swift; sourceTree = "<group>"; };
 		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
+		88FB72302075932C00B90EB0 /* HouseBalanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseBalanceController.swift; sourceTree = "<group>"; };
+		88FB72322075CF2400B90EB0 /* BalanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceCell.swift; sourceTree = "<group>"; };
 		905CA2DF203CA65D0006077B /* HouseScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HouseScreen.storyboard; sourceTree = "<group>"; };
 		90F573C7203E3390001FBEC1 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		90F573C9203E8B47001FBEC1 /* CurrentState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentState.swift; sourceTree = "<group>"; };
@@ -248,8 +252,10 @@
 				90F573CD203F4576001FBEC1 /* HouseProfileController.swift */,
 				888C528D205F166B00521B65 /* CompleteChoreController.swift */,
 				758CF9FC207017A800DA12E6 /* BalanceViewController.swift */,
+				88FB72302075932C00B90EB0 /* HouseBalanceController.swift */,
 				88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */,
 				37D894562073F3C800C961D6 /* HousematesViewController.swift */,
+				88FB72322075CF2400B90EB0 /* BalanceCell.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -609,11 +615,13 @@
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
 				88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
+				88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
 				37D894572073F3C800C961D6 /* HousematesViewController.swift in Sources */,
 				888C5286205F090700521B65 /* ImageStorage.swift in Sources */,
 				37DB6BA9203F3639006C296C /* CreateHouseViewController.swift in Sources */,
+				88FB72312075932C00B90EB0 /* HouseBalanceController.swift in Sources */,
 				88D642A22063268200C30737 /* ChoreAJ.swift in Sources */,
 				90F573CA203E8B47001FBEC1 /* CurrentState.swift in Sources */,
 				3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */,
