@@ -34,6 +34,7 @@ class FeedViewController: UITableViewController {
                 let type = data?.value(forKey: "type") as? String
                 if currHouseId == currentHouseID && type != "Charge"  {
                     if let value = data?.value(forKey: "description") as? String {
+                        print(value)
                         self.notifData.append(value)
                         self.tableView.reloadData()
                     }
@@ -53,7 +54,11 @@ class FeedViewController: UITableViewController {
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
-        
+    }
+    
+    func loadData() {
+        // code to load data from network, and refresh the interface
+        tableView.reloadData()
     }
     
     func loginError(message : String = "User not found") {

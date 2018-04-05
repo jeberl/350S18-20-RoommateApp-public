@@ -173,11 +173,11 @@ class ChoreViewController: UIViewController {
             
             // Notification for chore
             
-            let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
+            let newNotif = Notification(houseID: currentHouseID!, UIDsInvolved: [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
             self.database.getUserUidFromEmail(email: choreAssigneeUsernameLabel.text!, callback: {(uid) -> Void in
                 print("the uid is:\(uid ?? "Error: nil UID")")
                 if let uid = uid {
-                    self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+                    self.database.addNotification(notification: newNotif)
                 } else {
                     
                 }
@@ -209,11 +209,11 @@ class ChoreViewController: UIViewController {
                 
                 // Notification for chore
                 
-                let newNotif = Notification(houseID: currentHouseID!, usersInvolved: [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
+                let newNotif = Notification(houseID: currentHouseID!, UIDsInvolved:  [choreAssigneeUsernameLabel.text!], type: "Nudge", description: "\(choreAssignorUsername.text ?? "Error: nil Assignor") nudged you to complete your chore, \(choreTitleLabel.text)!")
                 self.database.getUserUidFromEmail(email: choreAssigneeUsernameLabel.text!, callback: {(uid) -> Void in
                     print("the uid is:\(uid ?? "Error: nil UID")")
                     if let uid = uid {
-                        self.database.addNotification(notification: newNotif, usersInvolved: [uid])
+                        self.database.addNotification(notification: newNotif) 
                     } else {
                         
                     }

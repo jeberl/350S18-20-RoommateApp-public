@@ -407,8 +407,8 @@ class DatabaseAccess  {
                     }
                     self.getUserGlobalNickname(for_email: email, callback: addUserToHouseCallback)
                 } else {
-                    let uid = snapshot.childSnapshot(forPath: "uid").value as! String
-                    self.ref.child("users/\(uid)/houses/\(houseId)").setValue(true)
+                    //let uid = snapshot.childSnapshot(forPath: "uid").value as! String
+                    //self.ref.child("users/\(uid)/houses/\(houseId)").setValue(true)
                 }
             }
         })

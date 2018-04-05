@@ -36,8 +36,6 @@ class BalanceViewController: UITableViewController {
                 let chargeDataClosure = { (data : NSDictionary?) -> Void in
                     if let data = data {
                         self.chargeData.append(data)
-                    } else {
-                        //self.chargeData.append("No charges yet.")
                     }
                     self.tableView.reloadData()
                 }
@@ -74,7 +72,6 @@ class BalanceViewController: UITableViewController {
     
     // Return number of rows equal to number of houses
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print("charges.count = \(chargeIds.count)")
         return chargeIds.count
     }
     
