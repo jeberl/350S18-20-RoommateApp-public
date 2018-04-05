@@ -75,6 +75,7 @@ class ChoreListViewController: UITableViewController {
             print("array is nil")
         }
         let choreName = incompleteChoreNames[indexPath.row]
+        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         cell.textLabel?.text = choreName
         return cell
     }
