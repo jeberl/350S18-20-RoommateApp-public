@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Rd-t4-Wtn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1Rd-t4-Wtn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -48,78 +48,110 @@
         <!--Create Chore View Controller-->
         <scene sceneID="BUI-a1-t2G">
             <objects>
-                <viewController id="zmy-ic-1ng" customClass="CreateChoreViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="zmy-ic-1ng" customClass="CreateChoreViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q8f-Py-G5W">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Create a Chore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-I9-6gs">
-                                <rect key="frame" x="94" y="70" width="187" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ilb-Qe-tNS">
+                                <rect key="frame" x="0.0" y="64" width="375" height="119"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GZB-6O-Ndz">
+                                <rect key="frame" x="0.0" y="439.5" width="375" height="178.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="createChoreButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-P1-pBE">
+                                        <rect key="frame" x="139" y="74" width="96" height="30"/>
+                                        <state key="normal" title="Create Chore!"/>
+                                        <connections>
+                                            <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
+                                            <segue destination="3uT-YX-DrR" kind="show" id="3cP-Pt-WV0"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="8vK-P1-pBE" firstAttribute="centerY" secondItem="GZB-6O-Ndz" secondAttribute="centerY" id="7WN-Tt-kIN"/>
+                                    <constraint firstItem="8vK-P1-pBE" firstAttribute="centerX" secondItem="GZB-6O-Ndz" secondAttribute="centerX" id="c3T-MJ-3PQ"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a Chore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-I9-6gs">
+                                <rect key="frame" x="99.5" y="107.5" width="176.5" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="choreTitle" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKW-Ns-Mt5">
-                                <rect key="frame" x="22" y="209" width="157" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title of Chore:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dK9-Je-tVB">
+                                <rect key="frame" x="40" y="183" width="113.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="choreDescription" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-s6-WiQ">
+                                <rect key="frame" x="40" y="286" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title of Chore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dK9-Je-tVB">
-                                <rect key="frame" x="22" y="173" width="105" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description of Chore:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORY-5E-bMk">
+                                <rect key="frame" x="40" y="257" width="170.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="choreDescription" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-s6-WiQ">
-                                <rect key="frame" x="22" y="318" width="331" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Description of Chore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORY-5E-bMk">
-                                <rect key="frame" x="22" y="271" width="159" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Homie Responsible:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn7-Lt-Ztl">
+                                <rect key="frame" x="40" y="331" width="158.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="createChoreButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-P1-pBE">
-                                <rect key="frame" x="139" y="539" width="96" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Create Chore!"/>
-                                <connections>
-                                    <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="3cP-Pt-WV0"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Homie Responsible" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yn7-Lt-Ztl">
-                                <rect key="frame" x="22" y="356" width="193" height="39"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vi7-YV-1sP">
-                                <rect key="frame" x="19" y="408" width="199" height="113"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="91" translatesAutoresizingMaskIntoConstraints="NO" id="Vi7-YV-1sP">
+                                <rect key="frame" x="40.5" y="360" width="295" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="iEa-mw-gyW"/>
+                                </constraints>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfp-Gg-wIh">
-                                <rect key="frame" x="122" y="585" width="131" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back to Main Menu"/>
-                                <connections>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="BHg-jE-v5k"/>
-                                </connections>
-                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="choreTitle" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKW-Ns-Mt5">
+                                <rect key="frame" x="40" y="212" width="295" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yn7-Lt-Ztl" firstAttribute="top" secondItem="n2R-s6-WiQ" secondAttribute="bottom" constant="15" id="21z-g6-whh"/>
+                            <constraint firstItem="Vi7-YV-1sP" firstAttribute="centerX" secondItem="pKW-Ns-Mt5" secondAttribute="centerX" id="5Z1-Wa-rgR"/>
+                            <constraint firstItem="GZB-6O-Ndz" firstAttribute="trailing" secondItem="ERn-J6-F7k" secondAttribute="trailing" id="7Gf-cA-Kju"/>
+                            <constraint firstItem="Ilb-Qe-tNS" firstAttribute="trailing" secondItem="ERn-J6-F7k" secondAttribute="trailing" id="CAz-fM-MKl"/>
+                            <constraint firstItem="n2R-s6-WiQ" firstAttribute="centerX" secondItem="pKW-Ns-Mt5" secondAttribute="centerX" id="Fl2-SD-NS2"/>
+                            <constraint firstItem="IWJ-I9-6gs" firstAttribute="centerX" secondItem="Ilb-Qe-tNS" secondAttribute="centerX" id="IGH-wZ-ug5"/>
+                            <constraint firstItem="n2R-s6-WiQ" firstAttribute="trailing" secondItem="pKW-Ns-Mt5" secondAttribute="trailing" id="OON-IU-8Ne"/>
+                            <constraint firstItem="Vi7-YV-1sP" firstAttribute="leading" secondItem="dK9-Je-tVB" secondAttribute="leading" id="Om4-qW-KoH"/>
+                            <constraint firstItem="dK9-Je-tVB" firstAttribute="top" secondItem="Ilb-Qe-tNS" secondAttribute="bottom" id="RUF-9A-HAA"/>
+                            <constraint firstItem="yn7-Lt-Ztl" firstAttribute="leading" secondItem="dK9-Je-tVB" secondAttribute="leading" id="SDN-9c-UWG"/>
+                            <constraint firstItem="Ilb-Qe-tNS" firstAttribute="top" secondItem="ERn-J6-F7k" secondAttribute="top" id="TMG-fi-5c8"/>
+                            <constraint firstItem="GZB-6O-Ndz" firstAttribute="leading" secondItem="ERn-J6-F7k" secondAttribute="leading" id="Uj1-kz-YY7"/>
+                            <constraint firstItem="GZB-6O-Ndz" firstAttribute="centerX" secondItem="ERn-J6-F7k" secondAttribute="centerX" id="VPt-CK-0Kt"/>
+                            <constraint firstItem="Ilb-Qe-tNS" firstAttribute="leading" secondItem="ERn-J6-F7k" secondAttribute="leading" id="VX0-rB-ojT"/>
+                            <constraint firstItem="ORY-5E-bMk" firstAttribute="top" secondItem="pKW-Ns-Mt5" secondAttribute="bottom" constant="15" id="Wu5-LE-M3I"/>
+                            <constraint firstItem="ERn-J6-F7k" firstAttribute="bottom" secondItem="GZB-6O-Ndz" secondAttribute="bottom" id="XA5-W7-0gP"/>
+                            <constraint firstItem="Vi7-YV-1sP" firstAttribute="centerX" secondItem="ERn-J6-F7k" secondAttribute="centerX" id="XMT-xJ-mZm"/>
+                            <constraint firstItem="Vi7-YV-1sP" firstAttribute="top" secondItem="yn7-Lt-Ztl" secondAttribute="bottom" constant="8" symbolic="YES" id="XZU-9T-ZRW"/>
+                            <constraint firstItem="n2R-s6-WiQ" firstAttribute="top" secondItem="ORY-5E-bMk" secondAttribute="bottom" constant="8" symbolic="YES" id="Zs8-zR-DcR"/>
+                            <constraint firstItem="ORY-5E-bMk" firstAttribute="leading" secondItem="dK9-Je-tVB" secondAttribute="leading" id="aKS-cV-Jt5"/>
+                            <constraint firstItem="Vi7-YV-1sP" firstAttribute="trailing" secondItem="pKW-Ns-Mt5" secondAttribute="trailing" id="cH3-mD-FB6"/>
+                            <constraint firstItem="n2R-s6-WiQ" firstAttribute="leading" secondItem="dK9-Je-tVB" secondAttribute="leading" id="cr4-L3-Z7w"/>
+                            <constraint firstItem="dK9-Je-tVB" firstAttribute="leading" secondItem="ERn-J6-F7k" secondAttribute="leading" constant="40" id="fJe-9A-PLm"/>
+                            <constraint firstItem="pKW-Ns-Mt5" firstAttribute="top" secondItem="dK9-Je-tVB" secondAttribute="bottom" constant="8" symbolic="YES" id="g59-Fh-6eb"/>
+                            <constraint firstItem="GZB-6O-Ndz" firstAttribute="top" secondItem="Vi7-YV-1sP" secondAttribute="bottom" id="mue-vT-Wc6"/>
+                            <constraint firstItem="pKW-Ns-Mt5" firstAttribute="leading" secondItem="dK9-Je-tVB" secondAttribute="leading" id="uBX-mJ-hKj"/>
+                            <constraint firstItem="Ilb-Qe-tNS" firstAttribute="centerX" secondItem="ERn-J6-F7k" secondAttribute="centerX" id="utJ-OH-OA1"/>
+                            <constraint firstItem="yn7-Lt-Ztl" firstAttribute="centerY" secondItem="ERn-J6-F7k" secondAttribute="centerY" id="vhh-hM-95V"/>
+                            <constraint firstItem="IWJ-I9-6gs" firstAttribute="centerY" secondItem="Ilb-Qe-tNS" secondAttribute="centerY" id="yg6-QG-TWe"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ERn-J6-F7k"/>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="choreDescriptionTextField" destination="n2R-s6-WiQ" id="XlE-Ru-xXp"/>
                         <outlet property="choreTitleTextField" destination="pKW-Ns-Mt5" id="Ofg-Oc-0y5"/>
@@ -129,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZ3-cF-9Wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1374" y="-2491"/>
+            <point key="canvasLocation" x="1373.5999999999999" y="-2491.304347826087"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="gzy-Iv-kfy">
@@ -150,7 +182,6 @@
         <!--Item-->
         <scene sceneID="2vz-2X-6rz">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="NSh-58-eWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="jrW-7V-d83" customClass="BalanceViewController" customModule="Roommate_App" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wN1-0h-c8x">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -191,6 +222,7 @@
                         <outlet property="view" destination="cwT-EW-uns" id="1Hk-eB-mYM"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NSh-58-eWS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1572" y="-1050"/>
         </scene>
@@ -716,6 +748,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ih2-cW-bjf"/>
+        <segue reference="3cP-Pt-WV0"/>
     </inferredMetricsTieBreakers>
 </document>

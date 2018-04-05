@@ -16,10 +16,11 @@ class FeedViewController: UITableViewController {
     var notifIds : [String]! = [String]()
     var notifData : [String]! = [String]()
     var database : DatabaseAccess = DatabaseAccess.getInstance()
+    let layer = CAGradientLayer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layer = CAGradientLayer()
+        
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
         let colorTwo = UIColor(red: 0x7F/255, green: 0xCE/255, blue: 0xC5/255, alpha: 0.5).cgColor
         layer.colors = [colorOne, colorTwo]
@@ -75,6 +76,28 @@ class FeedViewController: UITableViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    // rotates gradient background when phone is put in landscape
+    override func viewDidLayoutSubviews() {
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        layer.frame = self.view.bounds
+        CATransaction.commit()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Hide the navigation bar on the this view controller
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        // Show the navigation bar on other view controllers
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -107,6 +130,7 @@ class FeedViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
+        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
         if notifData.count > indexPath.row {
             if indexPath.row == 0 {
                 cell.textLabel?.text = String(notifData![indexPath.row])
