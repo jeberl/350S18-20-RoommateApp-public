@@ -1313,6 +1313,31 @@ class DatabaseAccess  {
     }
     
     /*
+     Function to get a charge's timestamp from its ID
+     Input: ID of charge you wish to get timestamp for
+     Output: Return value with true if no error message if charge is found.  False and error code if charge is not found
+     Callback Returns: String array with ID and the timestamp for when it was created
+     */
+    func getChargeTimeStamp(chargeID : String, callback: @escaping ([String]?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("charges/\(chargeID)/timestamp").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as charge timestamp
+                if let timestamp = snapshot.value as? String {
+                    // Run the function, callback, which is given by the frontend, passing it the message we read from the snapshot as an argument
+                    let chargeTimeStamp : String = timestamp
+                    let chargeIDToTime = [chargeID, chargeTimeStamp]
+                    callback(chargeIDToTime)
+                } else {
+                    // If cast could not occur then no charge timestamp found so run callback with nil
+                    print("Charge timestamp not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
      Function to get a charge's double amount from its chargeID
      Input: Charge ID of charge you wish to get amount of or nil if no charge found
      Callback returns: the charge's amount
