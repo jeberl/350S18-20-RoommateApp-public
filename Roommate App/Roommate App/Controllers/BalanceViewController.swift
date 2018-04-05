@@ -86,10 +86,10 @@ class BalanceViewController: UITableViewController {
             var userNnOne : String = ""
             var userNnTwo : String = ""
             let getNnClosure = { (returnedNn: String?) -> Void in
-                userNnOne = returnedNn!
+                userNnOne = returnedNn ?? "NicknameNotFound"
             }
             let getNnClosureTwo = { (returnedNn2: String?) -> Void in
-                userNnTwo = returnedNn2!
+                userNnTwo = returnedNn2 ?? "NicknameNotFound"
                 if (userFrom! == currUser) {
                     userNnOne = "you"
                 }
