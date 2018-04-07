@@ -12,15 +12,76 @@
 import UIKit
 import FirebaseAuth
 
-class CreateHouseViewController: UIViewController {
+class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var houseNameTextField: UITextField!
     @IBOutlet weak var houseaddressTextField: UITextField!
     @IBOutlet weak var homieUsernameTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var zipCodeTextField: UITextField!
+    @IBOutlet weak var statePickerView: UIPickerView!
+    
     var currentUser : UserAccount?
     var homies: [String] = []
     var database: DatabaseAccess = DatabaseAccess.getInstance()
     var newHome : House!
+    var stateAbbreviations: [String] = []
+    let stateDictionary: [String : String] = [
+        "AK" : "Alaska",
+        "AL" : "Alabama",
+        "AR" : "Arkansas",
+        "AS" : "American Samoa",
+        "AZ" : "Arizona",
+        "CA" : "California",
+        "CO" : "Colorado",
+        "CT" : "Connecticut",
+        "DC" : "District of Columbia",
+        "DE" : "Delaware",
+        "FL" : "Florida",
+        "GA" : "Georgia",
+        "GU" : "Guam",
+        "HI" : "Hawaii",
+        "IA" : "Iowa",
+        "ID" : "Idaho",
+        "IL" : "Illinois",
+        "IN" : "Indiana",
+        "KS" : "Kansas",
+        "KY" : "Kentucky",
+        "LA" : "Louisiana",
+        "MA" : "Massachusetts",
+        "MD" : "Maryland",
+        "ME" : "Maine",
+        "MI" : "Michigan",
+        "MN" : "Minnesota",
+        "MO" : "Missouri",
+        "MS" : "Mississippi",
+        "MT" : "Montana",
+        "NC" : "North Carolina",
+        "ND" : " North Dakota",
+        "NE" : "Nebraska",
+        "NH" : "New Hampshire",
+        "NJ" : "New Jersey",
+        "NM" : "New Mexico",
+        "NV" : "Nevada",
+        "NY" : "New York",
+        "OH" : "Ohio",
+        "OK" : "Oklahoma",
+        "OR" : "Oregon",
+        "PA" : "Pennsylvania",
+        "PR" : "Puerto Rico",
+        "RI" : "Rhode Island",
+        "SC" : "South Carolina",
+        "SD" : "South Dakota",
+        "TN" : "Tennessee",
+        "TX" : "Texas",
+        "UT" : "Utah",
+        "VA" : "Virginia",
+        "VI" : "Virgin Islands",
+        "VT" : "Vermont",
+        "WA" : "Washington",
+        "WI" : "Wisconsin",
+        "WV" : "West Virginia",
+        "WY" : "Wyoming"]
     
     let layer = CAGradientLayer()
 
@@ -34,6 +95,18 @@ class CreateHouseViewController: UIViewController {
         view.layer.insertSublayer(layer, at: 0)
         
         database = DatabaseAccess.getInstance()
+        
+        // set up picker view to grab state abbreviations
+        statePickerView.isHidden = false
+        statePickerView.delegate = self
+        statePickerView.dataSource = self
+        
+        
+        for (abbreviation, name) in stateDictionary {
+            self.stateAbbreviations.append(abbreviation)
+        }
+        
+       self.stateAbbreviations.sort(){ $0 < $1 }
         // Do any additional setup after loading the view.
     }
 
@@ -43,9 +116,14 @@ class CreateHouseViewController: UIViewController {
     }
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        var alert = UIAlertController(title: "Invalid Name",
-                                              message: "Try again",
-                                              preferredStyle: .alert)
+        var alert = UIAlertController(title: "No name entered.",
+                                      message: "Please try again",
+                                      preferredStyle: .alert)
+        if homieUsernameTextField!.text == "" {
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
         if let homie = homieUsernameTextField!.text {
             self.homies.append(homie)
             homieUsernameTextField.text = ""
@@ -84,6 +162,31 @@ class CreateHouseViewController: UIViewController {
         self.newHome = self.database.createHouse(house: newHome)
     }
     
+    // Only need one section in table because only displaying chores
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    //set number of components in dropdown to choose state
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent section: Int) -> Int {
+        return self.stateAbbreviations.count
+    }
+    
+    //set title for each component in dropdown
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.stateAbbreviations[row]
+    }
+    
+    // assign behavior for choice of state
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let fullStateName = self.stateDictionary[self.stateAbbreviations[row]] {
+            print("You chose \(fullStateName)")
+        }
+        
+        //self.assignee = self.usernames[row]
+    }
+    
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -91,6 +194,4 @@ class CreateHouseViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    
-
 }

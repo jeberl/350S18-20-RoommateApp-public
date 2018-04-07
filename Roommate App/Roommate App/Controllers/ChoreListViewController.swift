@@ -83,6 +83,7 @@ class ChoreListViewController: UITableViewController {
         
         currentChoreID = incompleteChoreIDs[indexPath.row]
         
+        
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         
         let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as UIViewController
