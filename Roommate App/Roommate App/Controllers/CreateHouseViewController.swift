@@ -15,7 +15,7 @@ import FirebaseAuth
 class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBOutlet weak var houseNameTextField: UITextField!
-    @IBOutlet weak var houseaddressTextField: UITextField!
+    @IBOutlet weak var houseStreetAddressTextField: UITextField!
     @IBOutlet weak var homieUsernameTextField: UITextField!
     @IBOutlet weak var cityTextField: UITextField!
     @IBOutlet weak var zipCodeTextField: UITextField!
@@ -95,6 +95,7 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
         view.layer.insertSublayer(layer, at: 0)
         
         database = DatabaseAccess.getInstance()
+        zipCodeTextField.keyboardType = UIKeyboardType.numberPad
         
         // set up picker view to grab state abbreviations
         statePickerView.isHidden = false
@@ -145,6 +146,7 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     @IBAction func buildHomeButtonPressed(_ sender: Any) {
+        //handle invalid characters inputted for house name
         let houseName = houseNameTextField!.text
         if ((houseName?.contains("."))! || (houseName?.contains("$"))! ||
         (houseName?.contains("["))! || (houseName?.contains("]"))! ||
@@ -155,8 +157,41 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             present(alert, animated: true, completion: nil)
             houseNameTextField!.text = ""
+            return
         }
-        let address = houseaddressTextField!.text
+        //handle empty input for street address
+        let address = houseStreetAddressTextField!.text
+        if houseStreetAddressTextField!.text == "" {
+            let alert = UIAlertController(title: "No address entered.",
+                                          message: "Please try again",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        //handle empty input for city
+        let city = cityTextField!.text
+        if cityTextField!.text == "" {
+            let alert = UIAlertController(title: "No city entered.",
+                                          message: "Please try again",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        //handle empty input for zip code
+        let zipCode = zipCodeTextField!.text
+        if zipCodeTextField!.text == "" {
+            let alert = UIAlertController(title: "No zip code entered.",
+                                          message: "Please try again",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
         // Create new house object to add to database
         var newHome = House(houseName: houseName!, address : address!, houseUsers: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recentCharges: [], recentInteractions: [])
         self.newHome = self.database.createHouse(house: newHome)

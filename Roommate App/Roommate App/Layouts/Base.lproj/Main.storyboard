@@ -297,7 +297,7 @@
                         <outlet property="cityTextField" destination="B6S-Lr-kMg" id="tgF-wZ-tMY"/>
                         <outlet property="homieUsernameTextField" destination="G4t-9G-pAr" id="DWh-hE-Pxc"/>
                         <outlet property="houseNameTextField" destination="Ub0-ad-1Xc" id="gCd-Op-ZkV"/>
-                        <outlet property="houseaddressTextField" destination="04t-ab-99N" id="mXZ-CU-3oe"/>
+                        <outlet property="houseStreetAddressTextField" destination="04t-ab-99N" id="mXZ-CU-3oe"/>
                         <outlet property="statePickerView" destination="7Mg-fi-clf" id="fKQ-m0-SML"/>
                         <outlet property="zipCodeTextField" destination="HFK-w1-cQB" id="dFl-Mu-ToU"/>
                     </connections>
