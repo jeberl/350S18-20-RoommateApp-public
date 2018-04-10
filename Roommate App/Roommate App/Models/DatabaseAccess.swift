@@ -386,11 +386,9 @@ class DatabaseAccess  {
                         print("adding user to house closure")
                         self.ref.child("houses/\(houseId)/house_users/\(toAddUID)/email").setValue(email)
                         self.ref.child("houses/\(houseId)/house_users/\(toAddUID)/nickname").setValue(global_nickname)
+                        self.ref.child("houses/\(houseId)/house_users/\(toAddUID)/in_da_haus").setValue(false)
                     }
                     self.getUserGlobalNickname(for_email: email, callback: addUserToHouseCallback)
-                } else {
-                    //let uid = snapshot.childSnapshot(forPath: "uid").value as! String
-                    //self.ref.child("users/\(uid)/houses/\(houseId)").setValue(true)
                 }
             }
         })
@@ -488,6 +486,37 @@ class DatabaseAccess  {
             addNewUserToHouse(withEmail: email, to_house: houseId)
         }
         return newHouse
+    }
+    
+    /*
+     Changes user's in_da_house field to true to reflect that the user is now in the physcial house
+     Input: uid of user to mark in the house and the house ID of the house to mark them in
+     Output: N/A
+    */
+    func userInHouse(uid: String, houseID: String) {
+        //verifyUserLocation(houseID: houseID)
+        // Let's have location verification in the view controller, for now writing func below
+        self.ref.child("houses/\(houseID)/house_users/uid/in_da_haus").setValue(true)
+    }
+    
+    /*
+     Verifies that the user is in their house when they indicate that they are "In da Haus"
+     Input: ID of house they are checking into
+     Output: N/A
+    */
+    /*func verifyUserLocation(houseID: String) {
+        var locManager = CLLocationManager() // need to add inheritance for CLLocationManagerDelegate
+        let latitude = locManager.location.coordinate.latitude
+        let longitude = locManager.location.coordinate.longitude
+    }
+    */
+    /*
+     Changes user's in_da_house field to false to reflect that the user is now no longer in the physical house
+     Input: uid of user to mark not in the house and the house ID of the house to mark them not in
+     Output: N/A
+    */
+    func userNotInHouse(uid: String, houseID: String) {
+        self.ref.child("houses/\(houseID)/house_users/uid/in_da_haus").setValue(false)
     }
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false

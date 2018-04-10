@@ -18,14 +18,20 @@ class ProfileController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return initialOptions.count
+        return initialOptions.count + 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        let cellText = initialOptions[indexPath.row]
-        cell.textLabel?.text = cellText
-        cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
+        var cell = UITableViewCell()
+        if indexPath.row >= initialOptions.count {
+            cell = tableView.dequeueReusableCell(withIdentifier: "switchCell")!
+            cell.textLabel?.text = "Update In Da Haus Setting"
+            cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
+        } else {
+            let cellText = initialOptions[indexPath.row]
+            cell.textLabel?.text = cellText
+            cell.textLabel?.font = UIFont .systemFont(ofSize: 17.0, weight: UIFont.Weight.semibold)
+        }
         return cell
     }
     
