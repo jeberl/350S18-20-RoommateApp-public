@@ -6,6 +6,7 @@
 //  Copyright © 2018 Team 20. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 import Firebase
 import FirebaseDatabase
@@ -43,6 +44,5 @@ struct House {
     mutating func addUser(email: String) {
         self.houseUsers.append(email)
     }
-    
     
 }

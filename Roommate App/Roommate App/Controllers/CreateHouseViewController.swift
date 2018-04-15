@@ -25,6 +25,7 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
     var homies: [String] = []
     var database: DatabaseAccess = DatabaseAccess.getInstance()
     var newHome : House!
+    var selectedStateAbbrev : String = ""
     var stateAbbreviations: [String] = []
     let stateDictionary: [String : String] = [
         "AK" : "Alaska",
@@ -160,7 +161,7 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
             return
         }
         //handle empty input for street address
-        let address = houseStreetAddressTextField!.text
+        var address = houseStreetAddressTextField!.text
         if houseStreetAddressTextField!.text == "" {
             let alert = UIAlertController(title: "No address entered.",
                                           message: "Please try again",
@@ -191,6 +192,8 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
             present(alert, animated: true, completion: nil)
             return
         }
+        address = "\(address!), \(city!), \(self.selectedStateAbbrev) \(zipCode!)"
+        print("ADDRESS = \(address)")
         
         // Create new house object to add to database
         var newHome = House(houseName: houseName!, address : address!, houseUsers: homies, owner: Auth.auth().currentUser!.email!, incompleteChores: [], completeChores: [], recentCharges: [], recentInteractions: [])
@@ -214,11 +217,11 @@ class CreateHouseViewController: UIViewController, UIPickerViewDelegate, UIPicke
     
     // assign behavior for choice of state
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        let stateAbbrev = self.stateAbbreviations[row] as String
+        self.selectedStateAbbrev = stateAbbrev
         if let fullStateName = self.stateDictionary[self.stateAbbreviations[row]] {
             print("You chose \(fullStateName)")
         }
-        
-        //self.assignee = self.usernames[row]
     }
     
     

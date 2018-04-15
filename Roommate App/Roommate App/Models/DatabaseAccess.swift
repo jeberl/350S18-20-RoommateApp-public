@@ -476,6 +476,7 @@ class DatabaseAccess  {
         let houseValueToAdd : Any = [ "houseID": houseId,
                                       "house_name": newHouse.houseName,
                                       "owner": newHouse.owner,
+                                      "address" : newHouse.address,
                                       "recent_charges": newHouse.recentCharges]
         self.ref.child("houses/\(houseId)").setValue(houseValueToAdd)
         newHouse.setHouseID(ID: houseId)

@@ -175,6 +175,12 @@ class Roommate_AppTests: XCTestCase {
 //        database.createCharge(charge: charge)
 //    }*/
 //
+    func testCreateHouse() {
+        let house : House = House(houseName: "Test House", address: "1 Test St,Philadelphia,PA,19104", houseUsers: [], owner: "brooke@email.com", incompleteChores: [], completeChores: [], recentCharges: [], recentInteractions: [])
+        database.createHouse(house: house)
+    }
+    
+    
 //    func testFormattingFullTimeStamp() {
 //        let str1 = getTimestampAsString()
 //        let str2 = "2018-04-01 16:25:05"
