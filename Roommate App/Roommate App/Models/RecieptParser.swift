@@ -26,6 +26,7 @@ public class ReceiptParser {
         return reciptParserInstance!
     }
     
+        // internal function to use regex to parse string into its componenets
     func stringToDescriptionAmount(pairs : [String]) -> [(String, Double)] {
         return pairs.map { (str) -> (String, Double) in
             let ints = str.filter({ (ch) -> Bool in
@@ -38,7 +39,9 @@ public class ReceiptParser {
         }
     }
     
-    public func parseStringToItems(read : String) -> [(String, Double)] {
+    
+    // internal function to use regex to parse string into its componenets
+    func parseStringToItems(read : String) -> [(String, Double)] {
         do {
             let pat = "[a-zA-Z]*[0-9]*\\.?[0-9]*"
             let regex = try NSRegularExpression(pattern: pat)
@@ -52,6 +55,10 @@ public class ReceiptParser {
         }
     }
     
+    // Creates a list of RecieptItems (defined below) from a given reciept and calls a callback over them
+    // Input: UIImage reciept to be processed,
+    //        paidByUIDs: [String] of who paid for the check by their UIDs
+    // Callback recieved: list of RecieptItems from parsed recipt which are editable by the user
     func parseReceipt(_ receipt : UIImage, paidByUIDs: [String], _ callback: @escaping ([RecieptItem]) -> Void) {
         swiftOCRInstance.recognize(swiftOCRInstance.preprocessImageForOCR(receipt)) { recognizedString in
             let pairs : [(String, Double)] = self.parseStringToItems(read: recognizedString)
@@ -115,8 +122,5 @@ class RecieptItem {
         }
         return NoSuchUserError()
     }
-    
-    //ADD Getters
-
     
 }
