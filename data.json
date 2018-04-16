@@ -39,7 +39,27 @@
 				}, 
 			},
 			"owner" : "1@test.com",
-			"recent_charges" : [ "C1", "C3", "C3"]
+			"recent_charges" : [ "C1", "C3", "C3"],
+			"balances" : {					//Stores balances between individuals in house
+				"UID1" : {
+					"UID2" : 20.5,			// Value at "house/\(houseID)/balances/\(UID-A)/\(UID-B)" is how much UID-A owes UID-B
+					"UID3" : -52,			// If no value exists the balance between the individuals is 0
+					"house" : 2.3			// Some (not necessarily all) house members will also have a balance with the house-fund
+				},
+				"UID2" : {
+					"UID1" : 20.5,
+					"UID2" : 0,
+					"house" : -15,
+				},
+				"UID3" : {
+					"UID1" : 52,
+					"UID4" : 10,
+					"house" : 12.7,
+				},
+				"UID4" : {
+					"UID3" : -10,
+				}
+			}
 
 		}
 	},

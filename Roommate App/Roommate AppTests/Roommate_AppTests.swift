@@ -38,6 +38,7 @@ class Roommate_AppTests: XCTestCase {
         super.tearDown()
     }
     
+    
     func barColorFromAmount(amount: Double) -> Void {
         let range = 100
         let cutEnds = (max(-1 * range, min(range, Int(amount))) + range) / 2
@@ -72,6 +73,21 @@ class Roommate_AppTests: XCTestCase {
 
     func testColorNeg150(){
         let color = barColorFromAmount(amount: -105)
+    }
+    
+    func testParseStringToItems() {
+        let s = "aaaa1234b1.23ccccwrwrg4vbee"
+        var items = ReceiptParser.getInstance().parseStringToItems(read: s)
+        items = items.filter({ (item) -> Bool in
+            return item.1 > 0
+        })
+        XCTAssert(items.count == 3)
+        XCTAssert(items[0].0 == "aaaa")
+        XCTAssert(items[0].1 == 1234.0)
+        XCTAssert(items[1].0 == "b")
+        XCTAssert(items[1].1 == 1.23)
+        XCTAssert(items[2].0 == "ccccwrwrg")
+        XCTAssert(items[2].1 == 4.0)
     }
     
 //    func testUserHasCorrectInitial (){
