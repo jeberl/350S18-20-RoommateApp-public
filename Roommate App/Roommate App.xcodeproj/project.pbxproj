@@ -26,6 +26,7 @@
 		758CF9F92060A1E800DA12E6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9F82060A1E800DA12E6 /* Notifications.swift */; };
 		758CF9FB2062BC8900DA12E6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */; };
 		758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FC207017A800DA12E6 /* BalanceViewController.swift */; };
+		8818D8072083E8CA00CF4CAC /* RecieptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8818D8062083E8CA00CF4CAC /* RecieptParser.swift */; };
 		883393E920339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EA20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
 		883393EB20339099003A4E2F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 883393E820339099003A4E2F /* GoogleService-Info.plist */; };
@@ -37,6 +38,10 @@
 		888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888C528D205F166B00521B65 /* CompleteChoreController.swift */; };
 		88984EE9206D67DF00E2E9E6 /* AddCharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */; };
 		88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */; };
+		88A366A22083ED64004F47FF /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A366A12083ED25004F47FF /* GPUImage.framework */; };
+		88A366A32083ED64004F47FF /* GPUImage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88A366A12083ED25004F47FF /* GPUImage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		88A366BE2083EEF2004F47FF /* SwiftOCR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A366B72083EEDF004F47FF /* SwiftOCR.framework */; };
+		88A366BF2083EEF2004F47FF /* SwiftOCR.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 88A366B72083EEDF004F47FF /* SwiftOCR.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		88D642A22063268200C30737 /* ChoreAJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88D642A12063268200C30737 /* ChoreAJ.swift */; };
 		88FB72312075932C00B90EB0 /* HouseBalanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB72302075932C00B90EB0 /* HouseBalanceController.swift */; };
 		88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88FB72322075CF2400B90EB0 /* BalanceCell.swift */; };
@@ -66,7 +71,78 @@
 			remoteGlobalIDString = 757DB936202E1E8500CB9FF6;
 			remoteInfo = "Roommate App";
 		};
+		88A3669E2083ED25004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366982083ED25004F47FF /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCF1A33414DDB1EC00852800;
+			remoteInfo = GPUImage;
+		};
+		88A366A02083ED25004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366982083ED25004F47FF /* GPUImage.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BCE209E51943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
+		88A366A42083ED64004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366982083ED25004F47FF /* GPUImage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BCE209E41943F20C002FEED8;
+			remoteInfo = GPUImageFramework;
+		};
+		88A366B62083EEDF004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 373ED0AF1CC9071C00C4758B;
+			remoteInfo = SwiftOCR;
+		};
+		88A366B82083EEDF004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 373ED0B91CC9071D00C4758B;
+			remoteInfo = SwiftOCRTests;
+		};
+		88A366BA2083EEDF004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 373ED0E61CC909A500C4758B;
+			remoteInfo = "SwiftOCR Mac";
+		};
+		88A366BC2083EEDF004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 373ED0EF1CC909A500C4758B;
+			remoteInfo = "SwiftOCR MacTests";
+		};
+		88A366C02083EEF2004F47FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 373ED0AE1CC9071C00C4758B;
+			remoteInfo = SwiftOCR;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		88A366952083ECCD004F47FF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				88A366A32083ED64004F47FF /* GPUImage.framework in Embed Frameworks */,
+				88A366BF2083EEF2004F47FF /* SwiftOCR.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		16550E7F61CB9ED99C045D87 /* Pods_Roommate_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Roommate_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -100,6 +176,7 @@
 		758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		758CF9FC207017A800DA12E6 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate App.release.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App.release.xcconfig"; sourceTree = "<group>"; };
+		8818D8062083E8CA00CF4CAC /* RecieptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecieptParser.swift; sourceTree = "<group>"; };
 		883393E820339099003A4E2F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		888310DB2037848300E4F495 /* ReturnValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnValue.swift; sourceTree = "<group>"; };
 		88843D59203539BE00B05F1F /* DatabaseAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseAccess.swift; sourceTree = "<group>"; };
@@ -109,6 +186,8 @@
 		888C528D205F166B00521B65 /* CompleteChoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoreController.swift; sourceTree = "<group>"; };
 		88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCharge.storyboard; sourceTree = "<group>"; };
 		88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChargeController.swift; sourceTree = "<group>"; };
+		88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftOCR.xcodeproj; path = "Roommate App/framework/SwiftOCR.xcodeproj"; sourceTree = "<group>"; };
+		88A366982083ED25004F47FF /* GPUImage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GPUImage.xcodeproj; path = "Roommate App/framework/SwiftOCR/GPUImage-master/framework/GPUImage.xcodeproj"; sourceTree = "<group>"; };
 		88D642A12063268200C30737 /* ChoreAJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoreAJ.swift; sourceTree = "<group>"; };
 		88EDB7072037EEB800E35840 /* Roommate App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Roommate App.entitlements"; sourceTree = "<group>"; };
 		88FB72302075932C00B90EB0 /* HouseBalanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseBalanceController.swift; sourceTree = "<group>"; };
@@ -130,7 +209,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				88A366BE2083EEF2004F47FF /* SwiftOCR.framework in Frameworks */,
 				1FCCB49F527328F0524CAB6E /* Pods_Roommate_App.framework in Frameworks */,
+				88A366A22083ED64004F47FF /* GPUImage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +250,8 @@
 		757DB92E202E1E8500CB9FF6 = {
 			isa = PBXGroup;
 			children = (
+				88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */,
+				88A366982083ED25004F47FF /* GPUImage.xcodeproj */,
 				757DB939202E1E8500CB9FF6 /* Roommate App */,
 				757DB94E202E1E8500CB9FF6 /* Roommate AppTests */,
 				757DB959202E1E8500CB9FF6 /* Roommate AppUITests */,
@@ -234,6 +317,7 @@
 				758CF9F82060A1E800DA12E6 /* Notifications.swift */,
 				88D642A12063268200C30737 /* ChoreAJ.swift */,
 				888C5285205F090700521B65 /* ImageStorage.swift */,
+				8818D8062083E8CA00CF4CAC /* RecieptParser.swift */,
 				888C5289205F12F200521B65 /* attributions.rtf */,
 			);
 			path = Models;
@@ -283,6 +367,26 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		88A366992083ED25004F47FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88A3669F2083ED25004F47FF /* libGPUImage.a */,
+				88A366A12083ED25004F47FF /* GPUImage.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		88A366B02083EEDE004F47FF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				88A366B72083EEDF004F47FF /* SwiftOCR.framework */,
+				88A366B92083EEDF004F47FF /* SwiftOCRTests.xctest */,
+				88A366BB2083EEDF004F47FF /* SwiftOCR.framework */,
+				88A366BD2083EEDF004F47FF /* SwiftOCR MacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		C314E14BB76D0EE89F7F9B5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -306,10 +410,13 @@
 				757DB935202E1E8500CB9FF6 /* Resources */,
 				9EE1DB74852DCC644827E014 /* [CP] Embed Pods Frameworks */,
 				B922A38C5F6FE57A74FC52D2 /* [CP] Copy Pods Resources */,
+				88A366952083ECCD004F47FF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				88A366A52083ED64004F47FF /* PBXTargetDependency */,
+				88A366C12083EEF2004F47FF /* PBXTargetDependency */,
 			);
 			name = "Roommate App";
 			productName = "Roommate App";
@@ -403,6 +510,16 @@
 			mainGroup = 757DB92E202E1E8500CB9FF6;
 			productRefGroup = 757DB938202E1E8500CB9FF6 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 88A366992083ED25004F47FF /* Products */;
+					ProjectRef = 88A366982083ED25004F47FF /* GPUImage.xcodeproj */;
+				},
+				{
+					ProductGroup = 88A366B02083EEDE004F47FF /* Products */;
+					ProjectRef = 88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				757DB936202E1E8500CB9FF6 /* Roommate App */,
@@ -411,6 +528,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		88A3669F2083ED25004F47FF /* libGPUImage.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libGPUImage.a;
+			remoteRef = 88A3669E2083ED25004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88A366A12083ED25004F47FF /* GPUImage.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GPUImage.framework;
+			remoteRef = 88A366A02083ED25004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88A366B72083EEDF004F47FF /* SwiftOCR.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftOCR.framework;
+			remoteRef = 88A366B62083EEDF004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88A366B92083EEDF004F47FF /* SwiftOCRTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwiftOCRTests.xctest;
+			remoteRef = 88A366B82083EEDF004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88A366BB2083EEDF004F47FF /* SwiftOCR.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftOCR.framework;
+			remoteRef = 88A366BA2083EEDF004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		88A366BD2083EEDF004F47FF /* SwiftOCR MacTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftOCR MacTests.xctest";
+			remoteRef = 88A366BC2083EEDF004F47FF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		757DB935202E1E8500CB9FF6 /* Resources */ = {
@@ -621,6 +783,7 @@
 				88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
+				8818D8072083E8CA00CF4CAC /* RecieptParser.swift in Sources */,
 				37D894572073F3C800C961D6 /* HousematesViewController.swift in Sources */,
 				888C5286205F090700521B65 /* ImageStorage.swift in Sources */,
 				37DB6BA9203F3639006C296C /* CreateHouseViewController.swift in Sources */,
@@ -668,6 +831,16 @@
 			isa = PBXTargetDependency;
 			target = 757DB936202E1E8500CB9FF6 /* Roommate App */;
 			targetProxy = 757DB957202E1E8500CB9FF6 /* PBXContainerItemProxy */;
+		};
+		88A366A52083ED64004F47FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GPUImageFramework;
+			targetProxy = 88A366A42083ED64004F47FF /* PBXContainerItemProxy */;
+		};
+		88A366C12083EEF2004F47FF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SwiftOCR;
+			targetProxy = 88A366C02083EEF2004F47FF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -802,10 +975,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F29DBBCD4E74A656CBD5988F /* Pods-Roommate App.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Roommate App/Roommate App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UJAGDF8MUV;
+				DEVELOPMENT_TEAM = HJZQB9HDX8;
 				INFOPLIST_FILE = "Roommate App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
@@ -819,10 +993,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 86E19C4A3A2C32ED03B1725F /* Pods-Roommate App.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Roommate App/Roommate App.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = UJAGDF8MUV;
+				DEVELOPMENT_TEAM = HJZQB9HDX8;
 				INFOPLIST_FILE = "Roommate App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";

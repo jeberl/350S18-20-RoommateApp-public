@@ -1,0 +1,162 @@
+60e3fee Add balances backend
+ 7 files changed, 126 insertions(+), 119 deletions(-)
+6d87750 remove unused file
+ 4 files changed, 6 insertions(+), 10 deletions(-)
+969732e add charge
+ 3 files changed, 106 insertions(+), 36 deletions(-)
+45e0750 Add charges page integration
+ 8 files changed, 188 insertions(+), 129 deletions(-)
+ce01163 connecting
+ 10 files changed, 94 insertions(+), 76 deletions(-)
+aeeace4 add charges
+ 2 files changed, 30 insertions(+), 23 deletions(-)
+705d7b1 cents
+ 2 files changed, 33 insertions(+), 6 deletions(-)
+428132a add charge page
+ 7 files changed, 200 insertions(+), 36 deletions(-)
+f82cae6 work on change controller
+ 1 file changed, 12 insertions(+), 3 deletions(-)
+b3a2fcd Add charge page
+ 7 files changed, 173 insertions(+), 1 deletion(-)
+b9532de fix timestamps
+ 7 files changed, 18 insertions(+), 14 deletions(-)
+c4c7b52 cosmetics
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+987614e fix pics
+ 5 files changed, 34 insertions(+), 23 deletions(-)
+f98245d integrate images
+ 11 files changed, 183 insertions(+), 37 deletions(-)
+69bcf6a Merge branch 'jesse_nick_i2' of https://github.com/cis-upenn/350S18-20-RoommateApp into jesse_nick_i2
+dcd19e6 remove wrong choreAJ
+ 3 files changed, 7 insertions(+), 7 deletions(-)
+af29567 Remove temp button
+ 2 files changed, 24 deletions(-)
+bb90bbf work on mark completed
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+4177da7 Make Pics work
+ 5 files changed, 96 insertions(+), 44 deletions(-)
+2345c28 Get more changes from master
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+26fe68d Pull from master
+ 2 files changed, 60 insertions(+), 2 deletions(-)
+7efb8db for nick
+ 2 files changed, 69 insertions(+), 7 deletions(-)
+2c4bade image
+ 1 file changed, 4 deletions(-)
+c980d74 Add dependencies
+ 1 file changed, 1 insertion(+)
+011b578 ImageStrage class
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+b066314 add upload photo button page
+ 45 files changed, 2284 insertions(+), 927 deletions(-)
+ad76416 Remove temp button
+ 2 files changed, 24 deletions(-)
+61230e9 Merge branch 'buckenham2' of https://github.com/cis-upenn/350S18-20-RoommateApp into buckenham2
+315f09e fix elenas bugs
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+16bd424 work on mark completed
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+71abe88 Make Pics work
+ 5 files changed, 134 insertions(+), 42 deletions(-)
+da7ee95 Get more changes from master
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+e93f24c Pull from master
+ 2 files changed, 60 insertions(+), 2 deletions(-)
+2c60592 for nick
+ 2 files changed, 69 insertions(+), 7 deletions(-)
+b1968fd image
+ 1 file changed, 4 deletions(-)
+75f89db Add dependencies
+ 1 file changed, 1 insertion(+)
+c887e8e fix issues
+ 7 files changed, 201 insertions(+), 217 deletions(-)
+ea34a1f ImageStrage class
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+63b8f17 add upload photo button page
+ 45 files changed, 2285 insertions(+), 929 deletions(-)
+553f095 update build house function
+ 3 files changed, 44 insertions(+), 30 deletions(-)
+e436770 fix conflict
+19783d1 Update doesHouseExist function
+ 1 file changed, 44 insertions(+), 46 deletions(-)
+5432a7b Adding clear comments
+ 1 file changed, 13 insertions(+), 1 deletion(-)
+701aef1 complete
+ 4 files changed, 174 insertions(+), 95 deletions(-)
+5f67a0f before travel push
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+0d829c0 Implementing functions
+ 3 files changed, 80 insertions(+), 57 deletions(-)
+16edf57 update data.json
+ 1 file changed, 22 insertions(+), 48 deletions(-)
+3216470 Final commit for auth
+ 3 files changed, 7 insertions(+), 11 deletions(-)
+c4cfbf4 Fix after merge
+ 1 file changed, 1 insertion(+), 7 deletions(-)
+12b91d7 for merge1
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+b241219 Finish Auth
+ 4 files changed, 85 insertions(+), 38 deletions(-)
+6548b94 work on auth
+ 5 files changed, 106 insertions(+), 73 deletions(-)
+e74481d threads
+ 2 files changed, 32 insertions(+), 24 deletions(-)
+64a86bc database auth
+ 4 files changed, 26 insertions(+), 8 deletions(-)
+07bb901 auth v9
+ 3 files changed, 35 insertions(+), 27 deletions(-)
+ef39f77 try to fix auth
+ 4 files changed, 104 insertions(+), 165 deletions(-)
+aa2aee5 Implement Database Functions
+ 4 files changed, 155 insertions(+), 34 deletions(-)
+347302e edit data.json
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+1bd5b48 Implement database functions
+ 2 files changed, 24 insertions(+), 11 deletions(-)
+8761a1a add back button
+ 3 files changed, 19 insertions(+), 2 deletions(-)
+6905215 add house
+ 5 files changed, 26 insertions(+), 12 deletions(-)
+252236d Add authentication
+ 5 files changed, 32 insertions(+), 34 deletions(-)
+143f397 Set up Authentication
+ 5 files changed, 65 insertions(+), 80 deletions(-)
+a47c68b FIXED IT
+ 21 files changed, 181 insertions(+), 946 deletions(-)
+5a96f48 fix merge conflicts
+fbb565a revert to brookes round 2
+ 4 files changed, 8 insertions(+)
+be7c430 fix xml issue
+ 1 file changed, 170 insertions(+), 180 deletions(-)
+8bc66d8 Stop tracking user actions
+ 3 files changed, 1 insertion(+)
+bf797c1 stop tracking user data
+ 2 files changed, 1 insertion(+)
+a977787 Add Create House Button
+ 7 files changed, 64 insertions(+), 12 deletions(-)
+d2ecb61 Create User Authentication
+ 9 files changed, 90 insertions(+), 8 deletions(-)
+ee7fa05 Add error handling and set up test files
+ 8 files changed, 141 insertions(+), 40 deletions(-)
+3eebddc some updates
+ 7 files changed, 201 insertions(+), 85 deletions(-)
+c34fd93 resolve conflicts
+ 5 files changed, 12 insertions(+), 5 deletions(-)
+f3fef75 remove all .DS_Store persisted
+ 1 file changed, 1 insertion(+)
+730fc7c remove all .DS_Store
+ 3 files changed, 0 insertions(+), 0 deletions(-)
+fd1604e init commit
+ 3 files changed, 2 insertions(+), 3 deletions(-)
+5b29d91 Work on firebase
+ 208 files changed, 18673 insertions(+), 663 deletions(-)
+8d93e94 add json template file
+ 1 file changed, 55 insertions(+)
+7f331ec add dependencies
+ 138 files changed, 18992 insertions(+), 374 deletions(-)
+7551f63 Init FireBase at app open
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+f6b351d Set up FireBase and Pod File
+ 108 files changed, 10399 insertions(+)
+f5778a0 Add commands file
+ 1 file changed, 34 insertions(+)

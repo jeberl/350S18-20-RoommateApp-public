@@ -33,7 +33,7 @@ class DatabaseAccess  {
     
     // Gets instance of data base
     public static func getInstance() -> DatabaseAccess {
-        if instance == nil {
+        if instance == nil { 
             instance = DatabaseAccess()
         }
         return instance!
