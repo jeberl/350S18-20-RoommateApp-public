@@ -659,11 +659,14 @@
                                             <rect key="frame" x="312" y="8" width="49" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <connections>
-                                                <action selector="hausSwitch:" destination="abg-UZ-dPz" eventType="valueChanged" id="NhN-Jk-3hq"/>
+                                                <action selector="switchClicked:" destination="UjJ-Kb-XL2" eventType="valueChanged" id="5Fh-Vy-so2"/>
                                             </connections>
                                         </switch>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="inDaHausSwitch" destination="aoz-NU-Ihs" id="eM6-UI-BTL"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -685,7 +688,6 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Go-Wa-qoa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="abg-UZ-dPz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-58.399999999999999" y="357.57121439280365"/>
         </scene>
