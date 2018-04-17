@@ -6,6 +6,7 @@
 //  Copyright © 2018 Team 20. All rights reserved.
 //
 
+import CoreLocation
 import Foundation
 import UIKit
 
@@ -18,7 +19,7 @@ import FirebaseAuthUI
     a singleton throughout application.
  */
 
-class DatabaseAccess  {
+class DatabaseAccess {
     
     static var instance: DatabaseAccess? = nil
     
@@ -497,7 +498,29 @@ class DatabaseAccess  {
     func userInHouse(uid: String, houseID: String) {
         //verifyUserLocation(houseID: houseID)
         // Let's have location verification in the view controller, for now writing func below
-        self.ref.child("houses/\(houseID)/house_users/uid/in_da_haus").setValue(true)
+        print("Running user in house in DB")
+        self.ref.child("houses/\(houseID)/house_users/\(uid)/in_da_haus").setValue(true)
+    }
+    
+    /*
+     Checks whether user is in the haus or not
+     Input: ID of user, ID of house, callback to dictate what to do with returned data
+     Callback Returns: boolean of whether the user is home or not
+    */
+    func isUserHome(uid: String, houseID: String, callback: @escaping (Bool) -> Void) {
+        self.ref.child("houses/\(houseID)/house_users/\(uid)/in_da_haus").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as house street address
+                if let inDaHaus = snapshot.value as? Bool {
+                    print("Found user! User in_da_haus = \(inDaHaus)")
+                    callback(inDaHaus)
+                } else {
+                    // Callback false if user in da haus is not found
+                    print("Cannot find if user is home")
+                    callback(false)
+                }
+            }
+        })
     }
     
     /*
@@ -505,19 +528,57 @@ class DatabaseAccess  {
      Input: ID of house they are checking into
      Output: N/A
     */
-    /*func verifyUserLocation(houseID: String) {
+    func verifyUserLocation(houseID: String) {
         var locManager = CLLocationManager() // need to add inheritance for CLLocationManagerDelegate
-        let latitude = locManager.location.coordinate.latitude
-        let longitude = locManager.location.coordinate.longitude
+        let deviceLatitude = locManager.location?.coordinate.latitude
+        let deviceLongitude = locManager.location?.coordinate.longitude
+        let houseAddressClosure = { (address: String?) -> Void in
+            let streetAddress = address ?? ""
+            let geocoder = CLGeocoder()
+            geocoder.geocodeAddressString(streetAddress, completionHandler: {(placemarks, error) -> Void in
+                if ((error) != nil){
+                    print("Error", error ?? "")
+                }
+                if let placemark = placemarks?.first {
+                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                    let lat = coordinates.latitude
+                    let lon = coordinates.longitude
+                    
+                }
+            })
+        }
+        
     }
+    
+    /*
+     Gets the house's street address given the house ID
+     Input: ID of house to get address of and callback which decides how to use the address
+     Callback Returns: The string street address of the house
     */
+    func getHouseAddress(houseID: String, callback: @escaping (String?) -> Void) {
+        self.ref.child("houses/\(houseID)/address").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as house street address
+                if let address = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the house address we
+                    // read from the snapshot as an argument
+                    callback(address)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("House address not found")
+                    callback(nil)
+                }
+            }
+        })
+    }
+ 
     /*
      Changes user's in_da_house field to false to reflect that the user is now no longer in the physical house
      Input: uid of user to mark not in the house and the house ID of the house to mark them not in
      Output: N/A
     */
     func userNotInHouse(uid: String, houseID: String) {
-        self.ref.child("houses/\(houseID)/house_users/uid/in_da_haus").setValue(false)
+        self.ref.child("houses/\(houseID)/house_users/\(uid)/in_da_haus").setValue(false)
     }
     
     // Updates house name if it exists and returns true, otherwise returns appropriate error and false

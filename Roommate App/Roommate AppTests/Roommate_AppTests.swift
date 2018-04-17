@@ -196,6 +196,11 @@ class Roommate_AppTests: XCTestCase {
         database.createHouse(house: house)
     }
     
+    func testUpdatUserInDaHaus() {
+        database.userNotInHouse(uid: "j31tDO7e8xXjXFjvNnRiYNVOtuL2", houseID: "LAAEbmoaXXmL42BI_QG")
+        //database.ref.child("houses/-LAAEbmoaXXmL42BI_QG/house_users/j31tDO7e8xXjXFjvNnRiYNVOtuL2/in_da_haus").setValue(true)
+    }
+    
     
 //    func testFormattingFullTimeStamp() {
 //        let str1 = getTimestampAsString()

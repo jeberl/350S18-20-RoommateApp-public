@@ -6,7 +6,6 @@
 //  Copyright © 2018 Team 20. All rights reserved.
 //
 
-import CoreLocation
 import Foundation
 import Firebase
 import FirebaseDatabase
