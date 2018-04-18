@@ -23,6 +23,8 @@
 		757DB96D20351F6F00CB9FF6 /* UserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96C20351F6F00CB9FF6 /* UserAccount.swift */; };
 		757DB96F20351F8700CB9FF6 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB96E20351F8700CB9FF6 /* House.swift */; };
 		757DB97120351F9600CB9FF6 /* Charge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757DB97020351F9600CB9FF6 /* Charge.swift */; };
+		758C48112086D89800AAA4F0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C48102086D89800AAA4F0 /* Constants.swift */; };
+		758C48132086D8E100AAA4F0 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758C48122086D8E100AAA4F0 /* ChatViewController.swift */; };
 		758CF9F92060A1E800DA12E6 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9F82060A1E800DA12E6 /* Notifications.swift */; };
 		758CF9FB2062BC8900DA12E6 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */; };
 		758CF9FD207017A800DA12E6 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758CF9FC207017A800DA12E6 /* BalanceViewController.swift */; };
@@ -174,6 +176,9 @@
 		757DB96E20351F8700CB9FF6 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
 		757DB97020351F9600CB9FF6 /* Charge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Charge.swift; sourceTree = "<group>"; };
 		757DB9752035254300CB9FF6 /* RoommateApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RoommateApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		758C48102086D89800AAA4F0 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		758C48122086D8E100AAA4F0 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		758C48142086DB0800AAA4F0 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		758CF9F82060A1E800DA12E6 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */ = {isa = PBXFileReference; indentWidth = 4; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		758CF9FC207017A800DA12E6 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
@@ -254,6 +259,7 @@
 		757DB92E202E1E8500CB9FF6 = {
 			isa = PBXGroup;
 			children = (
+				758C48142086DB0800AAA4F0 /* Bridging-Header.h */,
 				88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */,
 				88A366982083ED25004F47FF /* GPUImage.xcodeproj */,
 				757DB939202E1E8500CB9FF6 /* Roommate App */,
@@ -323,6 +329,7 @@
 				888C5285205F090700521B65 /* ImageStorage.swift */,
 				8818D8062083E8CA00CF4CAC /* RecieptParser.swift */,
 				888C5289205F12F200521B65 /* attributions.rtf */,
+				758C48102086D89800AAA4F0 /* Constants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -349,6 +356,7 @@
 				37D894562073F3C800C961D6 /* HousematesViewController.swift */,
 				88FB72322075CF2400B90EB0 /* BalanceCell.swift */,
 				C2107E55207C565D00596CD9 /* SwitchTableViewCell.swift */,
+				758C48122086D8E100AAA4F0 /* ChatViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -672,6 +680,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Roommate App/Pods-Roommate App-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQMessagesViewController/JSQMessagesViewController.framework",
+				"${BUILT_PRODUCTS_DIR}/JSQSystemSoundPlayer/JSQSystemSoundPlayer.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -679,6 +689,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQMessagesViewController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JSQSystemSoundPlayer.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -787,6 +799,7 @@
 				88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
 				C21B4B012086540800A89DED /* InDaHausTableViewController.swift in Sources */,
+				758C48112086D89800AAA4F0 /* Constants.swift in Sources */,
 				88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
@@ -795,6 +808,7 @@
 				888C5286205F090700521B65 /* ImageStorage.swift in Sources */,
 				37DB6BA9203F3639006C296C /* CreateHouseViewController.swift in Sources */,
 				88FB72312075932C00B90EB0 /* HouseBalanceController.swift in Sources */,
+				758C48132086D8E100AAA4F0 /* ChatViewController.swift in Sources */,
 				88D642A22063268200C30737 /* ChoreAJ.swift in Sources */,
 				90F573CA203E8B47001FBEC1 /* CurrentState.swift in Sources */,
 				3745D509205CD54900227F97 /* CreateChoreViewController.swift in Sources */,
@@ -992,6 +1006,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1010,6 +1025,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.upenn.cis350.hwk2.Roommate-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
