@@ -11,7 +11,7 @@ import JSQMessagesViewController
 import FirebaseAuth
 
 class ChatViewController: JSQMessagesViewController {
-
+    
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     var resetScreen : Bool = false
     var messages = [JSQMessage]()     //Array of messages
@@ -129,17 +129,8 @@ class ChatViewController: JSQMessagesViewController {
         finishSendingMessage()
     }
     
-    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        navigationItem.title = "Back"
-        if segue.identifier == "pizza"{
-            let vc = segue.destination as UIViewController
-            vc.navigationItem.title = "View Controller Pizza One"
-            navigationItem.title = "Pizza to One"
-        }
-        if segue.identifier == "pasta"{
-            let vc = segue.destination as UIViewController
-            vc.navigationItem.title = "View Controller Linguine all’arrabbiata"
-            navigationItem.title = "Pasta to One"
-        }
-    }
+
+   /* @IBAction func backButton(_ sender: Any) {
+       self.performSegue(withIdentifier: "unwindSegueToFeed", sender: self)
+    }*/
 }
