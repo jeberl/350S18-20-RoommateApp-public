@@ -163,7 +163,7 @@ class ChoreViewController: UIViewController {
     }
     
     @IBAction func completeChoreButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "CompleteChore", bundle: nil)
+        let storyboard = UIStoryboard(name: "ImagePickerOrText", bundle: nil)
         
         let controller = storyboard.instantiateViewController(withIdentifier: "ImagePickerOrTextController") as! ImagePickerOrTextController
         controller.writeButtonLabelText = "Written Description"
