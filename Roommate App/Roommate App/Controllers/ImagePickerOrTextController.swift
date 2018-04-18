@@ -1,5 +1,5 @@
 //
-//  CompleteChoreController.swift
+//  ImagePickerOrTextController.swift
 //  Roommate App
 //
 //  Created by Jesse Berliner-Sachs on 3/18/18.
@@ -12,13 +12,23 @@
 import UIKit
 import FirebaseStorage
 
-class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
-    var imageStorage : ImageStorage? = nil
-    var choreID : String? = nil
     
     @IBOutlet weak var showImage: UIImageView!
+    @IBOutlet weak var writeButtonLabel: UILabel!
+    
+    //What to do with image after recieved
+    var onImageUploadClosure : (Bool) -> Void = { _ in}
+    var writeButtonLabelText : String = ""
+    
+    //The bucket to store the image in in the database
+    var bucketStorageName : String = ""
+    
+    //Store where to return to
+    var returnToStoryboardWithName : String = ""
+    var returnToControllerIdentifier : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,11 +40,11 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
-        imageStorage = ImageStorage.getInstance()
+        writeButtonLabel.text = writeButtonLabelText
+        
         imagePicker.delegate = self
-        if choreID == nil {
-            //Should segue instead back to previous page and throw error
-            choreID = "-L89nwC1sN1RHpSDEbrJ"
+        if returnToStoryboardWithName == "" || returnToControllerIdentifier == "" {
+            print("No return value specified when getting image")
         }
     }
 
@@ -62,48 +72,31 @@ class CompleteChoreController: UIViewController, UIImagePickerControllerDelegate
         print("imagePickerController called")
         picker.dismiss(animated: true, completion: nil)
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
-        if let data = UIImageJPEGRepresentation(image!, 0.8) {
-            if let choreID = choreID {
+        if let image = image {
+            if let data = UIImageJPEGRepresentation(image, 0.8) {
                 let metaData = StorageMetadata()
                 metaData.contentType = "image/jpg"
-                imageStorage!.setChoreImage(choreID: choreID, data: data, metadata: metaData, view: self)
-                markChoreCompleted()
-                returnToChoreView()
-            } else {
-                print("ChoreID not found")
+                if bucketStorageName == "chore_images" {
+                    let choreID = currentChoreID!
+                    ImageStorage.getInstance().setChoreImage(choreID: choreID, data: data, metadata: metaData, view: self)
+                }
+                
+                onImageUploadClosure(true)
+                
             }
-        } else {
-            print("Image not found")
         }
+        print("Image not found")
+        onImageUploadClosure(false)
+        returnToPreviousView()
     }
 
-    func returnToChoreView() {
+    func returnToPreviousView() {
         print("returning")
-        let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
+        let storyboard = UIStoryboard(name: returnToStoryboardWithName, bundle: nil)
         
-        let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: returnToControllerIdentifier) as UIViewController
         
         self.present(controller, animated: true, completion: nil)
-    }
-
-    
-    func markChoreCompleted() {
-//        let instance = DatabaseAccess.getInstance()
-//        let UIDClosure : (String?) -> Void = { (uid) in
-//            if let uid = uid {
-//                instance.ref
-//            } else {
-//                
-//            }
-//        }
-//        
-//        instance.getUIDFromEmail(email: chore?.assigned_to, callback: <#T##(String?) -> Void#>)
-//        
-//        //Update User in db
-//        DatabaseAccess.getInstance().ref.child("users/\(")
-//        //Update House
-//        //Update Chore in db
-//        //Update Chore in front end
     }
 
 

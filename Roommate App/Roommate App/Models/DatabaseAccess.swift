@@ -336,7 +336,7 @@ class DatabaseAccess {
     
     // Gets corresponding uid of a user email
     func getUserUidFromEmail(email: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
-        var formatEmail = reformatEmail(email: email)
+        let formatEmail = reformatEmail(email: email)
         //Navigate to the formatted email field and get a "Snapshot" of the data stored there
             self.ref.child("user_emails/\(formatEmail)/uid").observeSingleEvent(of: .value, with: { (snapshot) in
                 //This is the closure where we say what to do with the given snapshot which in this case is the nickname
@@ -600,6 +600,7 @@ class DatabaseAccess {
         let choreToAdd : Any = [ "title" : newChore.title,
                                  "assigned_by" : newChore.assignedBy,
                                  "assigned_to" : newChore.assignedTo,
+                                 "assigned_toUID" : newChore.assignedToUID,
                                  "completed" : false,
                                  "time_assigned" : newChore.timeAssigned,
                                  "lastTimeNudged" : newChore.lastTimeNudged,
@@ -1392,5 +1393,28 @@ class DatabaseAccess {
             self.ref.child("houses/\(HouseID)/balances/\(owesUID)/\(owedUID)").setValue(-1 * (current_balance + amount))
         })
     }
+    
+    func completeChore(choreID: String) {
+        let houseID = currentHouseID
+        
+        //Update House
+        self.ref.child("houses/\(houseID!)/incompleteChores/\(choreID)").removeValue()
+
+        //Update Chore in db
+        self.ref.child("chores/\(choreID)/completed").setValue(true)
+        self.ref.child("chores/\(choreID)/timeCompleted").setValue(getTimestampAsString())
+        
+        //Update User in db
+        self.ref.child("chores/\(choreID)/assigned_toUID").observeSingleEvent(of: .value) { (snapshot) in
+            if snapshot.exists() {
+                if let uid = snapshot.value as? String {
+                    self.ref.child("users/\(uid)/incompleteChores/\(choreID)").removeValue()
+                }
+            }
+        }
+        
+        
+    }
+    
 
 }

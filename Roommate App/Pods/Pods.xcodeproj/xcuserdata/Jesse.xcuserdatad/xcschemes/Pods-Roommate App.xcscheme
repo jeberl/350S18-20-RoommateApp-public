@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
+               BlueprintIdentifier = "96FF495057B0DC29FF4C9E6CD111692E"
                BuildableName = "Pods_Roommate_App.framework"
                BlueprintName = "Pods-Roommate App"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A9039C6B7796FF523732365BCEA1223"
+            BlueprintIdentifier = "96FF495057B0DC29FF4C9E6CD111692E"
             BuildableName = "Pods_Roommate_App.framework"
             BlueprintName = "Pods-Roommate App"
             ReferencedContainer = "container:Pods.xcodeproj">

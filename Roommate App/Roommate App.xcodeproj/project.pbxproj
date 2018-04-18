@@ -37,7 +37,7 @@
 		888C5286205F090700521B65 /* ImageStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888C5285205F090700521B65 /* ImageStorage.swift */; };
 		888C5288205F119D00521B65 /* CompleteChore.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 888C5287205F119D00521B65 /* CompleteChore.storyboard */; };
 		888C528A205F12F200521B65 /* attributions.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 888C5289205F12F200521B65 /* attributions.rtf */; };
-		888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888C528D205F166B00521B65 /* CompleteChoreController.swift */; };
+		888C528E205F166C00521B65 /* ImagePickerOrTextController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888C528D205F166B00521B65 /* ImagePickerOrTextController.swift */; };
 		88984EE9206D67DF00E2E9E6 /* AddCharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */; };
 		88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */; };
 		88A366A22083ED64004F47FF /* GPUImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A366A12083ED25004F47FF /* GPUImage.framework */; };
@@ -190,7 +190,7 @@
 		888C5285205F090700521B65 /* ImageStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStorage.swift; sourceTree = "<group>"; };
 		888C5287205F119D00521B65 /* CompleteChore.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CompleteChore.storyboard; sourceTree = "<group>"; };
 		888C5289205F12F200521B65 /* attributions.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = attributions.rtf; sourceTree = "<group>"; };
-		888C528D205F166B00521B65 /* CompleteChoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteChoreController.swift; sourceTree = "<group>"; };
+		888C528D205F166B00521B65 /* ImagePickerOrTextController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerOrTextController.swift; sourceTree = "<group>"; };
 		88984EE8206D67DF00E2E9E6 /* AddCharge.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddCharge.storyboard; sourceTree = "<group>"; };
 		88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateChargeController.swift; sourceTree = "<group>"; };
 		88A366552083EC50004F47FF /* SwiftOCR.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftOCR.xcodeproj; path = "Roommate App/framework/SwiftOCR.xcodeproj"; sourceTree = "<group>"; };
@@ -337,26 +337,31 @@
 		757DB96A20351F0500CB9FF6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
-				C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */,
-				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
-				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
-				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
-				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
 				C21B4B002086540800A89DED /* InDaHausTableViewController.swift */,
-				3745D508205CD54900227F97 /* CreateChoreViewController.swift */,
-				90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */,
-				3745D504205CCD3300227F97 /* ChoreListViewController.swift */,
-				758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */,
-				90F573CD203F4576001FBEC1 /* HouseProfileController.swift */,
-				888C528D205F166B00521B65 /* CompleteChoreController.swift */,
-				758CF9FC207017A800DA12E6 /* BalanceViewController.swift */,
+				C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */,
 				88FB72302075932C00B90EB0 /* HouseBalanceController.swift */,
 				88984EEC206D6E8800E2E9E6 /* CreateChargeController.swift */,
-				37D894562073F3C800C961D6 /* HousematesViewController.swift */,
 				88FB72322075CF2400B90EB0 /* BalanceCell.swift */,
+				758CF9FC207017A800DA12E6 /* BalanceViewController.swift */,
+				758CF9FA2062BC8900DA12E6 /* FeedViewController.swift */,
+				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
+				888C528D205F166B00521B65 /* ImagePickerOrTextController.swift */,
+				3745D508205CD54900227F97 /* CreateChoreViewController.swift */,
+				3745D504205CCD3300227F97 /* ChoreListViewController.swift */,
+				757DB93C202E1E8500CB9FF6 /* ViewController.swift */,
+				C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */,
+				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
 				C2107E55207C565D00596CD9 /* SwitchTableViewCell.swift */,
 				758C48122086D8E100AAA4F0 /* ChatViewController.swift */,
+				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
+				90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */,
+				90F573CD203F4576001FBEC1 /* HouseProfileController.swift */,
+				37D894562073F3C800C961D6 /* HousematesViewController.swift */,
+				88E3569D20870A0700E5F9D2 /* NonHouseControllers */,
+				88E3569C208709C300E5F9D2 /* ProfileControllers */,
+				88E3569B2087099200E5F9D2 /* ChargeControllers */,
+				88E3569A2087098200E5F9D2 /* FeedControllers */,
+				88E356992087095900E5F9D2 /* ChoreControllers */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -399,6 +404,41 @@
 				88A366BD2083EEDF004F47FF /* SwiftOCR MacTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		88E356992087095900E5F9D2 /* ChoreControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChoreControllers;
+			sourceTree = "<group>";
+		};
+		88E3569A2087098200E5F9D2 /* FeedControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = FeedControllers;
+			sourceTree = "<group>";
+		};
+		88E3569B2087099200E5F9D2 /* ChargeControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ChargeControllers;
+			sourceTree = "<group>";
+		};
+		88E3569C208709C300E5F9D2 /* ProfileControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ProfileControllers;
+			sourceTree = "<group>";
+		};
+		88E3569D20870A0700E5F9D2 /* NonHouseControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = NonHouseControllers;
 			sourceTree = "<group>";
 		};
 		C314E14BB76D0EE89F7F9B5B /* Frameworks */ = {
@@ -801,7 +841,7 @@
 				C21B4B012086540800A89DED /* InDaHausTableViewController.swift in Sources */,
 				758C48112086D89800AAA4F0 /* Constants.swift in Sources */,
 				88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */,
-				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
+				888C528E205F166C00521B65 /* ImagePickerOrTextController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
 				8818D8072083E8CA00CF4CAC /* RecieptParser.swift in Sources */,
 				37D894572073F3C800C961D6 /* HousematesViewController.swift in Sources */,

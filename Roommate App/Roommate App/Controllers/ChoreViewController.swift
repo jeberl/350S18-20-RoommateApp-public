@@ -30,6 +30,8 @@ class ChoreViewController: UIViewController {
     var timesNudged : Int?
     var lastTimeNudged: String?
     
+    var selfErrorViewController = self
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -152,10 +154,23 @@ class ChoreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    var onImageUploadClosure : (Bool) -> Void = { (didSucessfullyUpload) in
+        if didSucessfullyUpload {
+            let data = DatabaseAccess.getInstance().completeChore(choreID: currentChoreID!)
+        } else {
+            print("error uploading image")
+        }
+    }
+    
     @IBAction func completeChoreButtonPressed(_ sender: Any) {
         let storyboard = UIStoryboard(name: "CompleteChore", bundle: nil)
         
-        let controller = storyboard.instantiateViewController(withIdentifier: "CompleteChoreController") as UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ImagePickerOrTextController") as! ImagePickerOrTextController
+        controller.writeButtonLabelText = "Written Description"
+        controller.returnToStoryboardWithName = "HouseScreen"
+        controller.returnToControllerIdentifier =  "ChoreViewController"
+        controller.bucketStorageName = "chore_images"
+        controller.onImageUploadClosure = onImageUploadClosure
         
         self.present(controller, animated: true, completion: nil)
     }

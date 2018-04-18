@@ -12,6 +12,7 @@ struct ChoreAJ {
     var title: String
     var assignedBy: String
     var assignedTo: String
+    var assignedToUID : String
     var completed: Bool
     var timeAssigned: String
     var lastTimeNudged: String?
@@ -21,12 +22,13 @@ struct ChoreAJ {
     var description: String
     
     
-    init(choreTitle: String, assignor: String, assignee: String, houseID: String, description: String ){
+    init(choreTitle: String, assignor: String, assignee: String, assigneeUID: String, houseID: String, description: String ){
         self.choreID = nil
         self.completed = false
         self.title = choreTitle
         self.assignedBy = assignor
         self.assignedTo = assignee
+        self.assignedToUID = assigneeUID
         self.timeAssigned = DatabaseAccess.getInstance().getTimestampAsString()
         self.lastTimeNudged = ""
         self.timesNudged = 0

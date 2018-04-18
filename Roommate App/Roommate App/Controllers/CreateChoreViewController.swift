@@ -22,7 +22,8 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
     let database : DatabaseAccess = DatabaseAccess.getInstance()
     var usernames : [String]! = [String]() // Users in the house
     var userIDs : [String]! = [String]() // userIDs of homies
-    var assignee : String = ""
+    var assigneeNickname : String = ""
+    var assigneeUID : String = ""
     
     
     
@@ -70,27 +71,18 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
         print("Create chore button pressed")
         let choreTitle = choreTitleTextField!.text
         let choreDescription = choreDescriptionTextField!.text
-        let userResponsible = self.assignee
         let date = self.database.getTimestampAsString()
         
         
        
         // Create new house object to add to database
-        let newChore = ChoreAJ(choreTitle: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: userResponsible, houseID: currentHouseID!, description: choreDescription!)
+        let newChore = ChoreAJ(choreTitle: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: self.assigneeNickname, assigneeUID: self.assigneeUID , houseID: currentHouseID!, description: choreDescription!)
         self.database.createChore(chore: newChore)
         let assignor = Auth.auth().currentUser?.email!
         
         // Notification for chore
-        
-        self.database.getUserUidFromEmail(email: userResponsible, callback: {(uid) -> Void in
-            print("the uid is:\(uid ?? "Error: nil UID")")
-            if let uid = uid {
-                let newNotif = Notification(houseID: currentHouseID!, UIDsInvolved: [uid], type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
-                self.database.addNotification(notification: newNotif)
-            } else {
-                
-            }
-        })
+        let newNotif = Notification(houseID: currentHouseID!, UIDsInvolved: [assigneeUID], type: "Chore", description: "\(assignor ?? "Error: nil Assignor") assigned \(newChore.title) to you!")
+        self.database.addNotification(notification: newNotif)
     }
 
     
@@ -108,7 +100,8 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.assignee = self.usernames[row]
+        self.assigneeNickname = self.usernames[row]
+        self.assigneeUID = self.userIDs[row]
     }
     
     /*
