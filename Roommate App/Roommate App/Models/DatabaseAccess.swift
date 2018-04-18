@@ -524,30 +524,26 @@ class DatabaseAccess {
     }
     
     /*
-     Verifies that the user is in their house when they indicate that they are "In da Haus"
-     Input: ID of house they are checking into
-     Output: N/A
+     Gets all users who live in the specific house
+     Input: House ID of house we want to see roommates of
+     Callback Returns: String array of all user ID's of home users
     */
-    func verifyUserLocation(houseID: String) {
-        var locManager = CLLocationManager() // need to add inheritance for CLLocationManagerDelegate
-        let deviceLatitude = locManager.location?.coordinate.latitude
-        let deviceLongitude = locManager.location?.coordinate.longitude
-        let houseAddressClosure = { (address: String?) -> Void in
-            let streetAddress = address ?? ""
-            let geocoder = CLGeocoder()
-            geocoder.geocodeAddressString(streetAddress, completionHandler: {(placemarks, error) -> Void in
-                if ((error) != nil){
-                    print("Error", error ?? "")
+    func getAllUsersInHouse(houseID: String, callback: @escaping ([String]?) -> Void) {
+        self.ref.child("houses/\(houseID)/house_users").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot, i.e. the user IDs of everyone who lives there
+                let userIDs = snapshot.value as? NSDictionary
+                if let userIdStrings = userIDs?.allKeys as? [String]? {
+                    // Callback with house ids which are random identifier strings of letters and numbers
+                    print("There are \(userIdStrings!.count) roommates who live here")
+                    callback(userIdStrings)
+                } else {
+                    // If cast could not occur aka no users found, run callback with nil
+                    print("There are no users in this house")
+                    callback(nil)
                 }
-                if let placemark = placemarks?.first {
-                    let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
-                    let lat = coordinates.latitude
-                    let lon = coordinates.longitude
-                    
-                }
-            })
-        }
-        
+            }
+        })
     }
     
     /*

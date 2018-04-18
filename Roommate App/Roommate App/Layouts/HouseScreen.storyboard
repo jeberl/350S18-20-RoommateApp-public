@@ -481,6 +481,41 @@
             </objects>
             <point key="canvasLocation" x="709.60000000000002" y="357.57121439280365"/>
         </scene>
+        <!--In Da Haus Table View Controller-->
+        <scene sceneID="Mnf-do-moe">
+            <objects>
+                <tableViewController id="fau-pN-8SO" customClass="InDaHausTableViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="D8L-G7-RC1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Roomies In Da Haus" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TrE-aR-X7Z">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="CxF-13-07R">
+                                <rect key="frame" x="0.0" y="49" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CxF-13-07R" id="Vsr-CD-Yag">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="fau-pN-8SO" id="iqc-nU-Idf"/>
+                            <outlet property="delegate" destination="fau-pN-8SO" id="AGv-G6-cUu"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NND-zv-kqV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-81" y="1094"/>
+        </scene>
         <!--House Profile Controller-->
         <scene sceneID="lue-0R-udQ">
             <objects>
@@ -666,6 +701,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="inDaHausSwitch" destination="aoz-NU-Ihs" id="eM6-UI-BTL"/>
+                                    <segue destination="fau-pN-8SO" kind="show" identifier="WhoIsHomeSegue" id="1on-Qh-NJe"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -53,12 +53,13 @@ class SwitchTableViewCell: UITableViewCell, CLLocationManagerDelegate {
                             print("You are too far away from home!  Switching back off!")
                             sender.isOn = false
                             // Send alert to user
-                            /*let alert = UIAlertController(title: "You are to far away from home!",
+                            /*let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+                            let viewController = appDelegate.window!.rootViewController as! ProfileController
+                            let alert = UIAlertController(title: "You are to far away from home!",
                                                           message: "Switching back off to out of da haus",
                                                           preferredStyle: .alert)
                             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                            UIApplication.shared.keyWindow?.rootViewController?.present(alert, animated: true,
-                                                                                        completion: nil)*/
+                            viewController.present(alert, animated: true, completion: nil)*/
                         }
                     }
                 })

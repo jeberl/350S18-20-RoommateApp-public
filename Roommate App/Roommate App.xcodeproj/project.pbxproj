@@ -52,6 +52,7 @@
 		90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90F573CD203F4576001FBEC1 /* HouseProfileController.swift */; };
 		A6D6C88B9D3B8DEAE7928653 /* Pods_Roommate_AppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E718FC3D196C2913529BAF /* Pods_Roommate_AppUITests.framework */; };
 		C2107E56207C565D00596CD9 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2107E55207C565D00596CD9 /* SwitchTableViewCell.swift */; };
+		C21B4B012086540800A89DED /* InDaHausTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C21B4B002086540800A89DED /* InDaHausTableViewController.swift */; };
 		C22EEAC6203B575800A3E19B /* AllHousesPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */; };
 		C2CCF5D02076B79D0054A53E /* PersonalBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */; };
 		DDDB8702CB170AFD719C4AAF /* Pods_Roommate_AppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FEEE1809648AB609172A7525 /* Pods_Roommate_AppTests.framework */; };
@@ -199,6 +200,7 @@
 		90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		90F573CD203F4576001FBEC1 /* HouseProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseProfileController.swift; sourceTree = "<group>"; };
 		C2107E55207C565D00596CD9 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		C21B4B002086540800A89DED /* InDaHausTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InDaHausTableViewController.swift; sourceTree = "<group>"; };
 		C22EEAC5203B575800A3E19B /* AllHousesPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllHousesPageViewController.swift; sourceTree = "<group>"; };
 		C2CCF5CF2076B79D0054A53E /* PersonalBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalBalanceViewController.swift; sourceTree = "<group>"; };
 		E76749C22838F6CD92FC03B3 /* Pods-Roommate AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Roommate AppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Roommate AppUITests/Pods-Roommate AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 				3745D50A205CD57600227F97 /* ChoreViewController.swift */,
 				37DB6BA8203F3639006C296C /* CreateHouseViewController.swift */,
 				90F573C7203E3390001FBEC1 /* ProfileController.swift */,
+				C21B4B002086540800A89DED /* InDaHausTableViewController.swift */,
 				3745D508205CD54900227F97 /* CreateChoreViewController.swift */,
 				90F573CB203F2AB7001FBEC1 /* UserProfileController.swift */,
 				3745D504205CCD3300227F97 /* ChoreListViewController.swift */,
@@ -783,6 +786,7 @@
 				757DB93B202E1E8500CB9FF6 /* AppDelegate.swift in Sources */,
 				88984EED206D6E8800E2E9E6 /* CreateChargeController.swift in Sources */,
 				90F573CE203F4576001FBEC1 /* HouseProfileController.swift in Sources */,
+				C21B4B012086540800A89DED /* InDaHausTableViewController.swift in Sources */,
 				88FB72332075CF2400B90EB0 /* BalanceCell.swift in Sources */,
 				888C528E205F166C00521B65 /* CompleteChoreController.swift in Sources */,
 				757DB97120351F9600CB9FF6 /* Charge.swift in Sources */,
