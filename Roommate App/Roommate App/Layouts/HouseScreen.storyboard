@@ -166,17 +166,10 @@
         <!--Chat View Controller-->
         <scene sceneID="gzy-Iv-kfy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2El-al-ZsQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="zEO-Bx-irF" customClass="ChatViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="HId-TC-Wmz">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Back to Feed " id="sX9-0T-zSj">
-                            <color key="tintColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <connections>
-                                <segue destination="1Rd-t4-Wtn" kind="show" id="QhK-7u-K1f"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="HId-TC-Wmz"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2El-al-ZsQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-58" y="-2534"/>
         </scene>
@@ -356,75 +349,75 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-8e-5un">
-                                <rect key="frame" x="40" y="310" width="294" height="30"/>
+                                <rect key="frame" x="40" y="312.5" width="294" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Password:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vm4-fS-co7">
-                                <rect key="frame" x="40" y="281" width="149" height="21"/>
+                                <rect key="frame" x="40" y="283.5" width="149" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Local Nickname:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UgG-VD-af0">
-                                <rect key="frame" x="40" y="491" width="198" height="21"/>
+                                <rect key="frame" x="40" y="493.5" width="198" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="14x-J4-4XD">
-                                <rect key="frame" x="40" y="415" width="294" height="30"/>
+                                <rect key="frame" x="40" y="417.5" width="294" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change Global Nickname:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5pz-Y0-nGX">
-                                <rect key="frame" x="40" y="386" width="206" height="21"/>
+                                <rect key="frame" x="40" y="388.5" width="206" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k22-X4-4ne">
-                                <rect key="frame" x="40" y="520" width="294" height="30"/>
+                                <rect key="frame" x="40" y="522.5" width="294" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOe-yk-pNM">
-                                <rect key="frame" x="163" y="348" width="49" height="30"/>
+                                <rect key="frame" x="163" y="350.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitPasswordClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="ZuM-Hc-Jy3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbG-pC-hiT">
-                                <rect key="frame" x="163" y="453" width="49" height="30"/>
+                                <rect key="frame" x="163" y="455.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitGlobalNicknameClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="GHI-3y-KTY"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nnv-CW-SVD">
-                                <rect key="frame" x="0.0" y="167" width="375" height="41"/>
+                                <rect key="frame" x="0.0" y="123" width="375" height="41"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="250" text="Label Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1En-hI-Mqd">
-                                <rect key="frame" x="0.0" y="216" width="375" height="41"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="41"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzP-Iw-6Ih">
-                                <rect key="frame" x="0.0" y="118" width="375" height="41"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="41"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGy-Dj-rva">
-                                <rect key="frame" x="163" y="558" width="49" height="30"/>
+                                <rect key="frame" x="163" y="560.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitLocalNicknameClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="1j3-3H-GQ8"/>
@@ -526,45 +519,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hUR-yQ-l8P">
-                                <rect key="frame" x="0.0" y="118" width="375" height="57.5"/>
+                                <rect key="frame" x="0.0" y="74" width="375" height="57.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3vR-V0-RJn">
-                                <rect key="frame" x="40" y="310" width="295" height="30"/>
+                                <rect key="frame" x="40" y="312.5" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oof-22-Suy">
-                                <rect key="frame" x="163.5" y="348" width="49" height="30"/>
+                                <rect key="frame" x="163.5" y="350.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="changeHouseNameTextSubmitClicked:" destination="IPF-IF-4Ss" eventType="touchUpInside" id="xyD-DO-izg"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Housemate:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HM-iX-cSk">
-                                <rect key="frame" x="40" y="393" width="133.5" height="20.5"/>
+                                <rect key="frame" x="40" y="395.5" width="133.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YhF-3v-co6">
-                                <rect key="frame" x="172" y="459.5" width="32" height="30"/>
+                                <rect key="frame" x="172" y="462" width="32" height="30"/>
                                 <state key="normal" title="Add!"/>
                                 <connections>
                                     <action selector="addHousemateButtonPressed:" destination="IPF-IF-4Ss" eventType="touchUpInside" id="bOm-za-aFA"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1jG-Jv-ZRq">
-                                <rect key="frame" x="40" y="421.5" width="295" height="30"/>
+                                <rect key="frame" x="40" y="424" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change House Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Owa-bS-Az8">
-                                <rect key="frame" x="40" y="281" width="174" height="21"/>
+                                <rect key="frame" x="40" y="283.5" width="174" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -835,7 +828,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Vw6-xG-Xdq"/>
         <segue reference="3cP-Pt-WV0"/>
     </inferredMetricsTieBreakers>
 </document>
