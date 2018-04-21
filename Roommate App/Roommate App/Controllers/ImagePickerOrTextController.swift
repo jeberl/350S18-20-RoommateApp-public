@@ -16,19 +16,24 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
     
     let imagePicker = UIImagePickerController()
     
-    @IBOutlet weak var showImage: UIImageView!
+    @IBOutlet weak var inputDefualtTextPrompt: UILabel!
+    @IBOutlet weak var WrittenDescriptionTextView: UITextView!
     @IBOutlet weak var writeButtonLabel: UILabel!
     
-    //What to do with image after recieved
-    var onImageUploadClosure : (Bool) -> Void = { _ in}
-    var writeButtonLabelText : String = ""
+    var gottenText : String? = nil
+    var gottenImageURl : String? = nil
     
-    //The bucket to store the image in in the database
-    var bucketStorageName : String = ""
+    private var hiddenSettings : imagePickerSettings? = nil
     
-    //Store where to return to
-    var returnToStoryboardWithName : String = ""
-    var returnToControllerIdentifier : String = ""
+    var settings : imagePickerSettings {
+        get {
+            return hiddenSettings!
+        }
+        set (newSettings) {
+            assert(newSettings.areValid())
+            hiddenSettings = newSettings
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +44,11 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
         layer.colors = [colorOne, colorTwo]
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
-        
-        writeButtonLabel.text = writeButtonLabelText
-        
         imagePicker.delegate = self
-        if returnToStoryboardWithName == "" || returnToControllerIdentifier == "" {
-            print("No return value specified when getting image")
-        }
+        
+        writeButtonLabel?.text = settings.writeButtonLabelText
+        inputDefualtTextPrompt?.text = settings.writePageInputMessagePrompt!
+        
     }
 
     @IBAction func TakePhotoButtonPressed(_ sender: UIButton) {
@@ -53,7 +56,6 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .camera
             present(imagePicker, animated: true, completion: nil)
-
         }
         
     }
@@ -63,9 +65,23 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
             imagePicker.allowsEditing = false
             imagePicker.sourceType = .photoLibrary
             present(imagePicker, animated: true, completion : nil)
-        
         }
-        
+    }
+    
+    @IBAction func writeButtonPressed(_ sender: UIButton, forEvent event: UIEvent) {
+        if settings.writeShouldGetTextFromDeafultStoryboard {
+            print("prompt: \(settings.writePageInputMessagePrompt)")
+            performSegue(withIdentifier: "defualtTextInputSegue", sender: self)
+            
+        } else {
+            customWritePageSegue()
+        }
+    }
+    
+    // submit button for written description
+    @IBAction func WrittenDescriptionSubmitPressed(_ sender: UIButton) {
+        gottenText = WrittenDescriptionTextView.text
+        moveToRecieverStoryboard()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -74,56 +90,105 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
         let image = info[UIImagePickerControllerOriginalImage] as? UIImage
         if let image = image {
             if let data = UIImageJPEGRepresentation(image, 0.8) {
-                let metaData = StorageMetadata()
-                metaData.contentType = "image/jpg"
-                if bucketStorageName == "chore_images" {
-                    let choreID = currentChoreID!
-                    ImageStorage.getInstance().setChoreImage(choreID: choreID, data: data, metadata: metaData, view: self)
+                let urlClosure : (String?) -> Void = { (url) in
+                    self.gottenImageURl = url
+                    self.moveToRecieverStoryboard()
                 }
-                
-                onImageUploadClosure(true)
-                
+                var id = String(Darwin.arc4random()) // ID is a random 32-bit int unless otherwise specified
+                if settings.bucketStorageName == "chore_images" {
+                    id = currentChoreID!
+                }
+                ImageStorage.getInstance().uploadImage(data, toBucket: settings.bucketStorageName, withid: id, urlClosure: urlClosure, view: self)
             }
+        } else {
+            print("Image not found")
+            moveToRecieverStoryboard()
         }
-        print("Image not found")
-        onImageUploadClosure(false)
-        returnToPreviousView()
     }
-
-    func returnToPreviousView() {
-        print("returning")
-        let storyboard = UIStoryboard(name: returnToStoryboardWithName, bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: returnToControllerIdentifier) as UIViewController
-        
-        self.present(controller, animated: true, completion: nil)
-    }
-
-
-    // text view for inserting written description
-    @IBOutlet weak var WrittenDescriptionTextView: UITextView!
     
-    // submit button for written description
-    @IBAction func WrittenDescriptionSubmitPressed(_ sender: UIButton) {
-        // TODO: insert code that sends the written description to the chore and displays it when the chore is clicked under the "completed chores section"
+    func customWritePageSegue() {
+        print("moving on custom write segue \(settings.customWriteSegueIdentifier!)")
+        performSegue(withIdentifier: settings.customWriteSegueIdentifier!, sender: self)
     }
- 
+    
+    func moveToRecieverStoryboard() {
+        print("moving to chosen storyboard with segue identifier \(settings.onCompleteSegueIdentifier)")
+        performSegue(withIdentifier: settings.onCompleteSegueIdentifier, sender: self)
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        print("preparing for segue with identifier \(segue.identifier)")
+        if segue.identifier == settings.onCompleteSegueIdentifier {
+            let destination = segue.destination as! UIViewImageTextPickerDestination
+            let gotInfo = gottenImageURl != nil || gottenText != nil
+            destination.getSelectedImageOrText(wasSuccessful : gotInfo, imageURL : gottenImageURl, text : gottenText)
+        }
+        if segue.identifier == settings.customWriteSegueIdentifier {
+            settings.prepareCustomWriteClosure(segue.destination)
+        }
+        if segue.identifier == "defualtTextInputSegue" {
+            let destination = segue.destination as! ImagePickerOrTextController
+            destination.settings = settings
+        }
     }
-    */
+}
 
+protocol UIViewImageTextPickerDestination {
+    func getSelectedImageOrText(wasSuccessful : Bool, imageURL : String?, text : String?)
+}
+
+class imagePickerSettings {
+    // Where to return after page
+    var onCompleteSegueIdentifier : String
+
+    //What to do with image after recieved
+    var bucketStorageName : String // The bucket to store the image in in the database
+    
+    //Settings for what to do on write button pressed
+    var writeShouldGetTextFromDeafultStoryboard : Bool
+    //for defualt
+    var writeButtonLabelText : String? = nil
+    var writePageInputMessagePrompt : String? = nil
+    //for custom
+    var prepareCustomWriteClosure : (UIViewController) -> Void = { (controller) in }
+    var customWriteSegueIdentifier : String? = nil
+    
+    
+    init(onCompleteSegueIdentifier : String, writeShouldGetTextFromDeafultStoryboard : Bool,bucketStorageName : String) {
+        self.onCompleteSegueIdentifier = onCompleteSegueIdentifier
+        self.bucketStorageName = bucketStorageName
+
+        self.writeShouldGetTextFromDeafultStoryboard = writeShouldGetTextFromDeafultStoryboard
+    }
+    
+    func setDefualtWritePage(writeButtonLabelText : String, writePageInputMessagePrompt : String) {
+        self.writeButtonLabelText = writeButtonLabelText
+        self.writePageInputMessagePrompt = writePageInputMessagePrompt
+    }
+    
+    func setCustomWritePage(prepareCustomWriteClosure : @escaping (UIViewController) -> Void, customWriteSegueIdentifier : String) {
+        self.prepareCustomWriteClosure = prepareCustomWriteClosure
+        self.customWriteSegueIdentifier = customWriteSegueIdentifier
+    }
+    
+    func areValid() -> Bool {
+        var areSetCorretly = true
+        if !writeShouldGetTextFromDeafultStoryboard {
+            if customWriteSegueIdentifier == nil {
+                print("If trying to move to custom view controller on write must specify segue to use")
+                areSetCorretly = false
+            }
+        } else {
+            if writePageInputMessagePrompt == nil {
+                print("If trying to move to defualt text input view controller on write button pressed must specify message prompt")
+                areSetCorretly = false
+            }
+        }
+        return areSetCorretly
+    }
 }

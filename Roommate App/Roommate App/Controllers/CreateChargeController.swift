@@ -21,6 +21,8 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("Loading create charge VC")
+        
         
         let layer = CAGradientLayer()
         let colorOne = UIColor(red: 0x14/255, green: 0x55/255, blue: 0x7B/255, alpha: 0.5).cgColor
@@ -63,7 +65,7 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    @IBAction func unwindToView(_ sender: UIStoryboardSegue) {}
+    @IBAction func unwindToView(_ sender: UIStoryboardSegue) { }
     
     func addChargesToDB(dollars: Double, charge: Bool) {
         let database = DatabaseAccess.getInstance()

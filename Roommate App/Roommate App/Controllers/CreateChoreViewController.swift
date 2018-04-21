@@ -25,8 +25,6 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
     var assigneeNickname : String = ""
     var assigneeUID : String = ""
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

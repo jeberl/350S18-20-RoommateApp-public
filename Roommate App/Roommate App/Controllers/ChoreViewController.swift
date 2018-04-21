@@ -11,7 +11,7 @@
 
 import UIKit
 
-class ChoreViewController: UIViewController {
+class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
 
     @IBOutlet weak var choreTitleLabel: UILabel!
     @IBOutlet weak var choreImageView: UIImageView!
@@ -128,25 +128,6 @@ class ChoreViewController: UIViewController {
         
         let currentTime = self.database.getTimestampAsString()
         
-        
-        
-        
-//        DatabaseAccess.getInstance().getUserProfPicFromEmail(email: self.currentChoreAssignor ?? "") { (prof_pic) in
-//            print("assigning prof pic: \(prof_pic)")
-//            self.choreAssignorImageView.image = prof_pic!
-//        }
-//        
-//        DatabaseAccess.getInstance().getUserProfPicFromEmail(email: self.currentChoreAssignee ?? "") { (prof_pic) in
-//            print("assigning prof pic 2")
-//            self.choreAssigneeImageView.image = prof_pic
-//        }
-//
-//        ImageStorage.getInstance().getChoreImageOnce(choreID: currentChoreID ?? "", view: self) { (chore_pic) in
-//            self.choreImageView.image = chore_pic
-//        }
-//
-//
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -154,25 +135,8 @@ class ChoreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    var onImageUploadClosure : (Bool) -> Void = { (didSucessfullyUpload) in
-        if didSucessfullyUpload {
-            let data = DatabaseAccess.getInstance().completeChore(choreID: currentChoreID!)
-        } else {
-            print("error uploading image")
-        }
-    }
-    
     @IBAction func completeChoreButtonPressed(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "ImagePickerOrText", bundle: nil)
-        
-        let controller = storyboard.instantiateViewController(withIdentifier: "ImagePickerOrTextController") as! ImagePickerOrTextController
-        controller.writeButtonLabelText = "Written Description"
-        controller.returnToStoryboardWithName = "HouseScreen"
-        controller.returnToControllerIdentifier =  "ChoreViewController"
-        controller.bucketStorageName = "chore_images"
-        controller.onImageUploadClosure = onImageUploadClosure
-        
-        self.present(controller, animated: true, completion: nil)
+        self.performSegue(withIdentifier: "getImageToCompeteChore", sender: self)
     }
     
     @IBAction func nudgeButtonPressed(_ sender: Any) {
@@ -246,15 +210,30 @@ class ChoreViewController: UIViewController {
         //let timeDifference = self.database.getTimeDifferenceAsString(startDate: currentDate, endDate: dateLastNudged)
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {
+        
     }
-    */
+    
+    func getSelectedImageOrText(wasSuccessful: Bool, imageURL: String?, text: String?) {
+        if wasSuccessful {
+            database.completeChore(choreID: currentChoreID!, completionDescription: text, downloadURL: imageURL)
+        } else {
+            print("error uploading image")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "getImageToCompeteChore"{
+            let destinationController = segue.destination as! ImagePickerOrTextController
+            let imageSettings = imagePickerSettings(onCompleteSegueIdentifier: "unwind",
+                                                    writeShouldGetTextFromDeafultStoryboard: true,
+                                                    bucketStorageName: "chore_images")
+            
+            imageSettings.setDefualtWritePage(writeButtonLabelText: "Complete chore with description",
+                                              writePageInputMessagePrompt: "Enter a descirption of the chore you compleeted")
+            assert(imageSettings.areValid())
+            destinationController.settings = imageSettings
+        }
+    }
 
 }

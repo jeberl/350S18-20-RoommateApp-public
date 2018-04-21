@@ -103,7 +103,7 @@
                                 </state>
                                 <connections>
                                     <action selector="createChorePressed" destination="upn-EB-Fos" eventType="touchUpInside" id="6EI-E0-j2H"/>
-                                    <segue destination="upn-EB-Fos" kind="show" id="MDX-aa-TS5"/>
+                                    <segue destination="Qdp-nD-fON" kind="show" identifier="getImageOrTextSegue" id="GLQ-ey-mDK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -139,6 +139,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jbr-qh-jMf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1074.4000000000001" y="143.47826086956522"/>
+        </scene>
+        <!--ImagePickerOrText-->
+        <scene sceneID="Y5B-Bl-Uo7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ImagePickerOrText" id="Qdp-nD-fON" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WxO-Dj-g3B" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-474" y="253"/>
         </scene>
         <!--Balance View Controller-->
         <scene sceneID="FGF-Qx-C5S">
@@ -184,7 +192,150 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7KI-zE-ZcY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-210" y="497"/>
+            <point key="canvasLocation" x="-694" y="1028"/>
+        </scene>
+        <!--Edit Charge Controller-->
+        <scene sceneID="Azp-7d-Tf7">
+            <objects>
+                <viewController storyboardIdentifier="editChargesStoryboard" id="fxh-Zj-uS4" customClass="EditChargeController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FK0-xw-aKw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Hb-sk-lFl">
+                                <rect key="frame" x="0.0" y="37" width="375" height="99"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBR-o2-Xjf">
+                                        <rect key="frame" x="16" y="-6" width="343" height="111"/>
+                                        <attributedString key="attributedText">
+                                            <fragment content="Edit Charge 1/1">
+                                                <attributes>
+                                                    <font key="NSFont" size="40" name="ArialRoundedMTBold"/>
+                                                    <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                </attributes>
+                                            </fragment>
+                                        </attributedString>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="OBR-o2-Xjf" firstAttribute="centerX" secondItem="8Hb-sk-lFl" secondAttribute="centerX" id="3cd-J9-eeT"/>
+                                    <constraint firstItem="OBR-o2-Xjf" firstAttribute="centerY" secondItem="8Hb-sk-lFl" secondAttribute="centerY" id="W5r-xl-cbb"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dqi-N7-2lY">
+                                <rect key="frame" x="-20" y="126" width="415" height="249"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7oD-R5-YeQ">
+                                        <rect key="frame" x="20" y="55" width="375" height="209"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="209" id="mE8-wu-Dpk"/>
+                                        </constraints>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="HouseMemberCell" id="vDG-kh-Dmr">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HouseMemberCell" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vDG-kh-Dmr" id="nas-l3-FbK">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                                <accessibility key="accessibilityConfiguration">
+                                                    <accessibilityTraits key="traits" button="YES"/>
+                                                </accessibility>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="fxh-Zj-uS4" id="gPH-BJ-xwM"/>
+                                            <outlet property="delegate" destination="fxh-Zj-uS4" id="rL9-KR-PKX"/>
+                                        </connections>
+                                    </tableView>
+                                    <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$0.00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DfM-Kr-TTE">
+                                        <rect key="frame" x="245" y="0.0" width="141" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DLp-tL-r57">
+                                <rect key="frame" x="16" y="607" width="160" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="0.705078125" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Submit All Charges">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitAllChargesPressed" destination="fxh-Zj-uS4" eventType="touchUpInside" id="IFd-sY-DNM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CPN-bH-ss2">
+                                <rect key="frame" x="199" y="607" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="0.49327188729999999" blue="0.47399842739999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Delete Charge">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="deleteChargePressed:" destination="fxh-Zj-uS4" eventType="touchUpInside" id="PHQ-CB-GIm"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKX-dj-QPH">
+                                <rect key="frame" x="199" y="569" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Next Charge &gt;">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextChargePressed:" destination="fxh-Zj-uS4" eventType="touchUpInside" id="ZRk-FK-srD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fv6-Lz-fU5">
+                                <rect key="frame" x="16" y="568" width="160" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="&lt; Prev Charge ">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="prevChargePressed:" destination="fxh-Zj-uS4" eventType="touchUpInside" id="iKb-a8-JFX"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" keyboardDismissMode="interactive" text="Message" translatesAutoresizingMaskIntoConstraints="NO" id="3u6-ub-cxa">
+                                <rect key="frame" x="16" y="408" width="294" height="122"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="122" id="dvA-8T-jHl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="DLp-tL-r57" firstAttribute="top" secondItem="3u6-ub-cxa" secondAttribute="bottom" constant="8" id="VVB-uT-WV4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4Ml-9b-6Te"/>
+                    </view>
+                    <connections>
+                        <outlet property="amountTextFeild" destination="DfM-Kr-TTE" id="orO-Xg-6Bc"/>
+                        <outlet property="nextChargeButton" destination="zKX-dj-QPH" id="09J-vM-Xnk"/>
+                        <outlet property="prevChargeButton" destination="Fv6-Lz-fU5" id="C6V-9p-2pq"/>
+                        <outlet property="submitChargeButton" destination="DLp-tL-r57" id="ywe-JH-X1O"/>
+                        <outlet property="tableView" destination="7oD-R5-YeQ" id="v2D-y9-Jh6"/>
+                        <outlet property="titleLabel" destination="OBR-o2-Xjf" id="YEE-wi-i1Z"/>
+                        <outlet property="transactionDescriptionTextFeild" destination="3u6-ub-cxa" id="bWf-5y-TH0"/>
+                        <segue destination="hkf-jA-c7Y" kind="unwind" unwindAction="unwindToView:" id="W3j-GD-W24"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0pt-XT-ioK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hkf-jA-c7Y" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="160.80000000000001" y="510.49475262368821"/>
         </scene>
         <!--Personal Balance View Controller-->
         <scene sceneID="hGg-bE-eFB">
@@ -219,7 +370,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="d33-YD-bsr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-196" y="1244.527736131934"/>
+            <point key="canvasLocation" x="-1420" y="1028"/>
         </scene>
         <!--Create Charge Controller-->
         <scene sceneID="Hum-AX-74s">
@@ -266,7 +417,7 @@
                                     <action selector="DisplayText:" destination="upn-EB-Fos" eventType="editingChanged" id="eeL-Pn-G59"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Message" translatesAutoresizingMaskIntoConstraints="NO" id="lJm-kE-Iwn">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="interactive" text="Charge Description" translatesAutoresizingMaskIntoConstraints="NO" id="lJm-kE-Iwn">
                                 <rect key="frame" x="40" y="497" width="294" height="122"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -276,12 +427,22 @@
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="continue" enablesReturnKeyAutomatically="YES"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj5-Kd-dZK">
+                                <rect key="frame" x="40" y="627" width="295" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Charge">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="createChorePressed" destination="upn-EB-Fos" eventType="touchUpInside" id="caO-5U-pUy"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xAR-fn-Pah">
-                                <rect key="frame" x="-20" y="209" width="415" height="249"/>
+                                <rect key="frame" x="0.0" y="240" width="375" height="249"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dgg-Hk-KHB">
-                                        <rect key="frame" x="20" y="20" width="375" height="209"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="209"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="209" id="Zne-gh-2ZL"/>
@@ -307,16 +468,6 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lj5-Kd-dZK">
-                                <rect key="frame" x="40" y="627" width="295" height="30"/>
-                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Charge">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="createChorePressed" destination="upn-EB-Fos" eventType="touchUpInside" id="caO-5U-pUy"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -357,7 +508,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dew-9S-JXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="xU9-EM-NUp" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-210.40000000000001" y="-234.33283358320841"/>
+            <point key="canvasLocation" x="160.80000000000001" y="-199.25037481259372"/>
         </scene>
     </scenes>
 </document>

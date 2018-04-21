@@ -82,11 +82,11 @@ public class ReceiptParser {
 class RecieptItem {
     var cost : Double
     var description : String
-    var toChargeUIDs : [String]
+    var toChargeUIDs : [String]?
     var payToUIDs : [String]
     var houseID : String
     
-    init(description : String, totalCost : Double, makePaymentToUIDs : [String], splitCostBetweenUIDS: [String] = []) {
+    init(description : String, totalCost : Double, makePaymentToUIDs : [String], splitCostBetweenUIDS: [String]? = nil) {
         cost = totalCost
         self.description = description
         toChargeUIDs = splitCostBetweenUIDS
@@ -94,14 +94,21 @@ class RecieptItem {
         houseID = currentHouseID!
     }
     
+    func canSendCharges() -> Bool {
+        if let toChargeUIDs = toChargeUIDs {
+            return toChargeUIDs.count > 0 && payToUIDs.count > 0 && description != ""
+        }
+        return false
+    }
+    
     //Returns True if charges were
     func sendCharges() -> ReturnValue<Bool>{
         // User must be prompted to set who to charge and who to pay for each RecieptItem
-        if toChargeUIDs.count > 0 && payToUIDs.count > 0  {
+        if self.canSendCharges() {
             let db = DatabaseAccess.getInstance()
-            let splitAmount = cost / (Double(toChargeUIDs.count) * Double(payToUIDs.count))
+            let splitAmount = cost / (Double(toChargeUIDs!.count) * Double(payToUIDs.count))
             if splitAmount > 0 {
-                for chargeUID : String in toChargeUIDs {
+                for chargeUID : String in toChargeUIDs! {
                     for payToUID in payToUIDs {
                         //Dont charge self
                         if chargeUID != payToUID {
@@ -109,7 +116,7 @@ class RecieptItem {
                                                 giveToUID: payToUID,
                                                 houseID: houseID,
                                                 amount: splitAmount,
-                                                message: "Scanned reciept item: \(description)")
+                                                message: "Itemized reciept charged you \(splitAmount) for \(description)")
                             let result = db.createCharge(charge: charge)
                             if result.returned_error {
                                 return result

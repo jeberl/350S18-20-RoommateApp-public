@@ -60,7 +60,7 @@
                                 <rect key="frame" x="0.0" y="439.5" width="375" height="178.5"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="createChoreButton" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8vK-P1-pBE">
-                                        <rect key="frame" x="139" y="74" width="96" height="30"/>
+                                        <rect key="frame" x="139" y="73.5" width="96" height="30"/>
                                         <state key="normal" title="Create Chore!"/>
                                         <connections>
                                             <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
@@ -74,7 +74,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create a Chore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IWJ-I9-6gs">
-                                <rect key="frame" x="99.5" y="107.5" width="176.5" height="31.5"/>
+                                <rect key="frame" x="99.5" y="107" width="176.5" height="31.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -86,7 +86,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="choreDescription" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-s6-WiQ">
-                                <rect key="frame" x="40" y="286" width="295" height="30"/>
+                                <rect key="frame" x="40" y="286" width="294" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -104,13 +104,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <pickerView contentMode="scaleToFill" verticalCompressionResistancePriority="250" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="91" translatesAutoresizingMaskIntoConstraints="NO" id="Vi7-YV-1sP">
-                                <rect key="frame" x="40.5" y="360" width="295" height="80"/>
+                                <rect key="frame" x="40.5" y="360" width="294" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="iEa-mw-gyW"/>
                                 </constraints>
                             </pickerView>
                             <textField opaque="NO" contentMode="scaleToFill" restorationIdentifier="choreTitle" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pKW-Ns-Mt5">
-                                <rect key="frame" x="40" y="212" width="295" height="30"/>
+                                <rect key="frame" x="40" y="212" width="294" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -223,7 +223,7 @@
         <!--Chore View Controller-->
         <scene sceneID="ymi-C5-26v">
             <objects>
-                <viewController storyboardIdentifier="ChoreViewController" id="dzs-8K-KLR" customClass="ChoreViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChoreViewStoryboard" id="dzs-8K-KLR" customClass="ChoreViewController" customModule="Roommate_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7FQ-Fc-tE9">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -296,6 +296,7 @@
                                 <state key="normal" title="Complete Chore"/>
                                 <connections>
                                     <action selector="completeChoreButtonPressed:" destination="dzs-8K-KLR" eventType="touchUpInside" id="AjA-s2-tY9"/>
+                                    <segue destination="CcD-O3-Jjb" kind="show" identifier="getImageToCompeteChore" id="6pl-CV-Zwa"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7FC-I1-zcJ">
@@ -325,6 +326,14 @@
             </objects>
             <point key="canvasLocation" x="1373.5999999999999" y="-1798.6506746626687"/>
         </scene>
+        <!--ImagePickerOrText-->
+        <scene sceneID="jvu-PG-Zq3">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ImagePickerOrText" id="CcD-O3-Jjb" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Gg-d5-wZe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2038" y="-2053"/>
+        </scene>
         <!--Feed View Controller-->
         <scene sceneID="klO-XQ-fPh">
             <objects>
@@ -349,7 +358,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DVH-8e-5un">
-                                <rect key="frame" x="40" y="312.5" width="294" height="30"/>
+                                <rect key="frame" x="40" y="312.5" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -367,7 +376,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="14x-J4-4XD">
-                                <rect key="frame" x="40" y="417.5" width="294" height="30"/>
+                                <rect key="frame" x="40" y="417.5" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -379,20 +388,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="k22-X4-4ne">
-                                <rect key="frame" x="40" y="522.5" width="294" height="30"/>
+                                <rect key="frame" x="40" y="522.5" width="295" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fOe-yk-pNM">
-                                <rect key="frame" x="163" y="350.5" width="49" height="30"/>
+                                <rect key="frame" x="163.5" y="350.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitPasswordClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="ZuM-Hc-Jy3"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hbG-pC-hiT">
-                                <rect key="frame" x="163" y="455.5" width="49" height="30"/>
+                                <rect key="frame" x="163.5" y="455.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitGlobalNicknameClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="GHI-3y-KTY"/>
@@ -417,7 +426,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGy-Dj-rva">
-                                <rect key="frame" x="163" y="560.5" width="49" height="30"/>
+                                <rect key="frame" x="163.5" y="560.5" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitLocalNicknameClicked:" destination="n4w-bB-gCw" eventType="touchUpInside" id="1j3-3H-GQ8"/>
@@ -825,7 +834,7 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6fe-Lz-LIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="705" y="-1181"/>
+            <point key="canvasLocation" x="752" y="-1111"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

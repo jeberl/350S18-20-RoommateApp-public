@@ -10,6 +10,7 @@ import Foundation
 
 import Firebase
 import FirebaseStorage
+import UIKit.UIImage
 
 class ImageStorage  {
 
@@ -58,12 +59,27 @@ class ImageStorage  {
         view.present(alert, animated: true, completion: nil)
     }
     
+    func uploadImage(_ image : Data, toBucket bucket: String, withid id: String, urlClosure : @escaping (String?) -> Void, view: UIViewController) {
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpg"
+        self.storage?.reference().child("\(bucket)/\(id)").putData(image, metadata: metadata){ (metadata, error) in
+            if let error = error {
+                //self.databaseError(error, error_header: "Error uploading file to Database", view: view)
+                print(error.localizedDescription)
+            } else {
+                //store downloadURL
+                let downloadURL = metadata!.downloadURL()!.absoluteString
+                //self.uploadOk(view: view)
+                urlClosure(downloadURL)
+            }
+        }
+    }
+    
     //returns false if error uploading
-    func setChoreImage(choreID: String, data : Data, metadata: StorageMetadata, view: UIViewController){
+    func setChoreImage(choreID: String, data : Data, metadata: StorageMetadata, urlClosure : @escaping (String) -> Void, view: UIViewController){
         self.storage?.reference().child("chore_images/\(choreID)").putData(data, metadata: metadata){ (metaData, error) in
             if let error = error {
                 self.databaseError(error, error_header: "Error uploading file to Database", view: view)
-                print("er")
                 print(error.localizedDescription)
             } else {
                 //store downloadURL
@@ -71,13 +87,27 @@ class ImageStorage  {
                 //store downloadURL at database
                 DatabaseAccess.getInstance().ref.child("chores/\(choreID)/imageDownloadURL").setValue(downloadURL)
                 self.uploadOk(view: view)
+                urlClosure(downloadURL)
             }
         }
     }
-    
-    func getChoreImageObserve(choreID : String, view: UIViewController, callback : @escaping (UIImage?) -> Void) {
-        
+
+    func getImage(url: String, callback : @escaping (UIImage?) -> Void) {
+        let path = url.components(separatedBy: ".com/")[1] //get path from url
+        self.storage?.reference().child(path).getData(maxSize: 10*1024*1024, completion: { (data, error) in
+            if let _ = error {
+                print("couldnt find image")
+                callback(nil)
+                return
+            }
+            if let image = UIImage(data: data!) {
+                callback(image)
+            } else {
+                callback(nil)
+            }
+        })
     }
+    
     
     func getChoreImageOnce(choreID : String, callback : @escaping (UIImage?) -> Void) {
         var lookupID = choreID

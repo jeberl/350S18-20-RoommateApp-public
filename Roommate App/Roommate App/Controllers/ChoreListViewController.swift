@@ -85,7 +85,7 @@ class ChoreListViewController: UITableViewController {
         
         let storyboard = UIStoryboard(name: "HouseScreen", bundle: nil)
         
-        var controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewController") as! UIViewController
+        let controller = storyboard.instantiateViewController(withIdentifier: "ChoreViewStoryboard") as! UIViewController
         
         self.present(controller, animated: true, completion: nil)
     }

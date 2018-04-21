@@ -1394,7 +1394,7 @@ class DatabaseAccess {
         })
     }
     
-    func completeChore(choreID: String) {
+    func completeChore(choreID: String, completionDescription: String? = nil, downloadURL: String? = nil) {
         let houseID = currentHouseID
         
         //Update House
@@ -1403,6 +1403,8 @@ class DatabaseAccess {
         //Update Chore in db
         self.ref.child("chores/\(choreID)/completed").setValue(true)
         self.ref.child("chores/\(choreID)/timeCompleted").setValue(getTimestampAsString())
+        self.ref.child("chores/\(choreID)/completionDescription").setValue(completionDescription ?? "No Description Given")
+        self.ref.child("chores/\(choreID)/imageDownloadURL").setValue(downloadURL ?? "No Image Uploaded")
         
         //Update User in db
         self.ref.child("chores/\(choreID)/assigned_toUID").observeSingleEvent(of: .value) { (snapshot) in
