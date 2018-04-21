@@ -12,25 +12,23 @@ import UIKit
 import FirebaseAuth
 
 class EditChargeController : UIViewController, UITableViewDelegate, UITableViewDataSource, UIViewImageTextPickerDestination {
-    let testUID = Auth.auth().currentUser?.uid
-    let testParesedReciept : [RecieptItem] = [RecieptItem(description: "Tacos con carne",
+    static let testParesedReciept : [RecieptItem] = [RecieptItem(description: "Tacos con carne",
                                                           totalCost: 14.15,
-                                                          makePaymentToUIDs: [(Auth.auth().currentUser?.uid)!]),
+                                                          makePaymentToUIDs: ["HgQzv8QOVLMoyS4kkDB8mqeR1xy1"]),
                                               RecieptItem(description: "Nachos no meat",
                                                           totalCost: 12.00,
-                                                          makePaymentToUIDs: [(Auth.auth().currentUser?.uid)!]),
+                                                          makePaymentToUIDs: ["HgQzv8QOVLMoyS4kkDB8mqeR1xy1"]),
                                               RecieptItem(description: "Churos",
                                                           totalCost: 7.50,
-                                                          makePaymentToUIDs: [(Auth.auth().currentUser?.uid)!]),
+                                                          makePaymentToUIDs: ["HgQzv8QOVLMoyS4kkDB8mqeR1xy1"]),
                                               RecieptItem(description: "Burrito Grande",
                                                           totalCost: 12.50,
-                                                          makePaymentToUIDs: [(Auth.auth().currentUser?.uid)!])]
+                                                          makePaymentToUIDs: ["HgQzv8QOVLMoyS4kkDB8mqeR1xy1"])]
     
-    
-    
+   
     
     func getSelectedImageOrText(wasSuccessful: Bool, imageURL: String?, text: String?) {
-        recieptItemsToEdit = testParesedReciept
+        recieptItemsToEdit = EditChargeController.testParesedReciept
 //        ImageStorage.getInstance().getImage(url: imageURL!, callback : { (image) in
 //            let uid = Auth.auth().currentUser?.uid
 //            ReceiptParser.getInstance().parseReceipt(image, paidByUIDs: <#T##[String]#>, { (parsedItems) in
@@ -50,7 +48,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var submitChargeButton: UIButton!
     @IBOutlet weak var prevChargeButton: UIButton!
     
-    var recieptItemsToEdit : [RecieptItem] = []
+    var recieptItemsToEdit : [RecieptItem] = testParesedReciept
     var currentRecieptItemIndex : Int = 0
     var currentRecieptItem : RecieptItem {
         get {
@@ -89,23 +87,28 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
         
     }
     
+    @IBAction func inputAmountTextEdit(_ sender: UITextField) {
+        let newCents = getCentsFromTextField()
+        amountTextFeild.text = getTextFromCents(cents: newCents);
+    }
+    
     private func loadCurrentRecieptItem() {
         if totalNumRecieptItems == 0 {
             returnPopup(title : "No Reciept Items Found", message: "Returning to balances page")
             return
         }
-        titleLabel.text = "Editing Charge \(currentRecieptItemIndex + 1)/\(totalNumRecieptItems)"
-        amountTextFeild.text = String(currentRecieptItem.cost)
+        titleLabel.text = "Edit Charge \(currentRecieptItemIndex + 1)/\(totalNumRecieptItems)"
+        amountTextFeild.text = getTextFromCents(cents: Int(currentRecieptItem.cost * 100.0))
         transactionDescriptionTextFeild.text = currentRecieptItem.description
+        selectedMembersUIDs.removeAll()
+        selectedMembersUIDs = selectedMembersUIDs.union(currentRecieptItem.toChargeUIDs ?? [])
         if currentRecieptItemIndex + 1 == totalNumRecieptItems {
             hasSeenAllRecieptItems = true
         }
-        backgroundColors["Submit"] = submitChargeButton.backgroundColor
-        print(submitChargeButton.backgroundColor)
-        backgroundColors["PrevNext"] = nextChargeButton.backgroundColor
-        print(nextChargeButton.backgroundColor)
 
         updateButtonColors()
+
+        print("title: \(titleLabel.text), description: \(transactionDescriptionTextFeild.text), amount: \(amountTextFeild.text), selected uids: \(selectedMembersUIDs)")
         
     }
     
@@ -116,18 +119,24 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     private func updateButtonColors() {
         if canSendCharges() {
             submitChargeButton.backgroundColor = backgroundColors["Submit"]
+            submitChargeButton.isUserInteractionEnabled = true
         } else {
             submitChargeButton.backgroundColor = backgroundColors["Unavailible"]
+            submitChargeButton.isUserInteractionEnabled = false
         }
         if currentRecieptItemIndex < totalNumRecieptItems - 1 {
             nextChargeButton.backgroundColor = backgroundColors["PrevNext"]
+            submitChargeButton.isUserInteractionEnabled = true
         } else {
             nextChargeButton.backgroundColor = backgroundColors["Unavailible"]
+            submitChargeButton.isUserInteractionEnabled = false
         }
         if currentRecieptItemIndex > 0 {
             prevChargeButton.backgroundColor = backgroundColors["PrevNext"]
+            submitChargeButton.isUserInteractionEnabled = true
         } else {
             prevChargeButton.backgroundColor = backgroundColors["Unavailible"]
+            submitChargeButton.isUserInteractionEnabled = false
         }
     }
     
@@ -182,7 +191,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     
     @IBAction func nextChargePressed(_ sender: UIButton) {
         if currentRecieptItemIndex < totalNumRecieptItems - 1 {
-            currentRecieptItemIndex = currentRecieptItemIndex - 1
+            currentRecieptItemIndex = currentRecieptItemIndex + 1
             loadCurrentRecieptItem()
             saveCurrentItem()
         }
@@ -201,13 +210,12 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     
-    @IBAction func unwindToView(_ sender: UIStoryboardSegue) { }
     
     func returnPopup(title : String, message : String? = nil) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: {
             (_) in
-            self.performSegue(withIdentifier: "unwindToBalances", sender: self)
+            self.performSegue(withIdentifier: "unwindToHouseBalance", sender: self)
         }))
         present(alert, animated: true, completion: nil)
         
@@ -257,7 +265,6 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
         } else {
             selectedMembersUIDs.insert(currentHouseOrderedUIDs[indexPath.row])
         }
-        print("caught pressed cell \(indexPath.row)")
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
     

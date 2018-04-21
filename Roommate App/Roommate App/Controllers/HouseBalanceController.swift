@@ -100,7 +100,10 @@ class HouseBalanceController: UIViewController, UITableViewDelegate, UITableView
         return String(format: "$%.02f", amount)
     }
     
-
+    @IBAction func unwindToHouseBalanceWithSegue(_ sender: UIStoryboardSegue) {
+        print("unwinding from \(sender.destination)")
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "getImageOrTextSegue" {
             let destination = segue.destination as! ImagePickerOrTextController

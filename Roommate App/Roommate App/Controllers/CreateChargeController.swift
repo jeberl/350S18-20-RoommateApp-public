@@ -183,7 +183,6 @@ class CreateChargeController : UIViewController, UITableViewDelegate, UITableVie
         } else {
             selectedMembersUIDs.insert(currentHouseOrderedUIDs[indexPath.row])
         }
-        print("caught pressed cell \(indexPath.row)")
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
     }
 

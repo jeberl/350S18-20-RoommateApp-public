@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QeV-Xf-fOG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QeV-Xf-fOG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,6 +67,14 @@
                                 <state key="normal" title="Log In"/>
                                 <connections>
                                     <action selector="LogInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uxG-vA-Idp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-58-uw8">
+                                <rect key="frame" x="146" y="583" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <segue destination="2Ei-EX-5SS" kind="show" id="HUS-gO-8vh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -333,13 +341,13 @@
             </objects>
             <point key="canvasLocation" x="1724" y="121.88905547226388"/>
         </scene>
-        <!--AddCharge-->
-        <scene sceneID="0uC-ep-o1k">
+        <!--editChargesStoryboard-->
+        <scene sceneID="CdO-xy-khj">
             <objects>
-                <viewControllerPlaceholder storyboardName="AddCharge" id="awg-e6-ajY" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="US4-8Z-0iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="AddCharge" referencedIdentifier="editChargesStoryboard" id="2Ei-EX-5SS" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uBN-sW-wTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="536" y="583"/>
+            <point key="canvasLocation" x="263" y="645"/>
         </scene>
         <!--HouseScreen-->
         <scene sceneID="mps-F5-QAn">
@@ -369,7 +377,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="SZw-Tf-XdL"/>
+        <segue reference="tbI-jn-U8S"/>
         <segue reference="3Cw-uK-AzS"/>
     </inferredMetricsTieBreakers>
 </document>
