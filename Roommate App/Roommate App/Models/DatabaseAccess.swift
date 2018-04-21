@@ -1025,7 +1025,6 @@ class DatabaseAccess {
         // For each user in usersInvolved add the notifId to their notifications and send notifier to user
         for someUID in notification.UIDsInvolved {
             self.ref.child("users/\(someUID)/notifications/\(notifID)").setValue(true)
-            self.ref.child("users/\(someUID)/notifications/\(notifID)").setValue(true)
             self.ref.child("users/\(someUID)/formatted_email").observeSingleEvent(of: .value) { (snapshot) in
                 if snapshot.exists() {
                     if let formattedEmail = snapshot.value as? String {

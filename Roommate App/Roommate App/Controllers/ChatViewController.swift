@@ -129,7 +129,16 @@ class ChatViewController: JSQMessagesViewController {
         finishSendingMessage()
     }
     
-
+   
+    @IBAction func menuButton(_ sender: UIButton) {
+        if (self.tabBarController?.tabBar.isHidden)! {  
+            self.tabBarController?.tabBar.isHidden = false
+        } else {
+            self.tabBarController?.tabBar.isHidden = true
+        }
+    }
+    
+    
    /* @IBAction func backButton(_ sender: Any) {
        self.performSegue(withIdentifier: "unwindSegueToFeed", sender: self)
     }*/

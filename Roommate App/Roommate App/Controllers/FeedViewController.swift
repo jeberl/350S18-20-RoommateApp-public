@@ -32,12 +32,12 @@ class FeedViewController: UITableViewController {
         
         let userNotifClosure = { (returnedNotifIds : [String]?) -> Void in
             self.notifIds = returnedNotifIds!
-            
             let notifDataClosure = { (data : NSDictionary?) -> Void in
                 var currHouseId = data?.value(forKey: "houseID") as? String
                 let type = data?.value(forKey: "type") as? String
                 if currHouseId == currentHouseID && type != "Charge"  {
                     if let value = data?.value(forKey: "description") as? String {
+                        print("in feed view controller")
                         print(value)
                         self.notifData.append(value)
                         self.tableView.reloadData()
