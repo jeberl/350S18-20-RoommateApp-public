@@ -69,14 +69,6 @@
                                     <action selector="LogInButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uxG-vA-Idp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5IW-58-uw8">
-                                <rect key="frame" x="146" y="583" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="2Ei-EX-5SS" kind="show" id="HUS-gO-8vh"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -340,14 +332,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UpP-fk-qQS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1724" y="121.88905547226388"/>
-        </scene>
-        <!--editChargesStoryboard-->
-        <scene sceneID="CdO-xy-khj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="AddCharge" referencedIdentifier="editChargesStoryboard" id="2Ei-EX-5SS" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uBN-sW-wTM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="263" y="645"/>
         </scene>
         <!--HouseScreen-->
         <scene sceneID="mps-F5-QAn">
