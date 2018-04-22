@@ -35,9 +35,14 @@ class ChoreListViewController: UITableViewController {
     
     // unwind without clearing
     @IBAction func unwindToChoresList(_ sender: UIStoryboardSegue) {
+        // reset these two variables to prevent duplication in
+        // unwind segue
         incompleteChoreNames.removeAll()
         incompleteChoreIDs.removeAll()
         self.tableView.reloadData()
+        
+        updateTableView()
+        
     }
     
     // unwind with clearing
