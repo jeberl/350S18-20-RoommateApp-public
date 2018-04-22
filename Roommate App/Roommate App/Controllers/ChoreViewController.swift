@@ -251,14 +251,17 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
     }
     
     func getSelectedImageOrText(wasSuccessful: Bool, imageURL: String?, text: String?) {
+        print("getSelectedImageOrText called")
         if wasSuccessful {
             database.completeChore(choreID: currentChoreID!, completionDescription: text, downloadURL: imageURL)
+            
         } else {
             print("error uploading image")
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("preparing for segue identifier : \(segue.identifier)")
         if segue.identifier == "getImageToCompeteChore"{
             let destinationController = segue.destination as! ImagePickerOrTextController
             let imageSettings = imagePickerSettings(onCompleteSegueIdentifier: "unwind",
@@ -266,7 +269,7 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
                                                     bucketStorageName: "chore_images")
             
             imageSettings.setDefualtWritePage(writeButtonLabelText: "Complete chore with description",
-                                              writePageInputMessagePrompt: "Enter a descirption of the chore you compleeted")
+                                              writePageInputMessagePrompt: "Enter a descirption of the chore you completed")
             assert(imageSettings.areValid())
             destinationController.settings = imageSettings
         }

@@ -125,8 +125,7 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("preparing for segue with identifier \(segue.identifier)")
-        if segue.identifier == settings.onCompleteSegueIdentifier {
-            let destination = segue.destination as! UIViewImageTextPickerDestination
+        if let destination = segue.destination as? UIViewImageTextPickerDestination {
             let gotInfo = gottenImageURl != nil || gottenText != nil
             destination.getSelectedImageOrText(wasSuccessful : gotInfo, imageURL : gottenImageURl, text : gottenText)
         }
@@ -137,6 +136,7 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
             let destination = segue.destination as! ImagePickerOrTextController
             destination.settings = settings
         }
+        
     }
 }
 
