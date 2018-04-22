@@ -63,8 +63,8 @@
                                         <rect key="frame" x="139" y="73.5" width="96" height="30"/>
                                         <state key="normal" title="Create Chore!"/>
                                         <connections>
-                                            <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="zoJ-IJ-Hvq"/>
-                                            <segue destination="3uT-YX-DrR" kind="show" id="3cP-Pt-WV0"/>
+                                            <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="ui0-4Q-Lsd"/>
+                                            <segue destination="B9X-Ne-eRz" kind="unwind" unwindAction="unwindToChoresListFromCreateChore:" id="QKA-nB-pxv"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -155,11 +155,11 @@
                     <connections>
                         <outlet property="choreDescriptionTextField" destination="n2R-s6-WiQ" id="XlE-Ru-xXp"/>
                         <outlet property="choreTitleTextField" destination="pKW-Ns-Mt5" id="Ofg-Oc-0y5"/>
-                        <outlet property="createChoreButton" destination="8vK-P1-pBE" id="MMn-IO-aEo"/>
                         <outlet property="pickerView" destination="Vi7-YV-1sP" id="djI-tX-sNL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CZ3-cF-9Wo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="B9X-Ne-eRz" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1373.5999999999999" y="-2491.304347826087"/>
         </scene>
@@ -304,7 +304,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Back to Main Menu"/>
                                 <connections>
-                                    <segue destination="3uT-YX-DrR" kind="show" id="ih2-cW-bjf"/>
+                                    <segue destination="cyt-rP-Cqy" kind="unwind" unwindAction="unwindToChoresList:" id="6Mm-KJ-MzB"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2dK-ea-dq7">
@@ -340,6 +340,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKV-cz-taM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cyt-rP-Cqy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1373.5999999999999" y="-1798.6506746626687"/>
         </scene>
@@ -734,7 +735,7 @@
                     <navigationItem key="navigationItem" id="n4I-we-1Mb">
                         <barButtonItem key="rightBarButtonItem" title="Log Out of House" id="INP-H0-OVI">
                             <connections>
-                                <action selector="logOutOfHouse:" destination="T07-aY-7iC" id="nhT-Au-wkW"/>
+                                <segue destination="qIn-R4-OP4" kind="unwind" unwindAction="unwindToMainMenu:" id="cY8-wW-sE6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -745,6 +746,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Go-Wa-qoa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="qIn-R4-OP4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-58.399999999999999" y="357.57121439280365"/>
         </scene>
@@ -854,7 +856,4 @@
             <point key="canvasLocation" x="752" y="-1111"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="ih2-cW-bjf"/>
-    </inferredMetricsTieBreakers>
 </document>

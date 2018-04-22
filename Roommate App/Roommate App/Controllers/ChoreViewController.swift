@@ -147,6 +147,10 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func unwindToChorePage(_ sender: UIStoryboardSegue) {
+        
+    }
+    
     @IBAction func completeChoreButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "getImageToCompeteChore", sender: self)
     }
@@ -245,8 +249,6 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
         }
         //let timeDifference = self.database.getTimeDifferenceAsString(startDate: currentDate, endDate: dateLastNudged)
     }
-    
-
     
     func getSelectedImageOrText(wasSuccessful: Bool, imageURL: String?, text: String?) {
         if wasSuccessful {
