@@ -170,7 +170,7 @@
                     <navigationItem key="navigationItem" id="HId-TC-Wmz">
                         <barButtonItem key="leftBarButtonItem" style="plain" id="HoP-Eo-87i">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="x2D-Bw-Iz6">
-                                <rect key="frame" x="16" y="7" width="62" height="30"/>
+                                <rect key="frame" x="16" y="7" width="80" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Exit Chat"/>
                                 <connections>

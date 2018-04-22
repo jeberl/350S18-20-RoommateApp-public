@@ -41,7 +41,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var amountTextFeild: UITextField!
-    @IBOutlet weak var transactionDescriptionTextFeild: UITextView!
+    @IBOutlet weak var transactionDescriptionTextFeild: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var nextChargeButton: UIButton!
@@ -107,6 +107,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
         }
 
         updateButtonColors()
+        tableView.reloadData()
 
         print("title: \(titleLabel.text), description: \(transactionDescriptionTextFeild.text), amount: \(amountTextFeild.text), selected uids: \(selectedMembersUIDs)")
         
@@ -182,18 +183,19 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @IBAction func prevChargePressed(_ sender: UIButton) {
+        saveCurrentItem()
         if currentRecieptItemIndex > 0 {
             currentRecieptItemIndex = currentRecieptItemIndex - 1
             loadCurrentRecieptItem()
-            saveCurrentItem()
+            
         }
     }
     
     @IBAction func nextChargePressed(_ sender: UIButton) {
+        saveCurrentItem()
         if currentRecieptItemIndex < totalNumRecieptItems - 1 {
             currentRecieptItemIndex = currentRecieptItemIndex + 1
             loadCurrentRecieptItem()
-            saveCurrentItem()
         }
     }
     
@@ -204,7 +206,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func saveCurrentItem() {
-        currentRecieptItem.description = transactionDescriptionTextFeild.text
+        currentRecieptItem.description = transactionDescriptionTextFeild.text ?? ""
         currentRecieptItem.cost = Double(getCentsFromTextField()) / 100
         currentRecieptItem.toChargeUIDs = [String](selectedMembersUIDs)
     }
@@ -249,7 +251,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "HouseMemberCellEdit", for: indexPath)
         cell.textLabel?.text = currentHouseUIDtoNickname[currentHouseOrderedUIDs[indexPath.row]]
         if selectedMembersUIDs.contains(currentHouseOrderedUIDs[indexPath.row]) {
             cell.backgroundColor = UIColor.green
@@ -266,6 +268,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
             selectedMembersUIDs.insert(currentHouseOrderedUIDs[indexPath.row])
         }
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        print("selectedMembersUIDs = \(selectedMembersUIDs)")
     }
     
 }
