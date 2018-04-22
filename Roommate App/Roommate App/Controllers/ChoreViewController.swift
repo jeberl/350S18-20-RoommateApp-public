@@ -192,9 +192,11 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
             let dateLastNudged = self.database.getTimestampAsDate(timestamp: self.lastTimeNudged!)
             
             var dateComponents = DateComponents()
-            let minutesToAdd = 1
+            //let minutesToAdd = 1
+            let secondsToAdd = 2
             //let daysToAdd = 1
-            dateComponents.minute = minutesToAdd
+            //dateComponents.minute = minutesToAdd
+            dateComponents.second = secondsToAdd
             //dateComponents.day = daysToAdd
             let dateAllowNewNudge = Calendar.current.date(byAdding: dateComponents, to: dateLastNudged)
             
@@ -231,7 +233,7 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
                 
                 //add charge if nudged 3 times
                 if self.timesNudged == 3 {
-                    
+                    print("building charge")
                     let charge = Charge(takeFromUID: "houseFund", giveToUID: self.currentChoreAssigneeUID!, houseID: currentHouseID!, amount: 5, message: "Charged $5 for being nudged 3 times for incomplete chore, \(choreTitleLabel.text!).")
                     result = database.createCharge(charge: charge)
                     if result.returned_error {

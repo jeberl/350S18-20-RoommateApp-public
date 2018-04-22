@@ -330,7 +330,7 @@
                         <outlet property="tableView" destination="1F2-Ge-4Pk" id="rqY-0c-s1s"/>
                         <outlet property="titleLabel" destination="OBR-o2-Xjf" id="YEE-wi-i1Z"/>
                         <outlet property="transactionDescriptionTextFeild" destination="Uab-5b-I0u" id="za1-Xt-DGu"/>
-                        <segue destination="hkf-jA-c7Y" kind="unwind" identifier="unwindToHouseBalance" unwindAction="unwindToHouseBalanceWithSegue:" id="1yK-iu-a4y"/>
+                        <segue destination="hkf-jA-c7Y" kind="unwind" identifier="unwindToHouseBalance" unwindAction="unwindToHouseBalanceWithSegue:" id="3lj-cM-IJe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pt-XT-ioK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -488,7 +488,6 @@
                         <outlet property="tableView" destination="DRW-3K-6Av" id="kbb-ao-eSV"/>
                         <outlet property="transactionDescriptionTextFeild" destination="lJm-kE-Iwn" id="CSv-cr-wcq"/>
                         <segue destination="xU9-EM-NUp" kind="unwind" identifier="unwindToBalances" unwindAction="unwindToView:" id="Sbk-Qa-F8g"/>
-                        <segue destination="xU9-EM-NUp" kind="unwind" unwindAction="unwindToHouseBalanceWithSegue:" id="paD-NM-17x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dew-9S-JXd" userLabel="First Responder" sceneMemberID="firstResponder"/>
