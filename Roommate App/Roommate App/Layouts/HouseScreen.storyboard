@@ -64,7 +64,7 @@
                                         <state key="normal" title="Create Chore!"/>
                                         <connections>
                                             <action selector="createChoreButtonPressed:" destination="zmy-ic-1ng" eventType="touchUpInside" id="ui0-4Q-Lsd"/>
-                                            <segue destination="B9X-Ne-eRz" kind="unwind" unwindAction="unwindToChoresListFromCreateChore:" id="QKA-nB-pxv"/>
+                                            <segue destination="B9X-Ne-eRz" kind="unwind" unwindAction="unwindToChoresListFromCreateChore:" id="7e7-ad-fSC"/>
                                         </connections>
                                     </button>
                                 </subviews>

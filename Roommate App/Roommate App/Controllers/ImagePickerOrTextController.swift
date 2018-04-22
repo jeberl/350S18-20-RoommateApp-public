@@ -100,6 +100,7 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
                 }
                 ImageStorage.getInstance().uploadImage(data, toBucket: settings.bucketStorageName, withid: id, urlClosure: urlClosure, view: self)
             }
+            moveToRecieverStoryboard()
         } else {
             print("Image not found")
             moveToRecieverStoryboard()

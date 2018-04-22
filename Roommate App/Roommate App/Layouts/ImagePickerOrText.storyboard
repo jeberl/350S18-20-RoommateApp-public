@@ -76,6 +76,7 @@
                         <segue destination="XLM-45-vSB" kind="show" identifier="defualtTextInputSegue" id="0Wg-od-eEO"/>
                         <segue destination="err-u5-Oa5" kind="show" identifier="editChargesSegue" id="RGn-yJ-2dq"/>
                         <segue destination="ogJ-33-gnd" kind="show" identifier="singleChargeSegue" id="01q-cP-aoP"/>
+                        <segue destination="Vfd-vC-Zvb" kind="unwind" identifier="unwindToChorePageWithSegue" unwindAction="unwindToChorePage:" id="dhn-dG-Hgz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wAb-PB-cDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,7 +136,6 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="WrittenDescriptionSubmitPressed:" destination="XLM-45-vSB" eventType="touchUpInside" id="HUA-E4-WWB"/>
-                                    <segue destination="O9A-Gf-IRB" kind="unwind" unwindAction="unwindToChorePage:" id="HuP-Yw-PJ1"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -146,6 +146,7 @@
                         <outlet property="WrittenDescriptionTextView" destination="wAh-c0-hfA" id="RKC-2K-AtF"/>
                         <outlet property="inputDefualtTextPrompt" destination="a3F-Sl-Bjb" id="vOX-rt-CN9"/>
                         <segue destination="O9A-Gf-IRB" kind="unwind" identifier="unwind" unwindAction="prepareForUnwindWithSegue:" id="bti-RB-G2B"/>
+                        <segue destination="O9A-Gf-IRB" kind="unwind" identifier="unwindToChorePageWithSegue" unwindAction="unwindToChorePage:" id="CIv-DH-UJ1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y4a-G6-1rc" userLabel="First Responder" sceneMemberID="firstResponder"/>

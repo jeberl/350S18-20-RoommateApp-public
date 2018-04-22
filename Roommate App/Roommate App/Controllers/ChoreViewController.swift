@@ -148,7 +148,7 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
     }
     
     @IBAction func unwindToChorePage(_ sender: UIStoryboardSegue) {
-        
+        database.completeChore(choreID: currentChoreID!)
     }
     
     @IBAction func completeChoreButtonPressed(_ sender: Any) {
@@ -266,7 +266,7 @@ class ChoreViewController: UIViewController, UIViewImageTextPickerDestination {
         print("preparing for segue identifier : \(segue.identifier)")
         if segue.identifier == "getImageToCompeteChore"{
             let destinationController = segue.destination as! ImagePickerOrTextController
-            let imageSettings = imagePickerSettings(onCompleteSegueIdentifier: "unwind",
+            let imageSettings = imagePickerSettings(onCompleteSegueIdentifier: "unwindToChorePageWithSegue",
                                                     writeShouldGetTextFromDeafultStoryboard: true,
                                                     bucketStorageName: "chore_images")
             

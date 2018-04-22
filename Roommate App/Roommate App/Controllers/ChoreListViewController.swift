@@ -37,9 +37,6 @@ class ChoreListViewController: UITableViewController {
     @IBAction func unwindToChoresList(_ sender: UIStoryboardSegue) {
         // reset these two variables to prevent duplication in
         // unwind segue
-        incompleteChoreNames.removeAll()
-        incompleteChoreIDs.removeAll()
-        self.tableView.reloadData()
         
         updateTableView()
         
@@ -49,9 +46,8 @@ class ChoreListViewController: UITableViewController {
     @IBAction func unwindToChoresListFromCreateChore(_ sender: UIStoryboardSegue) {
         // reset these two variables to prevent duplication in
         // unwind segue
-        incompleteChoreNames.removeAll()
-        incompleteChoreIDs.removeAll()
-        self.tableView.reloadData()
+        
+        updateTableView()
     }
     
     // rotates gradient background when phone is put in landscape
@@ -68,7 +64,7 @@ class ChoreListViewController: UITableViewController {
         // unwind segue
         incompleteChoreNames.removeAll()
         incompleteChoreIDs.removeAll()
-        self.tableView.reloadData()
+        
         
         let houseChoresClosure = {(returnedChoreIDs: [String]?) -> Void in
             self.incompleteChoreIDs = returnedChoreIDs
@@ -87,6 +83,9 @@ class ChoreListViewController: UITableViewController {
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
+        
+        
+        
         /*choreTableView.delegate = self
          choreTableView.dataSource = self*/
         // Do any additional setup after loading the view.
