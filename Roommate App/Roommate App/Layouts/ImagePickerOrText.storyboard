@@ -135,7 +135,7 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="WrittenDescriptionSubmitPressed:" destination="XLM-45-vSB" eventType="touchUpInside" id="HUA-E4-WWB"/>
-                                    <action selector="writtenDescriptionSubmit:" destination="O9A-Gf-IRB" eventType="touchUpInside" id="4Ff-Fg-Wg1"/>
+                                    <segue destination="O9A-Gf-IRB" kind="unwind" unwindAction="unwindToChorePage:" id="HuP-Yw-PJ1"/>
                                 </connections>
                             </button>
                         </subviews>

@@ -106,6 +106,8 @@ class ImagePickerOrTextController: UIViewController, UIImagePickerControllerDele
         }
     }
     
+    
+    
     func customWritePageSegue() {
         print("moving on custom write segue \(settings.customWriteSegueIdentifier!)")
         performSegue(withIdentifier: settings.customWriteSegueIdentifier!, sender: self)
@@ -157,7 +159,6 @@ class imagePickerSettings {
     //for custom
     var prepareCustomWriteClosure : (UIViewController) -> Void = { (controller) in }
     var customWriteSegueIdentifier : String? = nil
-    
     
     init(onCompleteSegueIdentifier : String, writeShouldGetTextFromDeafultStoryboard : Bool,bucketStorageName : String) {
         self.onCompleteSegueIdentifier = onCompleteSegueIdentifier

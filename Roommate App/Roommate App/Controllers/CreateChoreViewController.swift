@@ -16,7 +16,6 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
     
     @IBOutlet weak var choreTitleTextField: UITextField!
     @IBOutlet weak var choreDescriptionTextField: UITextField!
-    @IBOutlet weak var createChoreButton: UIButton!
     @IBOutlet weak var pickerView: UIPickerView!
     
     let database : DatabaseAccess = DatabaseAccess.getInstance()
