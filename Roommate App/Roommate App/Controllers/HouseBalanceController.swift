@@ -102,6 +102,7 @@ class HouseBalanceController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func unwindToHouseBalanceWithSegue(_ sender: UIStoryboardSegue) {
         print("unwinding from \(sender.destination)")
+        balanceTable.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

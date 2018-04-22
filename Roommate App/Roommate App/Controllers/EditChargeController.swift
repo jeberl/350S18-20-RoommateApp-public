@@ -165,6 +165,8 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
                     let result = item.sendCharges()
                     if result.returned_error {
                         self.raiseError(title: "Error sending charge", message : result.error_message)
+                    } else {
+                        self.performSegue(withIdentifier: "unwindToHouseBalance", sender: self)
                     }
                 }
             }
@@ -268,6 +270,7 @@ class EditChargeController : UIViewController, UITableViewDelegate, UITableViewD
             selectedMembersUIDs.insert(currentHouseOrderedUIDs[indexPath.row])
         }
         tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.none)
+        updateButtonColors()
         print("selectedMembersUIDs = \(selectedMembersUIDs)")
     }
     
