@@ -30,6 +30,17 @@ class AllHousesPageViewController: UITableViewController {
         layer.frame = view.frame
         view.layer.insertSublayer(layer, at: 0)
         
+        refresh()
+        
+    }
+    
+    func refresh() {
+        
+        houses.removeAll()
+        houseIds.removeAll()
+        nameToID.removeAll()
+        self.tableView.reloadData()
+        
         let houseNameClosure = { (houseName : String?) -> Void in
             if houseName != nil {
                 self.houses.append(houseName!)
@@ -47,6 +58,7 @@ class AllHousesPageViewController: UITableViewController {
         if error1.returned_error {
             error1.raiseErrorAlert(with_title: "Error:", view: self)
         }
+        
     }
     
     // rotates gradient background when phone is put in landscape
@@ -89,6 +101,7 @@ class AllHousesPageViewController: UITableViewController {
     }
     
     @IBAction func unwindToMainMenu(_ sender: UIStoryboardSegue) {
+        refresh()
     }
     
     // Only need one section in table because only displaying houses
