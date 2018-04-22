@@ -12,6 +12,8 @@ import FirebaseAuth
 
 class ChatViewController: JSQMessagesViewController {
     
+    @IBOutlet weak var ExitChatButton: UIButton!
+    
     var database : DatabaseAccess = DatabaseAccess.getInstance()
     var resetScreen : Bool = false
     var messages = [JSQMessage]()     //Array of messages
@@ -133,8 +135,10 @@ class ChatViewController: JSQMessagesViewController {
     @IBAction func menuButton(_ sender: UIButton) {
         if (self.tabBarController?.tabBar.isHidden)! {  
             self.tabBarController?.tabBar.isHidden = false
+            sender.setTitle("Enter Chat", for: UIControlState.normal)
         } else {
             self.tabBarController?.tabBar.isHidden = true
+            sender.setTitle("Exit Chat", for: UIControlState.normal)
         }
     }
     
