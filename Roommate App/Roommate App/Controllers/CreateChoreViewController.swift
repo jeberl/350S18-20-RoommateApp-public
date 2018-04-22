@@ -71,7 +71,7 @@ class CreateChoreViewController: UIViewController, UIPickerViewDataSource, UIPic
         let choreDescription = choreDescriptionTextField!.text
         let date = self.database.getTimestampAsString()
         
-        
+         
        
         // Create new house object to add to database
         let newChore = ChoreAJ(choreTitle: choreTitle!, assignor: (Auth.auth().currentUser?.email!)!, assignee: self.assigneeNickname, assigneeUID: self.assigneeUID , houseID: currentHouseID!, description: choreDescription!)

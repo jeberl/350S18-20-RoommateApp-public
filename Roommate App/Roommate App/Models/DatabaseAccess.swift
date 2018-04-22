@@ -784,7 +784,7 @@ class DatabaseAccess {
     }
     
     /*
-     Function to get a chore's string description from its choreID
+     Function to get a chore's assignor nickname from its choreID
      */
     func getStringChoreAssignor(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         self.ref.child("chores/\(choreID)/assigned_by").observe(.value, with: { (snapshot) in
@@ -806,7 +806,7 @@ class DatabaseAccess {
     }
     
     /*
-     Function to get a chore's string description from its choreID
+     Function to get a chore's assignee nickname from its choreID
      */
     func getStringChoreAssignee(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
         self.ref.child("chores/\(choreID)/assigned_to").observe(.value, with: { (snapshot) in
@@ -820,6 +820,28 @@ class DatabaseAccess {
                 } else {
                     // If cast could not occur then no chore name found so run callback with nil
                     print("Chore assignee not found")
+                    callback(nil)
+                }
+            }
+        })
+        return ExpectedExecution()
+    }
+    
+    /*
+     Function to get a chore's assigneeUID from its choreID
+     */
+    func getStringChoreAssigneeUID(choreID: String, callback: @escaping (String?) -> Void) -> ReturnValue<Bool> {
+        self.ref.child("chores/\(choreID)/assigned_toUID").observe(.value, with: { (snapshot) in
+            if snapshot.exists() {
+                // Get the value of the snapshot (cast to string) and store as chore name
+                if let assigneeUID = snapshot.value as? String {
+                    //Run the function, callback, which is given by the frontend, passing it the nickname
+                    // we read from the snapshot as an argument
+                    let choreAssigneeUID : String = assigneeUID
+                    callback(choreAssigneeUID)
+                } else {
+                    // If cast could not occur then no chore name found so run callback with nil
+                    print("Chore assigneeUID not found")
                     callback(nil)
                 }
             }
