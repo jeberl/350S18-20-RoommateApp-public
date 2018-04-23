@@ -27,7 +27,7 @@ public class ReceiptParser {
     }
     
         // internal function to use regex to parse string into its componenets
-    func stringToDescriptionAmount(pairs : [String]) -> [(String, Double)] {
+    private func stringToDescriptionAmount(pairs : [String]) -> [(String, Double)] {
         return pairs.map { (str) -> (String, Double) in
             let ints = str.filter({ (ch) -> Bool in
                 return (ch >= "0" && ch <= "9") || (ch == ".")
@@ -41,7 +41,7 @@ public class ReceiptParser {
     
     
     // internal function to use regex to parse string into its componenets
-    func parseStringToItems(read : String) -> [(String, Double)] {
+    private func parseStringToItems(read : String) -> [(String, Double)] {
         do {
             let pat = "[a-zA-Z]*[0-9]*\\.?[0-9]*"
             let regex = try NSRegularExpression(pattern: pat)
